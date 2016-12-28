@@ -1,0 +1,75 @@
+stages:
+    - build
+    - review
+    - pack
+    - dmz
+
+.build: &build-job
+    stage: build
+    cache:
+        key: npm
+        paths:
+            - node_modules/
+            #- $HOME/.yarn-cache
+    artifacts:
+        name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
+        paths:
+            - build/
+            #- yarn.lock
+    before_script:
+        #- npm install yarn
+    script:
+        - npm install
+        #- ./node_modules/.bin/yarn
+        - npm run build
+
+build:node-6:
+    image: node:6
+    <<: *build-job
+
+build:node-7:
+    image: node:7
+    allow_failure: true
+    <<: *build-job
+
+sonar:
+    image: maxwellewxam/sonar-scanner
+    stage: review
+    only:
+        - branches
+    except:
+        - dmz
+    cache:
+        paths:
+            - .sonar/
+    script: sonar-scanner -D sonar.host.url=http://sonar.flow.local:80 -D sonar.branch=$CI_BUILD_REF_NAME -D sonar.login=$SONAR_TOKEN
+
+electron:
+    image: node:6
+    allow_failure: true
+    stage: pack
+    only:
+        - tags
+    cache:
+        key: npm
+        paths:
+            - node_modules/
+            #- $HOME/.yarn-cache
+    artifacts:
+        name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
+        paths:
+            - packages/
+    script: npm run pack
+
+dmz:
+    image: buildpack-deps:jessie-scm
+    stage: dmz
+    only:
+        - dmz
+    script:
+        - git config user.email "ci-operator@gitlab.flow.local" && git config user.name "CI Operator"
+        - git remote set-url origin http://$CI_OPERATOR_CREDENTIALS@gitlab.flow.local/$CI_PROJECT_PATH.git
+        - git checkout master
+        - git pull origin master -q
+        - git merge origin/dmz --no-ff -m "Automatic DMZ merge"
+        - git push origin master -q
