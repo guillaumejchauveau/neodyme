@@ -9,6 +9,7 @@ const root = require('./root')
 
 const webpackConfig = require('./rendererWebpack.base')
 
+webpackConfig.resolve.alias.vue = 'vue/dist/vue.min.js'
 webpackConfig.plugins.push(
     new ExtractTextPlugin('css/[name].css'),
     function () {

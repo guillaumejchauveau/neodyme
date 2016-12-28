@@ -28,8 +28,22 @@ module.exports = {
         filename  : 'js/[name].js',
         publicPath: config.outputPublicPath
     },
+    resolve    : {
+        extensions: ['.vue', '.js'],
+        alias     : {}
+    },
     module     : {
         rules: [
+            {
+                test   : /\.vue$/,
+                loader : 'vue-loader',
+                options: {
+                    postcss,
+                    loaders: {
+                        css: `style-loader!${loaders.css.join('!')}!sass-loader`
+                    }
+                }
+            },
             {
                 test   : /\.js$/,
                 loader : 'babel-loader',

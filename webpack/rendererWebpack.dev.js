@@ -7,6 +7,7 @@ const webpackConfig = require('./rendererWebpack.base')
 
 webpackConfig.output.publicPath = `http://localhost:${config.port}/`
 webpackConfig.output.path       = `${root}/tmp`
+webpackConfig.resolve.alias.vue = 'vue/dist/vue.js'
 
 Object.keys(webpackConfig.entry)
       .forEach(key => {
