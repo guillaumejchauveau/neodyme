@@ -1,1 +1,1 @@
-# Neodyme [![build status](http://gitlab.flow.local/guillaumejchauveau/neodyme/badges/master/build.svg)](http://gitlab.flow.local/guillaumejchauveau/neodyme/commits/master)
+# Neodyme [![build status](//gitlab.com/guillaumejchauveau/neodyme/badges/master/build.svg)](//gitlab.com/guillaumejchauveau/neodyme/commits/master)

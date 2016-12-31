@@ -1,6 +1,5 @@
 stages:
     - build
-    - review
     - pack
     - dmz
 
@@ -32,18 +31,6 @@ build:node-7:
     allow_failure: true
     <<: *build-job
 
-sonar:
-    image: maxwellewxam/sonar-scanner
-    stage: review
-    only:
-        - branches
-    except:
-        - dmz
-    cache:
-        paths:
-            - .sonar/
-    script: sonar-scanner -D sonar.host.url=http://sonar.flow.local:80 -D sonar.branch=$CI_BUILD_REF_NAME -D sonar.login=$SONAR_TOKEN
-
 electron:
     image: node:6
     allow_failure: true
@@ -68,7 +55,7 @@ dmz:
         - dmz
     script:
         - git config user.email "ci-operator@gitlab.flow.local" && git config user.name "CI Operator"
-        - git remote set-url origin http://$CI_OPERATOR_CREDENTIALS@gitlab.flow.local/$CI_PROJECT_PATH.git
+        - git remote set-url origin http://$CI_OPERATOR_CREDENTIALS@gitlab.com/$CI_PROJECT_PATH.git
         - git checkout master
         - git pull origin master -q
         - git merge origin/dmz --no-ff -m "Automatic DMZ merge"
