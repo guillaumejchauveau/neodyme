@@ -15,7 +15,7 @@ Object.keys(webpackConfig.entry)
 
 webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
 )
 
 webpackConfig.module.rules.forEach(rule => {
