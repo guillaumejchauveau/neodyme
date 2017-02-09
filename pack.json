@@ -7,7 +7,7 @@
         "empty"
     ],
     "name"         : "neodyme",
-    "icon"         : "",
+    "icon"         : "build/renderer/neodyme",
     "app-copyright": "Copyright (C) 2016 Guillaume Chauveau.",
     "win32metadata": {
         "CompanyName"     : "Guillaume Chauveau",

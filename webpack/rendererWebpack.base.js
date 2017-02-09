@@ -106,7 +106,7 @@ module.exports = {
                     glob: `${root}/src/renderer/static/**/*`,
                     dot : true
                 },
-                to     : config.output,
+                to     : rendererConfig.output,
                 context: `${root}/src/renderer/static`
             }
         ], {
