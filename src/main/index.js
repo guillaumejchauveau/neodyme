@@ -25,8 +25,8 @@ config.store.criterion = {
 
 config.store.providers = [
     new FileSystemProvider({
-        dir : `${__dirname}/music`,
-        exts: 'mp3|ogg|flac',
+        dir     : `${__dirname}/music`,
+        exts    : 'mp3|ogg|flac',
         duration: true,
         typesMap: [
             metadata => metadata.albumartist[0],

@@ -24,8 +24,7 @@ class FileSystemProvider extends Provider {
         
         // A chaque fois qu'un chemin est trouve
         tracksStream.on('data', track => {
-            // Creer un Stream du fichier
-            const trackStream = fs.createReadStream(track.path)
+            const trackStream = fs.createReadStream(track.path) // Creer un Stream du fichier
             // Recupere les metadonnees
             mm(trackStream, {duration: this.config.duration}, (err, metadata) => {
                 if (err) {
