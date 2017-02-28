@@ -1,9 +1,12 @@
-const DIC    = require('../DIC')
-const config = DIC.get('ConfigurationStore')
+const DIC = require('../DIC')
 
 class Criterion {
     constructor(type, value) {
-        if (config.criterion.types.indexOf(type) == -1) {
+        if (DIC.get('ConfigurationStore')
+               .store
+               .criterion
+               .types
+               .indexOf(type) == -1) {
             throw 'Unrecognized criterion type: ' + type
         }
         

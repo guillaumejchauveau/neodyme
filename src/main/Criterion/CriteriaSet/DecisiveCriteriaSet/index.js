@@ -1,8 +1,11 @@
 const CriteriaSet = require('../')
 
 class DecisiveCriteriaSet extends CriteriaSet {
-    constructor() {
+    constructor(config) {
         super()
+        
+        this.provider = config.provider
+        this.id       = config.id
     }
 }
 
