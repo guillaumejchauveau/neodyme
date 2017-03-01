@@ -19,8 +19,8 @@ webpackConfig.plugins.push(
 )
 
 webpackConfig.module.rules.forEach(rule => {
-    if (rule.loaders && rule.loaders.includes('css-loader')) {
-        rule.loaders = ['style-loader', ...rule.loaders]
+    if (rule.use && rule.use.includes('css-loader')) {
+        rule.use = ['style-loader', ...rule.use]
     }
 })
 
