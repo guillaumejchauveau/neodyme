@@ -55,6 +55,8 @@
     },
     "dependencies": {
         "electron": "1.4.15",
+        "glob-stream": "^6.1.0",
+        "musicmetadata": "^2.0.5",
         "vue": "^2.2.1"
     }
 }
