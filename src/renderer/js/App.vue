@@ -14,7 +14,9 @@
 </script>
 
 <style>
+    @import "loader";
+    
     h1 {
-        color : red;
+        color : $color-primary;
     }
 </style>
