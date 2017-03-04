@@ -54,7 +54,7 @@
         "yarn-install": "^0.2.1"
     },
     "dependencies": {
-        "electron": "1.4.15",
+        "electron": "1.6.1",
         "glob-stream": "^6.1.0",
         "musicmetadata": "^2.0.5",
         "vue": "^2.2.1"

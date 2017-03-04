@@ -21,8 +21,6 @@
 </script>
 
 <style>
-  body {
-    font-family: 'Arial';
-    background-color: rgb(245,245,245);
-  }
+    @import "loader";
+
 </style>

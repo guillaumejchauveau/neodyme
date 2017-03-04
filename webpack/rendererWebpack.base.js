@@ -47,7 +47,14 @@ module.exports = {
                 options: {
                     postcss,
                     loaders: {
-                        css: `vue-style-loader!css-loader!sass-loader`
+                        css: [
+                            'vue-style-loader',
+                            'css-loader',
+                            {
+                                loader : 'sass-loader',
+                                options: rendererConfig.loaders.sass
+                            }
+                        ]
                     }
                 }
             },
