@@ -1,17 +1,39 @@
-const electron                 = require('electron')
+/**
+ * @file Point d'entree de l'application.
+ * @author Guillaume Chauveau <guillaume.j.chauveau@gmail.com>
+ * @copyright Guillaume Chauveau 2017.
+ */
+
+const electron = require('electron')
+
+/**
+ * Conteneur d'injection de dependances.
+ * @type {Object}
+ */
 const DIC                      = require('./DIC')
-const ConfigurationStore       = require('./Store/ConfigurationStore')
+/**
+ * Classe Store.
+ * @type {Store}
+ */
+const Store                    = require('./Store')
+/**
+ * Classe DecisiveCriteriaSetStore.
+ * @type {DecisiveCriteriaSetStore}
+ */
 const DecisiveCriteriaSetStore = require('./Store/DecisiveCriteriaSetStore')
+/**
+ * Classe FileSystemProvider.
+ * @type {FileSystemProvider}
+ */
 const FileSystemProvider       = require('./Provider/FileSystemProvider')
 
 /*
  * BOOTSTRAP
  */
-DIC.set('DCSStore', new DecisiveCriteriaSetStore)
+DIC['DCSStore'] = new DecisiveCriteriaSetStore()
 
-const config = new ConfigurationStore
-
-DIC.set('ConfigurationStore', config)
+const config              = new Store
+DIC['ConfigurationStore'] = config
 
 config.store.criterion = {
     types: [
