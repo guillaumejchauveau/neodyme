@@ -1,23 +1,59 @@
-const DIC = require('../../DIC')
+/**
+ * @file Definit la classe CriteriaSet.
+ * @author Guillaume Chauveau <guillaume.j.chauveau@gmail.com>
+ * @copyright Guillaume Chauveau 2017.
+ */
 
+/**
+ * Conteneur d'injection de dependences.
+ * @type {Object}
+ */
+const DIC       = require('../../DIC')
+/**
+ * Classe Criterion.
+ * @type {Criterion}
+ */
+const Criterion = require('../')
+
+/**
+ * Classe qui represente un ensemble de critere.
+ * @property {Object} criteria - La liste des criteres.
+ */
 class CriteriaSet {
+    /**
+     * Cree un ensemble de critere.
+     */
     constructor() {
         this.criteria = {}
     }
     
+    /**
+     * Ajoute un critere.
+     * @param {Criterion} criterion - Le critere.
+     * @throws Lance une exception si le type de critere n'est pas pris en charge
+     */
     add(criterion) {
+        if (Criterion.checkType(criterion.type)) {
+            throw `Unrecognized criterion type: ${type}`
+        }
+        
         this.criteria[criterion.type] = criterion
     }
     
+    /**
+     * Supprime un critere.
+     * @param {String} criterionType - Le type de critere.
+     */
     remove(criterionType) {
         delete this.criteria[criterionType]
     }
     
-    /*
-     * Recupere tout les ensembles de criteres determinants correspondants
+    /**
+     * Recupere tout les ensembles de criteres determinants correspondants.
+     * @returns {Array} La liste des ensembles de criteres determinants correspondants.
      */
     resolveDecisiveCriteriaSets() {
-        const DCSStore = DIC.get('DCSStore')
+        const DCSStore = DIC['DCSStore']
         
         let DCSs = DCSStore.store
         
@@ -36,10 +72,17 @@ class CriteriaSet {
         return DCSs
     }
     
-    /*
-     * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours
+    /**
+     * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours.
+     * @param {String} criterionType - Le type de critere
+     * @returns {Array} La liste d'ensembles de criteres possibles.
+     * @throws Lance une exception si le type de critere n'est pas pris en charge
      */
     resolveCriteriaByType(criterionType) {
+        if (Criterion.checkType(criterionType)) {
+            throw `Unrecognized criterion type: ${type}`
+        }
+        
         const DCSs            = this.resolveDecisiveCriteriaSets()
         const criterionValues = []
         const criteriaSets    = []
@@ -47,13 +90,13 @@ class CriteriaSet {
         DCSs.forEach(dcs => {
             const criterion = dcs.criteria[criterionType]
             
-            if (criterionValues.indexOf(criterion.value) == -1) { // Verifie si la valeur du critere n'a pas encore ete rencontree
+            if (criterionValues.indexOf(criterion.value) == -1) { // Verifie si la valeur du critere n'a pas encore ete rencontree.
                 criterionValues.push(criterion.value)
                 
                 const criteriaSet = new CriteriaSet()
                 criteriaSet.add(criterion)
                 
-                // Copie les criteres de l'ensemble de criteres en cours
+                // Copie les criteres de l'ensemble de criteres en cours.
                 for (const criterionType in this.criteria) {
                     criteriaSet.add(this.criteria[criterionType])
                 }
