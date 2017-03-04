@@ -1,5 +1,8 @@
 <template>
+  <div>
     <viewDisplayer></viewDisplayer>
+
+  </div>
 </template>
 
 <script>
@@ -18,7 +21,8 @@
 </script>
 
 <style>
-    h1 {
-        color : red;
-    }
+  body {
+    font-family: 'Arial';
+    background-color: rgb(245,245,245);
+  }
 </style>
