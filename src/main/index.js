@@ -7,7 +7,7 @@
 const electron = require('electron')
 
 /**
- * Conteneur d'injection de dependences.
+ * Conteneur d'injection de dependances.
  * @type {Object}
  */
 const DIC                      = require('./DIC')

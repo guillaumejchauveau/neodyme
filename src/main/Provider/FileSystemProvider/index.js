@@ -9,7 +9,7 @@ const gs = require('glob-stream')
 const mm = require('musicmetadata')
 
 /**
- * Conteneur d'injection de dependences.
+ * Conteneur d'injection de dependances.
  * @type {Object}
  */
 const DIC                 = require('../../DIC')

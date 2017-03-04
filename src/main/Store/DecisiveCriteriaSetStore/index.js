@@ -9,11 +9,6 @@
  * @type {DecisiveCriteriaSet}
  */
 const DecisiveCriteriaSet = require('../../Criterion/CriteriaSet/DecisiveCriteriaSet')
-/**
- * Classe Store.
- * @type {Store}
- */
-const Store               = require('../')
 
 /**
  * Stockeur d'ensembles de criteres determinants.
