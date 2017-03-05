@@ -1,5 +1,7 @@
 <template>
+  <div class="tab">
 
+  </div>
 </template>
 
 <script>
@@ -14,4 +16,5 @@ export default {
 </script>
 
 <style>
+  @import "loader";
 </style>

@@ -1,12 +1,14 @@
 <template>
+
   <div class="items">
-      <item></item>
-      <item></item>
-      <item></item>
-      <item></item>
-      <item></item>
-      <item></item>
+    <item></item>
+    <item></item>
+    <item></item>
+    <item></item>
+    <item></item>
+    <item></item>
   </div>
+
 </template>
 
 <script>
@@ -21,6 +23,7 @@ export default {
   },
   components: {
     item,
+    tab,
   },
 }
 </script>
@@ -29,5 +32,9 @@ export default {
   .items {
     display: flex;
     flex-flow: wrap;
+  }
+
+  .tab {
+
   }
 </style>
