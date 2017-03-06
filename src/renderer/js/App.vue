@@ -1,22 +1,19 @@
 <template>
-    <h1>{{ text }}</h1>
+    <div id="app">
+        <playlist></playlist>
+    </div>
 </template>
 
 <script>
+    import Playlist from './Playlist/Playlist'
+    
     export default {
-        name: 'app',
-        data: () => {
-            return {
-                text: 'Hello World'
-            }
+        name      : 'app',
+        components: {
+            Playlist
+        },
+        data      : () => {
+            return {}
         }
     }
 </script>
-
-<style>
-    @import "loader";
-    
-    h1 {
-        color : $color-primary;
-    }
-</style>

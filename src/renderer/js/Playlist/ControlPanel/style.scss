@@ -1,0 +1,31 @@
+@import "loader";
+
+#controlPanel {
+    @include centered;
+    width            : $controlPanel-size*2;
+    height           : $controlPanel-size*2;
+    border-radius    : 50%;
+    box-shadow       : $shadow-depth-2;
+    background-color : $color-primary;
+    overflow         : hidden;
+    
+    .controlPanel-content {
+        position    : relative;
+        width       : 0;
+        height      : 100%;
+        margin-left : 50%;
+        color       : $text-light-color;
+        
+        .currentTime, .totalTime {
+            position    : absolute;
+            top         : 15px;
+            left        : 5px;
+            font-weight : $font-weight-light;
+        }
+        
+        .totalTime {
+            top    : initial;
+            bottom : 15px;
+        }
+    }
+}

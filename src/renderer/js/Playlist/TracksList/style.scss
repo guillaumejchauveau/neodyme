@@ -1,0 +1,85 @@
+@import "loader";
+
+#tracksList {
+    position      : relative;
+    width         : 100%;
+    height        : 100%;
+    border-radius : 50%;
+    
+    &.active {
+        
+        .tracksList-hoverZone {
+            width  : $tracksList-active-hoverZone-size*2;
+            height : $tracksList-active-hoverZone-size*2;
+        }
+        
+        .tracksList-content {
+            width      : $tracksList-size*2;
+            height     : $tracksList-size*2;
+            box-shadow : $shadow-depth-1;
+        }
+    }
+    
+    .tracksList-hoverZone {
+        @include centered;
+        width         : $tracksList-hoverZone-size*2;
+        height        : $tracksList-hoverZone-size*2;
+        border-radius : 50%;
+    }
+    
+    .tracksList-open.active {
+        @include centered;
+        width            : ($controlPanel-size - 1px)*2;
+        height           : ($controlPanel-size - 1px)*2;
+        border-radius    : 50%;
+        background-color : $bg-dark-primary;
+        cursor           : pointer;
+        transition       : width $tracksList-transition-easing $tracksList-transition-time/2, height $tracksList-transition-easing $tracksList-transition-time/2;
+    }
+    
+    .tracksList-close {
+        @include centered;
+        width            : 0;
+        height           : $tracksList-close-size*1.5;
+        background-color : $color-primary;
+        cursor           : pointer;
+        text-align       : center;
+        transform        : translateY(-50%);
+        transition       : left $tracksList-transition-easing $tracksList-transition-time, width $tracksList-transition-easing $tracksList-transition-time;
+        
+        &::after {
+            @include materialIcon;
+            content     : 'close';
+            color       : $text-light-color;
+            line-height : $tracksList-close-size*1.5;
+        }
+        
+        &.active {
+            left  : $controlPanel-size + $tracksList-size - $tracksList-close-size - 1px;
+            width : $tracksList-close-size;
+        }
+    }
+    
+    .tracksList-content {
+        @include centered;
+        width            : ($controlPanel-size - 1px)*2;
+        height           : ($controlPanel-size - 1px)*2;
+        border-radius    : 50%;
+        background-color : $bg-dark-primary;
+        transition       : width $tracksList-transition-easing $tracksList-transition-time, height $tracksList-transition-easing $tracksList-transition-time;
+    }
+}
+
+.playlist-content:hover #tracksList {
+    
+    .tracksList-open.active {
+        width      : ($controlPanel-size + $tracksList-open-size)*2;
+        height     : ($controlPanel-size + $tracksList-open-size)*2;
+        box-shadow : $shadow-depth-1;
+    }
+    
+    .tracksList-close.active {
+        left       : $controlPanel-size + $tracksList-size;
+        box-shadow : $shadow-depth-1;
+    }
+}

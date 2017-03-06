@@ -1,0 +1,10 @@
+$tracksList-size : $controlPanel-size*3;
+
+$tracksList-open-size : 15px;
+$tracksList-close-size : 30px;
+
+$tracksList-hoverZone-size : $controlPanel-size + $tracksList-open-size;
+$tracksList-active-hoverZone-size : $tracksList-size + $tracksList-close-size;
+
+$tracksList-transition-easing : cubic-bezier(0, 0, 0, 1);
+$tracksList-transition-time : 0.3s;
