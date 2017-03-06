@@ -2,3 +2,8 @@
 
 @import "variables/variables";
 @import "variables/type";
+
+@import "@material/animation/mixins";
+@import "@material/elevation/mixins";
+@import "@material/ripple/mixins";
+@import "@material/typography/mixins";
