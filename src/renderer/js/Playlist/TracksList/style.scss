@@ -14,9 +14,9 @@
         }
         
         .tracksList-content {
-            width      : $tracksList-size*2;
-            height     : $tracksList-size*2;
-            box-shadow : $shadow-depth-1;
+            @include mdc-elevation(2);
+            width  : $tracksList-size*2;
+            height : $tracksList-size*2;
         }
     }
     
@@ -73,13 +73,13 @@
 .playlist-content:hover #tracksList {
     
     .tracksList-open.active {
-        width      : ($controlPanel-size + $tracksList-open-size)*2;
-        height     : ($controlPanel-size + $tracksList-open-size)*2;
-        box-shadow : $shadow-depth-1;
+        @include mdc-elevation(1);
+        width  : ($controlPanel-size + $tracksList-open-size)*2;
+        height : ($controlPanel-size + $tracksList-open-size)*2;
     }
     
     .tracksList-close.active {
-        left       : $controlPanel-size + $tracksList-size;
-        box-shadow : $shadow-depth-1;
+        @include mdc-elevation(1);
+        left : $controlPanel-size + $tracksList-size;
     }
 }

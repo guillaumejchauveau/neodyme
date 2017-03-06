@@ -5,4 +5,9 @@
 @import "variables/playlist/controlPanel";
 @import "variables/playlist/tracksList";
 
+@import "@material/animation/mixins";
+@import "@material/elevation/mixins";
+@import "@material/ripple/mixins";
+@import "@material/typography/mixins";
+
 @import "mixins/mixins";

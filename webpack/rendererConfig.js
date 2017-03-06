@@ -15,6 +15,7 @@ module.exports = {
         sass: {
             includePaths: [
                 ...require('bourbon').includePaths,
+                `${root}/node_modules`,
                 `${root}/src/renderer/css`
             ],
             indentWidth : 4,

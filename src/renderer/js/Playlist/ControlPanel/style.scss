@@ -1,11 +1,11 @@
 @import "loader";
 
 #controlPanel {
+    @include mdc-elevation(3);
     @include centered;
     width            : $controlPanel-size*2;
     height           : $controlPanel-size*2;
     border-radius    : 50%;
-    box-shadow       : $shadow-depth-2;
     background-color : $color-primary;
     overflow         : hidden;
     
