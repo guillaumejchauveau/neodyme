@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import viewDisplayer from './viewDisplayer/viewDisplayer.vue'
+    import viewDisplayer from './View/viewDisplayer/viewDisplayer.vue'
     export default {
         name: 'app',
         data: () => {

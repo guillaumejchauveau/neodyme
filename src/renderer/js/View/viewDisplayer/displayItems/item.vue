@@ -2,16 +2,17 @@
   <div class="item">
     <div class="item_picture">
       <div class="item_picture_background"></div>
-      <img src="../../../static/img/blank_cover.png">
+      <img src="../../../../static/img/blank_cover.png">
     </div>
     <div class="item_text">
-      <p class="item_text_title">Item Name</p>
+      <p class="item_text_title"><slot></slot></p>
     </div>
 
   </div>
 </template>
 
 <script>
+
   export default {
     name: 'item',
     data: () => {
@@ -20,6 +21,9 @@
       }
     },
   }
+
+
+
 </script>
 
 <style>
@@ -29,14 +33,16 @@
   /* ITEM */
 
   .item {
+    position: relative;
     width             : $item-width;
     height            : $item-height;
     margin            : 5px;
+    border-radius: $item-border-radius;
     background-color  : $bg-primary;
-    box-shadow        : $shadow-depth-1-5;
+    @include mdc-elevation(2);
+    @include mdc-elevation-transition;
     cursor            : pointer;
     user-select       : none;
-    transition        : box-shadow $item-transition-hover-delay;
   }
 
 
@@ -57,7 +63,7 @@
     margin            : $item-width *.1;
     border-radius     : 50%;
     background-color  : $bg-primary ;
-    box-shadow        : $shadow-depth-1;
+    @include mdc-elevation(2);
     transition        : background-color $item-transition-hover-delay;
     transition        : transform $item-transition-hover-delay;
   }
@@ -90,7 +96,7 @@
   /* ITEM:HOVER */
 
   .item:hover {
-    box-shadow  : $shadow-depth-4;
+    @include mdc-elevation(8);
   }
 
   .item:hover .item_picture_background {

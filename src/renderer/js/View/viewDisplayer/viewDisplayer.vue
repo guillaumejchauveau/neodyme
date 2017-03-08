@@ -1,12 +1,7 @@
 <template>
 
   <div class="items">
-    <item></item>
-    <item></item>
-    <item></item>
-    <item></item>
-    <item></item>
-    <item></item>
+    <item v-for="item in items">{{item}}</item>
   </div>
 
 </template>
@@ -18,7 +13,7 @@ export default {
   name: 'viewDisplayer',
   data: () => {
     return {
-
+      items: ['ItemName 0', 'ItemName 1', 'ItemName 2', 'ItemName 3', 'ItemName 4', 'ItemName 5',]
     }
   },
   components: {
@@ -29,6 +24,7 @@ export default {
 </script>
 
 <style>
+
   .items {
     display: flex;
     flex-flow: wrap;

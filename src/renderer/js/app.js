@@ -11,3 +11,5 @@ new Vue({
         App
     }
 })
+
+const ViewConfig = require('./View/ViewConfig');
