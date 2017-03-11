@@ -60,13 +60,15 @@
     top               : 0;
     width             : $item-width * $item-picture-size;
     height            : $item-width * $item-picture-size;
-    margin            : $item-width *.1;
+    margin            : $item-width *(1 - $item-picture-size) / 2;
     border-radius     : 50%;
     background-color  : $bg-primary ;
+
     @include mdc-elevation(2);
     transition        : background-color $item-transition-hover-delay;
     transition        : transform $item-transition-hover-delay;
   }
+
 
   img {
     position          : absolute;
@@ -99,14 +101,15 @@
     @include mdc-elevation(8);
   }
 
-  .item:hover .item_picture_background {
+  .item_picture:hover .item_picture_background {
     background-color  : $color-primary;
     transform         : scale(1.05);
-
   }
+
 
   p:hover {
     text-decoration: underline;
+
   }
 
 </style>

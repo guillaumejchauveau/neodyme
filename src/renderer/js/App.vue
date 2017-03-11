@@ -6,18 +6,19 @@
 </template>
 
 <script>
-    import viewDisplayer from './View/viewDisplayer/viewDisplayer.vue'
-    export default {
-        name: 'app',
-        data: () => {
-            return {
-                text: 'Hello World'
-            }
-        },
-        components: {
-          viewDisplayer
-        }
-    }
+  import viewDisplayer from './View/viewDisplayer/viewDisplayer.vue'
+
+  export default {
+    name: 'app',
+    data: () => {
+      return {
+        
+      }
+    },
+    components: {
+      viewDisplayer,
+    },
+  }
 </script>
 
 <style>

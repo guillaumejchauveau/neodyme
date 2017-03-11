@@ -1,36 +1,39 @@
 <template>
-
-  <div class="items">
+  <div class="viewDisplayer">
+    <div class="items">
     <item v-for="item in items">{{item}}</item>
+    </div>
+      <!--<list :elements="Elements"></list>-->
   </div>
-
 </template>
 
 <script>
-import item from './displayitems/Item.vue'
-import tab from './displayTab/tab.vue'
+import item from './viewDisplayitems/Item.vue'
+import list from './viewDisplayList/list.vue'
 export default {
   name: 'viewDisplayer',
   data: () => {
     return {
-      items: ['ItemName 0', 'ItemName 1', 'ItemName 2', 'ItemName 3', 'ItemName 4', 'ItemName 5',]
+
+      items: ['ItemName', 'ItemName', 'ItemName', 'ItemName', 'ItemName', 'ItemName']
     }
   },
   components: {
     item,
-    tab,
+    list,
   },
 }
 </script>
 
 <style>
-
+  @import "loader";
   .items {
     display: flex;
     flex-flow: wrap;
   }
 
-  .tab {
-
+  .viewDisplayer {
+    width: 70%;
+    margin: 0 15%;
   }
 </style>
