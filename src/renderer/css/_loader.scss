@@ -5,9 +5,11 @@
 
 @import "@material/animation/mixins";
 @import "@material/elevation/mixins";
+@import "@material/layout-grid/mixins";
 @import "@material/ripple/mixins";
+@import "@material/rtl/mixins";
+@import "@material/theme/mixins";
 @import "@material/typography/mixins";
-
 
 @import "variables/viewDisplayer/_item";
 @import "variables/viewDisplayer/_tab";

@@ -72,6 +72,7 @@ electron.app.on('ready', () => {
     appWindow.on('closed', () => {
      appWindow = null
      })
+
 })
 
 electron.app.on('window-all-closed', () => {
