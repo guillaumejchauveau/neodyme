@@ -3,8 +3,11 @@ require('../css/fonts.scss')
 
 import Vue from 'vue'
 import App from './App'
+import RippleDirective from './directives/Ripple'
 
-new Vue({
+Vue.directive('ripple', RippleDirective)
+
+const vm = new Vue({
     el        : '#app',
     render    : h => h(App),
     components: {
