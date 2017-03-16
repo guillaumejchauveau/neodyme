@@ -8,11 +8,10 @@
     import Playlist from './Playlist/Playlist'
     
     export default {
-        name      : 'app',
         components: {
             Playlist
         },
-        data      : () => {
+        data() {
             return {}
         }
     }

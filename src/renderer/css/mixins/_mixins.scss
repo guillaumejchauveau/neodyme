@@ -23,3 +23,13 @@
     left      : 50%;
     transform : translate(-50%, -50%);
 }
+
+@mixin buttonReset() {
+    margin     : 0;
+    padding    : 0;
+    background : none;
+    border     : none;
+    outline    : none;
+    text-align : left;
+    color      : $text-color;
+}
