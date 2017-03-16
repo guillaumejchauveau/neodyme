@@ -10,9 +10,6 @@
     export default {
         components: {
             Playlist
-        },
-        data() {
-            return {}
         }
     }
 </script>

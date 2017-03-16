@@ -1,8 +1,8 @@
 <template>
     <div id="tracksList" :class="{active: isOpen}">
         <div class="tracksList-hoverZone"></div>
-        <div class="tracksList-open" :class="{active: !isOpen}" @click="isOpen = true"></div>
-        <div class="tracksList-close" :class="{active: isOpen}" @click="isOpen = false"></div>
+        <button class="tracksList-open" :class="{active: !isOpen}" @click="isOpen = true" v-ripple></button>
+        <button class="tracksList-close" :class="{active: isOpen}" @click="isOpen = false" v-ripple><span></span></button>
         <div class="tracksList-content">
             
         </div>
@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        data: () => {
+        data() {
             return {
                 isOpen: false
             }
@@ -19,4 +19,4 @@
     }
 </script>
 
-<style src="./style.scss" scoped></style>
+<style src="./style.scss"></style>
