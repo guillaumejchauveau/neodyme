@@ -4,8 +4,7 @@
 
 <script>
     export default {
-        name: 'app',
-        data: () => {
+        data () {
             return {
                 text: 'Hello World'
             }
