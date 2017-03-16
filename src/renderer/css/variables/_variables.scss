@@ -9,3 +9,9 @@ $text-color : rgba(0, 0, 0, 0.87);
 $text-color-light : rgba(0, 0, 0, 0.54);
 $text-light-color : #FFFFFF;
 $text-light-color-dark : rgba(255, 255, 255, 0.7);
+
+$mdc-theme-primary : $bg-dark-primary;
+$mdc-theme-accent : $color-primary;
+$mdc-theme-background : $bg-primary;
+
+$mdc-fab-absolute-position-offset : 50px;
