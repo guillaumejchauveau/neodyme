@@ -39,7 +39,7 @@
         background-color : $bg-dark-primary;
         cursor           : pointer;
         overflow         : hidden;
-        transition       : width $tracksList-transition-easing $tracksList-transition-time/2, height $tracksList-transition-easing $tracksList-transition-time/2;
+        transition       : width $tracksList-transition-time/2 $tracksList-transition-easing, height $tracksList-transition-time/2 $tracksList-transition-easing;
     }
     
     .tracksList-close {
@@ -55,7 +55,7 @@
         background-color : $color-primary;
         cursor           : pointer;
         transform        : translateY(-50%);
-        transition       : left $tracksList-transition-easing $tracksList-transition-time, width $tracksList-transition-easing $tracksList-transition-time;
+        transition       : left $tracksList-transition-time $tracksList-transition-easing, width $tracksList-transition-time $tracksList-transition-easing;
         
         span {
             display    : inline-block;
@@ -63,11 +63,13 @@
             height     : 100%;
             color      : $text-light-color;
             text-align : center;
+            cursor     : inherit;
             
             &:before {
                 @include materialIcon;
                 content     : 'close';
                 line-height : $tracksList-close-size;
+                cursor      : inherit;
             }
         }
         
@@ -83,7 +85,27 @@
         height           : ($controlPanel-size - 1px)*2;
         border-radius    : 50%;
         background-color : $bg-dark-primary;
-        transition       : width $tracksList-transition-easing $tracksList-transition-time, height $tracksList-transition-easing $tracksList-transition-time;
+        transition       : width $tracksList-transition-time $tracksList-transition-easing, height $tracksList-transition-time $tracksList-transition-easing;
+        
+        .tracksList-items {
+            position      : relative;
+            width         : 100%;
+            height        : 100%;
+            border-radius : 50%;
+            overflow      : hidden;
+        }
+        
+        .tracksList-items-transition-enter-active, .tracksList-items-transition-leave-active {
+            transition : opacity $tracksList-transition-time $tracksList-transition-easing $tracksList-transition-time/2;
+        }
+        
+        .tracksList-items-transition-leave-active {
+            transition-delay : 0s;
+        }
+        
+        .tracksList-items-transition-enter, .tracksList-items-transition-leave-to {
+            opacity : 0;
+        }
     }
 }
 

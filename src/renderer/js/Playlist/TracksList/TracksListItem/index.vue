@@ -1,0 +1,38 @@
+<template>
+    <div class="tracksList-item" :style="itemStyle">
+        <div class="tracksList-item-menu" :class="{active: menuIsOpen}">
+            <button @click.stop="menuIsOpen = !menuIsOpen" v-ripple><span></span></button>
+            <div class="tracksList-item-menu-content">
+            
+            </div>
+        </div>
+        <div class="tracksList-item-content">Track title</div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                menuIsOpen: false
+            }
+        },
+        computed: {
+            itemStyle() {
+                return `transform: translateY(-50%) rotate(${this.position * this.angularHeight}rad);`
+            }
+        },
+        props: {
+            position: {
+                type    : Number,
+                required: true
+            },
+            angularHeight: {
+                type    : Number,
+                required: true
+            }
+        }
+    }
+</script>
+
+<style src="./style.scss"></style>

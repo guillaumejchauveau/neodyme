@@ -8,8 +8,8 @@
 </template>
 
 <script>
-    import ControlPanel from './ControlPanel/ControlPanel'
-    import TracksList from './TracksList/TracksList'
+    import ControlPanel from './ControlPanel'
+    import TracksList from './TracksList'
     
     export default {
         components: {
@@ -19,7 +19,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     @import "loader";
     
     #playlist {

@@ -8,3 +8,8 @@ $tracksList-active-hoverZone-size : $tracksList-size + $tracksList-close-size;
 
 $tracksList-transition-easing : cubic-bezier(0, 0, 0, 1);
 $tracksList-transition-time : 0.3s;
+
+$tracksList-item-height : 35px;
+$tracksList-item-content-line-height : 15px;
+$tracksList-item-transition-easing : cubic-bezier(0, 0, 0, 1);
+$tracksList-item-transition-time : 0.3s;

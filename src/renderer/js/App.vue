@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import Playlist from './Playlist/Playlist'
+    import Playlist from './Playlist'
     
     export default {
         components: {
