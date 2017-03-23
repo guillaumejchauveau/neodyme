@@ -1,7 +1,7 @@
 @import "loader";
 
 .tracksList-item {
-    @include position(absolute, 50% null null 50%);
+    @include centered;
     width            : $tracksList-size;
     height           : $tracksList-item-height;
     padding-left     : $controlPanel-size;
@@ -12,6 +12,10 @@
     &:hover {
         
         .tracksList-item-menu > button {
+            opacity : 1;
+        }
+        
+        .tracksList-item-content {
             opacity : 1;
         }
     }
@@ -77,11 +81,12 @@
         display      : inline-block;
         height       : 100%;
         float        : left;
-        padding      : ($tracksList-item-height - $tracksList-item-content-line-height)/2;
+        padding      : ($tracksList-item-height - $tracksList-item-content-font-size)/2;
         padding-left : 0;
         color        : $text-light-color;
-        font-size    : $tracksList-item-content-line-height;
+        font-size    : $tracksList-item-content-font-size;
         line-height  : 1;
+        opacity      : 0.8;
         transition   : opacity $tracksList-item-transition-time;
     }
 }

@@ -1,31 +1,88 @@
 <template>
     <div id="tracksList" :class="{active: isOpen}">
         <div class="tracksList-hoverZone"></div>
-        <button v-if="tracksListItems.length" class="tracksList-open" :class="{active: !isOpen}" @click="isOpen = true" v-ripple></button>
-        <button class="tracksList-close" :class="{active: isOpen}" @click="isOpen = false" v-ripple><span></span>
-        </button>
-        <div class="tracksList-content">
-            <transition name="tracksList-items-transition">
-                <div v-if="isOpen" class="tracksList-items" @mousewheel="scrollItems">
-                    <tracks-list-item v-for="(item, index) in tracksListItems"
-                                      :position="computeItemPosition(index)"
-                                      :angular-height="itemAngularHeight"></tracks-list-item>
-                </div>
-            </transition>
-        </div>
+        
+        <button key="tracksList-open"
+                v-if="tracksListItems.length && !isOpen"
+                class="tracksList-open"
+                @click="isOpen = true"
+                v-ripple></button>
+        
+        <transition-group name="tracksList-buttons-transition">
+            <button key="tracksList-close"
+                    v-if="isOpen"
+                    class="tracksList-close"
+                    @click="isOpen = false"
+                    v-ripple><span></span></button>
+            <div key="tracksList-waypoint-scroller-container"
+                 v-if="waypointScroller && isOpen"
+                 class="tracksList-waypoint-scroller-container"
+                 :style="waypointScrollerContainerStyle">
+                <button class="tracksList-waypoint-scroller"
+                        :class="{down: distanceToWaypoint < 0}"
+                        @click="currentItem = waypointItem"
+                        v-ripple><span></span></button>
+            </div>
+        </transition-group>
+        
+        <tracks-list-content :isOpen="isOpen"
+                             :currentItem="currentItem"
+                             :waypointItem="waypointItem"
+                             @scrollItems="scrollItems"></tracks-list-content>
     </div>
 </template>
 
 <script>
-    import TracksListItem from './TracksListItem'
+    import TracksListContent from './TracksListContent'
     
     export default {
         components: {
-            TracksListItem
+            TracksListContent
+        },
+        computed  : {
+            distanceToWaypoint() {
+                return this.currentItem - this.waypointItem
+            },
+            maxWaypointScrollerAngle() {
+                const controlPanelSize                      = 130 // TODO: ConfigStore
+                const tracksListSize                        = controlPanelSize * 3 // TODO: ConfigStore
+                const tracksListWaypointScrollerSize        = 45 // TODO: ConfigStore
+                const tracksListWaypointScrollerAngularSize = Math.asin((tracksListWaypointScrollerSize / 2)
+                                                                        / tracksListSize) * 2 // TODO: ConfigStore
+                const defaultMaxWaypointScrollerAngle       = Math.PI / 2.5 // TODO: ConfigStore
+                
+                const topDistance = this.windowSize.height / 2
+                
+                if ((tracksListSize + tracksListWaypointScrollerSize) > topDistance) {
+                    return Math.PI / 2 - Math.acos(topDistance / (tracksListSize + tracksListWaypointScrollerSize)) - tracksListWaypointScrollerAngularSize
+                } else {
+                    return defaultMaxWaypointScrollerAngle
+                }
+            },
+            waypointScroller() {
+                const controlPanelSize             = 130 // TODO: ConfigStore
+                const tracksListCloseSize          = 45 // TODO: ConfigStore
+                const tracksListSize               = controlPanelSize * 3 // TODO: ConfigStore
+                const tracksListCloseAngularHeight = Math.asin((tracksListCloseSize / 2)
+                                                               / tracksListSize) * 2 // TODO: ConfigStore
+                
+                return Math.abs(this.waypointScrollerAngle) > tracksListCloseAngularHeight
+            },
+            waypointScrollerAngle() {
+                const upperItemsCount  = this.waypointItem
+                const downerItemsCount = this.tracksListItems.length - 1 - this.waypointItem
+                
+                const distanceRatio = this.distanceToWaypoint / ((upperItemsCount > downerItemsCount) ? upperItemsCount : downerItemsCount)
+                
+                return distanceRatio * this.maxWaypointScrollerAngle
+            },
+            waypointScrollerContainerStyle() {
+                return `transform: translateY(-50%) rotate(${this.waypointScrollerAngle}rad);`
+            }
         },
         data() {
-            const controlPanelSize     = 130
-            const tracksListItemHeight = 35
+            const controlPanelSize     = 130 // TODO: ConfigStore
+            const tracksListItemHeight = 35 // TODO: ConfigStore
             
             const itemAngularHeight = Math.asin((tracksListItemHeight / 2)
                                                 / controlPanelSize) * 2 // Calcule le sinus du triangle rectangle, l'arcsinus, double pour avoir l'angle entier (en radians).
@@ -35,25 +92,40 @@
             return {
                 currentItem    : 0,
                 isOpen         : false,
-                itemAngularHeight,
-                maxItemCount,
                 tracksListItems: [
-                ]
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                ],
+                waypointItem   : 2,
+                windowSize     : { // TODO: ConfigStore
+                    height: 0,
+                    width : 0
+                }
             }
         },
         methods   : {
-            computeItemPosition(index) {
-                let distance = index - this.currentItem
-                if (Math.abs(distance) > this.maxItemCount) {
-                    distance = (distance ? ((distance < 0) ? -1 : 1) : 0) * (this.maxItemCount + 1)
-                }
-                
-                return distance
-            },
-            scrollItems(e) {
+            /**
+             * Change l'element courant.
+             * @param event
+             */
+            scrollItems(event) {
                 const that = this
-                window.requestAnimationFrame(function () {
-                    that.currentItem += (e.deltaY ? ((e.deltaY < 0) ? -1 : 1) : 0)
+                this.$nextTick(function () {
+                    that.currentItem += (event.deltaY ? ((event.deltaY < 0) ? -1 : 1) : 0) // Incremente ou decremente selon le signe.
                     if (that.currentItem < 0) {
                         that.currentItem = 0
                     }
@@ -61,7 +133,20 @@
                         that.currentItem = that.tracksListItems.length - 1
                     }
                 })
+            },
+            getWindowSize() { // TODO: ConfigStore
+                this.windowSize.height = window.innerHeight
+                this.windowSize.width  = window.innerWidth
             }
+        },
+        mounted() {
+            this.$nextTick(function () {
+                window.addEventListener('resize', this.getWindowSize) // TODO: ConfigStore
+                this.getWindowSize()
+            })
+        },
+        beforeDestroy() {
+            window.removeEventListener('resize', this.getWindowSize) // TODO: ConfigStore
         }
     }
 </script>
