@@ -8,9 +8,6 @@ import RippleDirective from './directives/Ripple'
 Vue.directive('ripple', RippleDirective)
 
 const vm = new Vue({
-    el        : '#app',
-    render    : h => h(App),
-    components: {
-        App
-    }
-})
+                       el    : '#app',
+                       render: h => h(App)
+                   })
