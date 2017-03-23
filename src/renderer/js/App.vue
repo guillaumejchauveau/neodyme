@@ -3,12 +3,16 @@
 </template>
 
 <script>
+    import VueX from 'vuex'
+    import Store from './Store'
+    
     export default {
         data () {
             return {
                 text: 'Hello World'
             }
-        }
+        },
+        store   : Store
     }
 </script>
 
