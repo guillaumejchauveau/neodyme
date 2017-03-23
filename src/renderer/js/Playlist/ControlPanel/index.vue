@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    
+
 </script>
 
 <style src="./style.scss"></style>
