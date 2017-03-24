@@ -14,7 +14,8 @@
     export default {
         data() {
             return {
-                menuIsOpen: false
+                angularHeight: this.$store.state.settings.playlist.tracksList.item.angularHeight,
+                menuIsOpen   : false
             }
         },
         computed: {
@@ -22,12 +23,8 @@
                 return `transform: translateY(-50%) rotate(${this.position * this.angularHeight}rad);`
             }
         },
-        props: {
+        props   : {
             position: {
-                type    : Number,
-                required: true
-            },
-            angularHeight: {
                 type    : Number,
                 required: true
             }

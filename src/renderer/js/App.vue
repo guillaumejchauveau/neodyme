@@ -10,9 +10,6 @@
     import Playlist from './Playlist'
     
     export default {
-        components: {
-            Playlist
-        },
         methods   : {
             onWindowResizeHandler() {
                 this.$nextTick(function () {
@@ -20,7 +17,6 @@
                 })
             }
         },
-        store     : Store,
         mounted() {
             this.$nextTick(function () {
                 window.addEventListener('resize', this.onWindowResizeHandler)
@@ -29,6 +25,10 @@
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.onWindowResizeHandler)
+        },
+        store     : Store,
+        components: {
+            Playlist
         }
     }
 </script>

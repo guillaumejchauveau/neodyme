@@ -1,15 +1,13 @@
+import playlist from './playlist'
+
 export default {
     namespaced: true,
     state     : {
         windowSize: {
             height: 0,
             width : 0
-        }
-    },
-    getters   : {
-        setting(state) {
-            return key => state[key]
-        }
+        },
+        playlist
     },
     mutations : {
         UPDATE_WINDOW_SIZE(state) {
