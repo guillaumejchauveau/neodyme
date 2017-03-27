@@ -4,30 +4,30 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-const fs = require('fs')
-const gs = require('glob-stream')
-const mm = require('musicmetadata')
+import fs from 'fs'
+import gs from 'glob-stream'
+import mm from 'musicmetadata'
 
 /**
  * Conteneur d'injection de dependances.
  * @type {Object}
  */
-const DIC                 = require('../../DIC')
+import DIC from '../../DIC'
 /**
  * Classe Criterion.
  * @type {Criterion}
  */
-const Criterion           = require('../../Criterion')
+import Criterion from '../../Criterion'
 /**
  * Classe DecisiveCriteriaSet.
  * @type {DecisiveCriteriaSet}
  */
-const DecisiveCriteriaSet = require('../../Criterion/CriteriaSet/DecisiveCriteriaSet')
+import DecisiveCriteriaSet from '../../Criterion/CriteriaSet/DecisiveCriteriaSet'
 /**
  * Classe Provider.
  * @type {Provider}
  */
-const Provider            = require('../')
+import Provider from '../'
 
 /**
  * Classe qui represente une source systeme de fichiers.
@@ -66,9 +66,9 @@ class FileSystemProvider extends Provider {
                 trackStream.close()
                 
                 const dcs = new DecisiveCriteriaSet({
-                    provider: this,
-                    id      : track.path
-                })
+                                                        provider: this,
+                                                        id      : track.path
+                                                    })
                 
                 DIC['ConfigurationStore'].store.criterion.types.forEach((criterionType, index) => {
                     dcs.add(new Criterion(criterionType, this.config.typesMap[index](metadata)))
@@ -98,4 +98,4 @@ class FileSystemProvider extends Provider {
     }
 }
 
-module.exports = FileSystemProvider
+export default FileSystemProvider

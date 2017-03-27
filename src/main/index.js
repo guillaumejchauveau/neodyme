@@ -4,28 +4,28 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-const electron = require('electron')
+import electron from 'electron'
 
 /**
  * Conteneur d'injection de dependances.
  * @type {Object}
  */
-const DIC                      = require('./DIC')
+import DIC from './DIC'
 /**
  * Classe Store.
  * @type {Store}
  */
-const Store                    = require('./Store')
+import Store from './Store'
 /**
  * Classe DecisiveCriteriaSetStore.
  * @type {DecisiveCriteriaSetStore}
  */
-const DecisiveCriteriaSetStore = require('./Store/DecisiveCriteriaSetStore')
+import DecisiveCriteriaSetStore from './Store/DecisiveCriteriaSetStore'
 /**
  * Classe FileSystemProvider.
  * @type {FileSystemProvider}
  */
-const FileSystemProvider       = require('./Provider/FileSystemProvider')
+import FileSystemProvider from './Provider/FileSystemProvider'
 
 /*
  * BOOTSTRAP
@@ -47,17 +47,17 @@ config.store.criterion = {
 
 config.store.providers = [
     new FileSystemProvider({
-        dir     : `${__dirname}/music`,
-        exts    : 'mp3|ogg|flac',
-        duration: true,
-        typesMap: [
-            metadata => metadata.albumartist[0],
-            metadata => metadata.album,
-            metadata => metadata.title,
-            metadata => metadata.track.no,
-            metadata => metadata.duration
-        ]
-    })
+                               dir     : `${__dirname}/music`,
+                               exts    : 'mp3|ogg|flac',
+                               duration: true,
+                               typesMap: [
+                                   metadata => metadata.albumartist[0],
+                                   metadata => metadata.album,
+                                   metadata => metadata.title,
+                                   metadata => metadata.track.no,
+                                   metadata => metadata.duration
+                               ]
+                           })
 ]
 
 /*

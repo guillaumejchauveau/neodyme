@@ -3,7 +3,6 @@
 </template>
 
 <script>
-    import VueX from 'vuex'
     import Store from './Store'
     
     export default {
@@ -12,14 +11,17 @@
                 text: 'Hello World'
             }
         },
-        methods : {
+        methods: {
+            /**
+             * Fonction declenchee a chaque redimensionnement de la fenetre.
+             */
             onWindowResizeHandler() {
                 this.$nextTick(function () {
                     this.$store.commit('settings/UPDATE_WINDOW_SIZE')
                 })
             }
         },
-        store   : Store,
+        store  : Store,
         mounted() {
             this.$nextTick(function () {
                 window.addEventListener('resize', this.onWindowResizeHandler)
