@@ -19,6 +19,10 @@
             }
         },
         computed: {
+            /**
+             * Compile le style dynamique de l'element.
+             * @returns {String} Le contenu de l'attribut style.
+             */
             itemStyle() {
                 return `transform: translateY(-50%) rotate(${this.position * this.angularHeight}rad);`
             }

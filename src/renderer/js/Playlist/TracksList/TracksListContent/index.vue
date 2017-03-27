@@ -23,10 +23,15 @@
             return {
                 itemAngularHeight,
                 maxItemCount,
-                tracksListItems: []
+                tracksListItems: this.$store.state.playlist.tracks,
+                waypointItem   : this.$store.state.playlist.currentTrack
             }
         },
         computed  : {
+            /**
+             * Compile le style dynamique du point de repere.
+             * @returns {String} Le contenu de l'attribut style.
+             */
             waypointItemStyle() {
                 return `transform: translateY(-50%) rotate(${this.computeItemPosition(this.waypointItem) * this.itemAngularHeight}rad);`
             }
@@ -46,8 +51,8 @@
                 return distance
             },
             /**
-             * Informe le composant principal d'un defilement d'elements.
-             * @param {MouseEvent} event - L'evenement original.
+             * Informe le composant principal d'un defilement.
+             * @param {MouseEvent} event - L'evenement capture.
              */
             dispatchScrollItemsEvent(event) {
                 this.$emit('scrollItems', event)
@@ -57,15 +62,11 @@
             TracksListItem
         },
         props     : {
-            isOpen      : {
+            isOpen     : {
                 type    : Boolean,
                 required: true
             },
-            currentItem : {
-                type    : Number,
-                required: true
-            },
-            waypointItem: {
+            currentItem: {
                 type    : Number,
                 required: true
             }
