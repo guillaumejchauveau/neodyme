@@ -1,3 +1,9 @@
+/**
+ * @file Directive VueJS pour appliquer l'effet Ripple.
+ * @author Guillaume Chauveau <guillaume.j.chauveau@gmail.com>
+ * @copyright Guillaume Chauveau 2017.
+ */
+
 import {MDCRipple} from '@material/ripple'
 
 export default {

@@ -1,3 +1,9 @@
+/**
+ * @file Point d'entree du navigateur.
+ * @author Guillaume Chauveau <guillaume.j.chauveau@gmail.com>
+ * @copyright Guillaume Chauveau 2017.
+ */
+
 require('../css/app.scss')
 require('../css/fonts.scss')
 
