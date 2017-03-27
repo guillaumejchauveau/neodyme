@@ -8,7 +8,7 @@
  * Classe CriteriaSet.
  * @type {CriteriaSet}
  */
-const CriteriaSet = require('../')
+import CriteriaSet from '../'
 
 /**
  * Classe qui represente un ensemble de criteres determinant.
@@ -37,4 +37,4 @@ class DecisiveCriteriaSet extends CriteriaSet {
     }
 }
 
-module.exports = DecisiveCriteriaSet
+export default DecisiveCriteriaSet

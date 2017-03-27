@@ -8,7 +8,7 @@
  * Classe DecisiveCriteriaSet.
  * @type {DecisiveCriteriaSet}
  */
-const DecisiveCriteriaSet = require('../../Criterion/CriteriaSet/DecisiveCriteriaSet')
+import DecisiveCriteriaSet from '../../Criterion/CriteriaSet/DecisiveCriteriaSet'
 
 /**
  * Stockeur d'ensembles de criteres determinants.
@@ -36,4 +36,4 @@ class DecisiveCriteriaSetStore {
     }
 }
 
-module.exports = DecisiveCriteriaSetStore
+export default DecisiveCriteriaSetStore

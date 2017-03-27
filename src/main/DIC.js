@@ -8,8 +8,8 @@
  * Classe Store.
  * @type {Store}
  */
-const Store = require('./Store')
+import Store from './Store'
 
 const DependenciesInjectionContainer = new Store
 
-module.exports = DependenciesInjectionContainer
+export default DependenciesInjectionContainer
