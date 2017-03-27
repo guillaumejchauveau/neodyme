@@ -8,12 +8,12 @@
  * Conteneur d'injection de dependances.
  * @type {Object}
  */
-const DIC       = require('../../DIC')
+import DIC from '../../DIC'
 /**
  * Classe Criterion.
  * @type {Criterion}
  */
-const Criterion = require('../')
+import Criterion from '../'
 
 /**
  * Classe qui represente un ensemble de critere.
@@ -30,10 +30,10 @@ class CriteriaSet {
     /**
      * Ajoute un critere.
      * @param {Criterion} criterion - Le critere.
-     * @throws Lance une exception si le type de critere n'est pas pris en charge
+     * @throws Lance une exception si le type de critere n'est pas pris en charge.
      */
     add(criterion) {
-        if (Criterion.checkType(criterion.type)) {
+        if (!Criterion.checkType(criterion.type)) {
             throw `Unrecognized criterion type: ${type}`
         }
         
@@ -62,7 +62,7 @@ class CriteriaSet {
             const selectedDCSs = []
             
             DCSs.forEach(dcs => {
-                if (dcs.criteria[criterion.type].value == criterion.value) {
+                if (dcs.criteria[criterion.type].value === criterion.value) {
                     selectedDCSs.push(dcs)
                 }
             })
@@ -74,12 +74,12 @@ class CriteriaSet {
     
     /**
      * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours.
-     * @param {String} criterionType - Le type de critere
+     * @param {String} criterionType - Le type de critere.
      * @returns {Array} La liste d'ensembles de criteres possibles.
-     * @throws Lance une exception si le type de critere n'est pas pris en charge
+     * @throws Lance une exception si le type de critere n'est pas pris en charge.
      */
     resolveCriteriaByType(criterionType) {
-        if (Criterion.checkType(criterionType)) {
+        if (!Criterion.checkType(criterionType)) {
             throw `Unrecognized criterion type: ${type}`
         }
         
@@ -90,7 +90,7 @@ class CriteriaSet {
         DCSs.forEach(dcs => {
             const criterion = dcs.criteria[criterionType]
             
-            if (criterionValues.indexOf(criterion.value) == -1) { // Verifie si la valeur du critere n'a pas encore ete rencontree.
+            if (criterionValues.indexOf(criterion.value) === -1) { // Verifie si la valeur du critere n'a pas encore ete rencontree.
                 criterionValues.push(criterion.value)
                 
                 const criteriaSet = new CriteriaSet()
@@ -109,4 +109,4 @@ class CriteriaSet {
     }
 }
 
-module.exports = CriteriaSet
+export default CriteriaSet

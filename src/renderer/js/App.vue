@@ -5,12 +5,14 @@
 </template>
 
 <script>
-    import VueX from 'vuex'
     import Store from './Store'
     import Playlist from './Playlist'
     
     export default {
-        methods   : {
+        methods: {
+            /**
+             * Fonction declenchee a chaque redimensionnement de la fenetre.
+             */
             onWindowResizeHandler() {
                 this.$nextTick(function () {
                     this.$store.commit('settings/UPDATE_WINDOW_SIZE')
