@@ -55,6 +55,7 @@
         "yarn-install": "^0.2.1"
     },
     "dependencies": {
+        "base64-arraybuffer": "^0.1.5",
         "electron": "1.6.1",
         "glob-stream": "^6.1.0",
         "material-components-web": "^0.6.0",

@@ -12,6 +12,11 @@ import electron from 'electron'
  */
 import DIC from './DIC'
 /**
+ * Gestionnaire de requetes IPC.
+ * @type {Object}
+ */
+import IPCHandler from './IPCHandler'
+/**
  * Classe Store.
  * @type {Store}
  */
@@ -30,11 +35,13 @@ import FileSystemProvider from './Provider/FileSystemProvider'
 /*
  * BOOTSTRAP
  */
-DIC['DCSStore'] = new DecisiveCriteriaSetStore()
+DIC['DCSStore'] = new DecisiveCriteriaSetStore() // Cree le stockeur d'ensembles de criteres determinants.
 
-const config              = new Store
+// Cree la configuration.
+const config              = new Store()
 DIC['ConfigurationStore'] = config
 
+// Types de criteres pris en charge.
 config.store.criterion = {
     types: [
         'artist',
@@ -45,8 +52,10 @@ config.store.criterion = {
     ]
 }
 
+// Sources prises en chargent.
 config.store.providers = [
     new FileSystemProvider({
+                               key     : 0,
                                dir     : `${__dirname}/music`,
                                exts    : 'mp3|ogg|flac',
                                duration: true,
@@ -66,14 +75,19 @@ config.store.providers = [
 let appWindow
 
 electron.app.on('ready', () => {
+    IPCHandler.setEventListeners() // Met en place les ecouteurs d'evenements IPC.
+    
+    // Cree la fenetre.
     appWindow = new electron.BrowserWindow()
     appWindow.loadURL(/*RENDERER-URL-LOAD*/)
     
+    // Detruit la fenetre a sa fermeture.
     appWindow.on('closed', () => {
         appWindow = null
     })
 })
 
+// Quitte quand toutes les fenetres sont fermees.
 electron.app.on('window-all-closed', () => {
     electron.app.quit()
 })

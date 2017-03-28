@@ -30,11 +30,11 @@ class CriteriaSet {
     /**
      * Ajoute un critere.
      * @param {Criterion} criterion - Le critere.
-     * @throws Lance une exception si le type de critere n'est pas pris en charge
+     * @throws Lance une exception si le critere n'est pas reconnu.
      */
     add(criterion) {
-        if (Criterion.checkType(criterion.type)) {
-            throw `Unrecognized criterion type: ${type}`
+        if (!(criterion instanceof Criterion)) {
+            throw 'Unrecognized criterion'
         }
         
         this.criteria[criterion.type] = criterion
@@ -73,7 +73,7 @@ class CriteriaSet {
     }
     
     /**
-     * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours.
+     * Recupere pour un type de critere les ensembles de criteres avec chaques valeurs possibles a partir de l'ensemble courant.
      * @param {String} criterionType - Le type de critere.
      * @returns {Array} La liste d'ensembles de criteres possibles.
      * @throws Lance une exception si le type de critere n'est pas pris en charge.
@@ -106,6 +106,22 @@ class CriteriaSet {
         })
         
         return criteriaSets
+    }
+    
+    /**
+     * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
+     * @param criteriaSetFootprint
+     * @returns {CriteriaSet}
+     */
+    static convertCriteriaSetFootprint(criteriaSetFootprint) {
+        const criteriaSet = new CriteriaSet()
+        
+        for (const criterionType in criteriaSetFootprint.criteria) {
+            const criterion = criteriaSetFootprint.criteria[criterionType]
+            criteriaSet.add(new Criterion(criterion.type, criterion.value))
+        }
+        
+        return criteriaSet
     }
 }
 
