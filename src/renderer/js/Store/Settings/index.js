@@ -10,6 +10,15 @@ export default {
         windowSize: { // Dimensions de la fenetre.
             height: 0,
             width : 0
+        },
+        criterion : {
+            types: [
+                'artist',
+                'album',
+                'title',
+                'trackNumber',
+                'duration'
+            ]
         }
     },
     getters   : {
