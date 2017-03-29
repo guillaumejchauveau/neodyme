@@ -29,7 +29,7 @@ const IPCHandler = {
             resolveDecisiveCriteriaSets(event, criteriaSetFootprint) {
                 const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
                 
-                event.sender.send('CriteriaSet.resolveDecisiveCriteriaSets', criteriaSet.resolveDecisiveCriteriaSets())
+                event.sender.send('RES:CriteriaSet.resolveDecisiveCriteriaSets', criteriaSet.resolveDecisiveCriteriaSets())
             },
             /**
              * Repond a une requete de resolution d'ensembles de criteres possibles selon le type de critere.
@@ -40,7 +40,7 @@ const IPCHandler = {
             resolveCriteriaByType(event, criteriaSetFootprint, type) {
                 const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
                 
-                event.sender.send('CriteriaSet.resolveCriteriaByType', criteriaSet.resolveCriteriaByType(type))
+                event.sender.send('RES:CriteriaSet.resolveCriteriaByType', criteriaSet.resolveCriteriaByType(type))
             }
         },
         Provider   : {
@@ -54,7 +54,7 @@ const IPCHandler = {
                 DIC['ConfigurationStore'].store.providers[providerKey]
                     .getDataBuffer(id)
                     .then(data => {
-                        event.sender.send('Provider.getDataBuffer',
+                        event.sender.send('RES:Provider.getDataBuffer',
                                           base64AB.encode(data))
                     })
             }
@@ -64,15 +64,15 @@ const IPCHandler = {
      * Met en place les ecouteurs d'evenements IPC.
      */
     setEventListeners() {
-        ipcMain.on('CriteriaSet.resolveDecisiveCriteriaSets', (...args) => {
+        ipcMain.on('REQ:CriteriaSet.resolveDecisiveCriteriaSets', (...args) => {
             this.handlers.CriteriaSet.resolveDecisiveCriteriaSets(...args)
         })
         
-        ipcMain.on('CriteriaSet.resolveCriteriaByType', (...args) => {
+        ipcMain.on('REQ:CriteriaSet.resolveCriteriaByType', (...args) => {
             this.handlers.CriteriaSet.resolveCriteriaByType(...args)
         })
         
-        ipcMain.on('Provider.getDataBuffer', (...args) => {
+        ipcMain.on('REQ:Provider.getDataBuffer', (...args) => {
             this.handlers.Provider.getDataBuffer(...args)
         })
     }

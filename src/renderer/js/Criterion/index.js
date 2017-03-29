@@ -4,6 +4,8 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+import settings from '../Store/Settings'
+
 /**
  * Classe qui represente un critere.
  * @property {String} type  - Le type du critere.
@@ -31,8 +33,7 @@ class Criterion {
      * @returns {Boolean} Resultat du test.
      */
     static checkType(type) {
-        //return DIC['ConfigurationStore'].store.criterion.types.indexOf(type) !== -1 TODO
-        return true
+        return settings.state.criterion.types.indexOf(type) !== -1
     }
 }
 
