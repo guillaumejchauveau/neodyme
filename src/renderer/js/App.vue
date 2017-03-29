@@ -19,6 +19,10 @@
                 })
             }
         },
+        store     : Store,
+        components: {
+            Playlist
+        },
         mounted() {
             this.$nextTick(function () {
                 window.addEventListener('resize', this.onWindowResizeHandler)
@@ -27,10 +31,6 @@
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.onWindowResizeHandler)
-        },
-        store     : Store,
-        components: {
-            Playlist
         }
     }
 </script>

@@ -4,11 +4,8 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-/**
- * Conteneur d'injection de dependances.
- * @type {Object}
- */
-import DIC from '../../DIC'
+import {ipcRenderer} from 'electron'
+
 /**
  * Classe Criterion.
  * @type {Criterion}
@@ -49,33 +46,23 @@ class CriteriaSet {
     }
     
     /**
-     * Recupere tout les ensembles de criteres determinants correspondants.
-     * @returns {Array} La liste des ensembles de criteres determinants correspondants.
+     * Recupere toutes les empreintes d'ensembles de criteres determinants correspondants (via IPC).
+     * @returns {Promise} Une Promise qui resout un {Array}.
      */
-    resolveDecisiveCriteriaSets() {
-        const DCSStore = DIC['DCSStore']
-        
-        let DCSs = DCSStore.store
-        
-        for (const criterionType in this.criteria) {
-            const criterion    = this.criteria[criterionType]
-            const selectedDCSs = []
+    resolveDecisiveCriteriaSetFootprints() {
+        return new Promise((resolve, reject) => {
+            ipcRenderer.send('REQ:CriteriaSet.resolveDecisiveCriteriaSets', this)
             
-            DCSs.forEach(dcs => {
-                if (dcs.criteria[criterion.type].value === criterion.value) {
-                    selectedDCSs.push(dcs)
-                }
+            ipcRenderer.on('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
+                resolve(decisiveCriteriaSetFootprints)
             })
-            DCSs = selectedDCSs
-        }
-        
-        return DCSs
+        })
     }
     
     /**
-     * Recupere pour un type de critere les ensembles de criteres avec chaques valeurs possibles a partir de l'ensemble courant.
+     * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours (via IPC).
      * @param {String} criterionType - Le type de critere.
-     * @returns {Array} La liste d'ensembles de criteres possibles.
+     * @returns {Promise} Une Promise qui resout un {Array}.
      * @throws Lance une exception si le type de critere n'est pas pris en charge.
      */
     resolveCriteriaByType(criterionType) {
@@ -83,29 +70,19 @@ class CriteriaSet {
             throw `Unrecognized criterion type: ${type}`
         }
         
-        const DCSs            = this.resolveDecisiveCriteriaSets()
-        const criterionValues = []
-        const criteriaSets    = []
-        
-        DCSs.forEach(dcs => {
-            const criterion = dcs.criteria[criterionType]
+        return new Promise((resolve, reject) => {
+            ipcRenderer.send('REQ:CriteriaSet.resolveCriteriaByType', this, criterionType)
             
-            if (criterionValues.indexOf(criterion.value) === -1) { // Verifie si la valeur du critere n'a pas encore ete rencontree.
-                criterionValues.push(criterion.value)
+            ipcRenderer.on('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
+                const criteriaSets = []
                 
-                const criteriaSet = new CriteriaSet()
-                criteriaSet.add(criterion)
+                criteriaSetFootprints.forEach(criteriaSetFootprint => {
+                    criteriaSets.push(CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint))
+                })
                 
-                // Copie les criteres de l'ensemble de criteres en cours.
-                for (const criterionType in this.criteria) {
-                    criteriaSet.add(this.criteria[criterionType])
-                }
-                
-                criteriaSets.push(criteriaSet)
-            }
+                resolve(criteriaSets)
+            })
         })
-        
-        return criteriaSets
     }
     
     /**
@@ -115,7 +92,7 @@ class CriteriaSet {
      */
     static convertCriteriaSetFootprint(criteriaSetFootprint) {
         const criteriaSet = new CriteriaSet()
-        
+    
         for (const criterionType in criteriaSetFootprint.criteria) {
             const criterion = criteriaSetFootprint.criteria[criterionType]
             criteriaSet.add(new Criterion(criterion.type, criterion.value))

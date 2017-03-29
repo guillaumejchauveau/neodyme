@@ -16,6 +16,15 @@ export default {
             height: 0,
             width : 0
         },
+        criterion : {
+            types: [
+                'artist',
+                'album',
+                'title',
+                'trackNumber',
+                'duration'
+            ]
+        },
         playlist
     },
     mutations : {
