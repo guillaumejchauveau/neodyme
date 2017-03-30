@@ -54,6 +54,7 @@ class CriteriaSet {
             ipcRenderer.send('REQ:CriteriaSet.resolveDecisiveCriteriaSets', this)
             
             ipcRenderer.on('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
+                ipcRenderer.removeAllListeners('RES:CriteriaSet.resolveDecisiveCriteriaSets')
                 resolve(decisiveCriteriaSetFootprints)
             })
         })
@@ -74,6 +75,7 @@ class CriteriaSet {
             ipcRenderer.send('REQ:CriteriaSet.resolveCriteriaByType', this, criterionType)
             
             ipcRenderer.on('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
+                ipcRenderer.removeAllListeners('RES:CriteriaSet.resolveCriteriaByType')
                 const criteriaSets = []
                 
                 criteriaSetFootprints.forEach(criteriaSetFootprint => {

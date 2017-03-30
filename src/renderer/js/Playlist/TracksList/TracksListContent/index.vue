@@ -3,7 +3,9 @@
         <transition name="tracksList-items-transition">
             <div v-if="isOpen" class="tracksList-items" @mousewheel="dispatchScrollItemsEvent">
                 <div v-if="waypointItem !== -1" class="tracksList-waypoint" :style="waypointItemStyle"></div>
-                <tracks-list-item v-for="(item, index) in tracksListItems"
+                <tracks-list-item v-for="(track, index) in tracks"
+                                  :key="index"
+                                  :data="track.dcs.criteria"
                                   :position="computeItemPosition(index)"></tracks-list-item>
             </div>
         </transition>
@@ -23,8 +25,8 @@
             return {
                 itemAngularHeight,
                 maxItemCount,
-                tracksListItems: this.$store.state.playlist.tracks,
-                waypointItem   : this.$store.state.playlist.currentTrack
+                tracks      : this.$store.state.playlist.tracks,
+                waypointItem: this.$store.state.playlist.currentTrack
             }
         },
         computed  : {

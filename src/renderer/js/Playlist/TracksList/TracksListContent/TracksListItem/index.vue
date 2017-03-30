@@ -6,7 +6,7 @@
             
             </div>
         </div>
-        <div class="tracksList-item-content">Track title</div>
+        <div class="tracksList-item-content">{{ data.title.value }}</div>
     </div>
 </template>
 
@@ -28,6 +28,10 @@
             }
         },
         props   : {
+            data   : {
+                type    : Object,
+                required: true
+            },
             position: {
                 type    : Number,
                 required: true

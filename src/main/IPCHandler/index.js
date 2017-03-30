@@ -29,7 +29,8 @@ const IPCHandler = {
             resolveDecisiveCriteriaSets(event, criteriaSetFootprint) {
                 const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
                 
-                event.sender.send('RES:CriteriaSet.resolveDecisiveCriteriaSets', criteriaSet.resolveDecisiveCriteriaSets())
+                event.sender.send('RES:CriteriaSet.resolveDecisiveCriteriaSets',
+                                  criteriaSet.resolveDecisiveCriteriaSets())
             },
             /**
              * Repond a une requete de resolution d'ensembles de criteres possibles selon le type de critere.

@@ -9,7 +9,7 @@
     import Playlist from './Playlist'
     
     export default {
-        methods: {
+        methods   : {
             /**
              * Fonction declenchee a chaque redimensionnement de la fenetre.
              */

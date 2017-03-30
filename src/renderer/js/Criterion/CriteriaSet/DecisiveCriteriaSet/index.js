@@ -40,6 +40,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
             ipcRenderer.send('REQ:Provider.getDataBuffer', this.providerKey, this.id)
             
             ipcRenderer.on('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
+                ipcRenderer.removeAllListeners('RES:Provider.getDataBuffer')
                 resolve(base64AB.decode(base64ArrayBuffer))
             })
         })
