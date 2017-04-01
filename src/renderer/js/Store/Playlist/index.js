@@ -28,8 +28,8 @@ import Track from '../../Playlist/Track'
 export default {
     namespaced: true,
     state     : {
-        tracks      : [],
-        currentTrack: -1
+        tracks           : [],
+        currentTrackIndex: -1
     },
     getters   : {
         /**
@@ -38,6 +38,9 @@ export default {
          */
         tracksCount(state) {
             return state.tracks.length
+        },
+        currentTrack(state) {
+            return (state.currentTrackIndex === -1) ? false : state.tracks[state.currentTrackIndex]
         }
     },
     mutations : {
@@ -78,7 +81,7 @@ export default {
                 index = -1
             }
             
-            state.currentTrack = index
+            state.currentTrackIndex = index
         }
     },
     actions   : {

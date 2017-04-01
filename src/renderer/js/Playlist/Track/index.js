@@ -25,7 +25,7 @@ class Track {
         if (!(decisiveCriteriaSet instanceof DecisiveCriteriaSet)) {
             throw 'Invalid decisiveCriteriaSet'
         }
-    
+        
         this.dcs        = decisiveCriteriaSet
         this.dataBuffer = null
     }
@@ -36,15 +36,19 @@ class Track {
      */
     loadDataBuffer() {
         return new Promise((resolve, reject) => {
-            this.dcs
-                .getDataBuffer()
-                .then(dataBuffer => {
-                    this.dataBuffer = dataBuffer
-                    resolve()
-                })
-                .catch(function () {
-                    reject()
-                })
+            if (!this.dataBuffer) {
+                this.dcs
+                    .getDataBuffer()
+                    .then(dataBuffer => {
+                        this.dataBuffer = dataBuffer
+                        resolve()
+                    })
+                    .catch(function () {
+                        reject()
+                    })
+            } else {
+                resolve()
+            }
         })
     }
 }

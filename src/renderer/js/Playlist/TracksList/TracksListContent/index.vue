@@ -2,8 +2,8 @@
     <div class="tracksList-content">
         <transition name="tracksList-items-transition">
             <div v-if="isOpen" class="tracksList-items" @mousewheel="dispatchScrollItemsEvent">
-                <div v-if="waypointItem !== -1" class="tracksList-waypoint" :style="waypointItemStyle"></div>
-                <tracks-list-item v-for="(track, index) in tracks"
+                <div v-if="waypointItemIndex !== -1" class="tracksList-waypoint" :style="waypointItemStyle"></div>
+                <tracks-list-item v-for="(track, index) in this.$store.state.playlist.tracks"
                                   :key="index"
                                   :data="track.dcs.criteria"
                                   :position="computeItemPosition(index)"></tracks-list-item>
@@ -24,18 +24,19 @@
             
             return {
                 itemAngularHeight,
-                maxItemCount,
-                tracks      : this.$store.state.playlist.tracks,
-                waypointItem: this.$store.state.playlist.currentTrack
+                maxItemCount
             }
         },
         computed  : {
+            waypointItemIndex() {
+                return this.$store.state.playlist.currentTrackIndex
+            },
             /**
              * Compile le style dynamique du point de repere.
              * @returns {String} Le contenu de l'attribut style.
              */
             waypointItemStyle() {
-                return `transform: translateY(-50%) rotate(${this.computeItemPosition(this.waypointItem) * this.itemAngularHeight}rad);`
+                return `transform: translateY(-50%) rotate(${this.computeItemPosition(this.waypointItemIndex) * this.itemAngularHeight}rad);`
             }
         },
         methods   : {

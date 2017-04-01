@@ -53,8 +53,7 @@ class CriteriaSet {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('REQ:CriteriaSet.resolveDecisiveCriteriaSets', this)
             
-            ipcRenderer.on('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
-                ipcRenderer.removeAllListeners('RES:CriteriaSet.resolveDecisiveCriteriaSets')
+            ipcRenderer.once('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
                 resolve(decisiveCriteriaSetFootprints)
             })
         })
@@ -74,8 +73,7 @@ class CriteriaSet {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('REQ:CriteriaSet.resolveCriteriaByType', this, criterionType)
             
-            ipcRenderer.on('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
-                ipcRenderer.removeAllListeners('RES:CriteriaSet.resolveCriteriaByType')
+            ipcRenderer.once('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
                 const criteriaSets = []
                 
                 criteriaSetFootprints.forEach(criteriaSetFootprint => {

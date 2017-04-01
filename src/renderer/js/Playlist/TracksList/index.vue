@@ -20,7 +20,7 @@
                  :style="waypointScrollerContainerStyle">
                 <button class="tracksList-waypoint-scroller"
                         :class="{down: distanceToWaypoint < 0}"
-                        @click="currentItem = waypointItem"
+                        @click="currentItem = waypointItemIndex"
                         v-ripple><span></span></button>
             </div>
         </transition-group>
@@ -39,8 +39,7 @@
         data() {
             return {
                 currentItem : 0,
-                isOpen      : false,
-                waypointItem: this.$store.state.playlist.currentTrack
+                isOpen      : false // TODO: Move to Store
             }
         },
         computed  : {
@@ -50,7 +49,7 @@
              * @returns {Number} Le nombre d'element.
              */
             distanceToWaypoint() {
-                return this.currentItem - this.waypointItem
+                return this.currentItem - this.waypointItemIndex
             },
             /**
              * Calcule l'angle au defilement maximum.
@@ -73,12 +72,15 @@
                 
                 return this.$store.state.settings.playlist.tracksList.waypointScroller.defaultMaxAngle
             },
+            waypointItemIndex() {
+                return this.$store.state.playlist.currentTrackIndex
+            },
             /**
              * Determine si le chariot de defilement doit etre affiche.
              * @returns {Boolean}
              */
             waypointScroller() {
-                return this.waypointItem !== -1 &&
+                return this.waypointItemIndex !== -1 &&
                        Math.abs(this.waypointScrollerAngle) > this.$store.state.settings.playlist.tracksList.close.angularHeight
             },
             /**
@@ -87,8 +89,8 @@
              */
             waypointScrollerAngle() {
                 // Calcule le nombre d'element au dessus/en dessous du point de repere.
-                const upperItemsCount  = this.waypointItem
-                const downerItemsCount = this.tracksCount - 1 - this.waypointItem
+                const upperItemsCount  = this.waypointItemIndex
+                const downerItemsCount = this.tracksCount - 1 - this.waypointItemIndex
                 
                 // Choisi le plus grand nombre d'element de chaque cotes du point de repere comme reference.
                 const distanceRatio = this.distanceToWaypoint / ((upperItemsCount > downerItemsCount) ? upperItemsCount : downerItemsCount)

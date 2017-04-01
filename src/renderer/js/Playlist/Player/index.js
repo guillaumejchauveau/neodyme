@@ -26,10 +26,10 @@ class Player extends EventEmitter {
         
         this.audioContext = new AudioContext()
         this.buffer       = null
-        this.duration     = null
+        this.duration     = null // TODO: Move to Store
         this.startTime    = 0
-        this.position     = 0
-        this.playing      = false
+        this.position     = 0 // TODO: Move to Store
+        this.playing      = false // TODO: Move to Store
     }
     
     /**

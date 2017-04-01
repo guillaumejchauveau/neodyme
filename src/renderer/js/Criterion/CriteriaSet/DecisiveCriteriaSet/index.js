@@ -39,8 +39,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('REQ:Provider.getDataBuffer', this.providerKey, this.id)
             
-            ipcRenderer.on('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
-                ipcRenderer.removeAllListeners('RES:Provider.getDataBuffer')
+            ipcRenderer.once('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
                 resolve(base64AB.decode(base64ArrayBuffer))
             })
         })
