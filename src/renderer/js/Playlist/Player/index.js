@@ -21,15 +21,13 @@ class Player extends EventEmitter {
     /**
      * Cree un Lecteur.
      */
-    constructor() {
+    constructor($store) {
         super()
         
         this.audioContext = new AudioContext()
         this.buffer       = null
-        this.duration     = null // TODO: Move to Store
         this.startTime    = 0
-        this.position     = 0 // TODO: Move to Store
-        this.playing      = false // TODO: Move to Store
+        this.$store       = $store
     }
     
     /**
@@ -38,12 +36,12 @@ class Player extends EventEmitter {
      * @returns {Promise}
      */
     setAudioBuffer(arrayBuffer) {
-        const that = this
-        
-        return new Promise(function (resolve, reject) {
-            that.audioContext.decodeAudioData(arrayBuffer, audioBuffer => {
-                that.buffer   = audioBuffer
-                that.duration = Math.round(audioBuffer.duration)
+        return new Promise((resolve, reject) => {
+            this.$store.commit('playlist/player/SET_STATUS', 'LOADING')
+            this.audioContext.decodeAudioData(arrayBuffer, audioBuffer => {
+                this.buffer = audioBuffer
+                this.$store.commit('playlist/player/SET_DURATION', Math.round(audioBuffer.duration))
+                this.$store.commit('playlist/player/SET_STATUS', 'READY')
                 resolve()
             })
         })
@@ -53,8 +51,8 @@ class Player extends EventEmitter {
      * Efface les donnees audio.
      */
     clearBuffer() {
-        this.buffer   = null
-        this.duration = null
+        this.buffer = null
+        this.$store.commit('playlist/player/SET_DURATION', null)
     }
     
     /**
@@ -66,12 +64,15 @@ class Player extends EventEmitter {
         this.audioSource.connect(this.audioContext.destination)
         
         this.audioSource.onended = event => { // Quand la source s'arrete de lire (par arret manuel ou automatique).
-            this.currentPosition // Declenche l'actualisation de la position.
-            if (this.position >= this.duration) { // Si la source s'est arretee car au bout des donnees.
-                this.position = this.duration
+            this.updatePosition(this)
+            clearInterval(this.updatePosition) // Desactive la mise a jour automatique de la position.
+            
+            if (this.$store.state.playlist.player.position >= this.$store.state.playlist.player.duration) { // Si la source s'est arretee car au bout des donnees.
+                this.$store.commit('playlist/player/SET_POSITION', this.$store.state.playlist.player.duration)
                 this.emit('ended') // Emet un evenement quand les donnees ont ete entierement lues.
             }
-            this.playing     = false
+            
+            this.$store.commit('playlist/player/SET_STATUS', 'READY')
             this.audioSource = null // Detruit la source.
         }
     }
@@ -83,28 +84,35 @@ class Player extends EventEmitter {
     start(position = 0) {
         this.connectSource()
         this.startTime = Math.round(this.audioContext.currentTime - position)
-        this.position  = position
+        this.$store.commit('playlist/player/SET_POSITION', position)
         this.audioSource.start(0, position) // Lance la lecture au temps 0 du contexte et a position dans les donnees.
-        this.playing = true
+        this.$store.commit('playlist/player/SET_STATUS', 'PLAYING')
+        
+        this.updatePosition(this)
+        const that = this
+        setInterval(function () {
+            that.updatePosition(that)
+        }, 1000)
     }
     
     /**
      * Arrete la lecture des donnees audio.
      */
     stop() {
-        if (this.playing) {
+        if (this.$store.getters['playlist/player/playerIs']('PLAYING')) {
             this.audioSource.stop()
         }
     }
     
     /**
-     * Actualise et retourne la position.
+     * Actualise la position.
      * @returns {Number}
      */
-    get currentPosition() {
-        this.position = this.playing ? Math.round(this.audioContext.currentTime - this.startTime) : this.position
-        
-        return this.position
+    updatePosition(context) {
+        if (context.$store.getters['playlist/player/playerIs']('PLAYING')) {
+            context.$store.commit('playlist/player/SET_POSITION',
+                                  Math.round(context.audioContext.currentTime - context.startTime))
+        }
     }
 }
 

@@ -5,14 +5,14 @@
         <button key="tracksList-open"
                 v-if="tracksCount && !isOpen"
                 class="tracksList-open"
-                @click="isOpen = true"
+                @click="open"
                 v-ripple></button>
         
         <transition-group name="tracksList-buttons-transition">
             <button key="tracksList-close"
                     v-if="isOpen"
                     class="tracksList-close"
-                    @click="isOpen = false"
+                    @click="close"
                     v-ripple><span></span></button>
             <div key="tracksList-waypoint-scroller-container"
                  v-if="waypointScroller && isOpen"
@@ -38,11 +38,14 @@
     export default {
         data() {
             return {
-                currentItem : 0,
-                isOpen      : false // TODO: Move to Store
+                currentItem: 0
             }
         },
         computed  : {
+            ...VueX.mapState('playlist', {
+                waypointItemIndex: state => state.currentTrackIndex
+            }),
+            ...VueX.mapState('playlist/tracksList', ['isOpen']),
             ...VueX.mapGetters('playlist', ['tracksCount']),
             /**
              * Calcule le nombre d'elements entre le courant et le point de repere.
@@ -71,9 +74,6 @@
                 }
                 
                 return this.$store.state.settings.playlist.tracksList.waypointScroller.defaultMaxAngle
-            },
-            waypointItemIndex() {
-                return this.$store.state.playlist.currentTrackIndex
             },
             /**
              * Determine si le chariot de defilement doit etre affiche.
@@ -106,6 +106,10 @@
             }
         },
         methods   : {
+            ...VueX.mapMutations({
+                                     open : 'playlist/tracksList/OPEN',
+                                     close: 'playlist/tracksList/CLOSE'
+                                 }),
             /**
              * Change l'element courant au defilement.
              * @param {MouseEvent} event - L'evenement capture.

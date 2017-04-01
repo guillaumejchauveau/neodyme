@@ -92,7 +92,7 @@ class CriteriaSet {
      */
     static convertCriteriaSetFootprint(criteriaSetFootprint) {
         const criteriaSet = new CriteriaSet()
-    
+        
         for (const criterionType in criteriaSetFootprint.criteria) {
             const criterion = criteriaSetFootprint.criteria[criterionType]
             criteriaSet.add(new Criterion(criterion.type, criterion.value))

@@ -8,6 +8,8 @@
 </template>
 
 <script>
+    import VueX from 'vuex'
+    
     import ControlPanel from './ControlPanel'
     import TracksList from './TracksList'
     
@@ -24,25 +26,33 @@
                 savedCurrentTrackPosition: 0
             }
         },
+        computed  : {
+            ...VueX.mapState('playlist', ['currentTrackIndex']),
+            ...VueX.mapState('playlist/player', {
+                currentPosition: state => state.position
+            }),
+            ...VueX.mapGetters('playlist/player', ['playerIs'])
+        },
         methods   : {
+            ...VueX.mapMutations('playlist', {
+                setCurrentTrack: 'SET_CURRENT_TRACK'
+            }),
             /**
              * Determine la piste courante et la position.
              * @param {Number} index    - L'index d'une piste.
              * @param {Number} position - La position sur la piste (en secondes).
              */
             play(index = null, position = null) {
-                if (this.$store.getters['playlist/tracksCount']) {
-                    // Si une piste specifique est demandee.
-                    if (index !== null) {
-                        this.$store.commit('playlist/SET_CURRENT_TRACK', index)
+                if (!this.playerIs('LOADING') && this.$store.getters['playlist/tracksCount']) {
+                    if (index !== null) { // Si une piste specifique est demandee.
+                        this.setCurrentTrack(index)
                     }
-                    // S'il n'y a pas de piste courante.
-                    if (this.$store.state.playlist.currentTrackIndex === -1) {
-                        this.$store.commit('playlist/SET_CURRENT_TRACK', 0)
+                    if (this.currentTrackIndex === -1) { // S'il n'y a pas de piste courante.
+                        this.setCurrentTrack(0)
                     }
-                    // S'il n'y a pas de position demandee.
-                    if (position === null) {
-                        position = this.savedCurrentTrackPosition ? this.savedCurrentTrackPosition : 0
+                    
+                    if (position === null) { // S'il n'y a pas de position demandee.
+                        position = this.savedCurrentTrackPosition
                     }
                     
                     this.playCurrentTrack(position)
@@ -52,25 +62,53 @@
              * Arrete la lecture et enregistre la position d'arret.
              */
             pause() {
-                this.player.stop()
-                this.savedCurrentTrackPosition = this.player.currentPosition
+                if (!this.playerIs('LOADING')) {
+                    this.player.stop()
+                    this.savedCurrentTrackPosition = this.currentPosition
+                }
             },
             /**
              * Arrete la lecture des pistes.
              */
             stop() {
-                this.player.stop()
-                this.player.clearBuffer()
-                this.savedCurrentTrackPosition = 0
-                this.$store.commit('playlist/SET_CURRENT_TRACK', -1)
+                if (!this.playerIs('LOADING')) {
+                    this.player.stop()
+                    this.player.clearBuffer()
+                    this.savedCurrentTrackPosition = 0
+                    this.setCurrentTrack(-1)
+                }
+            },
+            /**
+             * Passe a la piste prescedente.
+             */
+            previous() {
+                if (!this.playerIs('LOADING')) {
+                    this.player.stop()
+                    this.savedCurrentTrackPosition = 0
+                    this.setCurrentTrack(this.currentTrackIndex - 1)
+                    this.playCurrentTrack()
+                }
+            },
+            /**
+             * Passe a la piste suivante.
+             */
+            next() {
+                if (!this.playerIs('LOADING')) {
+                    this.player.stop()
+                    this.savedCurrentTrackPosition = 0
+                    this.setCurrentTrack(this.currentTrackIndex + 1)
+                    this.playCurrentTrack()
+                }
             },
             /**
              * Lance la lecture de la piste courante.
              * @param {Number} position - La position sur la piste (en secondes).
              */
             playCurrentTrack(position = 0) {
+                this.player.stop()
                 const currentTrack = this.$store.getters['playlist/currentTrack']
                 if (currentTrack) {
+                    this.$store.commit('playlist/player/SET_STATUS', 'LOADING')
                     currentTrack.loadDataBuffer()
                                 .then(() => {
                                     this.player
@@ -86,12 +124,7 @@
              * Determine la piste a lire lorsque la lecture est terminee.
              */
             playerEndedHandler() {
-                this.savedCurrentTrackPosition = 0
-                this.$store.commit('playlist/SET_CURRENT_TRACK', this.$store.state.playlist.currentTrackIndex + 1)
-                
-                if (this.$store.state.playlist.currentTrackIndex !== -1) {
-                    this.playCurrentTrack()
-                }
+                this.next()
             }
         },
         components: {
@@ -99,7 +132,7 @@
             TracksList
         },
         mounted() {
-            this.player = new Player() // Cree un lecteur.
+            this.player = new Player(this.$store) // Cree un lecteur.
         }
     }
 </script>

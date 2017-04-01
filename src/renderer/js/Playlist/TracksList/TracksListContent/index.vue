@@ -13,6 +13,7 @@
 </template>
 
 <script>
+    import VueX from 'vuex'
     import TracksListItem from './TracksListItem'
     
     export default {
@@ -28,9 +29,9 @@
             }
         },
         computed  : {
-            waypointItemIndex() {
-                return this.$store.state.playlist.currentTrackIndex
-            },
+            ...VueX.mapState('playlist', {
+                waypointItemIndex: state => state.currentTrackIndex
+            }),
             /**
              * Compile le style dynamique du point de repere.
              * @returns {String} Le contenu de l'attribut style.
