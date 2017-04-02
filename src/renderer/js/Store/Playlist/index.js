@@ -50,14 +50,15 @@ export default {
          * @param {(Track|{data: Track, index: Number})} payload - La piste a ajouter.
          */
         ADD_TRACK(state, payload) {
+            // Reformatage des donnees a traiter.
             let track = payload
             let index = -1
-            
             if (payload.data) {
                 track = payload.data
                 index = payload.index
             }
             
+            // Traitement.
             state.tracks.splice(index, 0, track) // Ajoute la piste a l'index sans retirer d'elements.
         },
         /**
@@ -65,7 +66,7 @@ export default {
          * @param {Number} index - L'index de la piste.
          */
         REMOVE_TRACK(state, index) {
-            delete state.tracks[index]
+            state.tracks.splice(index, 1)
         },
         /**
          * Enleve toutes les pistes.
@@ -78,7 +79,7 @@ export default {
          * @param {Number} index
          */
         SET_CURRENT_TRACK(state, index) {
-            if (index < -1 || index >= state.tracks.length) {
+            if (index < -1 || index >= state.tracks.length) { // Si l'index ne correspond pas a une piste.
                 index = -1
             }
             

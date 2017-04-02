@@ -7,20 +7,20 @@
 export default {
     namespaced: true,
     state     : {
-        isOpen: false
+        active: false
     },
     mutations : {
         /**
          * Ouvre la liste des pistes.
          */
         OPEN(state) {
-            state.isOpen = true
+            state.active = true
         },
         /**
          * Ferme la liste des pistes.
          */
         CLOSE(state) {
-            state.isOpen = false
+            state.active = false
         }
     }
 }

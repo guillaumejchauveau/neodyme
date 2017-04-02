@@ -12,7 +12,7 @@ import playlist from './playlist'
 export default {
     namespaced: true,
     state     : {
-        windowSize: { // Dimensions de la fenetre.
+        windowSize: { // Dimensions de la fenetre (en pixels).
             height: 0,
             width : 0
         },

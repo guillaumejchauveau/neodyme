@@ -110,7 +110,7 @@ class CriteriaSet {
     
     /**
      * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
-     * @param criteriaSetFootprint
+     * @param {Object} criteriaSetFootprint
      * @returns {CriteriaSet}
      */
     static convertCriteriaSetFootprint(criteriaSetFootprint) {

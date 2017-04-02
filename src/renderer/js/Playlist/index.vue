@@ -1,8 +1,13 @@
 <template>
     <div id="playlist">
         <div class="playlist-content">
-            <tracks-list></tracks-list>
-            <control-panel></control-panel>
+            <tracks-list @trackAction="trackActionHandler"></tracks-list>
+            <control-panel @play="play"
+                           @pause="pause"
+                           @stop="stop"
+                           @previous="previous"
+                           @next="next"
+                           @clear="clear"></control-panel>
         </div>
     </div>
 </template>
@@ -29,7 +34,7 @@
         computed  : {
             ...VueX.mapState('playlist', ['currentTrackIndex']),
             ...VueX.mapState('playlist/player', {
-                currentPosition: state => state.position
+                currentPosition: 'position'
             }),
             ...VueX.mapGetters('playlist/player', ['playerIs'])
         },
@@ -45,6 +50,7 @@
             play(index = null, position = null) {
                 if (!this.playerIs('LOADING') && this.$store.getters['playlist/tracksCount']) {
                     if (index !== null) { // Si une piste specifique est demandee.
+                        this.stop()
                         this.setCurrentTrack(index)
                     }
                     if (this.currentTrackIndex === -1) { // S'il n'y a pas de piste courante.
@@ -101,6 +107,13 @@
                 }
             },
             /**
+             * Efface la liste de lecture.
+             */
+            clear() {
+                this.stop()
+                this.$store.commit('playlist/CLEAR_TRACKS')
+            },
+            /**
              * Lance la lecture de la piste courante.
              * @param {Number} position - La position sur la piste (en secondes).
              */
@@ -125,6 +138,24 @@
              */
             playerEndedHandler() {
                 this.next()
+            },
+            /**
+             * Lance l'action de l'evenement trackAction.
+             * @param {String} action - L'action a effectuer.
+             * @param {Number} index  - L'index de la piste.
+             */
+            trackActionHandler(action, index) {
+                switch (action) {
+                    case 'play':
+                        this.play(index)
+                        break
+                    case 'remove':
+                        if (index === this.currentTrackIndex) {
+                            this.stop()
+                        }
+                        
+                        this.$store.commit('playlist/REMOVE_TRACK', index)
+                }
             }
         },
         components: {

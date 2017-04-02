@@ -9,6 +9,17 @@
     background-color : $color-primary;
     overflow         : hidden;
     
+    .controlPanel-position-indicator {
+        position            : absolute;
+        width               : 100%;
+        height              : 100%;
+        border-radius       : 50%;
+        border              : $controlPanel-position-indicator-size solid transparent;
+        border-bottom-color : $controlPanel-position-indicator-color;
+        border-left-color   : $controlPanel-position-indicator-color;
+        transform           : rotate(45deg);
+    }
+    
     .controlPanel-content {
         position    : relative;
         width       : 0;
@@ -16,16 +27,138 @@
         margin-left : 50%;
         color       : $text-light-color;
         
-        .currentTime, .totalTime {
+        .controlPanel-position, .controlPanel-duration {
             position    : absolute;
-            top         : 15px;
-            left        : 5px;
+            top         : nth($controlPanel-times-offsets, 2);
+            left        : nth($controlPanel-times-offsets, 1);
             font-weight : $font-weight-light;
         }
         
-        .totalTime {
+        .controlPanel-duration {
             top    : initial;
-            bottom : 15px;
+            bottom : nth($controlPanel-times-offsets, 2);
+        }
+        
+        .controlPanel-menu {
+            position : absolute;
+            top      : 50%;
+            left     : 5px;
+            
+            & > button {
+                transform : translateY(-50%);
+                
+                span::before {
+                    color : $text-light-color;
+                }
+            }
+            
+            & > .mdc-simple-menu {
+                margin-left : 5px;
+                color       : $text-color;
+                z-index     : 15;
+            }
+        }
+        
+        .controlPanel-controls {
+            
+            .controlPanel-control {
+                @include buttonReset;
+                position : absolute;
+                cursor   : pointer;
+                
+                span {
+                    display    : inline-block;
+                    width      : 100%;
+                    height     : 100%;
+                    color      : $text-light-color;
+                    text-align : center;
+                    font-size  : inherit;
+                    cursor     : inherit;
+                    
+                    &::before {
+                        @include materialIcon;
+                        font-size : inherit;
+                        cursor    : inherit;
+                    }
+                }
+                
+                &.main {
+                    @include mdc-ripple-base;
+                    @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
+                    @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
+                    @include mdc-elevation(2);
+                    top              : $controlPanel-size - $controlPanel-controls-main-size/2;
+                    left             : $controlPanel-size/2 - ($controlPanel-controls-main-size/2) * $controlPanel-controls-main-horiz-offset-ratio;
+                    width            : $controlPanel-controls-main-size;
+                    height           : $controlPanel-controls-main-size;
+                    border-radius    : 50%;
+                    background-color : $bg-dark-primary;
+                    font-size        : $controlPanel-controls-main-font-size;
+                    overflow         : hidden;
+                    z-index          : 5;
+                    
+                    span::before {
+                        content     : "play_arrow";
+                        line-height : $controlPanel-controls-main-size;
+                    }
+                    
+                    &.pause span::before {
+                        content : "pause";
+                    }
+                }
+                
+                &.previous, &.next {
+                    @include mdc-ripple-base;
+                    @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
+                    @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
+                    @include mdc-elevation(1);
+                    top              : $controlPanel-size - $controlPanel-controls-main-size/2 - $controlPanel-controls-nav-size*$controlPanel-controls-nav-vert-offset-ratio;
+                    left             : $controlPanel-size/2 - ($controlPanel-controls-nav-size/2) * $controlPanel-controls-main-horiz-offset-ratio;
+                    width            : $controlPanel-controls-nav-size;
+                    height           : $controlPanel-controls-nav-size;
+                    border-radius    : 50%;
+                    background-color : $bg-dark-primary;
+                    font-size        : $controlPanel-controls-nav-font-size;
+                    overflow         : hidden;
+                    
+                    span::before {
+                        content     : "skip_next";
+                        margin-top  : -4px;
+                        line-height : $controlPanel-controls-nav-size;
+                        transform   : rotate(-90deg);
+                    }
+                }
+                
+                &.next {
+                    top : $controlPanel-size + $controlPanel-controls-main-size/2 - $controlPanel-controls-nav-size*(1-$controlPanel-controls-nav-vert-offset-ratio);
+                    
+                    span::before {
+                        margin-top    : 4px;
+                        margin-bottom : 0;
+                        transform     : rotate(90deg);
+                    }
+                }
+                
+                &.stop {
+                    @include mdc-ripple-base;
+                    @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
+                    @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
+                    @include mdc-elevation(1);
+                    top              : $controlPanel-size * 1.5 - $controlPanel-controls-nav-size/2;
+                    left             : 15px;
+                    width            : $controlPanel-controls-nav-size;
+                    height           : $controlPanel-controls-nav-size;
+                    border-radius    : 50%;
+                    background-color : $bg-dark-primary;
+                    font-size        : $controlPanel-controls-nav-font-size;
+                    overflow         : hidden;
+                    
+                    span::before {
+                        content     : 'stop';
+                        line-height : $controlPanel-controls-nav-size;
+                    }
+                }
+            }
         }
     }
 }

@@ -1,33 +1,36 @@
 <template>
-    <div id="tracksList" :class="{active: isOpen}">
+    <div id="tracksList" :class="{active}">
         <div class="tracksList-hoverZone"></div>
         
         <button key="tracksList-open"
-                v-if="tracksCount && !isOpen"
+                v-if="tracksCount && !active"
                 class="tracksList-open"
+                title="Ouvrir"
                 @click="open"
                 v-ripple></button>
         
         <transition-group name="tracksList-buttons-transition">
             <button key="tracksList-close"
-                    v-if="isOpen"
+                    v-if="active"
                     class="tracksList-close"
+                    title="Fermer"
                     @click="close"
                     v-ripple><span></span></button>
             <div key="tracksList-waypoint-scroller-container"
-                 v-if="waypointScroller && isOpen"
+                 v-if="waypointScroller && active"
                  class="tracksList-waypoint-scroller-container"
                  :style="waypointScrollerContainerStyle">
                 <button class="tracksList-waypoint-scroller"
                         :class="{down: distanceToWaypoint < 0}"
+                        title="Aller à la piste en cours"
                         @click="currentItem = waypointItemIndex"
                         v-ripple><span></span></button>
             </div>
         </transition-group>
         
-        <tracks-list-content :isOpen="isOpen"
-                             :currentItem="currentItem"
-                             @scrollItems="scrollItems"></tracks-list-content>
+        <tracks-list-content :currentItem="currentItem"
+                             @scrollItems="scrollItems"
+                             @trackAction="trackActionHandler"></tracks-list-content>
     </div>
 </template>
 
@@ -43,12 +46,19 @@
         },
         computed  : {
             ...VueX.mapState('playlist', {
-                waypointItemIndex: state => state.currentTrackIndex
+                waypointItemIndex: 'currentTrackIndex'
             }),
-            ...VueX.mapState('playlist/tracksList', ['isOpen']),
+            ...VueX.mapState('playlist/tracksList', {isActive: 'active'}),
             ...VueX.mapGetters('playlist', ['tracksCount']),
             /**
-             * Calcule le nombre d'elements entre le courant et le point de repere.
+             * Determine si la liste des pistes doit etre ouverte ou fermee.
+             * @returns {Boolean}
+             */
+            active() {
+                return this.tracksCount && this.isActive
+            },
+            /**
+             * Calcule le nombre d'elements entre l'element courant et le point de repere.
              * @returns {Number} Le nombre d'element.
              */
             distanceToWaypoint() {
@@ -56,15 +66,14 @@
             },
             /**
              * Calcule l'angle au defilement maximum.
-             * @returns {Number} L'angle en radians.
+             * @returns {Number} L'angle (en radians).
              */
             maxWaypointScrollerAngle() {
                 const tracksListSize                   = this.$store.state.settings.playlist.tracksList.size
                 const tracksListWaypointScrollerHeight = this.$store.state.settings.playlist.tracksList.waypointScroller.height
                 const topDistance                      = this.$store.state.settings.windowSize.height / 2
                 
-                // Verifie si la fenetre a une hauteur suffisante.
-                if ((tracksListSize + tracksListWaypointScrollerHeight) > topDistance) {
+                if ((tracksListSize + tracksListWaypointScrollerHeight) > topDistance) { // Si la fenetre n'est pas suffisament haute.
                     // Calcule l'angle dynamiquement.
                     let angle = Math.PI / 2 - Math.acos(topDistance / (tracksListSize + tracksListWaypointScrollerHeight))
                     // Enleve la hauteur angulaire du chariot comme marge.
@@ -84,8 +93,8 @@
                        Math.abs(this.waypointScrollerAngle) > this.$store.state.settings.playlist.tracksList.close.angularHeight
             },
             /**
-             * Calcule l'angle du chariot de defilement par rapport a la distance etre l'element courant et le point de repere.
-             * @returns {Number} L'angle en radians.
+             * Calcule l'angle du chariot de defilement par rapport a la distance entre l'element courant et le point de repere.
+             * @returns {Number} L'angle (en radians).
              */
             waypointScrollerAngle() {
                 // Calcule le nombre d'element au dessus/en dessous du point de repere.
@@ -118,9 +127,9 @@
                 const that = this
                 
                 this.$nextTick(function () { // Ne met a jour la variable qu'a chaque mise a jour du DOM.
-                    that.currentItem += (event.deltaY ? ((event.deltaY < 0) ? -1 : 1) : 0) // Incremente ou decremente selon le signe.
+                    that.currentItem += Math.sign(event.deltaY) // Incremente ou decremente selon le signe.
                     
-                    // Verifie si la nouvelle valeur ne depasse le nombre possible.
+                    // Verifie que la nouvelle valeur soit possible.
                     if (that.currentItem < 0) {
                         that.currentItem = 0
                     }
@@ -128,6 +137,14 @@
                         that.currentItem = that.tracksCount - 1
                     }
                 })
+            },
+            /**
+             * Transmet l'evenement trackAction.
+             * @param {String} action - L'action a effectuer.
+             * @param {Number} index  - L'index de la piste.
+             */
+            trackActionHandler(action, index) {
+                this.$emit('trackAction', action, index)
             }
         },
         components: {

@@ -1,12 +1,25 @@
 <template>
-    <div class="tracksList-item" :style="itemStyle">
-        <div class="tracksList-item-menu" :class="{active: menuIsOpen}">
-            <button @click.stop="menuIsOpen = !menuIsOpen" v-ripple><span></span></button>
-            <div class="tracksList-item-menu-content">
-            
-            </div>
-        </div>
-        <div class="tracksList-item-content">{{ data.title.value }}</div>
+    <div class="tracksList-item"
+         :style="itemStyle"
+         @dblclick="$emit('trackAction', 'play', position)"
+         @contextmenu.prevent="active = !active">
+        <button :class="{active}" title="Ouvrir" @click.stop="active = !active" v-ripple><span></span></button>
+        <ul v-if="active" class="tracksList-item-menu">
+            <li>
+                <button class="tracksList-item-menu-action play" title="Lire" @click="trackAction('play')" v-ripple>
+                    <span></span>
+                </button>
+            </li>
+            <li>
+                <button class="tracksList-item-menu-action remove"
+                        title="Supprimer"
+                        @click="trackAction('remove')"
+                        v-ripple>
+                    <span></span>
+                </button>
+            </li>
+        </ul>
+        <div v-if="!active" class="tracksList-item-content">{{ data.title.value }}</div>
     </div>
 </template>
 
@@ -15,7 +28,7 @@
         data() {
             return {
                 angularHeight: this.$store.state.settings.playlist.tracksList.item.angularHeight,
-                menuIsOpen   : false
+                active       : false
             }
         },
         computed: {
@@ -25,6 +38,16 @@
              */
             itemStyle() {
                 return `transform: translateY(-50%) rotate(${this.position * this.angularHeight}rad);`
+            }
+        },
+        methods : {
+            /**
+             * Lance un evenement pour executer une action sur une piste.
+             * @param {String} action - L'action a effectuer.
+             */
+            trackAction(action) {
+                this.active = false
+                this.$emit('trackAction', action, this.position)
             }
         },
         props   : {

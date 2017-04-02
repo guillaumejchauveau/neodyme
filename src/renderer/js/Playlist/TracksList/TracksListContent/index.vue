@@ -1,12 +1,13 @@
 <template>
     <div class="tracksList-content">
         <transition name="tracksList-items-transition">
-            <div v-if="isOpen" class="tracksList-items" @mousewheel="dispatchScrollItemsEvent">
+            <div v-if="active" class="tracksList-items" @mousewheel="scrollItemsHandler">
                 <div v-if="waypointItemIndex !== -1" class="tracksList-waypoint" :style="waypointItemStyle"></div>
                 <tracks-list-item v-for="(track, index) in this.$store.state.playlist.tracks"
                                   :key="index"
                                   :data="track.dcs.criteria"
-                                  :position="computeItemPosition(index)"></tracks-list-item>
+                                  :position="computeItemPosition(index)"
+                                  @trackAction="trackActionHandler"></tracks-list-item>
             </div>
         </transition>
     </div>
@@ -30,8 +31,17 @@
         },
         computed  : {
             ...VueX.mapState('playlist', {
-                waypointItemIndex: state => state.currentTrackIndex
+                waypointItemIndex: 'currentTrackIndex'
             }),
+            ...VueX.mapState('playlist/tracksList', {isActive: 'active'}),
+            ...VueX.mapGetters('playlist', ['tracksCount']),
+            /**
+             * Determine si la liste des pistes doit etre ouverte ou fermee.
+             * @returns {Boolean}
+             */
+            active() {
+                return this.tracksCount && this.isActive
+            },
             /**
              * Compile le style dynamique du point de repere.
              * @returns {String} Le contenu de l'attribut style.
@@ -43,33 +53,38 @@
         methods   : {
             /**
              * Calcule la position d'un element par rapport a l'element courant.
-             * @param {number} index - La position absolue.
-             * @returns {number} - La position relative.
+             * @param {Number} index - La position absolue.
+             * @returns {Number} - La position relative.
              */
             computeItemPosition(index) {
                 let distance = index - this.currentItem
                 if (Math.abs(distance) > this.maxItemCount) {
-                    distance = (distance ? ((distance < 0) ? -1 : 1) : 0) * (this.maxItemCount + 1)
+                    distance = Math.sign(distance) * (this.maxItemCount + 1)
                 }
                 
                 return distance
             },
             /**
-             * Informe le composant principal d'un defilement.
+             * Transmet l'evenement scrollItems.
              * @param {MouseEvent} event - L'evenement capture.
              */
-            dispatchScrollItemsEvent(event) {
+            scrollItemsHandler(event) {
                 this.$emit('scrollItems', event)
+            },
+            /**
+             * Transmet l'evenement trackAction en convertissant la position relative en index de piste.
+             * @param {String} action           - L'action a effectuer.
+             * @param {Number} relativePosition - La position relative a l'element courant.
+             */
+            trackActionHandler(action, relativePosition) {
+                const index = this.currentItem + relativePosition
+                this.$emit('trackAction', action, index)
             }
         },
         components: {
             TracksListItem
         },
         props     : {
-            isOpen     : {
-                type    : Boolean,
-                required: true
-            },
             currentItem: {
                 type    : Number,
                 required: true

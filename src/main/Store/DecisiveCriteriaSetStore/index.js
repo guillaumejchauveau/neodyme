@@ -27,7 +27,7 @@ class DecisiveCriteriaSetStore {
     /**
      * Ajoute un ensemble de criteres determinant au stockeur.
      * @param {DecisiveCriteriaSet} DCS - Un ensemble de criteres determinant.
-     * @return {number} L'indice de l'ensemble de criteres determinant enregistre.
+     * @return {Number} L'indice de l'ensemble de criteres determinant enregistre.
      */
     add(DCS) {
         if (!(DCS instanceof DecisiveCriteriaSet)) {

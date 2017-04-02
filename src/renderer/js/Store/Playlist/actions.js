@@ -31,18 +31,18 @@ export default {
      * @param {(CriteriaSet|Array<CriteriaSet>|{data: (CriteriaSet|Array<CriteriaSet>), index: Number})} payload
      */
     addCriteriaSets(context, payload) {
+        // Reformatage des donnees a traiter.
         let criteriaSets = payload
         let index        = -1
-        
         if (payload.data) {
             criteriaSets = payload.data
             index        = payload.index
         }
-        
         if (!(criteriaSets instanceof Array)) {
             criteriaSets = [criteriaSets]
         }
         
+        // Traitement.
         criteriaSets.forEach(criteriaSet => {
             if (!(criteriaSet instanceof CriteriaSet)) {
                 throw 'Invalid criteriaSet'
@@ -75,14 +75,15 @@ export default {
      * @param {(DecisiveCriteriaSet|{data: DecisiveCriteriaSet, index: Number})} payload
      */
     addDecisiveCriteriaSet(context, payload) {
+        // Reformatage des donnees a traiter.
         let dcs   = payload
         let index = -1
-        
         if (payload.data) {
             dcs   = payload.data
             index = payload.index
         }
         
+        // Traitement.
         context.commit('ADD_TRACK', {data: new Track(dcs), index})
     }
 }
