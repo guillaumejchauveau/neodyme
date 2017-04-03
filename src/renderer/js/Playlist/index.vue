@@ -110,8 +110,10 @@
              * Efface la liste de lecture.
              */
             clear() {
-                this.stop()
-                this.$store.commit('playlist/CLEAR_TRACKS')
+                if (!this.playerIs('LOADING')) {
+                    this.stop()
+                    this.$store.commit('playlist/CLEAR_TRACKS')
+                }
             },
             /**
              * Lance la lecture de la piste courante.
@@ -122,15 +124,18 @@
                 const currentTrack = this.$store.getters['playlist/currentTrack']
                 if (currentTrack) {
                     this.$store.commit('playlist/player/SET_STATUS', 'LOADING')
-                    currentTrack.loadDataBuffer()
-                                .then(() => {
-                                    this.player
-                                        .setAudioBuffer(currentTrack.dataBuffer)
-                                        .then(() => {
-                                            this.player.start(position)
-                                            this.player.once('ended', this.playerEndedHandler)
-                                        })
-                                })
+                    
+                    this.$nextTick(() => { // Attend la prochaine actualisation du DOM pour commencer.
+                        currentTrack.loadDataBuffer()
+                                    .then(() => {
+                                        this.player
+                                            .setAudioBuffer(currentTrack.dataBuffer)
+                                            .then(() => {
+                                                this.player.start(position)
+                                                this.player.once('ended', this.playerEndedHandler)
+                                            })
+                                    })
+                    })
                 }
             },
             /**
@@ -150,11 +155,13 @@
                         this.play(index)
                         break
                     case 'remove':
-                        if (index === this.currentTrackIndex) {
-                            this.stop()
+                        if (!this.playerIs('LOADING')) {
+                            if (index === this.currentTrackIndex) {
+                                this.stop()
+                            }
+                            
+                            this.$store.commit('playlist/REMOVE_TRACK', index)
                         }
-                        
-                        this.$store.commit('playlist/REMOVE_TRACK', index)
                 }
             }
         },

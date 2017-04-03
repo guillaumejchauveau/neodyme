@@ -12,10 +12,7 @@ import EventEmitter from 'events'
  * @property {AudioContext}             audioContext - Contexte audio.
  * @property {AudioBuffer}              buffer       - Contient les donnees audio.
  * @property {AudioScheduledSourceNode} audioSource  - Source creee pour lire les donnees audio.
- * @property {Number}                   duration     - La duree des donnees audio (en secondes).
  * @property {Number}                   startTime    - Le temps du contexte audio au demarrage de la lecture (en secondes).
- * @property {Number}                   position     - La position de lecture dans les donnees audio (en secondes).
- * @property {Boolean}                  playing      - Indique si la lecture est en cours.
  */
 class Player extends EventEmitter {
     /**
@@ -52,7 +49,8 @@ class Player extends EventEmitter {
      */
     clearBuffer() {
         this.buffer = null
-        this.$store.commit('playlist/player/SET_DURATION', null)
+        this.$store.commit('playlist/player/SET_DURATION', 0)
+        this.$store.commit('playlist/player/SET_POSITION', 0)
     }
     
     /**

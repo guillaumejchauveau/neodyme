@@ -6,15 +6,18 @@
         <button :class="{active}" title="Ouvrir" @click.stop="active = !active" v-ripple><span></span></button>
         <ul v-if="active" class="tracksList-item-menu">
             <li>
-                <button class="tracksList-item-menu-action play" title="Lire" @click="trackAction('play')" v-ripple>
+                <button class="tracksList-item-menu-action play"
+                        title="Lire"
+                        :disabled="playerIs('LOADING')"
+                        @click="trackAction('play')">
                     <span></span>
                 </button>
             </li>
             <li>
                 <button class="tracksList-item-menu-action remove"
                         title="Supprimer"
-                        @click="trackAction('remove')"
-                        v-ripple>
+                        :disabled="playerIs('LOADING')"
+                        @click="trackAction('remove')">
                     <span></span>
                 </button>
             </li>
@@ -24,6 +27,8 @@
 </template>
 
 <script>
+    import VueX from 'vuex'
+    
     export default {
         data() {
             return {
@@ -32,6 +37,7 @@
             }
         },
         computed: {
+            ...VueX.mapGetters('playlist/player', ['playerIs']),
             /**
              * Compile le style dynamique de l'element.
              * @returns {String} Le contenu de l'attribut style.

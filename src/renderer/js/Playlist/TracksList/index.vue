@@ -28,8 +28,8 @@
             </div>
         </transition-group>
         
-        <tracks-list-content :currentItem="currentItem"
-                             @scrollItems="scrollItems"
+        <tracks-list-content :currentItem="computedCurrentItem"
+                             @scrollItems="scrollItemsHandler"
                              @trackAction="trackActionHandler"></tracks-list-content>
     </div>
 </template>
@@ -41,7 +41,8 @@
     export default {
         data() {
             return {
-                currentItem: 0
+                currentItem         : 0,
+                waypointItemTracking: false
             }
         },
         computed  : {
@@ -58,11 +59,25 @@
                 return this.tracksCount && this.isActive
             },
             /**
+             * Determine la valeur de l'element courant en prenant en compte l'option de suivi du point de repere.
+             * @returns {Number}
+             */
+            computedCurrentItem() {
+                if (this.currentItem === this.waypointItemIndex) {
+                    this.waypointItemTracking = true
+                }
+                if (this.waypointItemIndex === -1) {
+                    this.waypointItemTracking = false
+                }
+                
+                return this.currentItem = this.waypointItemTracking ? this.waypointItemIndex : this.currentItem
+            },
+            /**
              * Calcule le nombre d'elements entre l'element courant et le point de repere.
              * @returns {Number} Le nombre d'element.
              */
             distanceToWaypoint() {
-                return this.currentItem - this.waypointItemIndex
+                return this.computedCurrentItem - this.waypointItemIndex
             },
             /**
              * Calcule l'angle au defilement maximum.
@@ -123,18 +138,21 @@
              * Change l'element courant au defilement.
              * @param {MouseEvent} event - L'evenement capture.
              */
-            scrollItems(event) {
-                const that = this
-                
-                this.$nextTick(function () { // Ne met a jour la variable qu'a chaque mise a jour du DOM.
-                    that.currentItem += Math.sign(event.deltaY) // Incremente ou decremente selon le signe.
+            scrollItemsHandler(event) {
+                this.$nextTick(() => { // Attend la prochaine actualisation du DOM pour commencer.
+                    if (this.waypointItemTracking) {
+                        this.currentItem          = this.computedCurrentItem
+                        this.waypointItemTracking = false
+                    }
+    
+                    this.currentItem += Math.sign(event.deltaY) // Incremente ou decremente selon le signe.
                     
                     // Verifie que la nouvelle valeur soit possible.
-                    if (that.currentItem < 0) {
-                        that.currentItem = 0
+                    if (this.currentItem < 0) {
+                        this.currentItem = 0
                     }
-                    if (that.currentItem > that.tracksCount - 1) {
-                        that.currentItem = that.tracksCount - 1
+                    if (this.currentItem > this.tracksCount - 1) {
+                        this.currentItem = this.tracksCount - 1
                     }
                 })
             },

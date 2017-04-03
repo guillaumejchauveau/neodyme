@@ -7,7 +7,7 @@
 export default {
     namespaced: true,
     state     : {
-        duration   : null,
+        duration   : 0,
         position   : 0,
         status     : 0,
         statusTypes: {

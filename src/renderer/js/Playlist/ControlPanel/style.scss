@@ -52,10 +52,27 @@
                 }
             }
             
-            & > .mdc-simple-menu {
+            .mdc-simple-menu {
                 margin-left : 5px;
                 color       : $text-color;
                 z-index     : 15;
+                
+                .mdc-list-item {
+                    cursor : pointer;
+                    
+                    &::before {
+                        cursor : inherit;
+                    }
+                    
+                    &[disabled] {
+                        color  : $text-light-color-disabled;
+                        cursor : default;
+                        
+                        &::before {
+                            display : none;
+                        }
+                    }
+                }
             }
         }
         
@@ -66,11 +83,14 @@
                 position : absolute;
                 cursor   : pointer;
                 
+                &[disabled] {
+                    cursor : default;
+                }
+                
                 span {
                     display    : inline-block;
                     width      : 100%;
                     height     : 100%;
-                    color      : $text-light-color;
                     text-align : center;
                     font-size  : inherit;
                     cursor     : inherit;
@@ -83,16 +103,19 @@
                 }
                 
                 &.main {
-                    @include mdc-ripple-base;
-                    @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
-                    @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
-                    @include mdc-elevation(2);
+                    &:not([disabled]) {
+                        @include mdc-ripple-base;
+                        @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
+                        @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
+                        @include mdc-elevation(2);
+                    }
                     top              : $controlPanel-size - $controlPanel-controls-main-size/2;
                     left             : $controlPanel-size/2 - ($controlPanel-controls-main-size/2) * $controlPanel-controls-main-horiz-offset-ratio;
                     width            : $controlPanel-controls-main-size;
                     height           : $controlPanel-controls-main-size;
                     border-radius    : 50%;
                     background-color : $bg-dark-primary;
+                    color            : $text-light-color;
                     font-size        : $controlPanel-controls-main-font-size;
                     overflow         : hidden;
                     z-index          : 5;
@@ -105,19 +128,27 @@
                     &.pause span::before {
                         content : "pause";
                     }
+                    
+                    &[disabled] {
+                        background-color : $bg-dark-disabled;
+                        color            : $text-light-color-disabled;
+                    }
                 }
                 
                 &.previous, &.next {
-                    @include mdc-ripple-base;
-                    @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
-                    @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
-                    @include mdc-elevation(1);
+                    &:not([disabled]) {
+                        @include mdc-ripple-base;
+                        @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
+                        @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
+                        @include mdc-elevation(1);
+                    }
                     top              : $controlPanel-size - $controlPanel-controls-main-size/2 - $controlPanel-controls-nav-size*$controlPanel-controls-nav-vert-offset-ratio;
                     left             : $controlPanel-size/2 - ($controlPanel-controls-nav-size/2) * $controlPanel-controls-main-horiz-offset-ratio;
                     width            : $controlPanel-controls-nav-size;
                     height           : $controlPanel-controls-nav-size;
                     border-radius    : 50%;
                     background-color : $bg-dark-primary;
+                    color            : $text-light-color;
                     font-size        : $controlPanel-controls-nav-font-size;
                     overflow         : hidden;
                     
@@ -126,6 +157,11 @@
                         margin-top  : -4px;
                         line-height : $controlPanel-controls-nav-size;
                         transform   : rotate(-90deg);
+                    }
+                    
+                    &[disabled] {
+                        background-color : $bg-dark-disabled;
+                        color            : $text-light-color-disabled;
                     }
                 }
                 
@@ -140,22 +176,30 @@
                 }
                 
                 &.stop {
-                    @include mdc-ripple-base;
-                    @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
-                    @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
-                    @include mdc-elevation(1);
+                    &:not([disabled]) {
+                        @include mdc-ripple-base;
+                        @include mdc-ripple-bg((pseudo: "::before", base-color: $text-light-color));
+                        @include mdc-ripple-fg((pseudo: "::after", base-color: $text-light-color));
+                        @include mdc-elevation(1);
+                    }
                     top              : $controlPanel-size * 1.5 - $controlPanel-controls-nav-size/2;
                     left             : 15px;
                     width            : $controlPanel-controls-nav-size;
                     height           : $controlPanel-controls-nav-size;
                     border-radius    : 50%;
                     background-color : $bg-dark-primary;
+                    color            : $text-light-color;
                     font-size        : $controlPanel-controls-nav-font-size;
                     overflow         : hidden;
                     
                     span::before {
                         content     : 'stop';
                         line-height : $controlPanel-controls-nav-size;
+                    }
+                    
+                    &[disabled] {
+                        background-color : $bg-dark-disabled;
+                        color            : $text-light-color-disabled;
                     }
                 }
             }
