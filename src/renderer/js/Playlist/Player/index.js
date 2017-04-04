@@ -62,16 +62,20 @@ class Player extends EventEmitter {
         this.audioSource.connect(this.audioContext.destination)
         
         this.audioSource.onended = event => { // Quand la source s'arrete de lire (par arret manuel ou automatique).
+            this.$store.commit('playlist/player/SET_STATUS', 'LOADING')
             this.updatePosition(this)
             clearInterval(this.updatePosition) // Desactive la mise a jour automatique de la position.
             
             if (this.$store.state.playlist.player.position >= this.$store.state.playlist.player.duration) { // Si la source s'est arretee car au bout des donnees.
                 this.$store.commit('playlist/player/SET_POSITION', this.$store.state.playlist.player.duration)
-                this.emit('ended') // Emet un evenement quand les donnees ont ete entierement lues.
+                this.emit('endReached') // Emet un evenement quand les donnees ont ete entierement lues.
+            } else {
+                this.emit('stopped')
             }
             
-            this.$store.commit('playlist/player/SET_STATUS', 'READY')
+            this.audioSource.disconnect()
             this.audioSource = null // Detruit la source.
+            this.$store.commit('playlist/player/SET_STATUS', 'READY')
         }
     }
     
@@ -87,19 +91,26 @@ class Player extends EventEmitter {
         this.$store.commit('playlist/player/SET_STATUS', 'PLAYING')
         
         this.updatePosition(this)
-        const that = this
-        setInterval(function () {
-            that.updatePosition(that)
+        setInterval(() => {
+            this.updatePosition(this)
         }, 1000)
     }
     
     /**
      * Arrete la lecture des donnees audio.
+     * @returns {Promise}
      */
     stop() {
-        if (this.$store.getters['playlist/player/playerIs']('PLAYING')) {
-            this.audioSource.stop()
-        }
+        return new Promise((resolve, reject) => {
+            if (this.$store.getters['playlist/player/playerIs']('PLAYING')) {
+                this.audioSource.stop()
+            } else {
+                resolve()
+                return
+            }
+            
+            this.once('stopped', resolve)
+        })
     }
     
     /**

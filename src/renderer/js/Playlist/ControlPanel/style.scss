@@ -54,10 +54,10 @@
             
             .mdc-simple-menu {
                 margin-left : 5px;
-                color       : $text-color;
                 z-index     : 15;
                 
                 .mdc-list-item {
+                    color  : $text-color;
                     cursor : pointer;
                     
                     &::before {
@@ -65,7 +65,7 @@
                     }
                     
                     &[disabled] {
-                        color  : $text-light-color-disabled;
+                        color  : $text-color-disabled;
                         cursor : default;
                         
                         &::before {
@@ -110,7 +110,7 @@
                         @include mdc-elevation(2);
                     }
                     top              : $controlPanel-size - $controlPanel-controls-main-size/2;
-                    left             : $controlPanel-size/2 - ($controlPanel-controls-main-size/2) * $controlPanel-controls-main-horiz-offset-ratio;
+                    left             : $controlPanel-size/2 - ($controlPanel-controls-main-size/2) + $controlPanel-controls-main-horiz-offset;
                     width            : $controlPanel-controls-main-size;
                     height           : $controlPanel-controls-main-size;
                     border-radius    : 50%;
@@ -143,7 +143,7 @@
                         @include mdc-elevation(1);
                     }
                     top              : $controlPanel-size - $controlPanel-controls-main-size/2 - $controlPanel-controls-nav-size*$controlPanel-controls-nav-vert-offset-ratio;
-                    left             : $controlPanel-size/2 - ($controlPanel-controls-nav-size/2) * $controlPanel-controls-main-horiz-offset-ratio;
+                    left             : $controlPanel-size/2 - ($controlPanel-controls-nav-size/2) + $controlPanel-controls-main-horiz-offset;
                     width            : $controlPanel-controls-nav-size;
                     height           : $controlPanel-controls-nav-size;
                     border-radius    : 50%;

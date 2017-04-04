@@ -31,8 +31,7 @@
                     role="menuitem"
                     title="Effacer la liste de lecture"
                     :disabled="!tracksCount || playerIs('LOADING')"
-                    @click="$emit('clear')">Effacer
-                </li>
+                    @click="$emit('clear')">Effacer</li>
             </mdc-menu>
             <div class="controlPanel-duration">{{ formattedTime(duration) }}</div>
         </div>
@@ -53,7 +52,7 @@
             /**
              * Formate un temps en secondes en une chaine de caracteres minutes et secondes.
              * @param {Number} seconds - Le temps a formater (en secondes).
-             * @returns {String} La chaine fomatee.
+             * @returns {String} La chaine formatee.
              */
             formattedTime() {
                 return seconds => {

@@ -14,7 +14,7 @@
              * Fonction declenchee a chaque redimensionnement de la fenetre.
              */
             onWindowResizeHandler() {
-                this.$nextTick(function () {
+                this.$nextTick(() => {
                     this.$store.commit('settings/UPDATE_WINDOW_SIZE')
                 })
             }
@@ -24,7 +24,7 @@
             Playlist
         },
         mounted() {
-            this.$nextTick(function () {
+            this.$nextTick(() => {
                 window.addEventListener('resize', this.onWindowResizeHandler)
                 this.$store.commit('settings/UPDATE_WINDOW_SIZE')
             })

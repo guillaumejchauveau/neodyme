@@ -144,7 +144,7 @@
                         this.currentItem          = this.computedCurrentItem
                         this.waypointItemTracking = false
                     }
-    
+                    
                     this.currentItem += Math.sign(event.deltaY) // Incremente ou decremente selon le signe.
                     
                     // Verifie que la nouvelle valeur soit possible.
