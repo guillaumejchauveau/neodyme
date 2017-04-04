@@ -52,10 +52,12 @@ export default {
         ADD_TRACK(state, payload) {
             // Reformatage des donnees a traiter.
             let track = payload
-            let index = -1
+            let index = state.tracks.length
             if (payload.data) {
                 track = payload.data
-                index = payload.index
+                if (payload.index) {
+                    index = payload.index
+                }
             }
             
             // Traitement.

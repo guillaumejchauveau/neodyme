@@ -33,7 +33,7 @@ export default {
     addCriteriaSets(context, payload) {
         // Reformatage des donnees a traiter.
         let criteriaSets = payload
-        let index        = -1
+        let index        = null
         if (payload.data) {
             criteriaSets = payload.data
             index        = payload.index
@@ -77,7 +77,7 @@ export default {
     addDecisiveCriteriaSet(context, payload) {
         // Reformatage des donnees a traiter.
         let dcs   = payload
-        let index = -1
+        let index = null
         if (payload.data) {
             dcs   = payload.data
             index = payload.index

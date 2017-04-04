@@ -35,12 +35,16 @@ class Player extends EventEmitter {
     setAudioBuffer(arrayBuffer) {
         return new Promise((resolve, reject) => {
             this.$store.commit('playlist/player/SET_STATUS', 'LOADING')
-            this.audioContext.decodeAudioData(arrayBuffer, audioBuffer => {
-                this.buffer = audioBuffer
-                this.$store.commit('playlist/player/SET_DURATION', Math.round(audioBuffer.duration))
-                this.$store.commit('playlist/player/SET_STATUS', 'READY')
-                resolve()
-            })
+            try {
+                this.audioContext.decodeAudioData(arrayBuffer, audioBuffer => {
+                    this.buffer = audioBuffer
+                    this.$store.commit('playlist/player/SET_DURATION', Math.round(audioBuffer.duration))
+                    this.$store.commit('playlist/player/SET_STATUS', 'READY')
+                    resolve()
+                })
+            } catch (exception) {
+                reject(exception)
+            }
         })
     }
     
@@ -49,8 +53,8 @@ class Player extends EventEmitter {
      */
     clearBuffer() {
         this.buffer = null
-        this.$store.commit('playlist/player/SET_DURATION', 0)
         this.$store.commit('playlist/player/SET_POSITION', 0)
+        this.$store.commit('playlist/player/SET_DURATION', 0)
     }
     
     /**
@@ -66,16 +70,18 @@ class Player extends EventEmitter {
             this.updatePosition(this)
             clearInterval(this.updatePosition) // Desactive la mise a jour automatique de la position.
             
-            if (this.$store.state.playlist.player.position >= this.$store.state.playlist.player.duration) { // Si la source s'est arretee car au bout des donnees.
+            this.audioSource.disconnect()
+            this.audioSource = null // Detruit la source.
+            
+            this.$store.commit('playlist/player/SET_STATUS', 'READY')
+            
+            // Si la source s'est arretee car au bout des donnees (moins 1 secondes pour resoudre des problemes lies aux arrondis).
+            if (this.$store.state.playlist.player.position >= this.$store.state.playlist.player.duration - 1) {
                 this.$store.commit('playlist/player/SET_POSITION', this.$store.state.playlist.player.duration)
                 this.emit('endReached') // Emet un evenement quand les donnees ont ete entierement lues.
             } else {
                 this.emit('stopped')
             }
-            
-            this.audioSource.disconnect()
-            this.audioSource = null // Detruit la source.
-            this.$store.commit('playlist/player/SET_STATUS', 'READY')
         }
     }
     
@@ -103,7 +109,11 @@ class Player extends EventEmitter {
     stop() {
         return new Promise((resolve, reject) => {
             if (this.$store.getters['playlist/player/playerIs']('PLAYING')) {
-                this.audioSource.stop()
+                try {
+                    this.audioSource.stop()
+                } catch (exception) {
+                    reject(exception)
+                }
             } else {
                 resolve()
                 return

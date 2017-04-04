@@ -71,7 +71,7 @@
                             })
                             .catch(reject)
                     } else {
-                        reject()
+                        reject('Player is loading')
                     }
                 })
             },
@@ -86,11 +86,12 @@
                             .stop()
                             .then(() => {
                                 this.savedCurrentTrackPosition = this.currentPosition
+                                
                                 resolve()
                             })
                             .catch(reject)
                     } else {
-                        reject()
+                        reject('Player is loading')
                     }
                 })
             },
@@ -107,11 +108,12 @@
                                 this.player.clearBuffer()
                                 this.savedCurrentTrackPosition = 0
                                 this.setCurrentTrack(-1)
+                                
                                 resolve()
                             })
                             .catch(reject)
                     } else {
-                        reject()
+                        reject('Player is loading')
                     }
                 })
             },
@@ -122,7 +124,8 @@
             previous() {
                 return new Promise((resolve, reject) => {
                     if (!this.playerIs('LOADING')) {
-                        this.stop()
+                        this.player
+                            .stop()
                             .then(() => {
                                 this.setCurrentTrack(this.currentTrackIndex - 1)
                                 this.playCurrentTrack()
@@ -131,7 +134,7 @@
                             })
                             .catch(reject)
                     } else {
-                        reject()
+                        reject('Player is loading')
                     }
                 })
             },
@@ -142,7 +145,8 @@
             next() {
                 return new Promise((resolve, reject) => {
                     if (!this.playerIs('LOADING')) {
-                        this.stop()
+                        this.player
+                            .stop()
                             .then(() => {
                                 this.setCurrentTrack(this.currentTrackIndex + 1)
                                 this.playCurrentTrack()
@@ -151,7 +155,7 @@
                             })
                             .catch(reject)
                     } else {
-                        reject()
+                        reject('Player is loading')
                     }
                 })
             },
@@ -169,7 +173,7 @@
                             })
                             .catch(reject)
                     } else {
-                        reject()
+                        reject('Player is loading')
                     }
                 })
             },
@@ -180,43 +184,55 @@
              */
             playCurrentTrack(position = 0) {
                 return new Promise((resolve, reject) => {
-                    this.player
-                        .stop()
-                        .then(() => {
-                            const currentTrack = this.$store.getters['playlist/currentTrack']
-                        
-                            if (currentTrack) {
-                                this.$store.commit('playlist/player/SET_STATUS', 'LOADING')
+                    if (!this.playerIs('LOADING')) {
+                        this.player
+                            .stop()
+                            .then(() => {
+                                const currentTrack = this.$store.getters['playlist/currentTrack']
                             
-                                this.$nextTick(() => {
-                                    currentTrack.loadDataBuffer()
-                                                .then(() => {
-                                                    this.player
-                                                        .setAudioBuffer(currentTrack.dataBuffer)
-                                                        .then(() => {
-                                                            this.player.start(position)
-                                                            resolve()
-                                        
-                                                            this.player.once('endReached', this.playerEndReachedHandler)
-                                                        })
-                                                        .catch(reject)
-                                                })
-                                                .catch(reject)
-                                })
-                            } else {
-                                reject()
-                            }
-                        })
-                        .catch(reject)
+                                if (currentTrack) {
+                                    this.$store.commit('playlist/player/SET_STATUS', 'LOADING')
+                                
+                                    this.$nextTick(() => {
+                                        currentTrack.loadDataBuffer() // Charge les donnees brutes.
+                                                    .then(() => {
+                                                        this.player
+                                                            .setAudioBuffer(currentTrack.dataBuffer) // Convertit les donnees brutes.
+                                                            .then(() => {
+                                                                this.player.start(position)
+                                                                this.player.removeListener('endReached',
+                                                                                           this.playerEndReachedHandler)
+                                                                this.player.once('endReached',
+                                                                                 this.playerEndReachedHandler)
+                                                                
+                                                                resolve()
+                                                            })
+                                                            .catch(reject)
+                                                    })
+                                                    .catch(reject)
+                                    })
+                                } else {
+                                    reject('No current track')
+                                }
+                            })
+                            .catch(reject)
+                    } else {
+                        reject('Player is loading')
+                    }
                 })
             },
             /**
              * Determine la piste a lire lorsque la lecture est terminee.
              */
             playerEndReachedHandler() {
-                this.$nextTick(() => {
-                    this.next()
-                })
+                if (!this.playerIs('LOADING')) {
+                    this.$nextTick(() => {
+                        this.next()
+                            .catch(() => {
+                                this.stop()
+                            })
+                    })
+                }
             },
             /**
              * Lance l'action de l'evenement trackAction.
@@ -241,11 +257,16 @@
                                         .then(() => {
                                             this.$store.commit('playlist/REMOVE_TRACK', index)
                                         })
-                                    
-                                    return
+                                } else if (index < this.currentTrackIndex) {
+                                    this.pause()
+                                        .then(() => {
+                                            this.$store.commit('playlist/REMOVE_TRACK', index)
+                                            this.setCurrentTrack(this.currentTrackIndex - 1)
+                                            this.play()
+                                        })
+                                } else {
+                                    this.$store.commit('playlist/REMOVE_TRACK', index)
                                 }
-                                
-                                this.$store.commit('playlist/REMOVE_TRACK', index)
                             }
                     }
                 })
