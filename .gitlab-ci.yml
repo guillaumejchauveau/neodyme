@@ -3,6 +3,7 @@ stages:
   - test
   - review
   - pack
+  - dmz
 
 
 ####################
@@ -82,32 +83,32 @@ test:
   dependencies:
     - test # Retrieves coverage reports.
 # SonarQube GitLab integration.
-sonarqube:preview:
-  <<: *sonarqube-job
-  except:
-    - master
-    - dmz
-  script: >
-    sonar-scanner
-    -D sonar.analysis.mode=preview
-    -D sonar.host.url=$SONAR_HOST
-    -D sonar.projectKey=$SONAR_PROJECT_KEY
-    -D sonar.branch=$CI_COMMIT_REF_NAME
-    -D sonar.login=$SONAR_TOKEN
-    -D sonar.gitlab.project_id=$CI_PROJECT_PATH
-    -D sonar.gitlab.commit_sha=$CI_COMMIT_SHA
-    -D sonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
+#sonarqube:preview:
+#  <<: *sonarqube-job
+#  except:
+#    - master
+#    - dmz
+#  script: >
+#    sonar-scanner
+#    -D sonar.analysis.mode=preview
+#    -D sonar.host.url=$SONAR_HOST
+#    -D sonar.projectKey=$SONAR_PROJECT_KEY
+#    -D sonar.branch=$CI_COMMIT_REF_NAME
+#    -D sonar.login=$SONAR_TOKEN
+#    -D sonar.gitlab.project_id=$CI_PROJECT_PATH
+#    -D sonar.gitlab.commit_sha=$CI_COMMIT_SHA
+#    -D sonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
 # SonarQube analysis.
-sonarqube:
-  <<: *sonarqube-job
-  except:
-    - dmz
-  script: >
-    sonar-scanner
-    -D sonar.host.url=$SONAR_HOST
-    -D sonar.projectKey=$SONAR_PROJECT_KEY
-    -D sonar.branch=$CI_COMMIT_REF_NAME
-    -D sonar.login=$SONAR_TOKEN
+#sonarqube:
+#  <<: *sonarqube-job
+#  except:
+#    - dmz
+#  script: >
+#    sonar-scanner
+#    -D sonar.host.url=$SONAR_HOST
+#    -D sonar.projectKey=$SONAR_PROJECT_KEY
+#    -D sonar.branch=$CI_COMMIT_REF_NAME
+#    -D sonar.login=$SONAR_TOKEN
 
 # Code Climate
 ##############
