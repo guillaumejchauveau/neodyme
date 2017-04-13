@@ -1,20 +1,20 @@
-@import "loader";
+@import 'loader';
 
-*, *::before, *::after {
-    box-sizing : border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
-    font-size : $font-size-root;
+  font-size: $font-size-root;
 }
 
 body {
-    margin      : 0;
-    font-family : $font-family-base;
-    font-size   : $font-size-base;
-    font-weight : $font-weight-base;
-    line-height : $line-height-base;
-    color       : $text-color;
+  margin:      0;
+  color:       $text-color;
+  font-family: $font-family-base;
+  font-size:   $font-size-base;
+  font-weight: $font-weight-base;
+  line-height: $line-height-base;
 }
-
-@import "@material/ripple/keyframes";

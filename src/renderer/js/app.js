@@ -4,17 +4,19 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+import Vue from 'vue'
+import VueX from 'vuex'
+
+import Ripple from './MDC/Ripple'
+
 require('../css/app.scss')
 require('../css/fonts.scss')
 
-import Vue from 'vue'
-import VueX from 'vuex'
-import RippleDirective from './directives/Ripple'
-
 Vue.use(VueX)
-Vue.directive('ripple', RippleDirective)
+Vue.directive('ripple', Ripple)
 
+// eslint-disable-next-line
 const vm = new Vue({
-                       el    : '#app',
-                       render: h => h(require('./App'))
-                   })
+  el: '#app',
+  render: h => h(require('./App'))
+})
