@@ -31,7 +31,7 @@ class CriteriaSet {
    */
   add (criterion) {
     if (!(criterion instanceof Criterion)) {
-      throw 'Unrecognized criterion'
+      throw TypeError('Unrecognized criterion')
     }
 
     this.criteria[criterion.type] = criterion
@@ -50,10 +50,10 @@ class CriteriaSet {
    * @returns {Promise} Une Promise qui resout un {Array}.
    */
   resolveDecisiveCriteriaSetFootprints () {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       ipcRenderer.send('REQ:CriteriaSet.resolveDecisiveCriteriaSets', this)
 
-      ipcRenderer.on('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
+      ipcRenderer.once('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
         resolve(decisiveCriteriaSetFootprints)
       })
     })
@@ -68,13 +68,13 @@ class CriteriaSet {
    */
   resolveCriteriaByType (criterionType) {
     if (!Criterion.checkType(criterionType)) {
-      throw `Unrecognized criterion type: ${type}`
+      throw Error(`Unrecognized criterion type: ${criterionType}`)
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       ipcRenderer.send('REQ:CriteriaSet.resolveCriteriaByType', this, criterionType)
 
-      ipcRenderer.on('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
+      ipcRenderer.once('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
         const criteriaSets = []
 
         criteriaSetFootprints.forEach(criteriaSetFootprint => {
@@ -88,15 +88,17 @@ class CriteriaSet {
 
   /**
    * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
-   * @param criteriaSetFootprint
+   * @param {Object} criteriaSetFootprint
    * @returns {CriteriaSet}
    */
   static convertCriteriaSetFootprint (criteriaSetFootprint) {
     const criteriaSet = new CriteriaSet()
 
     for (const criterionType in criteriaSetFootprint.criteria) {
-      const criterion = criteriaSetFootprint.criteria[criterionType]
-      criteriaSet.add(new Criterion(criterion.type, criterion.value))
+      if (criteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
+        const criterion = criteriaSetFootprint.criteria[criterionType]
+        criteriaSet.add(new Criterion(criterion.type, criterion.value))
+      }
     }
 
     return criteriaSet

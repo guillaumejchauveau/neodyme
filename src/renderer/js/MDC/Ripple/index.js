@@ -10,7 +10,7 @@ export default {
   bind (el, context) {
     el.mdc_ripple_ = MDCRipple.attachTo(el, {isUnbounded: context.modifiers.unbounded})
   },
-  unbind (el, context) {
+  unbind (el) {
     if (!el.mdc_ripple_) {
       return
     }

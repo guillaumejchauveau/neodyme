@@ -33,7 +33,7 @@ import DecisiveCriteriaSetStore from './Store/DecisiveCriteriaSetStore'
 import FileSystemProvider from './Provider/FileSystemProvider'
 
 /*
- * BOOTSTRAP
+ * INITIALISATION.
  */
 DIC.set('DCSStore', new DecisiveCriteriaSetStore()) // Cree le stockeur d'ensembles de criteres determinants.
 
@@ -59,18 +59,18 @@ config.set('providers', [
     dir: `${__dirname}/music`,
     exts: 'mp3|ogg|flac',
     duration: true,
-    typesMap: [
-      metadata => metadata.albumartist[0],
-      metadata => metadata.album,
-      metadata => metadata.title,
-      metadata => metadata.track.no,
-      metadata => metadata.duration
+    typeMappers: [
+      metadatas => metadatas.albumartist[0],
+      metadatas => metadatas.album,
+      metadatas => metadatas.title,
+      metadatas => metadatas.track.no,
+      metadatas => metadatas.duration
     ]
   })
 ])
 
 /*
- * WINDOW MANAGEMENT
+ * GESTION DES FENETRES.
  */
 let appWindow
 

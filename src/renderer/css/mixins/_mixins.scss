@@ -1,27 +1,25 @@
-@mixin material-icon() {
+@mixin material-icon {
   display:                inline-block;
   direction:              ltr;
   font-family:            'Material Icons';
-  font-size:              24px; /* Preferred icon size */
-  -webkit-font-smoothing: antialiased; /* Support for all WebKit browsers. */
+  // Preferred icon size
+  font-size:              24px;
   font-style:             normal;
   font-weight:            normal;
   letter-spacing:         normal;
   line-height:            1;
-  text-rendering:         optimizeLegibility; /* Support for Safari and Chrome. */
   text-transform:         none;
   white-space:            nowrap;
-  word-wrap:              normal;
 }
 
-@mixin centered() {
+@mixin centered {
   position:  absolute;
   top:       50%;
   left:      50%;
   transform: translate(-50%, -50%);
 }
 
-@mixin button-reset() {
+@mixin button-reset {
   margin:     0;
   padding:    0;
   border:     none;

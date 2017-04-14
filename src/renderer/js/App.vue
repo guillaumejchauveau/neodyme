@@ -15,7 +15,7 @@
       /**
        * Fonction declenchee a chaque redimensionnement de la fenetre.
        */
-      onWindowResizeHandler () {
+      windowResizeHandler () {
         this.$nextTick(() => {
           this.$store.commit('settings/UPDATE_WINDOW_SIZE')
         })
@@ -24,12 +24,12 @@
     store: Store,
     mounted () {
       this.$nextTick(() => {
-        window.addEventListener('resize', this.onWindowResizeHandler)
+        window.addEventListener('resize', this.windowResizeHandler)
         this.$store.commit('settings/UPDATE_WINDOW_SIZE')
       })
     },
     beforeDestroy () {
-      window.removeEventListener('resize', this.onWindowResizeHandler)
+      window.removeEventListener('resize', this.windowResizeHandler)
     }
   }
 </script>

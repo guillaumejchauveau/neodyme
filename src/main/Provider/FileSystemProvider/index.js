@@ -5,24 +5,9 @@
  */
 
 import fs from 'fs'
-import gs from 'glob-stream'
-import mm from 'musicmetadata'
+import globStream from 'glob-stream'
+import musicMetadata from 'musicmetadata'
 
-/**
- * Conteneur d'injection de dependances.
- * @type {Object}
- */
-import DIC from '../../DependencyInjectionContainer'
-/**
- * Classe Criterion.
- * @type {Criterion}
- */
-import Criterion from '../../Criterion'
-/**
- * Classe DecisiveCriteriaSet.
- * @type {DecisiveCriteriaSet}
- */
-import DecisiveCriteriaSet from '../../Criterion/CriteriaSet/DecisiveCriteriaSet'
 /**
  * Classe Provider.
  * @type {Provider}
@@ -41,16 +26,16 @@ class FileSystemProvider extends Provider {
   constructor (providerConfig) {
     super(providerConfig)
 
-    this.makeTrackList()
+    this.makeTracksList()
   }
 
   /**
-   * Enregistre les pistes.
+   * Fait la liste des pistes et les enregistre.
    * @throws Lance une exception si une erreur survient lors de la lecture des metadonnees.
    */
-  makeTrackList () {
+  makeTracksList () {
     // Recupere un Stream de chemins pour chaques fichiers.
-    const tracksStream = gs(`./**/*.@(${this.config.exts})`, {
+    const tracksStream = globStream(`./**/*.@(${this.config.exts})`, {
       cwd: this.config.dir,
       cwdbase: true
     })
@@ -59,23 +44,13 @@ class FileSystemProvider extends Provider {
     tracksStream.on('data', track => {
       const trackStream = fs.createReadStream(track.path) // Creer un Stream du fichier.
       // Recupere les metadonnees.
-      mm(trackStream, {duration: this.config.duration}, (err, metadata) => {
+      musicMetadata(trackStream, {duration: this.config.duration}, (err, metadatas) => {
         if (err) {
           throw err
         }
         trackStream.close()
 
-        const dcs = new DecisiveCriteriaSet({
-          provider: this,
-          id: track.path
-        })
-
-        DIC.get('ConfigurationStore').get('criterion').types.forEach((criterionType, index) => {
-          dcs.add(new Criterion(criterionType, this.config.typesMap[index](metadata)))
-        })
-
-        // Enregistre la nouvelle piste.
-        DIC.get('DCSStore').add(dcs)
+        Provider.saveTrack(this, track.path, metadatas)
       })
     })
   }

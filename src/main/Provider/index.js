@@ -5,6 +5,22 @@
  */
 
 /**
+ * Conteneur d'injection de dependances.
+ * @type {Object}
+ */
+import DIC from '../DependencyInjectionContainer'
+/**
+ * Classe Criterion.
+ * @type {Criterion}
+ */
+import Criterion from '../Criterion'
+/**
+ * Classe DecisiveCriteriaSet.
+ * @type {DecisiveCriteriaSet}
+ */
+import DecisiveCriteriaSet from '../Criterion/CriteriaSet/DecisiveCriteriaSet'
+
+/**
  * Classe abstraite qui represente une source.
  * @property {Object} config - La configuration de la source.
  */
@@ -18,10 +34,30 @@ class Provider {
   }
 
   /**
+   * Enregistre une piste.
+   * @param provider {Provider} - La source.
+   * @param id {*}              - L'identifiant unique pour la source.
+   * @param metadatas {*}       - Donnees traitees par les mappeurs.
+   */
+  static saveTrack (provider, id, metadatas) {
+    const decisiveCriteriaSet = new DecisiveCriteriaSet({
+      provider,
+      id
+    })
+
+    DIC.get('ConfigurationStore').get('criterion').types.forEach((criterionType, index) => {
+      decisiveCriteriaSet.add(new Criterion(criterionType, provider.config.typeMappers[index](metadatas)))
+    })
+
+    // Enregistre la nouvelle piste.
+    DIC.get('DCSStore').add(decisiveCriteriaSet)
+  }
+
+  /**
    * Methode abstraite devant etre mise en oeuvre par les classes enfants.
    * @throws Lance une exception si la methode n'est pas mise en oeuvre.
    */
-  makeTrackList () {
+  makeTracksList () {
     throw new Error('Not implemented')
   }
 
@@ -30,7 +66,7 @@ class Provider {
    * @param {*} id - L'identifiant unique pour la source.
    * @throws Lance une exception si la methode n'est pas mise en oeuvre.
    */
-  getDataBuffer (id) {
+  getDataBuffer () {
     throw new Error('Not implemented')
   }
 }

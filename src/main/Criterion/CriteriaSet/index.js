@@ -34,7 +34,7 @@ class CriteriaSet {
    */
   add (criterion) {
     if (!(criterion instanceof Criterion)) {
-      throw new Error('Unrecognized criterion')
+      throw new TypeError('Invalid criterion')
     }
 
     this.criteria[criterion.type] = criterion
@@ -55,21 +55,23 @@ class CriteriaSet {
   resolveDecisiveCriteriaSets () {
     const DCSStore = DIC.get('DCSStore')
 
-    let DCSs = DCSStore.store
+    let decisiveCriteriaSets = DCSStore.store
 
     for (const criterionType in this.criteria) {
-      const criterion = this.criteria[criterionType]
-      const selectedDCSs = []
+      if (this.criteria.hasOwnProperty(criterionType)) {
+        const criterion = this.criteria[criterionType]
+        const selectedDecisiveCriteriaSets = []
 
-      DCSs.forEach(dcs => {
-        if (dcs.criteria[criterion.type].value === criterion.value) {
-          selectedDCSs.push(dcs)
-        }
-      })
-      DCSs = selectedDCSs
+        decisiveCriteriaSets.forEach(decisiveCriteriaSet => {
+          if (decisiveCriteriaSet.criteria[criterion.type].value === criterion.value) {
+            selectedDecisiveCriteriaSets.push(decisiveCriteriaSet)
+          }
+        })
+        decisiveCriteriaSets = selectedDecisiveCriteriaSets
+      }
     }
 
-    return DCSs
+    return decisiveCriteriaSets
   }
 
   /**
@@ -81,17 +83,18 @@ class CriteriaSet {
    */
   resolveCriteriaByType (criterionType) {
     if (!Criterion.checkType(criterionType)) {
-      throw new Error(`Unrecognized criterion type: ${criterionType}`)
+      throw new TypeError(`Unrecognized criterion type: ${criterionType}`)
     }
 
-    const DCSs = this.resolveDecisiveCriteriaSets()
+    const decisiveCriteriaSets = this.resolveDecisiveCriteriaSets()
     const criterionValues = []
     const criteriaSets = []
 
-    DCSs.forEach(dcs => {
+    decisiveCriteriaSets.forEach(dcs => {
       const criterion = dcs.criteria[criterionType]
 
-      if (criterionValues.indexOf(criterion.value) === -1) { // Verifie si la valeur du critere n'a pas encore ete rencontree.
+      // Verifie si la valeur du critere n'a pas encore ete rencontree.
+      if (criterionValues.indexOf(criterion.value) === -1) {
         criterionValues.push(criterion.value)
 
         const criteriaSet = new CriteriaSet()
@@ -99,7 +102,9 @@ class CriteriaSet {
 
         // Copie les criteres de l'ensemble de criteres en cours.
         for (const criterionType in this.criteria) {
-          criteriaSet.add(this.criteria[criterionType])
+          if (this.criteria.hasOwnProperty(criterionType)) {
+            criteriaSet.add(this.criteria[criterionType])
+          }
         }
 
         criteriaSets.push(criteriaSet)
@@ -111,15 +116,17 @@ class CriteriaSet {
 
   /**
    * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
-   * @param criteriaSetFootprint
+   * @param {Object} criteriaSetFootprint
    * @returns {CriteriaSet}
    */
   static convertCriteriaSetFootprint (criteriaSetFootprint) {
     const criteriaSet = new CriteriaSet()
 
     for (const criterionType in criteriaSetFootprint.criteria) {
-      const criterion = criteriaSetFootprint.criteria[criterionType]
-      criteriaSet.add(new Criterion(criterion.type, criterion.value))
+      if (criteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
+        const criterion = criteriaSetFootprint.criteria[criterionType]
+        criteriaSet.add(new Criterion(criterion.type, criterion.value))
+      }
     }
 
     return criteriaSet

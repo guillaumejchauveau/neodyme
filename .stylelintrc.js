@@ -95,6 +95,7 @@ module.exports = {
     'max-line-length': 120,
     'max-nesting-depth': 4,
     'media-feature-name-no-vendor-prefix': true,
+    'number-leading-zero': 'never',
     'property-no-vendor-prefix': true,
     'selector-attribute-quotes': 'always',
     'selector-class-pattern': [

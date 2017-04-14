@@ -24,7 +24,7 @@ class Criterion {
    */
   constructor (type, value) {
     if (!Criterion.checkType(type)) {
-      throw new Error(`Unrecognized criterion type: ${type}`)
+      throw new TypeError(`Unrecognized criterion type: ${type}`)
     }
 
     this.type = type

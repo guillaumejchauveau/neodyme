@@ -36,10 +36,10 @@ class DecisiveCriteriaSet extends CriteriaSet {
    * @returns {Promise} Une promise qui resout un {ArrayBuffer}.
    */
   getDataBuffer () {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       ipcRenderer.send('REQ:Provider.getDataBuffer', this.providerKey, this.id)
 
-      ipcRenderer.on('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
+      ipcRenderer.once('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
         resolve(base64AB.decode(base64ArrayBuffer))
       })
     })
