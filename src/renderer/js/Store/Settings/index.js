@@ -21,11 +21,6 @@ export default {
       ]
     }
   },
-  getters: {
-    setting (state) {
-      return key => state[key]
-    }
-  },
   mutations: {
     /**
      * Met a jour les parametres de dimensions de la fenetre.

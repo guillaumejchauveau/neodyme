@@ -11,29 +11,5 @@
   </div>
 </template>
 
-<script>
-  import { MDCSimpleMenu } from '@material/menu'
-
-  export default {
-    methods: {
-      toggle () {
-        this.mdc_menu_.open = !this.mdc_menu_.open
-      }
-    },
-    props: {
-      horiz: {
-        type: Boolean,
-        'default': false
-      }
-    },
-    mounted () {
-      this.mdc_menu_ = new MDCSimpleMenu(this.$el.children[1])
-    },
-    beforeDestroy () {
-      this.mdc_menu_.destroy()
-      delete this.mdc_menu_
-    }
-  }
-</script>
-
+<script src="./script.js"></script>
 <style src="./style.scss"></style>

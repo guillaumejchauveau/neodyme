@@ -54,6 +54,10 @@ const loaders = {
 
 module.exports = {
   target: 'electron-renderer',
+  node: { // Do not export these variables.
+    __dirname: false,
+    __filename: false
+  },
   entry: rendererConfig.entry,
   output: {
     path: rendererConfig.output,

@@ -36,6 +36,12 @@ module.exports = config => {
     // Webpack configuration.
     webpack: {
       devtool: 'inline-source-map',
+      resolve: {
+        extensions: ['.vue', '.js'],
+        alias: {
+          vue: 'vue/dist/vue.js'
+        }
+      },
       module: {
         rules: webpackRules
       }

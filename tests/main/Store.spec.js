@@ -10,17 +10,17 @@ import { expect } from 'chai'
  * Classe Store.
  * @type {Store}
  */
-import Store from '../../src/main/Store/index'
+import Store from '../../src/main/Store'
 /**
  * Classe DecisiveCriteriaSetStore.
  * @type {Store}
  */
-import DecisiveCriteriaSetStore from '../../src/main/Store/DecisiveCriteriaSetStore/index'
+import DecisiveCriteriaSetStore from '../../src/main/Store/DecisiveCriteriaSetStore'
 /**
  * Classe DecisiveCriteriaSet.
  * @type {DecisiveCriteriaSet}
  */
-import DecisiveCriteriaSet from '../../src/main/Criterion/CriteriaSet/DecisiveCriteriaSet/index'
+import DecisiveCriteriaSet from '../../src/main/Criterion/CriteriaSet/DecisiveCriteriaSet'
 
 describe('Store', function () {
   before(function () {

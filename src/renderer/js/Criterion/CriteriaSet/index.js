@@ -68,7 +68,7 @@ class CriteriaSet {
    */
   resolveCriteriaByType (criterionType) {
     if (!Criterion.checkType(criterionType)) {
-      throw Error(`Unrecognized criterion type: ${criterionType}`)
+      throw TypeError(`Unrecognized criterion type: ${criterionType}`)
     }
 
     return new Promise(resolve => {

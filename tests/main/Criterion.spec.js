@@ -15,32 +15,32 @@ import DIC from '../../src/main/DependencyInjectionContainer'
  * Classe Store.
  * @type {Store}
  */
-import Store from '../../src/main/Store/index'
+import Store from '../../src/main/Store'
 /**
  * Classe DecisiveCriteriaSetStore.
  * @type {Store}
  */
-import DecisiveCriteriaSetStore from '../../src/main/Store/DecisiveCriteriaSetStore/index'
+import DecisiveCriteriaSetStore from '../../src/main/Store/DecisiveCriteriaSetStore'
 /**
  * Classe Criterion.
  * @type {Criterion}
  */
-import Criterion from '../../src/main/Criterion/index'
+import Criterion from '../../src/main/Criterion'
 /**
  * Classe CriteriaSet.
  * @type {CriteriaSet}
  */
-import CriteriaSet from '../../src/main/Criterion/CriteriaSet/index'
+import CriteriaSet from '../../src/main/Criterion/CriteriaSet'
 /**
  * Classe DecisiveCriteriaSet.
  * @type {DecisiveCriteriaSet}
  */
-import DecisiveCriteriaSet from '../../src/main/Criterion/CriteriaSet/DecisiveCriteriaSet/index'
+import DecisiveCriteriaSet from '../../src/main/Criterion/CriteriaSet/DecisiveCriteriaSet'
 /**
  * Classe Provider.
  * @type {Provider}
  */
-import Provider from '../../src/main/Provider/index'
+import Provider from '../../src/main/Provider'
 
 /**
  * 'DIC' -> 'ConfigurationStore' {Store} -> 'criterion' -> 'types': - 'artist'
@@ -64,10 +64,8 @@ describe('Criterion', function () {
    * Test la verification du type de critere.
    */
   it('should check if the type is handled', function () {
-    // eslint-disable-next-line
-    expect(Criterion.checkType('artist')).to.be.ok
-    // eslint-disable-next-line
-    expect(Criterion.checkType('foo')).to.be.false
+    expect(Criterion.checkType('artist')).to.be.true()
+    expect(Criterion.checkType('foo')).to.be.false()
 
     // eslint-disable-next-line
     expect(() => { new Criterion('artist', 'John Doe') }).to.not.throw(TypeError)
@@ -169,7 +167,7 @@ describe('Criterion', function () {
       })
 
       /**
-       * Test si DecisiveCriteriaSet verifie la validite du Provider.
+       * Test si DecisiveCriteriaSet verifie la validite de la source.
        */
       it('should create a decisiveCriteriaSet with a valid provider', function () {
         expect(() => {
@@ -178,7 +176,7 @@ describe('Criterion', function () {
             provider: this.provider,
             id: ''
           })
-        }).to.not.throw(Error)
+        }).to.not.throw(TypeError)
 
         expect(() => {
           // eslint-disable-next-line

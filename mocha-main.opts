@@ -1,3 +1,4 @@
 --recursive
 --ui bdd
 --compilers js:babel-register
+--require chai-autoload-plugins

@@ -1359,6 +1359,14 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
+chai-autoload-plugins@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/chai-autoload-plugins/-/chai-autoload-plugins-0.1.0.tgz#d460b21a5a53c921b2584e24441f2c9d26cc3e6d"
+
+chai-dom@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/chai-dom/-/chai-dom-1.4.3.tgz#6f533807009c2aca1d831516fee8cd2ba2351cdd"
+
 chai@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/chai/-/chai-3.5.0.tgz#4d02637b067fe958bdbfdd3a40ec56fef7373247"
@@ -2225,6 +2233,10 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
+
+dirty-chai@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/dirty-chai/-/dirty-chai-1.2.2.tgz#78495e619635f7fe44219aa4c837849bf183142e"
 
 doctrine@1.5.0:
   version "1.5.0"

@@ -10,18 +10,5 @@
   </div>
 </template>
 
-<script>
-  import { MDCCheckbox } from '@material/checkbox'
-
-  export default {
-    mounted () {
-      this.mdc_checkbox_ = new MDCCheckbox(this.$el)
-    },
-    beforeDestroy () {
-      this.mdc_checkbox_.destroy()
-      delete this.mdc_checkbox_
-    }
-  }
-</script>
-
+<script src="./script.js"></script>
 <style src="./style.scss"></style>
