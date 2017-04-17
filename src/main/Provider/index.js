@@ -28,6 +28,8 @@ class Provider {
   /**
    * Cree une source.
    * @param {Object} providerConfig - La configuration de la source.
+   * @throws {TypeError} Lance une exception si la configuration n'est pas valide.
+   * @throws {Error} Lance une exception si le nombre de mappeurs de la source n'est pas valide.
    */
   constructor (providerConfig) {
     if (typeof providerConfig !== 'object') {

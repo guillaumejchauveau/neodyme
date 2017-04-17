@@ -31,7 +31,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
    * Cree un ensemble de criteres determiant.
    * @param {Object} decisiveCriteriaSetConfig - Les informations de determination.
    * @throws {TypeError} Lance une exception si la configuration n'est pas valide.
-   * @throws {TypeError} Lance une exception si la source n'est pas valide.
+   * @throws {TypeError|ReferenceError} Lance une exception si la source n'est pas valide.
    */
   constructor (decisiveCriteriaSetConfig) {
     super()

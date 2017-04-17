@@ -118,7 +118,7 @@ class CriteriaSet {
    * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
    * @param {Object} criteriaSetFootprint
    * @returns {CriteriaSet}
-   * @throws
+   * @throws {TypeError} Lance une exception si l'empreinte n'est pas valide.
    */
   static convertCriteriaSetFootprint (criteriaSetFootprint) {
     if (typeof criteriaSetFootprint !== 'object' || !criteriaSetFootprint.criteria) {
