@@ -72,16 +72,6 @@ module.exports = {
     rules: [
       // VueJS components
       {
-        enforce: 'pre',
-        test: /\.vue$/,
-        loader: 'eslint-loader',
-        options: {
-          emitWarning: true,
-          formatter: require('eslint-formatter-pretty')
-        },
-        exclude: [/node_modules/]
-      },
-      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {

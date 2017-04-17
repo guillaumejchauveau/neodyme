@@ -83,6 +83,28 @@ webpackConfig.module.rules.forEach(rule => {
   }
 })
 webpackConfig.module.rules.push(
+  {
+    enforce: 'pre',
+    test: /\.vue$/,
+    use: [
+      {
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+          formatter: require('eslint-formatter-pretty')
+        }
+      },
+      {
+        loader: 'htmlhint-loader',
+        options: {
+          emitAs: 'warning',
+          formatter: require('htmlhint-stylish'),
+          configFile: `${root}/.htmlhintrc.js`
+        }
+      }
+    ],
+    exclude: [/node_modules/]
+  },
   // Adds ESLint linting.
   {
     enforce: 'pre',
@@ -92,6 +114,28 @@ webpackConfig.module.rules.push(
       emitWarning: true,
       formatter: require('eslint-formatter-pretty')
     },
+    exclude: [/node_modules/]
+  },
+  // Adds HTMLHint linting.
+  {
+    enforce: 'pre',
+    test: /\.html$/,
+    loader: 'htmlhint-loader',
+    options: {
+      emitAs: 'warning',
+      formatter: require('htmlhint-stylish'),
+      configFile: `${root}/.htmlhintrc.js`
+    },
+    exclude: [/node_modules/]
+  },
+  // Adds Pug-lint linting.
+  {
+    enforce: 'pre',
+    test: /\.pug$/,
+    loader: 'pug-lint-loader',
+    options: Object.assign({
+      emitError: false
+    }, require(`${root}/.pug-lintrc.js`)),
     exclude: [/node_modules/]
   })
 

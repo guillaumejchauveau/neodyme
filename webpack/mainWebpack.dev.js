@@ -2,18 +2,19 @@
  * @file Main development webpack configuration.
  */
 
+const path = require('path')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-
-/**
- * Plugin used to set the renderer window url in main.
- */
-const MainDataInjectorPlugin = require('./mainDataInjectorPlugin')
+const DataInjectorPlugin = require('./dataInjectorPlugin')
 /**
  * Common configuration variables.
  * @type {Object}
  */
 const config = require('./config')
-
+/**
+ * Absolute path to root folder.
+ * @type {String}
+ */
+const root = require('./root')
 /**
  * Main base webpack configuration.
  * @type {Object}
@@ -21,14 +22,17 @@ const config = require('./config')
 const webpackConfig = require('./mainWebpack.base')
 
 webpackConfig.plugins.push(
-  new MainDataInjectorPlugin([
+  new DataInjectorPlugin('index.js', [
     {
       comment: '/*INJECT-RENDERER-URL*/',
-      data: `'http://localhost:${config.port}/app.html'`
+      data: `'http://localhost:${config.port}/index.html'`
     },
     {
       comment: '/*INJECT-DEVTOOLS-INSTALLER*/',
-      data: `const edi = require('electron-devtools-installer')
+      data: `require('electron').BrowserWindow
+                                .addDevToolsExtension(
+                                  '${path.normalize(root + '/node_modules/devtron').replace(/\\/g, '\\\\')}')
+            const edi = require('electron-devtools-installer')
             edi.default(edi.VUEJS_DEVTOOLS)`
     }
   ]),

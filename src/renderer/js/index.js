@@ -9,7 +9,7 @@ import vuex from 'vuex'
 
 import Ripple from './MDC/Ripple'
 
-require('../css/app.scss')
+require('../css/index.scss')
 require('../css/fonts.scss')
 
 Vue.use(vuex)
