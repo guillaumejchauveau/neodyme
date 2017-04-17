@@ -109,14 +109,17 @@ describe('Provider', function () {
    * Test l'enregistrement d'une piste.
    */
   it('should save track', function () {
+    const provider = new Provider({
+      key: 0,
+      typeMappers: [
+        metadatas => metadatas.artist
+      ]
+    })
+    DIC.get('ConfigurationStore').set('providers', [provider])
+
     expect(() => {
       Provider.saveTrack(
-        new Provider({
-          key: 0,
-          typeMappers: [
-            metadatas => metadatas.artist
-          ]
-        }),
+        provider,
         '',
         {
           artist: 'John Doe'

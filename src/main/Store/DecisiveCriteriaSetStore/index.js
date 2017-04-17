@@ -28,7 +28,7 @@ class DecisiveCriteriaSetStore {
    * Ajoute un ensemble de criteres determinant au stockeur.
    * @param {DecisiveCriteriaSet} decisiveCriteriaSet - Un ensemble de criteres determinant.
    * @return {Number} L'indice de l'ensemble de criteres determinant enregistre.
-   * @throws Lance une exception si l'ensemble de criteres determinant n'est pas pris en charge.
+   * @throws {TypeError} Lance une exception si l'ensemble de criteres determinant n'est pas pris en charge.
    */
   add (decisiveCriteriaSet) {
     if (!(decisiveCriteriaSet instanceof DecisiveCriteriaSet)) {

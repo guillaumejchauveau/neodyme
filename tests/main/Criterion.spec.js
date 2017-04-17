@@ -160,6 +160,7 @@ describe('Criterion', function () {
         this.provider = new Provider({
           key: 0,
           typeMappers: [
+            () => null,
             () => null
           ]
         })
@@ -189,14 +190,20 @@ describe('Criterion', function () {
         expect(() => {
           // eslint-disable-next-line
           new DecisiveCriteriaSet({
-            provider: {wrong: 'object'},
+            provider: 'wrong type',
             id: ''
           })
         }).to.throw(TypeError)
         expect(() => {
           // eslint-disable-next-line
           new DecisiveCriteriaSet({
-            provider: new Provider({key: 1}),
+            provider: new Provider({
+              key: 1,
+              typeMappers: [
+                () => null,
+                () => null
+              ]
+            }),
             id: ''
           })
         }, 'Provider with key 1 should not exist.').to.throw(ReferenceError)
@@ -204,17 +211,27 @@ describe('Criterion', function () {
           // eslint-disable-next-line
           new DecisiveCriteriaSet({
             provider: new Provider({
-              key: this.provider.config.key
+              key: this.provider.config.key,
+              typeMappers: [
+                () => null,
+                () => null
+              ]
             }),
             id: ''
           })
         }, 'Provider instance should not correspond to the registered one (same key but not same instance).')
         .to.throw(ReferenceError)
       })
+
+      after(function () {
+        delete this.provider
+        DIC.get('ConfigurationStore').remove('providers')
+      })
     })
 
     /**
-     * DIC -> 'DCSStore' {DecisiveCriteriaSetStore}: - {DecisiveCriteriaSet}: - 'provider' = provider
+     * DIC -> ConfigurationStore -> 'providers': - provider
+     *     -> 'DCSStore' {DecisiveCriteriaSetStore}: - {DecisiveCriteriaSet}: - 'provider' = provider
      *                                                                        - 'criteria': - criterion
      *                                                                                      - {Criterion}:
      *                                                                                              - 'album' = 'albumA'
@@ -231,16 +248,25 @@ describe('Criterion', function () {
      */
     describe('CriteriaSet research functions', function () {
       before(function () {
+        const provider = new Provider({
+          key: 0,
+          typeMappers: [
+            () => null,
+            () => null
+          ]
+        })
+        DIC.get('ConfigurationStore').set('providers', [provider])
+
         const DCSStore = new DecisiveCriteriaSetStore()
         DIC.set('DCSStore', DCSStore)
 
-        const dcsA = new DecisiveCriteriaSet({provider: this.provider, id: ''})
+        const dcsA = new DecisiveCriteriaSet({provider, id: ''})
         dcsA.add(this.criterion)
         dcsA.add(new Criterion('album', 'album1'))
-        const dcsB = new DecisiveCriteriaSet({provider: this.provider, id: ''})
+        const dcsB = new DecisiveCriteriaSet({provider, id: ''})
         dcsB.add(this.criterion)
         dcsB.add(new Criterion('album', 'album1'))
-        const dcsC = new DecisiveCriteriaSet({provider: this.provider, id: ''})
+        const dcsC = new DecisiveCriteriaSet({provider, id: ''})
         dcsC.add(new Criterion('artist', 'Jane Doe'))
         dcsC.add(new Criterion('album', 'album2'))
 
@@ -297,6 +323,8 @@ describe('Criterion', function () {
         delete this.emptyCriteriaSet
         delete this.withoutResultsCriteriaSet
         this.criteriaSet.remove(this.criterion.type)
+
+        DIC.get('ConfigurationStore').remove('providers')
       })
     })
 

@@ -20,7 +20,7 @@ class Criterion {
    * Cree un critere.
    * @param {String} type  - Le type du critere.
    * @param {*}      value - La valeur du critere.
-   * @throws Lance une exception si le type de critere n'est pas pris en charge
+   * @throws {TypeError} Lance une exception si le type de critere n'est pas pris en charge.
    */
   constructor (type, value) {
     if (!Criterion.checkType(type)) {

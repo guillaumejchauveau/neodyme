@@ -31,7 +31,7 @@ class FileSystemProvider extends Provider {
 
   /**
    * Fait la liste des pistes et les enregistre.
-   * @throws Lance une exception si une erreur survient lors de la lecture des metadonnees.
+   * @throws {Error} Lance une exception si une erreur survient lors de la lecture des metadonnees.
    */
   makeTracksList () {
     // Recupere un Stream de chemins pour chaques fichiers.

@@ -30,7 +30,7 @@ class CriteriaSet {
   /**
    * Ajoute un critere.
    * @param {Criterion} criterion - Le critere.
-   * @throws Lance une exception si le critere n'est pas reconnu.
+   * @throws {TypeError} Lance une exception si le critere n'est pas reconnu.
    */
   add (criterion) {
     if (!(criterion instanceof Criterion)) {
@@ -79,7 +79,7 @@ class CriteriaSet {
    * courant.
    * @param {String} criterionType - Le type de critere.
    * @returns {Array} La liste d'ensembles de criteres possibles.
-   * @throws Lance une exception si le type de critere n'est pas pris en charge.
+   * @throws {TypeError} Lance une exception si le type de critere n'est pas pris en charge.
    */
   resolveCriteriaByType (criterionType) {
     if (!Criterion.checkType(criterionType)) {
@@ -118,8 +118,13 @@ class CriteriaSet {
    * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
    * @param {Object} criteriaSetFootprint
    * @returns {CriteriaSet}
+   * @throws
    */
   static convertCriteriaSetFootprint (criteriaSetFootprint) {
+    if (typeof criteriaSetFootprint !== 'object' || !criteriaSetFootprint.criteria) {
+      throw new TypeError('Invalid criteriaSetFootprint')
+    }
+
     const criteriaSet = new CriteriaSet()
 
     for (const criterionType in criteriaSetFootprint.criteria) {

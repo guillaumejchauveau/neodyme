@@ -5,10 +5,20 @@
  */
 
 /**
+ * Conteneur d'injection de dependances.
+ * @type {Object}
+ */
+import DIC from '../../../DependencyInjectionContainer'
+/**
  * Classe CriteriaSet.
  * @type {CriteriaSet}
  */
 import CriteriaSet from '../'
+/**
+ * Classe Provider.
+ * @type {Provider}
+ */
+import Provider from '../../../Provider'
 
 /**
  * Classe qui represente un ensemble de criteres determinant.
@@ -19,13 +29,29 @@ import CriteriaSet from '../'
 class DecisiveCriteriaSet extends CriteriaSet {
   /**
    * Cree un ensemble de criteres determiant.
-   * @param {Object} config - Les informations de determination.
+   * @param {Object} decisiveCriteriaSetConfig - Les informations de determination.
+   * @throws {TypeError} Lance une exception si la configuration n'est pas valide.
+   * @throws {TypeError} Lance une exception si la source n'est pas valide.
    */
-  constructor (config) {
+  constructor (decisiveCriteriaSetConfig) {
     super()
 
-    this.provider = config.provider
-    this.id = config.id
+    if (typeof decisiveCriteriaSetConfig !== 'object' ||
+      (!decisiveCriteriaSetConfig.provider && !decisiveCriteriaSetConfig.hasOwnProperty('id'))) {
+      throw new TypeError('Invalid decisiveCriteriaSetConfig')
+    }
+    if (!(decisiveCriteriaSetConfig.provider instanceof Provider)) {
+      throw new TypeError('Invalid provider')
+    }
+    const configurationStore = DIC.get('ConfigurationStore')
+    const referenceProvider = configurationStore.get('providers')[decisiveCriteriaSetConfig.provider.config.key]
+
+    if (!referenceProvider || decisiveCriteriaSetConfig.provider !== referenceProvider) {
+      throw new ReferenceError('Unknown provider')
+    }
+
+    this.provider = decisiveCriteriaSetConfig.provider
+    this.id = decisiveCriteriaSetConfig.id
   }
 
   /**

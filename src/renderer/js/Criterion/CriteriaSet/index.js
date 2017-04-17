@@ -27,7 +27,7 @@ class CriteriaSet {
   /**
    * Ajoute un critere.
    * @param {Criterion} criterion - Le critere.
-   * @throws Lance une exception si le critere n'est pas reconnu.
+   * @throws {TypeError} Lance une exception si le critere n'est pas reconnu.
    */
   add (criterion) {
     if (!(criterion instanceof Criterion)) {
@@ -64,7 +64,7 @@ class CriteriaSet {
    * IPC).
    * @param {String} criterionType - Le type de critere.
    * @returns {Promise} Une Promise qui resout un {Array}.
-   * @throws Lance une exception si le type de critere n'est pas pris en charge.
+   * @throws {TypeError} Lance une exception si le type de critere n'est pas pris en charge.
    */
   resolveCriteriaByType (criterionType) {
     if (!Criterion.checkType(criterionType)) {

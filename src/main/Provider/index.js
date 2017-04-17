@@ -30,6 +30,19 @@ class Provider {
    * @param {Object} providerConfig - La configuration de la source.
    */
   constructor (providerConfig) {
+    if (typeof providerConfig !== 'object') {
+      throw new TypeError('Invalid providerConfig')
+    }
+    if (!providerConfig.hasOwnProperty('key') || typeof providerConfig.key !== 'number') {
+      throw new TypeError('Invalid provider key')
+    }
+    if (!providerConfig.typeMappers || !(providerConfig.typeMappers instanceof Array)) {
+      throw new TypeError('Invalid provider typeMappers')
+    }
+    if (providerConfig.typeMappers.length !== DIC.get('ConfigurationStore').get('criterion').types.length) {
+      throw new Error('Invalid provider typeMappers number')
+    }
+
     this.config = providerConfig
   }
 
@@ -55,7 +68,7 @@ class Provider {
 
   /**
    * Methode abstraite devant etre mise en oeuvre par les classes enfants.
-   * @throws Lance une exception si la methode n'est pas mise en oeuvre.
+   * @throws {Error} Lance une exception si la methode n'est pas mise en oeuvre.
    */
   makeTracksList () {
     throw new Error('Not implemented')
@@ -64,7 +77,7 @@ class Provider {
   /**
    * Methode abstraite devant etre mise en oeuvre par les classes enfants.
    * @param {*} id - L'identifiant unique pour la source.
-   * @throws Lance une exception si la methode n'est pas mise en oeuvre.
+   * @throws {Error} Lance une exception si la methode n'est pas mise en oeuvre.
    */
   getDataBuffer () {
     throw new Error('Not implemented')

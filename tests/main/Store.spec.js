@@ -7,6 +7,11 @@
 import { expect } from 'chai'
 
 /**
+ * Conteneur d'injection de dependances.
+ * @type {Object}
+ */
+import DIC from '../../src/main/DependencyInjectionContainer'
+/**
  * Classe Store.
  * @type {Store}
  */
@@ -21,7 +26,17 @@ import DecisiveCriteriaSetStore from '../../src/main/Store/DecisiveCriteriaSetSt
  * @type {DecisiveCriteriaSet}
  */
 import DecisiveCriteriaSet from '../../src/main/Criterion/CriteriaSet/DecisiveCriteriaSet'
+/**
+ * Classe Provider.
+ * @type {Provider}
+ */
+import Provider from '../../src/main/Provider'
 
+/**
+ * 'dataString' {String}
+ * 'dataObject' {Object}
+ * 'store' {Store}
+ */
 describe('Store', function () {
   before(function () {
     this.dataString = 'hello world'
@@ -36,14 +51,7 @@ describe('Store', function () {
       name: 'John Doe',
       age: 42
     }
-  })
-
-  /**
-   * Test la creation d'un Store.
-   */
-  it('should create a Store', function () {
     this.store = new Store()
-    expect(this.store).to.be.an.instanceof(Store)
   })
 
   /**
@@ -77,8 +85,32 @@ describe('Store', function () {
     expect(this.store.store).to.have.property('dataObject')
   })
 
+  /**
+   * 'provider' {Provider}: - 'key' = 0
+   * 'DIC' -> 'ConfigurationStore' {Store} -> 'criterion' -> 'types': - 'artist'
+   *                                       -> 'providers': - provider
+   * 'DCSStore' {DecisiveCriteriaSetStore}
+   */
   describe('DecisiveCriteriaSetStore', function () {
     before(function () {
+      const config = new Store()
+      DIC.set('ConfigurationStore', config)
+
+      // Types de criteres pris en charge.
+      config.set('criterion', {
+        types: [
+          'artist'
+        ]
+      })
+
+      this.provider = new Provider({
+        key: 0,
+        typeMappers: [
+          () => null
+        ]
+      })
+      config.set('providers', [this.provider])
+
       this.DCSStore = new DecisiveCriteriaSetStore()
     })
 
@@ -93,9 +125,9 @@ describe('Store', function () {
      * Test l'ajout d'un DCS.
      */
     it('should add a DCS', function () {
-      expect(() => { this.DCSStore.add(new DecisiveCriteriaSet({provider: '', id: ''})) }).to.not.throw(TypeError)
+      expect(() => { this.DCSStore.add(new DecisiveCriteriaSet({provider: this.provider, id: ''})) }).to.not.throw(TypeError)
       expect(this.DCSStore.store).to.have.lengthOf(1)
-      expect(this.DCSStore.add(new DecisiveCriteriaSet({provider: '', id: ''}))).to.equal(1)
+      expect(this.DCSStore.add(new DecisiveCriteriaSet({provider: this.provider, id: ''}))).to.equal(1)
 
       expect(() => { this.DCSStore.add({wrong: 'object'}) }).to.throw(TypeError)
       expect(this.DCSStore.store).to.have.lengthOf(2)
@@ -103,10 +135,14 @@ describe('Store', function () {
 
     after(function () {
       delete this.DCSStore
+      delete this.provider
+      DIC.remove('ConfigurationStore')
     })
   })
 
   after(function () {
-    this.store.remove('dataObject')
+    delete this.store
+    delete this.dataObject
+    delete this.dataString
   })
 })
