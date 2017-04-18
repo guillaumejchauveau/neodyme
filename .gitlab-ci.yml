@@ -21,10 +21,10 @@ stages:
 
 # LTS NodeJS version.
 build:node-6:
-  image: node:6
   <<: *build-job
+  image: node:6
   cache: # Used to transmit dependencies amongst jobs.
-    key: npm
+    key: npm:node-6
     paths:
       - node_modules/
       #- $HOME/.yarn-cache
@@ -37,9 +37,14 @@ build:node-6:
 
 # Stable NodeJS version, optional.
 build:node-7:
+  <<: *build-job
   image: node:7
   allow_failure: true
-  <<: *build-job
+  cache: # Used to transmit dependencies amongst jobs.
+    key: npm:node-7
+    paths:
+      - node_modules/
+      #- $HOME/.yarn-cache
 
 
 ####################
@@ -49,7 +54,7 @@ test:
   image: maxwellewxam/headless-electron-runner
   stage: test
   cache: # Retrieves dependencies.
-    key: npm
+    key: npm:node-6
     paths:
       - node_modules/
   dependencies: []
