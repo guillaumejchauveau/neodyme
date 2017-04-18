@@ -37,7 +37,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
     super()
 
     if (typeof decisiveCriteriaSetConfig !== 'object' ||
-      (!decisiveCriteriaSetConfig.provider && !decisiveCriteriaSetConfig.hasOwnProperty('id'))) {
+      !decisiveCriteriaSetConfig.provider || !decisiveCriteriaSetConfig.hasOwnProperty('id')) {
       throw new TypeError('Invalid decisiveCriteriaSetConfig')
     }
     if (!(decisiveCriteriaSetConfig.provider instanceof Provider)) {

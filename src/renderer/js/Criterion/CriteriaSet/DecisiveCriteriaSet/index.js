@@ -22,13 +22,23 @@ import CriteriaSet from '../'
 class DecisiveCriteriaSet extends CriteriaSet {
   /**
    * Cree un ensemble de criteres determiant.
-   * @param {Object} config - Les informations de determination.
+   * @param {Object} decisiveCriteriaSetConfig - Les informations de determination.
+   * @throws {TypeError} Lance une exception si la configuration n'est pas valide.
+   * @throws {TypeError} Lance une exception si l'identifiant de la source n'est pas valide.
    */
-  constructor (config) {
+  constructor (decisiveCriteriaSetConfig) {
     super()
 
-    this.providerKey = config.providerKey
-    this.id = config.id
+    if (typeof decisiveCriteriaSetConfig !== 'object' ||
+      !decisiveCriteriaSetConfig.hasOwnProperty('providerKey') || !decisiveCriteriaSetConfig.hasOwnProperty('id')) {
+      throw new TypeError('Invalid decisiveCriteriaSetConfig')
+    }
+    if (typeof decisiveCriteriaSetConfig.providerKey !== 'number') {
+      throw new TypeError('Invalid providerKey')
+    }
+
+    this.providerKey = decisiveCriteriaSetConfig.providerKey
+    this.id = decisiveCriteriaSetConfig.id
   }
 
   /**

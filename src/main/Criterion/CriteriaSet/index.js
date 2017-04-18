@@ -34,7 +34,7 @@ class CriteriaSet {
    */
   add (criterion) {
     if (!(criterion instanceof Criterion)) {
-      throw new TypeError('Invalid criterion')
+      throw new TypeError('Unrecognized criterion')
     }
 
     this.criteria[criterion.type] = criterion
