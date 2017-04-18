@@ -50,10 +50,14 @@ class CriteriaSet {
    * @returns {Promise} Une Promise qui resout un {Array}.
    */
   resolveDecisiveCriteriaSetFootprints () {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       ipcRenderer.send('REQ:CriteriaSet.resolveDecisiveCriteriaSets', this)
 
       ipcRenderer.once('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
+        if (decisiveCriteriaSetFootprints.error) {
+          reject(decisiveCriteriaSetFootprints.error)
+          return
+        }
         resolve(decisiveCriteriaSetFootprints)
       })
     })
@@ -71,10 +75,15 @@ class CriteriaSet {
       throw TypeError(`Unrecognized criterion type: ${criterionType}`)
     }
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       ipcRenderer.send('REQ:CriteriaSet.resolveCriteriaByType', this, criterionType)
 
       ipcRenderer.once('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
+        if (criteriaSetFootprints.error) {
+          reject(criteriaSetFootprints.error)
+          return
+        }
+
         const criteriaSets = []
 
         criteriaSetFootprints.forEach(criteriaSetFootprint => {

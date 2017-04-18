@@ -27,9 +27,15 @@ const IPCHandler = {
        * @param {Object} criteriaSetFootprint - L'empreinte d'ensemble de criteres.
        */
       resolveDecisiveCriteriaSets (event, criteriaSetFootprint) {
-        const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
-
-        event.sender.send('RES:CriteriaSet.resolveDecisiveCriteriaSets', criteriaSet.resolveDecisiveCriteriaSets())
+        let response
+        try {
+          const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
+          response = criteriaSet.resolveDecisiveCriteriaSets()
+        } catch (exception) {
+          response = {error: exception.message}
+        } finally {
+          event.sender.send('RES:CriteriaSet.resolveDecisiveCriteriaSets', response)
+        }
       },
       /**
        * Repond a une requete de resolution d'ensembles de criteres possibles selon le type de critere.
@@ -38,9 +44,15 @@ const IPCHandler = {
        * @param {String} type                 - Le type de critere.
        */
       resolveCriteriaByType (event, criteriaSetFootprint, type) {
-        const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
-
-        event.sender.send('RES:CriteriaSet.resolveCriteriaByType', criteriaSet.resolveCriteriaByType(type))
+        let response
+        try {
+          const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
+          response = criteriaSet.resolveCriteriaByType(type)
+        } catch (exception) {
+          response = {error: exception.message}
+        } finally {
+          event.sender.send('RES:CriteriaSet.resolveCriteriaByType', response)
+        }
       }
     },
     Provider: {
@@ -51,10 +63,20 @@ const IPCHandler = {
        * @param {String} id          - L'identifiant unique pour la source.
        */
       getDataBuffer (event, providerKey, id) {
-        DIC.get('ConfigurationStore').get('providers')[providerKey].getDataBuffer(id).then(data => {
-          event.sender.send('RES:Provider.getDataBuffer',
-            base64AB.encode(data))
-        })
+        let response
+        try {
+          DIC.get('ConfigurationStore').get('providers')[providerKey].getDataBuffer(id)
+                                                                     .then(data => {
+                                                                       response = base64AB.encode(data)
+                                                                     })
+                                                                     .catch(reason => {
+                                                                       throw new Error(reason)
+                                                                     })
+        } catch (exception) {
+          response = {error: exception.message}
+        } finally {
+          event.sender.send('RES:CriteriaSet.resolveCriteriaByType', response)
+        }
       }
     }
   },
