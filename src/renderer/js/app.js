@@ -12,9 +12,6 @@ import VueX from 'vuex'
 
 import RippleDirective from './directives/Ripple'
 
-import App from './App'
-
-import VCS from './View/ViewConfigSystem'
 
 
 Vue.use(VueX)

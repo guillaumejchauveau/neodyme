@@ -10,7 +10,7 @@
     word-wrap              : normal;
     white-space            : nowrap;
     direction              : ltr;
-    
+
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing : antialiased;
     /* Support for Safari and Chrome. */
@@ -32,4 +32,26 @@
     outline    : none;
     text-align : left;
     color      : $text-color;
+}
+
+@mixin Card($width, $height) {
+  width             : $width;
+  height            : $height;
+  border-radius     : 2px;
+  background-color  : $bg-primary;
+  @include mdc-elevation(2);
+  user-select       : none;
+}
+
+@mixin InteractiveCard() {
+  @include mdc-ripple-base;
+  @include mdc-ripple-bg((pseudo: "::before"));
+  @include mdc-ripple-fg((pseudo: "::after"));
+  overflow:  hidden;
+  @include mdc-elevation-transition;
+  cursor            : pointer;
+
+  &:hover {
+    @include mdc-elevation(8);
+  }
 }

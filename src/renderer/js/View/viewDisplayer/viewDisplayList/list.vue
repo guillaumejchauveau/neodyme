@@ -1,13 +1,15 @@
 <template>
-  <div class="list">
+  <div class="list" v-ripple>
     <table class="list_table">
-      <listElement v-for="element in elements" :element="element"></listElement>
+      <listElement v-for="element in sortedElements" :element="element"></listElement>
     </table>
   </div>
 </template>
 
+
 <script>
-  import listElement from './listElement.vue'
+  import listElement from './listElement/listElement.vue'
+
   export default {
     name: 'list',
     data: () => {
@@ -19,27 +21,17 @@
       listElement,
     },
     props: [
-      'elements'
-    ]
+      'elements'],
+
+    computed: {
+      sortedElements () {
+        return this.elements.sort( (a, b) => {
+          return parseFloat(a.trackNumber.value) - parseFloat(b.trackNumber.value)
+        })
+      }
+    }
   }
 </script>
 
-<style>
-  @import "loader";
 
-  .list {
-    position: relative;
-    background-color: $bg-primary;
-    width: 70%;
-    margin: 0 15%;
-    padding: 40px;
-    top: 10px;
-    border-radius: 2px;
-    @include mdc-elevation(2);
-    @include mdc-elevation-transition;
-  }
-
-  .list_table {
-
-  }
-</style>
+<style src="./style.scss"></style>

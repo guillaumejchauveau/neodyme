@@ -1,6 +1,6 @@
-$item-width                  : 130px;
-$item-height                 : 180px;
+$item-ratio                  : 1.25;
+$item-width                  : 180px;
+$item-height                 : $item-width * $item-ratio;
 $item-picture-size           : .8;
-$item-picture-border-size    : 3px;
-$item-transition-hover-delay : 250ms;
-$item-border-radius          : 2px;
+$item-picture-border-size    : $item-width * 0.025;
+$item-transition-hover-delay : 180ms;

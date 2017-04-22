@@ -23,7 +23,7 @@ class CriteriaSet {
     constructor() {
         this.criteria = {}
     }
-    
+
     /**
      * Ajoute un critere.
      * @param {Criterion} criterion - Le critere.
@@ -33,10 +33,10 @@ class CriteriaSet {
         if (!(criterion instanceof Criterion)) {
             throw 'Unrecognized criterion'
         }
-        
+
         this.criteria[criterion.type] = criterion
     }
-    
+
     /**
      * Supprime un critere.
      * @param {String} criterionType - Le type de critere.
@@ -44,7 +44,7 @@ class CriteriaSet {
     remove(criterionType) {
         delete this.criteria[criterionType]
     }
-    
+
     /**
      * Recupere toutes les empreintes d'ensembles de criteres determinants correspondants (via IPC).
      * @returns {Promise} Une Promise qui resout un {Array}.
@@ -52,13 +52,13 @@ class CriteriaSet {
     resolveDecisiveCriteriaSetFootprints() {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('REQ:CriteriaSet.resolveDecisiveCriteriaSets', this)
-            
+
             ipcRenderer.on('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
                 resolve(decisiveCriteriaSetFootprints)
             })
         })
     }
-    
+
     /**
      * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours (via IPC).
      * @param {String} criterionType - Le type de critere.
@@ -69,22 +69,22 @@ class CriteriaSet {
         if (!Criterion.checkType(criterionType)) {
             throw `Unrecognized criterion type: ${type}`
         }
-        
+
         return new Promise((resolve, reject) => {
             ipcRenderer.send('REQ:CriteriaSet.resolveCriteriaByType', this, criterionType)
-            
+
             ipcRenderer.on('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
                 const criteriaSets = []
-                
+
                 criteriaSetFootprints.forEach(criteriaSetFootprint => {
                     criteriaSets.push(CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint))
                 })
-                
+
                 resolve(criteriaSets)
             })
         })
     }
-    
+
     /**
      * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
      * @param criteriaSetFootprint
@@ -92,12 +92,12 @@ class CriteriaSet {
      */
     static convertCriteriaSetFootprint(criteriaSetFootprint) {
         const criteriaSet = new CriteriaSet()
-    
+
         for (const criterionType in criteriaSetFootprint.criteria) {
             const criterion = criteriaSetFootprint.criteria[criterionType]
             criteriaSet.add(new Criterion(criterion.type, criterion.value))
         }
-        
+
         return criteriaSet
     }
 }

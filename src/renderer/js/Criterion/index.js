@@ -22,11 +22,11 @@ class Criterion {
         if (!Criterion.checkType(type)) {
             throw `Unrecognized criterion type: ${type}`
         }
-        
+
         this.type  = type
         this.value = value
     }
-    
+
     /**
      * Verifie que le type de critere est pris en charge.
      * @param {String} type

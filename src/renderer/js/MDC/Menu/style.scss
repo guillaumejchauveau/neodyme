@@ -10,22 +10,26 @@
         border-radius : 100%;
         cursor        : pointer;
         overflow      : hidden;
-        
+
         span {
             display    : inline-block;
             width      : 100%;
             height     : 100%;
             color      : $text-color;
             text-align : center;
-            
+
             &::before {
                 @include materialIcon;
                 content : 'more_vert';
             }
         }
-        
+
         &.horiz span::before {
             content : 'more_horiz';
         }
     }
+}
+
+.mdc-simple-menu {
+  z-index: 12;
 }
