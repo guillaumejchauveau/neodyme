@@ -74,7 +74,7 @@
     "progress-bar-webpack-plugin": "^1.9.3",
     "pug": "^2.0.0-beta11",
     "pug-html-loader": "^1.1.1",
-    "pug-lint-loader": "^0.0.2",
+    "pug-lint-loader": "^0.0.3",
     "sass-loader": "^6.0.2",
     "sinon": "^2.1.0",
     "style-loader": "^0.16.1",
@@ -95,7 +95,7 @@
   },
   "dependencies": {
     "base64-arraybuffer": "^0.1.5",
-    "electron": "1.6.2",
+    "electron": "1.6.5",
     "glob-stream": "^6.1.0",
     "material-components-web": "^0.6.0",
     "musicmetadata": "^2.0.5",

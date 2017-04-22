@@ -145,7 +145,7 @@ lint:
 ####################
 
 pack:
-  image: snappinbox/electron-builder-wine # Wine is used to build Windows packages.
+  image: monostream/nodejs-electron-packager # Wine is used to build Windows packages.
   allow_failure: true
   stage: pack
   only:
@@ -156,7 +156,7 @@ pack:
     name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
     paths:
       - packages/
-  script: wine npm run pack
+  script: npm run pack
 
 ####################
 # DMZ

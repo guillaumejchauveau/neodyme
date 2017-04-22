@@ -34,7 +34,7 @@ class FileSystemProvider extends Provider {
    * @throws {Error} Lance une exception si une erreur survient lors de la lecture des metadonnees.
    */
   makeTracksList () {
-    // Recupere un Stream de chemins pour chaques fichiers.
+    // Recupere un flux de chemins pour chaques fichiers.
     const tracksStream = globStream(`./**/*.@(${this.config.exts})`, {
       cwd: this.config.dir,
       cwdbase: true
@@ -42,7 +42,7 @@ class FileSystemProvider extends Provider {
 
     // A chaque fois qu'un chemin est trouve.
     tracksStream.on('data', track => {
-      const trackStream = fs.createReadStream(track.path) // Creer un Stream du fichier.
+      const trackStream = fs.createReadStream(track.path) // Creer un flux du fichier.
       // Recupere les metadonnees.
       musicMetadata(trackStream, {duration: this.config.duration}, (err, metadatas) => {
         if (err) {
