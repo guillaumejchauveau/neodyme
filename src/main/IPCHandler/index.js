@@ -28,8 +28,9 @@ const IPCHandler = {
              */
             resolveDecisiveCriteriaSets(event, criteriaSetFootprint) {
                 const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
-                
-                event.sender.send('RES:CriteriaSet.resolveDecisiveCriteriaSets', criteriaSet.resolveDecisiveCriteriaSets())
+
+                event.sender.send('RES:CriteriaSet.resolveDecisiveCriteriaSets',
+                                  criteriaSet.resolveDecisiveCriteriaSets())
             },
             /**
              * Repond a une requete de resolution d'ensembles de criteres possibles selon le type de critere.
@@ -39,7 +40,7 @@ const IPCHandler = {
              */
             resolveCriteriaByType(event, criteriaSetFootprint, type) {
                 const criteriaSet = CriteriaSet.convertCriteriaSetFootprint(criteriaSetFootprint)
-                
+
                 event.sender.send('RES:CriteriaSet.resolveCriteriaByType', criteriaSet.resolveCriteriaByType(type))
             }
         },
@@ -67,11 +68,11 @@ const IPCHandler = {
         ipcMain.on('REQ:CriteriaSet.resolveDecisiveCriteriaSets', (...args) => {
             this.handlers.CriteriaSet.resolveDecisiveCriteriaSets(...args)
         })
-        
+
         ipcMain.on('REQ:CriteriaSet.resolveCriteriaByType', (...args) => {
             this.handlers.CriteriaSet.resolveCriteriaByType(...args)
         })
-        
+
         ipcMain.on('REQ:Provider.getDataBuffer', (...args) => {
             this.handlers.Provider.getDataBuffer(...args)
         })

@@ -21,7 +21,7 @@ class Criterion {
     constructor(type, value) {
         if (!Criterion.checkType(type)) {
             throw `Unrecognized criterion type: ${type}`
-        }
+        }      
 
         this.type  = type
         this.value = value

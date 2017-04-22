@@ -1,7 +1,9 @@
 @import "loader";
 
 *, *::before, *::after {
-    box-sizing : border-box;
+    box-sizing  : border-box;
+    cursor      : default;
+    user-select : none;
 }
 
 html {

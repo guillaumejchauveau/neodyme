@@ -26,11 +26,11 @@ class DecisiveCriteriaSet extends CriteriaSet {
      */
     constructor(config) {
         super()
-        
+
         this.providerKey = config.providerKey
         this.id          = config.id
     }
-    
+
     /**
      * Appelle la methode getDataBuffer() de la source correspondante à l'ensemble determinant courant (via IPC).
      * @returns {Promise} Une promise qui resout un {ArrayBuffer}.
@@ -38,8 +38,8 @@ class DecisiveCriteriaSet extends CriteriaSet {
     getDataBuffer() {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('REQ:Provider.getDataBuffer', this.providerKey, this.id)
-            
-            ipcRenderer.on('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
+
+            ipcRenderer.once('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
                 resolve(base64AB.decode(base64ArrayBuffer))
             })
         })

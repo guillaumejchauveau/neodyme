@@ -10,12 +10,10 @@ require('../css/fonts.scss')
 import Vue from 'vue'
 import VueX from 'vuex'
 
-import RippleDirective from './directives/Ripple'
-
-
+import Ripple from './MDC/Ripple'
 
 Vue.use(VueX)
-Vue.directive('ripple', RippleDirective)
+Vue.directive('ripple', Ripple)
 
 const vm = new Vue({
                        el    : '#app',

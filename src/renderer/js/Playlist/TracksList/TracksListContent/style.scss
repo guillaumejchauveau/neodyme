@@ -1,0 +1,40 @@
+@import "loader";
+
+#tracksList .tracksList-content {
+    @include centered;
+    width            : ($controlPanel-size - 1px)*2;
+    height           : ($controlPanel-size - 1px)*2;
+    border-radius    : 50%;
+    background-color : $bg-dark-secondary;
+    transition       : width $tracksList-transition-time $tracksList-transition-easing, height $tracksList-transition-time $tracksList-transition-easing;
+    
+    .tracksList-waypoint {
+        @include centered;
+        width            : $tracksList-size;
+        height           : $tracksList-item-height;
+        background-color : $color-primary;
+        transform        : translateY(-50%);
+        transform-origin : 0 50% 0;
+        transition       : transform $tracksList-item-transition-time*2 $tracksList-item-transition-easing;
+    }
+    
+    .tracksList-items {
+        position      : relative;
+        width         : 100%;
+        height        : 100%;
+        border-radius : 50%;
+        overflow      : hidden;
+    }
+    
+    .tracksList-items-transition-enter-active, .tracksList-items-transition-leave-active {
+        transition : opacity $tracksList-transition-time $tracksList-transition-easing $tracksList-transition-time/2;
+    }
+    
+    .tracksList-items-transition-leave-active {
+        transition-delay : 0s;
+    }
+    
+    .tracksList-items-transition-enter, .tracksList-items-transition-leave-to {
+        opacity : 0;
+    }
+}

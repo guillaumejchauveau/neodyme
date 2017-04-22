@@ -5,8 +5,8 @@
  */
 
 import fs from 'fs'
-import gs from 'glob-stream'
-import mm from 'musicmetadata'
+import globStream from 'glob-stream'
+import musicMetadata from 'musicmetadata'
 
 /**
  * Conteneur d'injection de dependances.
@@ -40,46 +40,46 @@ class FileSystemProvider extends Provider {
      */
     constructor(providerConfig) {
         super(providerConfig)
-        
-        this.makeTrackList()
+
+        this.makeTracksList()
     }
-    
+
     /**
      * Enregistre les pistes.
      * @throws Lance une exception si une erreur survient lors de la lecture des metadonnees.
      */
-    makeTrackList() {
+    makeTracksList() {
         // Recupere un Stream de chemins pour chaques fichiers.
-        const tracksStream = gs(`./**/*.@(${this.config.exts})`, {
+        const tracksStream = globStream(`./**/*.@(${this.config.exts})`, {
             cwd    : this.config.dir,
             cwdbase: true
         })
-        
+
         // A chaque fois qu'un chemin est trouve.
         tracksStream.on('data', track => {
             const trackStream = fs.createReadStream(track.path) // Creer un Stream du fichier.
             // Recupere les metadonnees.
-            mm(trackStream, {duration: this.config.duration}, (err, metadata) => {
-                if (err) {
-                    throw err
+            musicMetadata(trackStream, {duration: this.config.duration}, (error, metadata) => {
+                if (error) {
+                    throw error
                 }
                 trackStream.close()
-                
-                const dcs = new DecisiveCriteriaSet({
-                                                        provider: this,
-                                                        id      : track.path
-                                                    })
-                
+
+                const decisiveCriteriaSet = new DecisiveCriteriaSet({
+                                                                        provider: this,
+                                                                        id      : track.path
+                                                                    })
+
                 DIC['ConfigurationStore'].store.criterion.types.forEach((criterionType, index) => {
-                    dcs.add(new Criterion(criterionType, this.config.typesMap[index](metadata)))
+                    decisiveCriteriaSet.add(new Criterion(criterionType, this.config.typesMap[index](metadata)))
                 })
-                
+
                 // Enregistre la nouvelle piste.
-                DIC['DCSStore'].add(dcs)
+                DIC['DCSStore'].add(decisiveCriteriaSet)
             })
         })
     }
-    
+
     /**
      * Recupere les donnees brutes d'une piste.
      * @param {String} path - L'identifiant unique pour la source (ici le chemin du fichier).
@@ -87,11 +87,11 @@ class FileSystemProvider extends Provider {
      */
     getDataBuffer(path) {
         return new Promise((resolve, reject) => {
-            fs.readFile(path, (err, data) => {
-                if (err) {
-                    reject(err)
+            fs.readFile(path, (error, data) => {
+                if (error) {
+                    reject(error)
                 }
-                
+
                 resolve(data.buffer)
             })
         })

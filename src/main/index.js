@@ -33,7 +33,7 @@ import DecisiveCriteriaSetStore from './Store/DecisiveCriteriaSetStore'
 import FileSystemProvider from './Provider/FileSystemProvider'
 
 /*
- * BOOTSTRAP
+ * INITIALISATION.
  */
 DIC['DCSStore'] = new DecisiveCriteriaSetStore() // Cree le stockeur d'ensembles de criteres determinants.
 
@@ -70,13 +70,13 @@ config.store.providers = [
 ]
 
 /*
- * WINDOW MANAGEMENT
+ * GESTION DES FENETRES.
  */
 let appWindow
 
 electron.app.on('ready', () => {
     IPCHandler.setEventListeners() // Met en place les ecouteurs d'evenements IPC.
-
+    
     // Cree la fenetre.
     appWindow = new electron.BrowserWindow()
     appWindow.loadURL(/*RENDERER-URL-LOAD*/)
