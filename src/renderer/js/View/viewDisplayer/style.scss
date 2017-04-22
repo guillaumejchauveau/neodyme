@@ -1,0 +1,39 @@
+@import "loader";
+
+.viewDisplayer {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  margin: 0 10%;
+}
+
+.vd_items {
+  display: flex;
+  flex-flow: wrap;
+}
+
+
+.vd_backview {
+        @include mdc-ripple-base;
+        @include mdc-ripple-bg((pseudo: "::before"));
+        @include mdc-ripple-fg((pseudo: "::after"));
+        @include buttonReset;
+        border-radius : 100%;
+        cursor        : pointer;
+        overflow      : hidden;
+
+        span {
+            display    : inline-block;
+            width      : 100%;
+            height     : 100%;
+            color      : $text-color;
+            text-align : center;
+
+            &::before {
+
+                @include materialIcon;
+                content : 'arrow_back';
+                font-size: 32px;
+            }
+        }
+    }

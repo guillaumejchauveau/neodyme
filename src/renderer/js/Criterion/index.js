@@ -4,11 +4,7 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-/**
- * Conteneur d'injection de dependances.
- * @type {Object}
- */
-import DIC from '../DIC'
+import settings from '../Store/Settings'
 
 /**
  * Classe qui represente un critere.
@@ -20,7 +16,7 @@ class Criterion {
      * Cree un critere.
      * @param {String} type  - Le type du critere.
      * @param {*}      value - La valeur du critere.
-     * @throws Lance une exception si le type de critere n'est pas pris en charge
+     * @throws Lance une exception si le type de critere n'est pas pris en charge.
      */
     constructor(type, value) {
         if (!Criterion.checkType(type)) {
@@ -37,7 +33,7 @@ class Criterion {
      * @returns {Boolean} Resultat du test.
      */
     static checkType(type) {
-        return DIC['ConfigurationStore'].store.criterion.types.indexOf(type) !== -1
+        return settings.state.criterion.types.indexOf(type) !== -1
     }
 }
 

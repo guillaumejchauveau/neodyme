@@ -4,11 +4,13 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+import {webContents} from 'electron'
+
 /**
  * Classe DecisiveCriteriaSet.
  * @type {DecisiveCriteriaSet}
  */
-const DecisiveCriteriaSet = require('../../Criterion/CriteriaSet/DecisiveCriteriaSet')
+import DecisiveCriteriaSet from '../../Criterion/CriteriaSet/DecisiveCriteriaSet'
 
 /**
  * Stockeur d'ensembles de criteres determinants.
@@ -32,8 +34,12 @@ class DecisiveCriteriaSetStore {
             throw 'Invalid parameter'
         }
         
+        // Previent toutes les fenetres que le Store a ete mis a jour.
+        webContents.getAllWebContents().forEach(contents => {
+            contents.send('EVENT:DCSStore.updated')
+        })
         return this.store.push(DCS) - 1
     }
 }
 
-module.exports = DecisiveCriteriaSetStore
+export default DecisiveCriteriaSetStore

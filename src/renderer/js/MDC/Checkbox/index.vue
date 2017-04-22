@@ -12,15 +12,14 @@
 
 <script>
     import {MDCCheckbox} from '@material/checkbox'
-    
+
     export default {
         mounted() {
-            this.setMenu()
+            this.checkbox = new MDCCheckbox(this.$el)
         },
-        methods: {
-            setMenu() {
-                this.checkbox = new MDCCheckbox(this.$el)
-            }
+        beforeDestroy() {
+            this.checkbox.destroy()
+            delete this.checkbox
         }
     }
 </script>

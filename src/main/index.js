@@ -4,37 +4,44 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-const electron = require('electron')
+import electron from 'electron'
 
 /**
  * Conteneur d'injection de dependances.
  * @type {Object}
  */
-const DIC                      = require('./DIC')
+import DIC from './DIC'
+/**
+ * Gestionnaire de requetes IPC.
+ * @type {Object}
+ */
+import IPCHandler from './IPCHandler'
 /**
  * Classe Store.
  * @type {Store}
  */
-const Store                    = require('./Store')
+import Store from './Store'
 /**
  * Classe DecisiveCriteriaSetStore.
  * @type {DecisiveCriteriaSetStore}
  */
-const DecisiveCriteriaSetStore = require('./Store/DecisiveCriteriaSetStore')
+import DecisiveCriteriaSetStore from './Store/DecisiveCriteriaSetStore'
 /**
  * Classe FileSystemProvider.
  * @type {FileSystemProvider}
  */
-const FileSystemProvider       = require('./Provider/FileSystemProvider')
+import FileSystemProvider from './Provider/FileSystemProvider'
 
 /*
  * BOOTSTRAP
  */
-DIC['DCSStore'] = new DecisiveCriteriaSetStore()
+DIC['DCSStore'] = new DecisiveCriteriaSetStore() // Cree le stockeur d'ensembles de criteres determinants.
 
-const config              = new Store
+// Cree la configuration.
+const config              = new Store()
 DIC['ConfigurationStore'] = config
 
+// Types de criteres pris en charge.
 config.store.criterion = {
     types: [
         'artist',
@@ -45,19 +52,21 @@ config.store.criterion = {
     ]
 }
 
+// Sources prises en chargent.
 config.store.providers = [
     new FileSystemProvider({
-        dir     : `${__dirname}/music`,
-        exts    : 'mp3|ogg|flac',
-        duration: true,
-        typesMap: [
-            metadata => metadata.albumartist[0],
-            metadata => metadata.album,
-            metadata => metadata.title,
-            metadata => metadata.track.no,
-            metadata => metadata.duration
-        ]
-    })
+                               key     : 0,
+                               dir     : `${__dirname}/music`,
+                               exts    : 'mp3|ogg|flac',
+                               duration: true,
+                               typesMap: [
+                                   metadata => metadata.albumartist[0],
+                                   metadata => metadata.album,
+                                   metadata => metadata.title,
+                                   metadata => metadata.track.no,
+                                   metadata => metadata.duration
+                               ]
+                           })
 ]
 
 /*
@@ -66,15 +75,19 @@ config.store.providers = [
 let appWindow
 
 electron.app.on('ready', () => {
+    IPCHandler.setEventListeners() // Met en place les ecouteurs d'evenements IPC.
+
+    // Cree la fenetre.
     appWindow = new electron.BrowserWindow()
     appWindow.loadURL(/*RENDERER-URL-LOAD*/)
 
+    // Detruit la fenetre a sa fermeture.
     appWindow.on('closed', () => {
-     appWindow = null
-     })
-
+        appWindow = null
+    })
 })
 
+// Quitte quand toutes les fenetres sont fermees.
 electron.app.on('window-all-closed', () => {
     electron.app.quit()
 })

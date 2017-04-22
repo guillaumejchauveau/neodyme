@@ -1,0 +1,7 @@
+@import "loader";
+
+.list {
+  position: absolute;
+  @include Card(100%, 100%)
+  margin:0; 
+}

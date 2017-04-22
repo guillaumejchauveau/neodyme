@@ -1,6 +1,6 @@
 <template>
     <div class="mdc-menu-anchor">
-        <button :class="{horiz}" @click="toggleMenu" v-ripple><span></span></button>
+        <button :class="{horiz}" @click="toggle" v-ripple><span></span></button>
         <div class="mdc-simple-menu">
             <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
                 <slot></slot>
@@ -11,7 +11,7 @@
 
 <script>
     import {MDCSimpleMenu} from '@material/menu'
-    
+
     export default {
         props  : {
             horiz: {
@@ -19,16 +19,17 @@
                 'default': false
             }
         },
-        mounted() {
-            this.setMenu()
-        },
         methods: {
-            setMenu() {
-                this.menu = new MDCSimpleMenu(this.$el.children[1])
-            },
-            toggleMenu() {
+            toggle() {
                 this.menu.open = !this.menu.open
             }
+        },
+        mounted() {
+            this.menu = new MDCSimpleMenu(this.$el.children[1])
+        },
+        beforeDestroy() {
+            this.menu.destroy()
+            delete this.menu
         }
     }
 </script>
