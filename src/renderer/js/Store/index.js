@@ -1,10 +1,24 @@
-import VueX from 'vuex'
-import Settings from './Settings'
+/**
+ * @file Definit le Store de l'application VueJS.
+ * @author Guillaume Chauveau <guillaume.j.chauveau@gmail.com>
+ * @copyright Guillaume Chauveau 2017.
+ */
 
-const Store  = new VueX.Store({
-                                  modules: {
-                                      settings: Settings
-                                  }
-                              })
+import VueX from 'vuex'
+/**
+ * Module contenant les parametres de l'application.
+ */
+import Settings from './Settings'
+/**
+ * Module contenant l'etat de la partie Liste de lecture.
+ */
+import Playlist from './Playlist'
+
+const Store = new VueX.Store({
+                                 modules: {
+                                     settings: Settings,
+                                     playlist: Playlist
+                                 }
+                             })
 
 export default Store

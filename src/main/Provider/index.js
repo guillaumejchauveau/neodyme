@@ -21,7 +21,7 @@ class Provider {
      * Methode abstraite devant etre mise en oeuvre par les classes enfants.
      * @throws Lance une exception si la methode n'est pas mise en oeuvre.
      */
-    makeTrackList() {
+    makeTracksList() {
         throw 'Not implemented'
     }
     

@@ -15,11 +15,11 @@
     
     export default {
         mounted() {
-            this.checkbox = new MDCCheckbox(this.$el)
+            this.mdc_checkbox_ = new MDCCheckbox(this.$el)
         },
         beforeDestroy() {
-            this.checkbox.destroy()
-            delete this.checkbox
+            this.mdc_checkbox_.destroy()
+            delete this.mdc_checkbox_
         }
     }
 </script>

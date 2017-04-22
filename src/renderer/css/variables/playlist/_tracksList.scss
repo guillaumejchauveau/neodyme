@@ -1,0 +1,17 @@
+$tracksList-size : $controlPanel-size*3;
+
+$tracksList-button-border-radius : 2px;
+$tracksList-open-size : 15px;
+$tracksList-close-size : 45px;
+$tracksList-waypoint-scroller-size : 45px;
+
+$tracksList-hoverZone-size : $controlPanel-size + $tracksList-open-size;
+$tracksList-active-hoverZone-size : $tracksList-size + $tracksList-close-size;
+
+$tracksList-transition-easing : cubic-bezier(0, 0, 0, 1);
+$tracksList-transition-time : 0.3s;
+
+$tracksList-item-height : 35px;
+$tracksList-item-content-font-size : 15px;
+$tracksList-item-transition-easing : cubic-bezier(0, 0, 0, 1);
+$tracksList-item-transition-time : 0.3s;

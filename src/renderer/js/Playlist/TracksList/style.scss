@@ -1,0 +1,150 @@
+@import "loader";
+
+#tracksList {
+    position      : relative;
+    width         : 100%;
+    height        : 100%;
+    border-radius : 50%;
+    
+    &.active {
+        
+        .tracksList-hoverZone {
+            width  : $tracksList-active-hoverZone-size*2;
+            height : $tracksList-active-hoverZone-size*2;
+        }
+        
+        .tracksList-content {
+            @include mdc-elevation(2);
+            width  : $tracksList-size*2;
+            height : $tracksList-size*2;
+        }
+    }
+    
+    .tracksList-hoverZone {
+        @include centered;
+        width         : $tracksList-hoverZone-size*2;
+        height        : $tracksList-hoverZone-size*2;
+        border-radius : 50%;
+    }
+    
+    .tracksList-open {
+        @include mdc-ripple-base;
+        @include mdc-ripple-bg((pseudo: "::before"));
+        @include mdc-ripple-fg((pseudo: "::after"));
+        @include buttonReset;
+        @include centered;
+        width            : ($controlPanel-size - 1px)*2;
+        height           : ($controlPanel-size - 1px)*2;
+        border-radius    : 50%;
+        background-color : $bg-dark-primary;
+        cursor           : pointer;
+        overflow         : hidden;
+        transition       : width $tracksList-transition-time/2 $tracksList-transition-easing, height $tracksList-transition-time/2 $tracksList-transition-easing;
+    }
+    
+    .tracksList-close {
+        @include mdc-ripple-base;
+        @include mdc-ripple-bg((pseudo: "::before"));
+        @include mdc-ripple-fg((pseudo: "::after"));
+        @include buttonReset;
+        @include centered;
+        left             : $controlPanel-size + $tracksList-size - 1px;
+        width            : $tracksList-close-size;
+        height           : $tracksList-close-size;
+        border-radius    : 0 $tracksList-button-border-radius $tracksList-button-border-radius 0;
+        overflow         : hidden;
+        background-color : $color-primary;
+        cursor           : pointer;
+        transform        : translateY(-50%) translateX(-100%);
+        transition       : left $tracksList-transition-time $tracksList-transition-easing, transform $tracksList-transition-time $tracksList-transition-easing;
+        
+        span {
+            display    : inline-block;
+            width      : 100%;
+            height     : 100%;
+            color      : $text-light-color;
+            text-align : center;
+            cursor     : inherit;
+            
+            &::before {
+                @include materialIcon;
+                content     : 'close';
+                line-height : $tracksList-close-size;
+                cursor      : inherit;
+            }
+        }
+    }
+    
+    .tracksList-waypoint-scroller-container {
+        @include centered;
+        transform        : translateY(-50%);
+        transform-origin : 0 50% 0;
+        transition       : transform $tracksList-item-transition-time*2 $tracksList-item-transition-easing;
+        
+        .tracksList-waypoint-scroller {
+            @include mdc-ripple-base;
+            @include mdc-ripple-bg((pseudo: "::before"));
+            @include mdc-ripple-fg((pseudo: "::after"));
+            @include buttonReset;
+            position         : absolute;
+            left             : $tracksList-size - 1px;
+            width            : $tracksList-waypoint-scroller-size;
+            height           : $tracksList-waypoint-scroller-size;
+            border-radius    : 0 $tracksList-button-border-radius $tracksList-button-border-radius 0;
+            background-color : $color-primary;
+            overflow         : hidden;
+            transform        : translateY(-50%) translateX(-100%);
+            transition       : left $tracksList-transition-time $tracksList-transition-easing, transform $tracksList-transition-time $tracksList-transition-easing;
+            
+            span {
+                display    : inline-block;
+                width      : 100%;
+                height     : 100%;
+                color      : $text-light-color;
+                text-align : center;
+                cursor     : pointer;
+                
+                &::before {
+                    @include materialIcon;
+                    content     : 'chevron_right';
+                    line-height : $tracksList-close-size;
+                    cursor      : inherit;
+                    transform   : rotate(-90deg);
+                }
+            }
+            
+            &.down span::before {
+                transform : rotate(90deg);
+            }
+        }
+    }
+    
+    .tracksList-buttons-transition-enter, .tracksList-buttons-transition-leave-to {
+        
+        &.tracksList-close {
+            left : $controlPanel-size - $tracksList-close-size;
+        }
+        &.tracksList-waypoint-scroller-container .tracksList-waypoint-scroller {
+            left : $controlPanel-size - $tracksList-waypoint-scroller-size;
+        }
+    }
+}
+
+#tracksList:hover {
+    
+    .tracksList-open {
+        @include mdc-elevation(1);
+        width  : ($controlPanel-size + $tracksList-open-size)*2;
+        height : ($controlPanel-size + $tracksList-open-size)*2;
+    }
+    
+    .tracksList-close {
+        @include mdc-elevation(1);
+        transform : translateY(-50%) translateX(0);
+    }
+    
+    .tracksList-waypoint-scroller {
+        @include mdc-elevation(1);
+        transform : translateY(-50%) translateX(0);
+    }
+}

@@ -4,10 +4,15 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+/**
+ * Parametres de la partie Liste de lecture.
+ */
+import playlist from './playlist'
+
 export default {
     namespaced: true,
     state     : {
-        windowSize: { // Dimensions de la fenetre.
+        windowSize: { // Dimensions de la fenetre (en pixels).
             height: 0,
             width : 0
         },
@@ -19,12 +24,8 @@ export default {
                 'trackNumber',
                 'duration'
             ]
-        }
-    },
-    getters   : {
-        setting(state) {
-            return key => state[key]
-        }
+        },
+        playlist
     },
     mutations : {
         /**
