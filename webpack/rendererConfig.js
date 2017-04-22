@@ -5,7 +5,7 @@ const root      = require('./root')
 const htmlFiles = glob.sync(`${root}/src/renderer/*.@(html|pug)`)
 
 module.exports = {
-    browsers          : ['Chrome >= 53'],
+    browsers          : ['Chrome >= 56'],
     entry             : {
         app: [`${root}/src/renderer/js/app.js`, ...htmlFiles]
     },

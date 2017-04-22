@@ -1,43 +1,36 @@
 <template>
-    <h1>{{ text }}</h1>
+    <div id="app">
+        <playlist></playlist>
+    </div>
 </template>
 
 <script>
     import Store from './Store'
+    import Playlist from './Playlist'
     
     export default {
-        data () {
-            return {
-                text: 'Hello World'
-            }
-        },
-        methods: {
+        methods   : {
             /**
              * Fonction declenchee a chaque redimensionnement de la fenetre.
              */
-            onWindowResizeHandler() {
-                this.$nextTick(function () {
+            windowResizeHandler() {
+                this.$nextTick(() => {
                     this.$store.commit('settings/UPDATE_WINDOW_SIZE')
                 })
             }
         },
-        store  : Store,
+        store     : Store,
+        components: {
+            Playlist
+        },
         mounted() {
-            this.$nextTick(function () {
-                window.addEventListener('resize', this.onWindowResizeHandler)
+            this.$nextTick(() => {
+                window.addEventListener('resize', this.windowResizeHandler)
                 this.$store.commit('settings/UPDATE_WINDOW_SIZE')
             })
         },
         beforeDestroy() {
-            window.removeEventListener('resize', this.onWindowResizeHandler)
+            window.removeEventListener('resize', this.windowResizeHandler)
         }
     }
 </script>
-
-<style>
-    @import "loader";
-    
-    h1 {
-        color : $color-primary;
-    }
-</style>

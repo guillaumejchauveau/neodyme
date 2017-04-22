@@ -55,21 +55,21 @@ class CriteriaSet {
     resolveDecisiveCriteriaSets() {
         const DCSStore = DIC['DCSStore']
         
-        let DCSs = DCSStore.store
+        let decisiveCriteriaSets = DCSStore.store
         
         for (const criterionType in this.criteria) {
-            const criterion    = this.criteria[criterionType]
-            const selectedDCSs = []
-            
-            DCSs.forEach(dcs => {
-                if (dcs.criteria[criterion.type].value === criterion.value) {
-                    selectedDCSs.push(dcs)
+            const criterion                    = this.criteria[criterionType]
+            const selectedDecisiveCriteriaSets = []
+
+            decisiveCriteriaSets.forEach(decisiveCriteriaSet => {
+                if (decisiveCriteriaSet.criteria[criterion.type].value === criterion.value) {
+                    selectedDecisiveCriteriaSets.push(decisiveCriteriaSet)
                 }
             })
-            DCSs = selectedDCSs
+            decisiveCriteriaSets = selectedDecisiveCriteriaSets
         }
         
-        return DCSs
+        return decisiveCriteriaSets
     }
     
     /**
@@ -83,12 +83,12 @@ class CriteriaSet {
             throw `Unrecognized criterion type: ${type}`
         }
         
-        const DCSs            = this.resolveDecisiveCriteriaSets()
-        const criterionValues = []
-        const criteriaSets    = []
+        const decisiveCriteriaSets = this.resolveDecisiveCriteriaSets()
+        const criterionValues      = []
+        const criteriaSets         = []
         
-        DCSs.forEach(dcs => {
-            const criterion = dcs.criteria[criterionType]
+        decisiveCriteriaSets.forEach(decisiveCriteriaSet => {
+            const criterion = decisiveCriteriaSet.criteria[criterionType]
             
             if (criterionValues.indexOf(criterion.value) === -1) { // Verifie si la valeur du critere n'a pas encore ete rencontree.
                 criterionValues.push(criterion.value)
@@ -110,7 +110,7 @@ class CriteriaSet {
     
     /**
      * Convertit une empreinte d'ensemble de criteres en ensemble de criteres.
-     * @param criteriaSetFootprint
+     * @param {Object} criteriaSetFootprint
      * @returns {CriteriaSet}
      */
     static convertCriteriaSetFootprint(criteriaSetFootprint) {

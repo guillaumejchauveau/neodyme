@@ -4,7 +4,7 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-import {webContents} from 'electron'
+import electron from 'electron'
 
 /**
  * Classe DecisiveCriteriaSet.
@@ -26,19 +26,21 @@ class DecisiveCriteriaSetStore {
     
     /**
      * Ajoute un ensemble de criteres determinant au stockeur.
-     * @param {DecisiveCriteriaSet} DCS - Un ensemble de criteres determinant.
-     * @return {number} L'indice de l'ensemble de criteres determinant enregistre.
+     * @param {DecisiveCriteriaSet} decisiveCriteriaSet - Un ensemble de criteres determinant.
+     * @return {Number} L'indice de l'ensemble de criteres determinant enregistre.
      */
-    add(DCS) {
-        if (!(DCS instanceof DecisiveCriteriaSet)) {
+    add(decisiveCriteriaSet) {
+        if (!(decisiveCriteriaSet instanceof DecisiveCriteriaSet)) {
             throw 'Invalid parameter'
         }
         
         // Previent toutes les fenetres que le Store a ete mis a jour.
-        webContents.getAllWebContents().forEach(contents => {
-            contents.send('EVENT:DCSStore.updated')
-        })
-        return this.store.push(DCS) - 1
+        electron.webContents
+                .getAllWebContents()
+                .forEach(contents => {
+                    contents.send('EVENT:DCSStore.updated')
+                })
+        return this.store.push(decisiveCriteriaSet) - 1
     }
 }
 
