@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <playlist></playlist>
-    <viewDisplayer></viewDisplayer>
+    <panel></panel>
   </div>
 </template>
 
 <script>
     import Store from './Store'
 
-    import viewDisplayer from './View/viewDisplayer/viewDisplayer.vue'
+    import Panel from './Panel'
     import Playlist from './Playlist'
 
     export default {
@@ -24,7 +24,7 @@
         },
         store     : Store,
         components: {
-            viewDisplayer,
+            Panel,
             Playlist
         },
         mounted() {

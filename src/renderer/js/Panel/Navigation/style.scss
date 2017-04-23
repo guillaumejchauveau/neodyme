@@ -1,0 +1,59 @@
+@import "loader";
+
+.navigation {
+  .navigation_card {
+    @include Card(100%, $navigation-card-height);
+  }
+}
+
+.navigation_card_button {
+  &:not(.disabled) {
+    @include mdc-ripple-base;
+    @include mdc-ripple-bg((pseudo: "::before"));
+    @include mdc-ripple-fg((pseudo: "::after"));
+  }
+
+  @include buttonReset;
+  border-radius : 50%;
+  cursor        : pointer;
+  overflow      : hidden;
+  margin        : $navigation-button-margin;
+  margin-right  : 0;
+
+  span {
+    display    : inline-block;
+    width      : 100%;
+    height     : 100%;
+    text-align : center;
+
+    &::before {
+      @include materialIcon;
+      font-size: $navigation-button-icon-size;
+    }
+  }
+}
+
+.back span::before {
+  content : 'arrow_back';
+}
+
+.allArtists span::before {
+  content : 'person';
+}
+
+.allAlbums span::before {
+  content : 'album';
+}
+
+.allTitles span::before {
+  content : 'music_note';
+}
+
+.current {
+  color: $color-primary;
+}
+
+.disabled {
+  cursor : default;
+  color: $text-color-disabled;
+}

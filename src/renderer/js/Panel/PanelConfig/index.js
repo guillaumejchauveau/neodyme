@@ -1,9 +1,8 @@
-class ViewConfig {
+class PanelConfig {
   constructor (criteriaSet, criterionType) {
     this.criteriaSet  = criteriaSet
     this.criterionType = criterionType
   }
 }
 
-
-module.exports = ViewConfig
+export default PanelConfig

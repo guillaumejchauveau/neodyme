@@ -4,8 +4,11 @@
 @import "variables/type";
 @import "variables/playlist/controlPanel";
 @import "variables/playlist/tracksList";
-@import "variables/viewDisplayer/_item";
-@import "variables/viewDisplayer/_list";
+@import "variables/panel/panel";
+@import "variables/panel/navigation";
+@import "variables/panel/item";
+@import "variables/panel/list";
+@import "variables/panel/listRow";
 
 @import "@material/animation/mixins";
 @import "@material/elevation/mixins";

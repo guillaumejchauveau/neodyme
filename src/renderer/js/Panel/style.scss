@@ -1,0 +1,8 @@
+@import "loader";
+
+.panel {
+  position: absolute;
+  left: $controlPanel-size;
+  right: 0;
+  margin: $panel-margin;
+}

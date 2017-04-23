@@ -9,7 +9,10 @@
  */
 import playlist from './playlist'
 
-import view from './view'
+/**
+ * Parametres de la partie Vue.
+ */
+import panel from './panel'
 
 export default {
     namespaced: true,
@@ -28,7 +31,7 @@ export default {
             ]
         },
         playlist,
-        view
+        panel
     },
     mutations : {
         /**
