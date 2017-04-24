@@ -1,6 +1,7 @@
 @import "loader";
 
 .navigation {
+
   .navigation_card {
     @include Card(100%, $navigation-card-height);
   }

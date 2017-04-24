@@ -3,7 +3,7 @@
     <div class="displayer_items" v-if="currentPanelConfig.criterionType !== 'title'">
       <item v-for="item in currentPanelElements" :key="item" :criteriaSet="item"></item>
     </div>
-    <list :elements="currentPanelElements" v-if="currentPanelConfig.criterionType === 'title'"></list>
+    <list v-if="currentPanelConfig.criterionType === 'title'"></list>
   </div>
 </template>
 

@@ -10,7 +10,7 @@
 import playlist from './playlist'
 
 /**
- * Parametres de la partie Vue.
+ * Parametres de la partie Panel.
  */
 import panel from './panel'
 

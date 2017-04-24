@@ -1,11 +1,11 @@
 <template>
   <div class="list-row">
     <tr class="list-row">
-      <td class="list-row_value list-row_trackNumber">{{criteria.trackNumber.value}}</td>
-      <td class="list-row_value list-row_metadata">{{criteria.title.value}}</td>
-      <td class="list-row_value list-row_metadata">{{criteria.album.value}}</td>
-      <td class="list-row_value list-row_metadata">{{criteria.artist.value}}</td>
-      <td class="list-row_value list-row_metadata">{{criteria.duration.value}}</td>
+      <td class="list-row_value list-row_trackNumber">{{criteria.criteria.trackNumber.value}}</td>
+      <td class="list-row_value list-row_metadata">{{criteria.criteria.title.value}}</td>
+      <td class="list-row_value list-row_metadata">{{criteria.criteria.album.value}}</td>
+      <td class="list-row_value list-row_metadata">{{criteria.criteria.artist.value}}</td>
+      <td class="list-row_value list-row_metadata">{{criteria.criteria.duration.value}}</td>
     </tr>
   </div>
 </template>

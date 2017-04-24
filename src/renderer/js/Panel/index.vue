@@ -1,7 +1,8 @@
 <template>
   <div class="panel">
     <navigation></navigation>
-    <displayer></displayer>
+    <displayer ></displayer>
+    <fab class="panel_playAllButton app-fab--absolute" ><span class="mdc-fab__icon" @click="playAll()"></span></fab>
   </div>
 </template>
 

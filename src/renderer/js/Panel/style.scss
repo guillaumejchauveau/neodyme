@@ -1,8 +1,43 @@
 @import "loader";
 
 .panel {
+  z-index: -1;
   position: absolute;
   left: $controlPanel-size;
   right: 0;
+  top: 0;
+  bottom: 0;
   margin: $panel-margin;
+}
+
+.panel_playAllButton {
+  z-index: 24;
+  span {
+
+    display    : inline-block;
+    width      : 100%;
+    height     : 100%;
+    text-align : center;
+
+    &::before {
+      cursor: pointer;
+      @include materialIcon;
+      font-size: $panel-fabPlayAll-icon-size;
+      color: $text-light-color;
+      content: "play_arrow";
+    }
+  }
+}
+
+.app-fab--absolute {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+@media(min-width: 1024px) {
+   .app-fab--absolute {
+    bottom: 3rem;
+    right: 5rem;
+  }
 }
