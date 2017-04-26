@@ -1,89 +1,74 @@
 @import "loader";
 
-
 /* ITEM */
 
 .item {
+  cursor: pointer;
   position  : relative;
   width     : $item-width;
   height    : $item-height;
   margin    : 5px;
-}
 
-.item_card {
-  position: relative;
-  @include Card($item-width, $item-height);
-  @include InteractiveCard();
-}
+  .item_card {
+    position: relative;
+    @include Card($item-width, $item-height);
+    @include InteractiveCard();
 
+    &:hover {
+      .item_background {
+        background-color  : $color-primary;
+        transform         : scale(1.05);
+      }
+    }
 
-/* ITEM_PICTURE */
+    .item_picture {
 
-.item_card_picture {
-  z-index   : 3;
-  position  : relative;
-  top       : 0;
-  width     : $item-width;
-  height    : $item-width;
-}
+      cursor: pointer;
+      z-index   : 3;
+      height    : $item-width;
 
-.item_card_picture_background {
-  position          : absolute;
-  top               : 0;
-  width             : $item-width * $item-picture-size;
-  height            : $item-width * $item-picture-size;
-  margin            : $item-width *(1 - $item-picture-size) / 2;
-  border-radius     : 50%;
-  background-color  : $bg-primary ;
-  @include mdc-elevation(2);
-  transition        : background-color $item-transition-hover-delay;
-  transition        : transform $item-transition-hover-delay;
-}
+      .picture_background {
+        cursor: pointer;
+        position          : absolute;
+        top               : 0;
+        width             : $item-width * $item-picture-size;
+        height            : $item-width * $item-picture-size;
+        margin            : $item-width *(1 - $item-picture-size) / 2;
+        border-radius     : 50%;
+        background-color  : $bg-primary ;
+        @include mdc-elevation(2);
+        transition        : background-color $item-transition-hover-duration, transform $item-transition-hover-duration;
+      }
 
-img {
-  position          : absolute;
-  top               : 0;
-  width             : $item-width * $item-picture-size - $item-picture-border-size * 2;
-  height            : $item-width * $item-picture-size - $item-picture-border-size * 2;
-  margin            : $item-picture-border-size + $item-width * (1-$item-picture-size ) /2 ;
-  border-radius     : 50%;
-}
+      img {
+        cursor: pointer;
+        position          : absolute;
+        top               : 0;
+        width             : $item-width * $item-picture-size - $item-picture-border-size * 2;
+        height            : $item-width * $item-picture-size - $item-picture-border-size * 2;
+        margin            : $item-picture-border-size + $item-width * (1-$item-picture-size ) /2 ;
+        border-radius     : 50%;
+      }
+    }
 
+    .item_text {
+      p {
+        cursor: pointer;
+        width       : $item-width - 30;
+        margin      : 0;
+        margin-left : $item-width *(1-$item-picture-size ) /2 ;
+        font-weight : $font-weight-light;
 
-/* ITEM_TEXT */
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 
-.item_card_text {
-  position  : relative;
-  left      : 0;
-  height    : $item-height - $item-width;
-  margin    : 0;
-}
+  .item_menu {
+    margin-left : $item-width - 30;
+    top         : -40px;
 
-.item_menu {
-  margin-left : $item-width - 24;
-  width       : 24px;
-  top         : -($item-height - $item-width);
-  position    : absolute;
-  right       : 0;
-}
-
-p {
-  top         : 2px;
-  position    : absolute;
-  width       : 100px;
-  margin      : 0;
-  margin-left : $item-width *(1-$item-picture-size ) /2 ;
-  font-weight : $font-weight-light;
-}
-
-
-/* ITEM:HOVER */
-
-.item_card:hover .item_card_picture_background {
-  background-color  : $color-primary;
-  transform         : scale(1.05);
-}
-
-p:hover {
-  text-decoration: underline;
+  }
 }

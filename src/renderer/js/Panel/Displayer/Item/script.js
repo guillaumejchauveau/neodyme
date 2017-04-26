@@ -41,10 +41,9 @@ export default {
 
     /**
      * Affiche le PanelSuivant en fonction de l'item selectione.
-     * @param {Criterion} newCriterion - La position sur la piste (en secondes).
      */
-    setNextPanel (newCriterion) {
-      this.setNextPanelConfig(newCriterion)
+    setNextPanel () {
+      this.setNextPanelConfig(this.newCriterion)
       this.loadCurrentPanelElements()
     },
 
@@ -85,12 +84,17 @@ export default {
     }),
 
     /**
-     * Recupere la valeur de l'item dans le criteriaSet correspondant.
+     * Recupere la valeur de l'item dans le criteriaSet correspondant et si la valeur est nulle renvoit 'Unknow'.
      * @param {CriteriaSet} criteriaSet - Le criteriaSet de l'item.
      * @returns {String} Le nom de l'item a afficher.
      */
     itemName () {
-      return this.criteriaSet.criteria[this.currentPanelConfig.criterionType].value
+      const itemValue = this.criteriaSet.criteria[this.currentPanelConfig.criterionType].value
+      if (itemValue !== '' || undefined || null) {
+        return itemValue
+      } else {
+        return 'Unknow'
+      }
     },
 
     /**
@@ -101,6 +105,6 @@ export default {
      */
     newCriterion () {
       return new Criterion(this.currentPanelConfig.criterionType, this.itemName)
-    }
+    },
   }
 }

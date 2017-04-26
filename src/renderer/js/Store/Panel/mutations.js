@@ -22,10 +22,18 @@ export default {
 
   /**
    * Set les elements du panel.
-   * @param {Array} elements - Les elements.
+   * @param {Array} criteriaSets - Les criteriaSets.
    */
-  SET_CURRENTPANELELEMENTS (state, elements) {
-    state.currentPanelElements = elements
+  SET_CURRENTPANEL_CRITERIASETS (state, criteriaSets) {
+    state.currentPanelElements.criteriaSets = criteriaSets
+  },
+
+  /**
+   * Set les elements du panel.
+   * @param {Array} criteriaSets - Les criteriaSets.
+   */
+  SET_CURRENTPANEL_DECISIVECRITERIASETS (state, decisiveCriteriaSets) {
+    state.currentPanelElements.decisiveCriteriaSets = decisiveCriteriaSets
   },
 
   /**
@@ -43,10 +51,16 @@ export default {
     state.panelHistory.pop()
   },
 
+  REMOVE_ALL_PANELHISTORY_ENTRY_BY_INDEX (state, index) {
+    for (let panelConfigIndex = state.panelHistory.length ; panelConfigIndex >= index ; panelConfigIndex--) {
+      state.panelHistory.pop()
+    }
+  },
+
   /**
    * Vide l'historique.
    */
   CLEAR_PANELHISTORY (state) {
-    state.PanelHistory = []
+    state.panelHistory = []
   }
 }

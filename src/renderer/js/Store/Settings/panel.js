@@ -16,11 +16,11 @@ import PanelConfig from '../../Panel/PanelConfig'
 import CriteriaSet from '../../Criterion/CriteriaSet'
 
 export default {
-    panelFlow: [0, 1, 2],  
+    panelFlow: [0, 1, 2],
     panelPresets: {
-      allArtists: new PanelConfig(new CriteriaSet(), 'artist'),
-      allAlbums: new PanelConfig(new CriteriaSet(), 'album'),
-      allTitles: new PanelConfig(new CriteriaSet(), 'title'),
+      allArtists: new PanelConfig(new CriteriaSet(), 'artist', 'Tout les artistes'),
+      allAlbums: new PanelConfig(new CriteriaSet(), 'album', 'Tout les albums'),
+      allTitles: new PanelConfig(new CriteriaSet(), 'title', 'Tout les titres'),
     },
-    initialPanel: 'allTitles'
+    initialPanel: 'allAlbums'
 }

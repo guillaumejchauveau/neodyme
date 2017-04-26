@@ -15,10 +15,17 @@ class PanelConfig {
  * Cree une configuration.
  * @param {CriteriaSet} criteriaSet - L'ensemble de criteres actif dans le Panel.
  * @param {String} criterionType - Le type de critere a afficher.
+  * @param {String} title - Le titre du Panel.
  */
-  constructor (criteriaSet, criterionType) {
+  constructor (criteriaSet, criterionType, title) {
     this.criteriaSet  = criteriaSet
     this.criterionType = criterionType
+
+    if (typeof title === undefined) {
+      this.title = this.criteriaSet.criterion[this.criterionType].value
+    } else {
+      this.title = title
+    }
   }
 }
 

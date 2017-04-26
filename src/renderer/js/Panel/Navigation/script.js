@@ -8,8 +8,16 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 
 export default {
   computed: {
-    ...mapState('panel', ['currentPanelConfig']),
-    ...mapGetters('panel', ['isHistoryEmpty']),
+    ...mapState('panel', ['currentPanelConfig', 'panelHistory']),
+    ...mapGetters('panel', ['thereIsPreviousHistoryEntry', 'thereIsNextHistoryEntry']),
+
+    navigationHistoryTitles () {
+      const navigationHistoryTitles = []
+      this.panelHistory.forEach( panelConfig => {
+        navigationHistoryTitles.push(panelConfig.title)
+      })
+      return navigationHistoryTitles
+    },
 
     /**
      * Recupere les noms des panelPreset.
@@ -42,6 +50,10 @@ export default {
         }
       }
       return null
+    },
+
+    activeTitle () {
+      return this.currentPanelConfig.title
     }
   },
 
@@ -49,18 +61,28 @@ export default {
     ...mapActions('panel', {
       setPanelPreset: 'setPanelPreset',
       setPreviousPanelConfig: 'setPreviousPanelConfig',
-      loadCurrentPanelElements: 'loadCurrentPanelElements'
+      loadCurrentPanelElements: 'loadCurrentPanelElements',
+      setCurrentPanelConfigByHistoryIndex : 'setCurrentPanelConfigByHistoryIndex'
     }),
-
     /**
      * Si possible reviens sur le panel precedent, sinon ne fait rien.
      * @returns {null} Si l'historique est vide.
      */
     backPanel () {
-      if (this.isHistoryEmpty === true) {
+      if (this.thereIsPreviousHistoryEntry === true) {
         return null
       } else {
         this.setPreviousPanelConfig()
+        this.loadCurrentPanelElements()
+      }
+    },
+
+    forwardPanel () {
+      if (this.thereIsNextHistoryEntry === true) {
+        return null
+      } else {
+        const activePanelhistoryIndex = this.navigationHistoryTitles.indexOf(this.activeTitle)
+        this.setCurrentPanelConfigByHistoryIndex(activePanelhistoryIndex +1)
         this.loadCurrentPanelElements()
       }
     },
@@ -71,6 +93,12 @@ export default {
      */
     setPreset (preset) {
       this.setPanelPreset(preset)
+      this.loadCurrentPanelElements()
+    },
+
+    setSelectedPanel (index) {
+      const historyIndex = this.navigationHistoryTitles.indexOf(index)
+      this.setCurrentPanelConfigByHistoryIndex(historyIndex)
       this.loadCurrentPanelElements()
     }
   }

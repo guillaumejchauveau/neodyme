@@ -26,11 +26,26 @@ export default {
    * Renvoit la PanelConfig precedente dans l'historique.
    * @return {PanelConfig} La PanelConfig precedente.
    */
-  getLastPanelConfig: state => state.panelHistory[state.panelHistory.length - 1],
+  getLastPanelConfig: state => state.panelHistory[state.panelHistory.indexOf(state.currentPanelConfig) -1],
 
   /**
    * Verifie si l'historique est vide.
    * @return {Boolean}
    */
-  isHistoryEmpty: state => state.panelHistory.length == 0,
+  thereIsPreviousHistoryEntry: state => {
+    if (state.currentPanelConfig === state.panelHistory[0]) {
+      return true
+    }
+      return false
+  },
+
+  thereIsNextHistoryEntry: state => {
+    if (state.currentPanelConfig === state.panelHistory[state.panelHistory.length -1]) {
+      return true
+    }
+      return false
+  },
+
+  getCurrentPanelConfigHistoryIndex: state => state.panelHistory.indexOf(state.currentPanelConfig),
+
 }

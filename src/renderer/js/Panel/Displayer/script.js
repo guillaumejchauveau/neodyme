@@ -28,27 +28,21 @@ export default {
 
   computed: {
     ...mapState ('panel', ['currentPanelConfig', 'currentPanelElements']),
-    ...mapGetters ('panel', ['getCurrentPanelConfig']),
 
-  },
-
-  methods: {
-    ...mapActions('panel', {
-      setCustomPanel: 'setCustomPanel',
-      setPreviousPanelConfig: 'setPreviousPanelConfig',
-      loadCurrentPanelElements: 'loadCurrentPanelElements'
-    }),
-  },
-
-  /**
-   * Fonction lancee quand le composant est monte.
-   * Initialise le Panel en affichant le panelPreset initial.
-   */
-  mounted(){
-    const panelPresets = this.$store.state.settings.panel.panelPresets
-    const initialPanel = this.$store.state.settings.panel.initialPanel
-
-    this.setCustomPanel(panelPresets[initialPanel])
-    this.loadCurrentPanelElements()
+    sortedCriteriaSets () {
+      const currentCriterionType = this.currentPanelConfig.criterionType
+      const sortedCriteriaSets   = this.currentPanelElements.criteriaSets.sort((a, b) => {
+        let aValue = a.criteria[currentCriterionType].value
+        let bValue = b.criteria[currentCriterionType].value
+        if (aValue < bValue) {
+          return -1
+        }
+        if (aValue > bValue) {
+          return 1
+        }
+        return 0
+      })
+      return sortedCriteriaSets
+    }
   }
 }
