@@ -4,6 +4,9 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+/**
+ * Module Parametres du Store.
+ */
 import settings from '../Store/Settings'
 
 /**
@@ -16,11 +19,11 @@ class Criterion {
    * Cree un critere.
    * @param {String} type  - Le type du critere.
    * @param {*}      value - La valeur du critere.
-   * @throws {TypeError} Lance une exception si le type de critere n'est pas pris en charge.
+   * @throws {TypeError} Lance une exception si le type de critere n'est pas supporte.
    */
   constructor (type, value) {
     if (!Criterion.checkType(type)) {
-      throw new TypeError(`Unrecognized criterion type: ${type}`)
+      throw new TypeError(`Unsupported criterion type: ${type}`)
     }
 
     this.type = type

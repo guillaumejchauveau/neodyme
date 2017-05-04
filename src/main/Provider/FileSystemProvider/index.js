@@ -42,7 +42,8 @@ class FileSystemProvider extends Provider {
 
     // A chaque fois qu'un chemin est trouve.
     tracksStream.on('data', track => {
-      const trackStream = fs.createReadStream(track.path) // Creer un flux du fichier.
+      // Creer un flux du fichier.
+      const trackStream = fs.createReadStream(track.path)
       // Recupere les metadonnees.
       musicMetadata(trackStream, {duration: this.config.duration}, (err, metadatas) => {
         if (err) {

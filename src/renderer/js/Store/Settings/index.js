@@ -4,6 +4,11 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+/**
+ * Parametres de la partie Liste de lecture.
+ */
+import playlist from './playlist'
+
 export default {
   namespaced: true,
   state: {
@@ -19,7 +24,8 @@ export default {
         'trackNumber',
         'duration'
       ]
-    }
+    },
+    playlist
   },
   mutations: {
     /**

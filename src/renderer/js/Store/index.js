@@ -4,15 +4,20 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-import vuex from 'vuex'
+import VueX from 'vuex'
 /**
- * Module contenant les parametres de l'application.
+ * Module des parametres de l'application.
  */
 import Settings from './Settings'
+/**
+ * Module de la Liste de lecture.
+ */
+import Playlist from './Playlist'
 
-const Store = new vuex.Store({
+const Store = new VueX.Store({
   modules: {
-    settings: Settings
+    settings: Settings,
+    playlist: Playlist
   }
 })
 

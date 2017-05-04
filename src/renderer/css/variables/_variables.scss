@@ -1,17 +1,23 @@
-$color-primary: #ffc115;
+$color--primary: #ffc115;
+$color--primary-light: lighten($color--primary, 7%);
+$color--primary-dark: darken($color--primary, 5%);
 
-$bg-primary: #fff;
-$bg-secondary: #f1f1f1;
-$bg-dark-primary: #3a3a3a;
-$bg-dark-secondary: #282828;
+$bg__color--primary: #fff;
+$bg__color--secondary: #f1f1f1;
+$bg__color--disabled: #dfdfdf;
+$bg__color--dark-primary: #3a3a3a;
+$bg__color--dark-secondary: #222;
+$bg__color--dark-disabled: #404040;
 
-$text-color: rgba(0, 0, 0, .87);
-$text-color-light: rgba(0, 0, 0, .54);
-$text-light-color: #fff;
-$text-light-color-dark: rgba(255, 255, 255, .7);
+$text__color: rgba(0, 0, 0, .87);
+$text__color--soft: rgba(0, 0, 0, .54);
+$text__color--disabled: rgba(0, 0, 0, .26);
+$text__color--light: #fff;
+$text__color--light-soft: rgba(255, 255, 255, .7);
+$text__color--light-disabled: rgba(255, 255, 255, .3);
 
-$mdc-theme-primary: $bg-dark-primary;
-$mdc-theme-accent: $color-primary;
-$mdc-theme-background: $bg-primary;
+$mdc-theme-primary: $bg__color--dark-primary;
+$mdc-theme-accent: $color--primary;
+$mdc-theme-background: $bg__color--primary;
 
 $mdc-fab-absolute-position-offset: 50px;

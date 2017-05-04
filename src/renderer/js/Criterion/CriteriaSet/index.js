@@ -55,7 +55,7 @@ class CriteriaSet {
 
       ipcRenderer.once('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
         if (decisiveCriteriaSetFootprints.error) {
-          reject(decisiveCriteriaSetFootprints.error)
+          reject(new Error(decisiveCriteriaSetFootprints.error))
           return
         }
         resolve(decisiveCriteriaSetFootprints)
@@ -80,7 +80,7 @@ class CriteriaSet {
 
       ipcRenderer.once('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
         if (criteriaSetFootprints.error) {
-          reject(criteriaSetFootprints.error)
+          reject(new Error(criteriaSetFootprints.error))
           return
         }
 

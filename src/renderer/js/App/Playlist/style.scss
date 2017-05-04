@@ -1,0 +1,14 @@
+@import 'loader';
+
+.c-playlist {
+  @include position(fixed, 0 null 0 0);
+
+  &__content {
+    @include centered;
+
+    left:          0;
+    width:         $control-panel--size * 2;
+    height:        $control-panel--size * 2;
+    border-radius: 50%;
+  }
+}

@@ -63,19 +63,17 @@ const IPCHandler = {
        * @param {String} id          - L'identifiant unique pour la source.
        */
       getDataBuffer (event, providerKey, id) {
-        let response
         try {
-          DIC.get('ConfigurationStore').get('providers')[providerKey].getDataBuffer(id)
-                                                                     .then(data => {
-                                                                       response = base64AB.encode(data)
-                                                                     })
-                                                                     .catch(reason => {
-                                                                       throw new Error(reason)
-                                                                     })
+          DIC.get('ConfigurationStore')
+             .get('providers')[providerKey].getDataBuffer(id)
+                                           .then(data => {
+                                             event.sender.send('RES:Provider.getDataBuffer', base64AB.encode(data))
+                                           })
+                                           .catch(reason => {
+                                             throw new Error(reason)
+                                           })
         } catch (exception) {
-          response = {error: exception.message}
-        } finally {
-          event.sender.send('RES:CriteriaSet.resolveCriteriaByType', response)
+          event.sender.send('RES:Provider.getDataBuffer', {error: exception.message})
         }
       }
     }

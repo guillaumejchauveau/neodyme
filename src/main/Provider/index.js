@@ -52,7 +52,7 @@ class Provider {
    * Enregistre une piste.
    * @param provider {Provider} - La source.
    * @param id {*}              - L'identifiant unique pour la source.
-   * @param metadatas {*}       - Donnees traitees par les mappeurs.
+   * @param metadatas {*}       - Metadonnees de la piste.
    */
   static saveTrack (provider, id, metadatas) {
     const decisiveCriteriaSet = new DecisiveCriteriaSet({

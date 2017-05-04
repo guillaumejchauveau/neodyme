@@ -67,6 +67,7 @@ class CriteriaSet {
             selectedDecisiveCriteriaSets.push(decisiveCriteriaSet)
           }
         })
+
         decisiveCriteriaSets = selectedDecisiveCriteriaSets
       }
     }
@@ -79,11 +80,11 @@ class CriteriaSet {
    * courant.
    * @param {String} criterionType - Le type de critere.
    * @returns {Array} La liste d'ensembles de criteres possibles.
-   * @throws {TypeError} Lance une exception si le type de critere n'est pas pris en charge.
+   * @throws {TypeError} Lance une exception si le type de critere n'est pas supporte.
    */
   resolveCriteriaByType (criterionType) {
     if (!Criterion.checkType(criterionType)) {
-      throw new TypeError(`Unrecognized criterion type: ${criterionType}`)
+      throw new TypeError(`Unsupported criterion type: ${criterionType}`)
     }
 
     const decisiveCriteriaSets = this.resolveDecisiveCriteriaSets()

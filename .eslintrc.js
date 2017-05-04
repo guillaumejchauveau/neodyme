@@ -26,6 +26,9 @@ module.exports = {
     suiteSetup: true,
     suiteTeardown: true,
     setup: true,
-    teardown: true
+    teardown: true,
+    AudioContext: true,
+    AudioBuffer: true,
+    AudioScheduledSourceNode: true
   }
 }

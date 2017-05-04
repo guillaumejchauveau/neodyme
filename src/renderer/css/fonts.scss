@@ -1,27 +1,29 @@
+@import 'loader';
+
 @font-face {
   font-family: 'Roboto';
   font-style:  normal;
-  font-weight: 300;
+  font-weight: $font__weight--light;
   src:         url('../font/Roboto/Roboto-Light.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Roboto';
   font-style:  normal;
-  font-weight: 400;
+  font-weight: $font__weight--normal;
   src:         url('../font/Roboto/Roboto-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Roboto';
   font-style:  normal;
-  font-weight: 700;
+  font-weight: $font__weight--bold;
   src:         url('../font/Roboto/Roboto-Bold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Material Icons';
   font-style:  normal;
-  font-weight: 400;
+  font-weight: normal;
   src:         url('../font/MaterialIcons/MaterialIcons-Regular.ttf') format('truetype');
 }

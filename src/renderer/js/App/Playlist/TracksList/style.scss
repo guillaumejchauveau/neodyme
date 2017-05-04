@@ -1,0 +1,165 @@
+@import 'loader';
+
+.c-tracks-list {
+  position:      relative;
+  width:         100%;
+  height:        100%;
+  border-radius: 50%;
+
+  &:hover {
+    .c-tracks-list__open {
+      @include mdc-elevation(1);
+
+      width:  ($control-panel--size + $tracks-list--open-size) * 2;
+      height: ($control-panel--size + $tracks-list--open-size) * 2;
+    }
+
+    .c-tracks-list__close {
+      @include mdc-elevation(1);
+
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .c-tracks-list__waypoint-scroller {
+      @include mdc-elevation(1);
+
+      transform: translateY(-50%) translateX(0);
+    }
+  }
+
+  &--active {
+    .c-tracks-list__hover-zone {
+      width:  $tracks-list--active__hover-zone--size * 2;
+      height: $tracks-list--active__hover-zone--size * 2;
+    }
+
+    .c-tracks-list__content {
+      @include mdc-elevation(2);
+
+      width:  $tracks-list--size * 2;
+      height: $tracks-list--size * 2;
+    }
+  }
+
+  &__hover-zone {
+    @include centered;
+
+    width:         $tracks-list__hove-zone--size * 2;
+    height:        $tracks-list__hove-zone--size * 2;
+    border-radius: 50%;
+  }
+
+  &__open {
+    @include mdc-ripple-base;
+    @include mdc-ripple-bg((pseudo: '::before'));
+    @include mdc-ripple-fg((pseudo: '::after'));
+    @include button-reset;
+    @include centered;
+
+    width:            ($control-panel--size - 1px) * 2;
+    height:           ($control-panel--size - 1px) * 2;
+    border-radius:    50%;
+    background-color: $bg__color--dark-primary;
+    cursor:           pointer;
+    overflow:         hidden;
+    transition:       width $tracks-list--transition-time / 2 $tracks-list--transition-easing,
+                      height $tracks-list--transition-time / 2 $tracks-list--transition-easing;
+  }
+
+  &__close {
+    @include mdc-ripple-base;
+    @include mdc-ripple-bg((pseudo: '::before'));
+    @include mdc-ripple-fg((pseudo: '::after'));
+    @include button-reset;
+    @include centered;
+
+    left:             $control-panel--size + $tracks-list--size - 1px;
+    width:            $tracks-list--close-size;
+    height:           $tracks-list--close-size;
+    border-radius:    0 $tracks-list__button--border-radius $tracks-list__button--border-radius 0;
+    background-color: $color--primary;
+    cursor:           pointer;
+    overflow:         hidden;
+    transform:        translateY(-50%) translateX(-100%);
+    transition:       left $tracks-list--transition-time $tracks-list--transition-easing,
+                      transform $tracks-list--transition-time $tracks-list--transition-easing;
+
+    span {
+      display:    inline-block;
+      width:      100%;
+      height:     100%;
+      color:      $text__color--light;
+      cursor:     inherit;
+      text-align: center;
+
+      &::before {
+        @include material-icon;
+
+        content:     'close';
+        cursor:      inherit;
+        line-height: $tracks-list--close-size;
+      }
+    }
+  }
+
+  &__waypoint-scroller {
+    @include mdc-ripple-base;
+    @include mdc-ripple-bg((pseudo: '::before'));
+    @include mdc-ripple-fg((pseudo: '::after'));
+    @include button-reset;
+
+    position:         absolute;
+    left:             $tracks-list--size - 1px;
+    width:            $tracks-list__waypoint-scroller--size;
+    height:           $tracks-list__waypoint-scroller--size;
+    border-radius:    0 $tracks-list__button--border-radius $tracks-list__button--border-radius 0;
+    background-color: $color--primary;
+    overflow:         hidden;
+    transform:        translateY(-50%) translateX(-100%);
+    transition:       left $tracks-list--transition-time $tracks-list--transition-easing,
+                      transform $tracks-list--transition-time $tracks-list--transition-easing;
+
+    span {
+      display:    inline-block;
+      width:      100%;
+      height:     100%;
+      color:      $text__color--light;
+      cursor:     pointer;
+      text-align: center;
+
+      &::before {
+        @include material-icon;
+
+        content:     'chevron_right';
+        cursor:      inherit;
+        line-height: $tracks-list--close-size;
+        transform:   rotate(-90deg);
+      }
+    }
+
+    &--down span::before {
+      transform: rotate(90deg);
+    }
+
+    &-container {
+      @include centered;
+
+      transform:        translateY(-50%);
+      transform-origin: 0 50% 0;
+      transition:       transform $tracks-list__item--transition-time * 2 $tracks-list-item--transition-easing;
+    }
+  }
+}
+
+.js-tracks-list__buttons-transition {
+  &-enter,
+  &-leave-to {
+    &.c-tracks-list__close {
+      left: $control-panel--size - $tracks-list--close-size;
+    }
+
+    .c-tracks-list__waypoint-scroller {
+      left: $control-panel--size - $tracks-list__waypoint-scroller--size;
+    }
+  }
+}

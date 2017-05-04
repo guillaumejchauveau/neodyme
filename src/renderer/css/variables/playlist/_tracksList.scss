@@ -1,0 +1,17 @@
+$tracks-list--size: $control-panel--size * 3;
+
+$tracks-list__button--border-radius: 2px;
+$tracks-list--open-size: 15px;
+$tracks-list--close-size: 45px;
+$tracks-list__waypoint-scroller--size: 45px;
+
+$tracks-list__hove-zone--size: $control-panel--size + $tracks-list--open-size;
+$tracks-list--active__hover-zone--size: $tracks-list--size + $tracks-list--close-size;
+
+$tracks-list--transition-easing: cubic-bezier(0, 0, 0, 1);
+$tracks-list--transition-time: .3s;
+
+$tracks-list__item--height: 35px;
+$tracks-list-item--transition-easing: cubic-bezier(0, 0, 0, 1);
+$tracks-list__item--transition-time: .3s;
+$tracks-list-item__content--font-size: 15px;

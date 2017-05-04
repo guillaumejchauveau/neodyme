@@ -35,7 +35,8 @@ import FileSystemProvider from './Provider/FileSystemProvider'
 /*
  * INITIALISATION.
  */
-DIC.set('DCSStore', new DecisiveCriteriaSetStore()) // Cree le stockeur d'ensembles de criteres determinants.
+// Cree le stockeur d'ensembles de criteres determinants.
+DIC.set('DCSStore', new DecisiveCriteriaSetStore())
 
 // Cree la configuration.
 const config = new Store()
@@ -78,7 +79,8 @@ electron.app.on('ready', () => {
   // eslint-disable-next-line
   /*INJECT-DEVTOOLS-INSTALLER*/
 
-  IPCHandler.setEventListeners() // Met en place les ecouteurs d'evenements IPC.
+  // Met en place les ecouteurs d'evenements IPC.
+  IPCHandler.setEventListeners()
 
   // Cree la fenetre.
   appWindow = new electron.BrowserWindow()

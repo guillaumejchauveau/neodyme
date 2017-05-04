@@ -129,7 +129,15 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        use: [...loaders.html, 'pug-html-loader?pretty=  ']
+        use: [
+          ...loaders.html,
+          {
+            loader: 'pug-html-loader',
+            options: {
+              pretty: '  '
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
@@ -151,7 +159,7 @@ module.exports = {
             glob: `${root}/src/renderer/static/**/*`,
             dot: true
           },
-          to: config.output,
+          to: rendererConfig.output,
           context: `${root}/src/renderer/static`
         }
       ],

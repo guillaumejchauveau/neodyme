@@ -4,14 +4,17 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+/**
+ * Store de l'application.
+ * @type {vuex.Store}
+ */
 import Store from '../Store'
+/**
+ * Composant Playlist.
+ */
+import Playlist from './Playlist'
 
 export default {
-  data () {
-    return {
-      text: 'Hello World'
-    }
-  },
   methods: {
     /**
      * Fonction declenchee a chaque redimensionnement de la fenetre.
@@ -21,6 +24,9 @@ export default {
         this.$store.commit('settings/UPDATE_WINDOW_SIZE')
       })
     }
+  },
+  components: {
+    Playlist
   },
   mounted () {
     this.$nextTick(() => {

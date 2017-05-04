@@ -51,7 +51,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
 
       ipcRenderer.once('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
         if (base64ArrayBuffer.error) {
-          reject(base64ArrayBuffer.error)
+          reject(new Error(base64ArrayBuffer.error))
           return
         }
         resolve(base64AB.decode(base64ArrayBuffer))
