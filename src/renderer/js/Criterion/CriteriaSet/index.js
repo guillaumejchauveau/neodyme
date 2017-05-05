@@ -108,6 +108,7 @@ class CriteriaSet {
 
     const criteriaSet = new CriteriaSet()
 
+    // Copie les criteres.
     for (const criterionType in criteriaSetFootprint.criteria) {
       if (criteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
         const criterion = criteriaSetFootprint.criteria[criterionType]

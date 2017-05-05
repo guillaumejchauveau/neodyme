@@ -32,6 +32,7 @@ class Provider {
    * @throws {Error} Lance une exception si le nombre de mappeurs de la source n'est pas valide.
    */
   constructor (providerConfig) {
+    // Validation de la configuration.
     if (typeof providerConfig !== 'object') {
       throw new TypeError('Invalid providerConfig')
     }
@@ -60,6 +61,7 @@ class Provider {
       id
     })
 
+    // Ajoute chaques criteres a partir des metadonnees.
     DIC.get('ConfigurationStore').get('criterion').types.forEach((criterionType, index) => {
       decisiveCriteriaSet.add(new Criterion(criterionType, provider.config.typeMappers[index](metadatas)))
     })

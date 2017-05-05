@@ -70,7 +70,7 @@ const IPCHandler = {
                                              event.sender.send('RES:Provider.getDataBuffer', base64AB.encode(data))
                                            })
                                            .catch(reason => {
-                                             throw new Error(reason)
+                                             event.sender.send('RES:Provider.getDataBuffer', {error: reason.message})
                                            })
         } catch (exception) {
           event.sender.send('RES:Provider.getDataBuffer', {error: exception.message})

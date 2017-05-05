@@ -5,7 +5,7 @@
  */
 
 /**
- * Parametres de la partie Liste de lecture.
+ * Parametres de la Liste de lecture.
  */
 import playlist from './playlist'
 
@@ -29,7 +29,7 @@ export default {
   },
   mutations: {
     /**
-     * Met a jour les parametres de dimensions de la fenetre.
+     * Met a jour des dimensions de la fenetre.
      */
     UPDATE_WINDOW_SIZE (state) {
       state.windowSize.height = window.innerHeight

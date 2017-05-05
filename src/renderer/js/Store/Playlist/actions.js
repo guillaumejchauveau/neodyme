@@ -52,7 +52,7 @@ export default {
     })
   },
   /**
-   *
+   * Ajoute des pistes a partir d'un ensemble de criteres.
    * @param {(CriteriaSet|{data: CriteriaSet, index: Number})} payload
    * @throws {TypeError} Lance un exception si l'ensemble de criteres n'est pas valide.
    * @throws {Error} Lance une exception si une erreur est rencontree.
@@ -79,6 +79,7 @@ export default {
                      providerKey: decisiveCriteriaSetFootprint.provider.config.key,
                      id: decisiveCriteriaSetFootprint.id
                    })
+                   // Copie les criteres.
                    for (const criterionType in decisiveCriteriaSetFootprint.criteria) {
                      if (decisiveCriteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
                        const criterion = decisiveCriteriaSetFootprint.criteria[criterionType]

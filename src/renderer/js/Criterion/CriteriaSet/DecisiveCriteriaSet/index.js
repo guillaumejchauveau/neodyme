@@ -29,6 +29,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
   constructor (decisiveCriteriaSetConfig) {
     super()
 
+    // Validation des informations de determination.
     if (typeof decisiveCriteriaSetConfig !== 'object' ||
       !decisiveCriteriaSetConfig.hasOwnProperty('providerKey') || !decisiveCriteriaSetConfig.hasOwnProperty('id')) {
       throw new TypeError('Invalid decisiveCriteriaSetConfig')

@@ -1,5 +1,5 @@
 /**
- * @file Parametres de la partie Liste de lecture.
+ * @file Parametres de la Liste de lecture.
  * @author Guillaume Chauveau <guillaume.j.chauveau@gmail.com>
  * @copyright Guillaume Chauveau 2017.
  */

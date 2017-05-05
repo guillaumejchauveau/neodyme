@@ -51,6 +51,7 @@ class FileSystemProvider extends Provider {
         }
         trackStream.close()
 
+        // Enregistre la piste.
         Provider.saveTrack(this, track.path, metadatas)
       })
     })
@@ -66,6 +67,7 @@ class FileSystemProvider extends Provider {
       fs.readFile(path, (err, data) => {
         if (err) {
           reject(err)
+          return
         }
 
         resolve(data.buffer)

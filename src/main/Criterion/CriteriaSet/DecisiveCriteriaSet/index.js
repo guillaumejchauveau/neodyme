@@ -36,6 +36,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
   constructor (decisiveCriteriaSetConfig) {
     super()
 
+    // Validation des informations de determination.
     if (typeof decisiveCriteriaSetConfig !== 'object' ||
       !decisiveCriteriaSetConfig.provider || !decisiveCriteriaSetConfig.hasOwnProperty('id')) {
       throw new TypeError('Invalid decisiveCriteriaSetConfig')
@@ -45,7 +46,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
     }
     const configurationStore = DIC.get('ConfigurationStore')
     const referenceProvider = configurationStore.get('providers')[decisiveCriteriaSetConfig.provider.config.key]
-
+    // Validation de la source.
     if (!referenceProvider || decisiveCriteriaSetConfig.provider !== referenceProvider) {
       throw new ReferenceError('Unknown provider')
     }

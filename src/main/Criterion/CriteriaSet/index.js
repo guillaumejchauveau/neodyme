@@ -57,6 +57,7 @@ class CriteriaSet {
 
     let decisiveCriteriaSets = DCSStore.store
 
+    // Pour chaque types de criteres, cherche les pistes correspondantes.
     for (const criterionType in this.criteria) {
       if (this.criteria.hasOwnProperty(criterionType)) {
         const criterion = this.criteria[criterionType]
@@ -91,8 +92,9 @@ class CriteriaSet {
     const criterionValues = []
     const criteriaSets = []
 
-    decisiveCriteriaSets.forEach(dcs => {
-      const criterion = dcs.criteria[criterionType]
+    decisiveCriteriaSets.forEach(decisiveCriteriaSet => {
+      // Une des valeurs possibles.
+      const criterion = decisiveCriteriaSet.criteria[criterionType]
 
       // Verifie si la valeur du critere n'a pas encore ete rencontree.
       if (criterionValues.indexOf(criterion.value) === -1) {
@@ -128,6 +130,7 @@ class CriteriaSet {
 
     const criteriaSet = new CriteriaSet()
 
+    // Copie les criteres.
     for (const criterionType in criteriaSetFootprint.criteria) {
       if (criteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
         const criterion = criteriaSetFootprint.criteria[criterionType]
