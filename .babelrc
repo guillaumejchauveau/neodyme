@@ -1,15 +1,15 @@
 {
-    "plugins": [
-        "transform-object-rest-spread"
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "electron": 1.6
+        }
+      }
     ],
-    "presets": [
-        [
-            "env",
-            {
-                "targets": {
-                    "electron": 1.6
-                }
-            }
-        ]
+    [
+      "stage-3"
     ]
+  ]
 }

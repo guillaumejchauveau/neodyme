@@ -1,8 +1,12 @@
-@import "loader";
-@import "@material/fab/mdc-fab";
+//
+// Composant MDC/FAB.
+// Copyright Guillaume Chauveau 2017.
+//
+@import 'loader';
+@import '@material/fab/mdc-fab';
 
-.app-fab--absolute {
-    position : absolute;
-    bottom   : $mdc-fab-absolute-position-offset;
-    right    : $mdc-fab-absolute-position-offset;
+.o-app-fab--absolute {
+  position: absolute;
+  right:    $mdc-fab-absolute-position-offset;
+  bottom:   $mdc-fab-absolute-position-offset;
 }
