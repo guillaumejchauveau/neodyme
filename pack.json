@@ -1,19 +1,19 @@
 {
-  "platform": "win32",
-  "arch": "x64",
-  "asar": true,
-  "ignore": [
-    ".yarn-integrity",
-    "empty"
-  ],
-  "name": "neodyme",
-  "icon": "build/renderer/neodyme",
-  "appCopyright": "Copyright (C) 2017 Guillaume Chauveau.",
-  "win32metadata": {
-    "CompanyName": "Guillaume Chauveau",
-    "FileDescription": "Neodyme",
-    "InternalName": "",
-    "OriginalFilename": "neodyme.exe",
-    "ProductName": "Neodyme"
-  }
+    "platform"     : "win32",
+    "arch"         : "x64",
+    "asar"         : true,
+    "ignore"       : [
+        ".yarn-integrity",
+        "empty"
+    ],
+    "name"         : "neodyme",
+    "icon"         : "build/renderer/neodyme",
+    "app-copyright": "Copyright (C) 2016 Guillaume Chauveau.",
+    "win32metadata": {
+        "CompanyName"     : "Guillaume Chauveau",
+        "FileDescription" : "Neodyme",
+        "InternalName"    : "",
+        "OriginalFilename": "neodyme.exe",
+        "ProductName"     : "Neodyme"
+    }
 }

@@ -10,7 +10,7 @@ import electron from 'electron'
  * Conteneur d'injection de dependances.
  * @type {Object}
  */
-import DIC from './DependencyInjectionContainer'
+import DIC from './DIC'
 /**
  * Gestionnaire de requetes IPC.
  * @type {Object}
@@ -35,40 +35,39 @@ import FileSystemProvider from './Provider/FileSystemProvider'
 /*
  * INITIALISATION.
  */
-// Cree le stockeur d'ensembles de criteres determinants.
-DIC.set('DCSStore', new DecisiveCriteriaSetStore())
+DIC['DCSStore'] = new DecisiveCriteriaSetStore() // Cree le stockeur d'ensembles de criteres determinants.
 
 // Cree la configuration.
-const config = new Store()
-DIC.set('ConfigurationStore', config)
+const config              = new Store()
+DIC['ConfigurationStore'] = config
 
 // Types de criteres pris en charge.
-config.set('criterion', {
-  types: [
-    'artist',
-    'album',
-    'title',
-    'trackNumber',
-    'duration'
-  ]
-})
+config.store.criterion = {
+    types: [
+        'artist',
+        'album',
+        'title',
+        'trackNumber',
+        'duration'
+    ]
+}
 
 // Sources prises en chargent.
-config.set('providers', [
-  new FileSystemProvider({
-    key: 0,
-    dir: `${__dirname}/music`,
-    exts: 'mp3|ogg|flac',
-    duration: true,
-    typeMappers: [
-      metadatas => metadatas.albumartist[0],
-      metadatas => metadatas.album,
-      metadatas => metadatas.title,
-      metadatas => metadatas.track.no,
-      metadatas => metadatas.duration
-    ]
-  })
-])
+config.store.providers = [
+    new FileSystemProvider({
+                               key     : 0,
+                               dir     : `${__dirname}/music`,
+                               exts    : 'mp3|ogg|flac',
+                               duration: true,
+                               typesMap: [
+                                   metadata => metadata.albumartist[0],
+                                   metadata => metadata.album,
+                                   metadata => metadata.title,
+                                   metadata => metadata.track.no,
+                                   metadata => metadata.duration
+                               ]
+                           })
+]
 
 /*
  * GESTION DES FENETRES.
@@ -76,23 +75,19 @@ config.set('providers', [
 let appWindow
 
 electron.app.on('ready', () => {
-  // eslint-disable-next-line
-  /*INJECT-DEVTOOLS-INSTALLER*/
-
-  // Met en place les ecouteurs d'evenements IPC.
-  IPCHandler.setEventListeners()
-
-  // Cree la fenetre.
-  appWindow = new electron.BrowserWindow()
-  appWindow.loadURL(/*INJECT-RENDERER-URL*/)
-
-  // Detruit la fenetre a sa fermeture.
-  appWindow.on('closed', () => {
-    appWindow = null
-  })
+    IPCHandler.setEventListeners() // Met en place les ecouteurs d'evenements IPC.
+    
+    // Cree la fenetre.
+    appWindow = new electron.BrowserWindow()
+    appWindow.loadURL(/*RENDERER-URL-LOAD*/)
+    
+    // Detruit la fenetre a sa fermeture.
+    appWindow.on('closed', () => {
+        appWindow = null
+    })
 })
 
 // Quitte quand toutes les fenetres sont fermees.
 electron.app.on('window-all-closed', () => {
-  electron.app.quit()
+    electron.app.quit()
 })

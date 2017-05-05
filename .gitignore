@@ -1,5 +1,5 @@
 build/*
 !build/empty
-coverage/
-packages/
-tmp/
+packages/*
+!packages/empty
+tmp

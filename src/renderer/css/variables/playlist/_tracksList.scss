@@ -1,22 +1,17 @@
-//
-// TracksList variables.
-// Copyright Guillaume Chauveau 2017.
-//
+$tracksList-size : $controlPanel-size*3;
 
-$tracks-list--size: $control-panel--size * 3;
+$tracksList-button-border-radius : 2px;
+$tracksList-open-size : 15px;
+$tracksList-close-size : 45px;
+$tracksList-waypoint-scroller-size : 45px;
 
-$tracks-list__button--border-radius: 2px;
-$tracks-list--open-size: 15px;
-$tracks-list--close-size: 45px;
-$tracks-list__waypoint-scroller--size: 45px;
+$tracksList-hoverZone-size : $controlPanel-size + $tracksList-open-size;
+$tracksList-active-hoverZone-size : $tracksList-size + $tracksList-close-size;
 
-$tracks-list__hove-zone--size: $control-panel--size + $tracks-list--open-size;
-$tracks-list--active__hover-zone--size: $tracks-list--size + $tracks-list--close-size;
+$tracksList-transition-easing : cubic-bezier(0, 0, 0, 1);
+$tracksList-transition-time : 0.3s;
 
-$tracks-list--transition-easing: cubic-bezier(0, 0, 0, 1);
-$tracks-list--transition-time: .3s;
-
-$tracks-list__item--height: 35px;
-$tracks-list-item--transition-easing: cubic-bezier(0, 0, 0, 1);
-$tracks-list__item--transition-time: .3s;
-$tracks-list-item__content--font-size: 15px;
+$tracksList-item-height : 35px;
+$tracksList-item-content-font-size : 15px;
+$tracksList-item-transition-easing : cubic-bezier(0, 0, 0, 1);
+$tracksList-item-transition-time : 0.3s;
