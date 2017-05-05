@@ -1,17 +1,12 @@
-//
-// ControlPanel variables.
-// Copyright Guillaume Chauveau 2017.
-//
+$controlPanel-size : 130px;
 
-$control-panel--size: 130px;
+$controlPanel-position-indicator-size : 4px;
+$controlPanel-position-indicator-color : rgba(0, 0, 0, 0.15);
+$controlPanel-times-offsets : (5px, 15px);
 
-$control-panel__position-indicator--size: 4px;
-$control-panel__position-indicator--color: rgba(0, 0, 0, .15);
-$control-panel__times--offsets: (5px, 15px);
-
-$control-panel__control-main--size: 48px;
-$control-panel__control-main--font-size: 36px;
-$control-panel__control-main--horiz-offset: 0;
-$control-panel__control-nav--size: 36px;
-$control-panel__control-nav--font-size: 24px;
-$control-panel__control-nav--vert-offset-ratio: 2 / 3;
+$controlPanel-controls-main-size : 48px;
+$controlPanel-controls-main-font-size : 36px;
+$controlPanel-controls-main-horiz-offset : 0px;
+$controlPanel-controls-nav-size : 36px;
+$controlPanel-controls-nav-font-size : 24px;
+$controlPanel-controls-nav-vert-offset-ratio : 2/3;
