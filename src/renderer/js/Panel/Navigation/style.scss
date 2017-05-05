@@ -3,12 +3,17 @@
 .navigation {
   .navigation_card {
     @include Card(100%, $navigation-card-height);
+<<<<<<< HEAD
     @include mdc-elevation(2);
+=======
+    @include mdc-elevation(4);
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 
     ul {
       padding    : 0;
       list-style : none;
 
+<<<<<<< HEAD
       button {
         &:not(.disabled) {
           @include mdc-ripple-base;
@@ -53,10 +58,70 @@
             .disabled {
               cursor : default;
               color  : $text-color-disabled;
+=======
+      &.navigation_controls {
+        li {
+          float : left;
+
+          &.controls_buttons {
+            button {
+              &:not(.disabled) {
+                @include mdc-ripple-base;
+                @include mdc-ripple-fg((pseudo: "::after"));
+
+                span::before {
+                  cursor : pointer;
+                }
+              }
+
+              @include buttonReset;
+              border-radius: 50%;
+              cursor        : pointer;
+              overflow      : hidden;
+              margin        : $navigation-button-margin;
+              margin-left   : $navigation-button-spacing;
+              margin-right  : 0;
+
+              span::before {
+                @include materialIcon;
+                font-size: $navigation-button-icon-size;
+                transition: color $navigation-transition-duration;
+              }
+
+              &.back span::before {
+                content : 'arrow_back';
+              }
+
+              &.foward span::before {
+                content : 'arrow_forward';
+              }
+
+              &.allArtists span::before {
+                content : 'person';
+              }
+
+              &.allAlbums span::before {
+                content : 'album';
+              }
+
+              &.allTitles span::before {
+                content : 'music_note';
+              }
+
+              &.current {
+                color: $color-primary;
+              }
+
+              &.disabled {
+                cursor : default;
+                color: $text-color-disabled;
+              }
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
             }
           }
 
           &.controls_titles {
+<<<<<<< HEAD
             float       : left;
             margin-left : $navigation-button-spacing;
             line-height : $navigation-card-height;
@@ -69,10 +134,23 @@
                 cursor : pointer;
                 &:hover {
                   border-bottom : solid 2px;
+=======
+            padding-left: $navigation-titles-leftSpace;
+
+            .title {
+              font-size: $navigation-title-fontSize;
+              transition: color $navigation-transition-duration;
+
+              .text {
+                cursor: pointer;
+                &:hover {
+                  border-bottom: solid 2px;
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
                 }
               }
 
               .arrow::before {
+<<<<<<< HEAD
                 @include materialIcon;
                 content        : "keyboard_arrow_right";
                 font-size      : $navigation-button-icon-size;
@@ -110,6 +188,24 @@
               color : $color-primary;
             }
           }
+=======
+                cursor: pointer;
+                transform: $navigation-title-arrow-position;
+                @include materialIcon;
+                content: "keyboard_arrow_right";
+                font-size: $navigation-button-icon-size;
+                }
+              }
+
+            .active {
+              color: $color-primary;
+
+              ~ li {
+                color: $text-color-disabled;
+              }
+            }
+          }
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
         }
       }
     }

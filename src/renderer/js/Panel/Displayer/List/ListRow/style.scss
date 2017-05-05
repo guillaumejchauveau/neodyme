@@ -1,5 +1,6 @@
 @import "loader";
 
+<<<<<<< HEAD
 .list-row {
   position      : relative;
   height        : $list-row-height;
@@ -91,5 +92,108 @@
     font-size : $list-row-playButton-font-size;
     transform : $list-row-playButton-translate;
     cursor    : pointer;
+=======
+
+
+.list-row {
+  position: relative;
+  height: $list-row-height;
+  border-bottom: $list-row-border;
+  transition: background-color 200ms;
+
+  .list-row_value.trackNumber {
+    width:50px;
+  }
+
+  &.last {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: $bg-secondary;
+
+    &:not(.currentPlay) {
+      .trackNumber {
+        transition: color 100ms;
+
+        .trackNumber_value {
+          display: none;
+        }
+
+        &::before {
+          cursor: pointer;
+          position: absolute;
+          @include materialIcon();
+          content: "play_arrow";
+          font-size: $list-row-playButton-font-size;
+          transform: $list-row-playButton-translate;
+        }
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  &.currentPlay {
+    .trackNumber {
+      .trackNumber_value {
+        display: none;
+      }
+
+      .trackNumber_playAnim {
+        position: absolute;
+        bottom: $list-row-playAnim-bottom;
+        left: $list-row-playAnim-left;
+
+        span {
+          display: inline-block;
+          width: $list-row-playAnim-bar-width;
+          height: $list-row-playAnim-bar-height-default;
+          margin: 0 $list-row-playAnim-bar-marginSide;
+          background-color: $text-color;
+          animation-duration: $list-row-playAnim-duration;
+          animation-name: list-row-playAnim;
+          animation-iteration-count: infinite;
+
+          &.barA {
+            animation-delay: $list-row-playAnim-bar-a-delay;
+          }
+
+          &.barB {
+            animation-delay: $list-row-playAnim-bar-b-delay;
+          }
+
+          &.barC {
+            animation-delay: $list-row-playAnim-bar-c-delay;
+          }
+        }
+      }
+    }
+  }
+
+  .list-row_value  {
+    &.title {
+      transform: translateY(6px);
+
+      .list-row_menu {
+        transform: $list-row-value-title-translate;
+        float: right;
+      }
+    }
+
+    &.selectable {
+      span:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+
+    &.trackNumber {
+      transform: translateX(10px);
+    }
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   }
 }

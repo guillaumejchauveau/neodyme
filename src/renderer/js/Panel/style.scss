@@ -1,6 +1,7 @@
 @import "loader";
 
 .panel {
+<<<<<<< HEAD
   position     : absolute;
   left         : $controlPanel-size;
   transition   : left $tracksList-item-transition-easing;
@@ -20,17 +21,49 @@
     z-index : 24;
 
     span {
+=======
+  position: absolute;
+  left: $controlPanel-size;
+  transition: left $tracksList-item-transition-easing;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: $panel-margin;
+  margin-right: $controlPanel-size + $panel-margin;
+
+  .displayer {
+    margin: 5px 5px
+  }
+
+  &.tracksListOpened {
+    left: $tracksList-size;
+    margin-right: $panel-margin;
+  }
+
+  .panel_playAllButton {
+    z-index: 24;
+    span {
+
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
       display    : inline-block;
       width      : 100%;
       height     : 100%;
       text-align : center;
 
       &::before {
+<<<<<<< HEAD
         @include materialIcon;
         content   : "play_arrow";
         cursor    : pointer;
         font-size : $panel-fabPlayAll-icon-size;
         color     : $text-light-color;
+=======
+        cursor: pointer;
+        @include materialIcon;
+        font-size: $panel-fabPlayAll-icon-size;
+        color: $text-light-color;
+        content: "play_arrow";
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
       }
     }
   }

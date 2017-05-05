@@ -40,6 +40,10 @@ export default {
      */
     setNextPanel () {
       this.setNextPanelConfig(this.newCriterion)
+<<<<<<< HEAD
+=======
+      this.loadCurrentPanelElements()
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     },
 
     /**
@@ -91,12 +95,17 @@ export default {
      * @returns {String} Le nom de l'item a afficher.
      */
     itemName () {
+<<<<<<< HEAD
       const itemValue = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
+=======
+      const itemValue = this.criteriaSet.criteria[this.currentPanelConfig.criterionType].value
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
       if (itemValue !== '' || undefined || null) {
         return itemValue
       } else {
         return 'Unknow'
       }
+<<<<<<< HEAD
     },
 
     /**
@@ -105,6 +114,8 @@ export default {
      */
     isScrollingTextEnabled () {
       return this.itemName.length > 15 ? true : false
+=======
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     },
 
     /**
@@ -114,7 +125,12 @@ export default {
      * @returns {Criterion} Le nouveau Criterion a ajouter a la configuration.
      */
     newCriterion () {
+<<<<<<< HEAD
       return new Criterion(this.getCurrentPanelConfig.criterionType, this.itemName)
     }
+=======
+      return new Criterion(this.currentPanelConfig.criterionType, this.itemName)
+    },
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   }
 }

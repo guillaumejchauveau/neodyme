@@ -37,8 +37,12 @@ module.exports = {
       decisiveCriteriaSets: null
     },
     panelHistory: [],
+<<<<<<< HEAD
     revertSort: false,
     selectedListRow: null,
+=======
+
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   },
 
   getters,

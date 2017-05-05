@@ -22,6 +22,7 @@ export default {
 
   /**
    * Set les elements du panel.
+<<<<<<< HEAD
    * @param {{decisiveCriteriaSets: Array<DecisiveCriteriaSet>, criteriaSets: Array<CriteriaSet>}} elements - Les elements du panel.
    */
   SET_CURRENTPANELELEMENTS (state, elements) {
@@ -31,6 +32,20 @@ export default {
     if (elements.criteriaSets !== undefined) {
       state.currentPanelElements.criteriaSets = elements.criteriaSets
     }
+=======
+   * @param {Array} criteriaSets - Les criteriaSets.
+   */
+  SET_CURRENTPANEL_CRITERIASETS (state, criteriaSets) {
+    state.currentPanelElements.criteriaSets = criteriaSets
+  },
+
+  /**
+   * Set les elements du panel.
+   * @param {Array} criteriaSets - Les criteriaSets.
+   */
+  SET_CURRENTPANEL_DECISIVECRITERIASETS (state, decisiveCriteriaSets) {
+    state.currentPanelElements.decisiveCriteriaSets = decisiveCriteriaSets
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   },
 
 
@@ -52,11 +67,18 @@ export default {
     }
   },
 
+  REMOVE_ALL_PANELHISTORY_ENTRY_BY_INDEX (state, index) {
+    for (let panelConfigIndex = state.panelHistory.length ; panelConfigIndex >= index ; panelConfigIndex--) {
+      state.panelHistory.pop()
+    }
+  },
+
   /**
    * Efface l'historique.
    */
   CLEAR_PANELHISTORY (state) {
     state.panelHistory = []
+<<<<<<< HEAD
   },
 
   /**
@@ -76,5 +98,7 @@ export default {
 
   SET_SELECTEDLISTROW (state, element) {
     state.selectedListRow = element
+=======
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   }
 }

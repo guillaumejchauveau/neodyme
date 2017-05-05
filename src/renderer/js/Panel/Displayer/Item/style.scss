@@ -1,9 +1,16 @@
 @import "loader";
 
+<<<<<<< HEAD
+=======
+/* ITEM */
+
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 .item {
+  cursor: pointer;
   position  : relative;
   width     : $item-width;
   height    : $item-height;
+<<<<<<< HEAD
   margin    : $item-margin;
   cursor    : pointer;
 
@@ -61,6 +68,58 @@
         text-overflow: ellipsis;
         cursor: pointer;
         margin      : 0;
+=======
+  margin    : 5px;
+
+  .item_card {
+    position: relative;
+    @include Card($item-width, $item-height);
+    @include InteractiveCard();
+
+    &:hover {
+      .item_background {
+        background-color  : $color-primary;
+        transform         : scale(1.05);
+      }
+    }
+
+    .item_picture {
+
+      cursor: pointer;
+      z-index   : 3;
+      height    : $item-width;
+
+      .picture_background {
+        cursor: pointer;
+        position          : absolute;
+        top               : 0;
+        width             : $item-width * $item-picture-size;
+        height            : $item-width * $item-picture-size;
+        margin            : $item-width *(1 - $item-picture-size) / 2;
+        border-radius     : 50%;
+        background-color  : $bg-primary ;
+        @include mdc-elevation(2);
+        transition        : background-color $item-transition-hover-duration, transform $item-transition-hover-duration;
+      }
+
+      img {
+        cursor: pointer;
+        position          : absolute;
+        top               : 0;
+        width             : $item-width * $item-picture-size - $item-picture-border-size * 2;
+        height            : $item-width * $item-picture-size - $item-picture-border-size * 2;
+        margin            : $item-picture-border-size + $item-width * (1-$item-picture-size ) /2 ;
+        border-radius     : 50%;
+      }
+    }
+
+    .item_text {
+      p {
+        cursor: pointer;
+        width       : $item-width - 30;
+        margin      : 0;
+        margin-left : $item-width *(1-$item-picture-size ) /2 ;
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
         font-weight : $font-weight-light;
 
         &:hover {
@@ -71,6 +130,7 @@
   }
 
   .item_menu {
+<<<<<<< HEAD
     visibility  : hidden;
     position    : relative;
     top         : -50px;
@@ -92,4 +152,10 @@
 @keyframes scrollingText {
   0% {transform: translateX(0);}
   100% {transform: translateX(calc(-100% + (#{$item-width} - 60px)));}
+=======
+    margin-left : $item-width - 30;
+    top         : -40px;
+
+  }
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 }

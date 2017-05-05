@@ -17,7 +17,11 @@ class PanelConfig {
  * @param {String} criterionType - Le type de critere a afficher.
   * @param {String} title - Le titre du Panel.
  */
+<<<<<<< HEAD
   constructor (criteriaSet, criterionType, title, activeSortCriterionType) {
+=======
+  constructor (criteriaSet, criterionType, title) {
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     this.criteriaSet  = criteriaSet
     this.criterionType = criterionType
 
@@ -26,12 +30,15 @@ class PanelConfig {
     } else {
       this.title = title
     }
+<<<<<<< HEAD
 
     if (typeof activeSortCriterionType === undefined) {
       this.activeSortCriterionType = 'trackNumber'
     } else {
       this.activeSortCriterionType = activeSortCriterionType
     }
+=======
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   }
 }
 

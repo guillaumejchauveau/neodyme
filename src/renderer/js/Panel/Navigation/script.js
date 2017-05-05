@@ -8,10 +8,23 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 
 export default {
   computed: {
+<<<<<<< HEAD
     ...mapGetters('panel', ['getHistoryConfigPanelsTitles',
                             'getCurrentPanelConfig',
                             'thereIsPreviousHistoryEntry',
                             'thereIsNextHistoryEntry']),
+=======
+    ...mapState('panel', ['currentPanelConfig', 'panelHistory']),
+    ...mapGetters('panel', ['thereIsPreviousHistoryEntry', 'thereIsNextHistoryEntry']),
+
+    navigationHistoryTitles () {
+      const navigationHistoryTitles = []
+      this.panelHistory.forEach( panelConfig => {
+        navigationHistoryTitles.push(panelConfig.title)
+      })
+      return navigationHistoryTitles
+    },
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 
     /**
      * Recupere les noms des panelPreset.
@@ -47,13 +60,26 @@ export default {
     },
 
     activeTitle () {
+<<<<<<< HEAD
       return this.getCurrentPanelConfig.title
+=======
+      return this.currentPanelConfig.title
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     }
   },
 
   methods: {
+<<<<<<< HEAD
     ...mapActions('panel', ['setCustomPanelConfig',
                             'setPreviousPanelConfig']),
+=======
+    ...mapActions('panel', {
+      setPanelPreset: 'setPanelPreset',
+      setPreviousPanelConfig: 'setPreviousPanelConfig',
+      loadCurrentPanelElements: 'loadCurrentPanelElements',
+      setCurrentPanelConfigByHistoryIndex : 'setCurrentPanelConfigByHistoryIndex'
+    }),
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     /**
      * Si possible reviens sur le panel precedent, sinon ne fait rien.
      * @returns {null} Si l'historique est vide.
@@ -75,17 +101,38 @@ export default {
       }
     },
 
+    forwardPanel () {
+      if (this.thereIsNextHistoryEntry === true) {
+        return null
+      } else {
+        const activePanelhistoryIndex = this.navigationHistoryTitles.indexOf(this.activeTitle)
+        this.setCurrentPanelConfigByHistoryIndex(activePanelhistoryIndex +1)
+        this.loadCurrentPanelElements()
+      }
+    },
+
     /**
      * Affiche un panelPreset.
      * @param {String} preset - Le nom du panelPreset a afficher.
      */
     setPreset (preset) {
+<<<<<<< HEAD
       this.setCustomPanelConfig(preset)
     },
 
     setSelectedPanel (index) {
       const historyIndex = this.getHistoryConfigPanelsTitles.indexOf(index)
       this.setCustomPanelConfig(historyIndex)
+=======
+      this.setPanelPreset(preset)
+      this.loadCurrentPanelElements()
+    },
+
+    setSelectedPanel (index) {
+      const historyIndex = this.navigationHistoryTitles.indexOf(index)
+      this.setCurrentPanelConfigByHistoryIndex(historyIndex)
+      this.loadCurrentPanelElements()
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     }
   }
 }

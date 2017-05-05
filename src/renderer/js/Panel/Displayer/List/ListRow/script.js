@@ -37,10 +37,15 @@ export default {
   },
 
   computed: {
+<<<<<<< HEAD
     ...mapState('playlist', ['currentTrackIndex', 'currentTrack']),
     ...mapGetters('playlist', {currentTrack: 'currentTrack',
                                playerIs: 'player/playerIs'}),
     ...mapGetters('panel', ['currentPanelConfig', 'getSelectedListRow']),
+=======
+    ...mapGetters('playlist', ['currentTrack']),
+    ...mapState('panel', ['currentPanelConfig']),
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 
     /**
      * Formate un temps en secondes en une chaine de caracteres minutes et secondes.
@@ -61,6 +66,7 @@ export default {
      * Renvoie true si le titre est en cours de lecture.
      * @returns {Boolean}
      */
+<<<<<<< HEAD
     currentPlayStatus () {
       if (this.currentTrack === null ? false : this.currentTrack.dcs.id === this.element.id) {
         return this.playerIs('PLAYING') ? 'play' : 'pause'
@@ -76,10 +82,20 @@ export default {
     selected () {
       return this.getSelectedListRow === this.element
     }
+=======
+    isCurrentPlay () {
+      if (this.currentTrack === null) {
+        return false
+      } else {
+        return this.currentTrack.dcs.id === this.element.id
+      }
+    },
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   },
 
   methods: {
     ...mapMutations('playlist', ['CLEAR_TRACKS']),
+<<<<<<< HEAD
     ...mapMutations('panel', ['SET_SELECTEDLISTROW']),
     ...mapActions('playlist', ['addDecisiveCriteriaSet']),
     ...mapActions('panel', ['setCustomPanelConfig']),
@@ -89,6 +105,10 @@ export default {
         this.SET_SELECTEDLISTROW(this.element)
       }
     },
+=======
+    ...mapActions('playlist', ['addDecisiveCriteriaSet']),
+    ...mapActions('panel', ['loadCurrentPanelElements', 'setCustomPanelConfig']),
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 
     /**
      * Vide la liste de lecture et ajoute le titre a celle ci.
@@ -104,10 +124,21 @@ export default {
      * Ajoute le titre a la suite du titre en cours dans la playlist.
      */
     playAfter () {
+<<<<<<< HEAD
       this.addDecisiveCriteriaSet({
         data: this.element,
         index: this.currentTrackIndex +1
       })
+=======
+      if (this.currentTrack === null) {
+        this.addToPlaylist()
+      } else {
+        this.addDecisiveCriteriaSet({
+          data: this.element,
+          index: this.currentTrack
+        })
+      }
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     },
 
     /**
@@ -120,10 +151,43 @@ export default {
     /**
      * Affiche le panel de l'album du titre.
      */
+<<<<<<< HEAD
      setPanelFromCriteria (type) {
        this.setCustomPanelConfig({decisiveCriteriaSet: this.element,
                                         criterionType: type
         })
      }
+=======
+    setPanelToAlbum () {
+      const newCriteriaSet = new CriteriaSet()
+      const newTitle       = this.element.criteria.album.value
+
+      newCriteriaSet.add(new Criterion('album', newTitle))
+
+      const newPanelConfig = new PanelConfig(newCriteriaSet ,'title', newTitle) //Nouvelle configuration du panel
+
+      //Remplacement de la configuration du panel
+      this.setCustomPanelConfig(newPanelConfig)
+      //Chargement des elements du panel
+      this.loadCurrentPanelElements()
+    },
+
+    /**
+     * Affiche le panel de l'artiste du titre.
+     */
+    setPanelToArtist () {
+      const newCriteriaSet = new CriteriaSet()
+      const newTitle       = this.element.criteria.artist.value
+
+      newCriteriaSet.add(new Criterion('artist', newTitle))
+
+      const newPanelConfig = new PanelConfig(newCriteriaSet ,'album', newTitle) //Nouvelle configuration du panel
+
+      //Remplacement de la configuration du panel
+      this.setCustomPanelConfig(newPanelConfig)
+      //Chargement des elements du panel
+      this.loadCurrentPanelElements()
+    }
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   }
 }

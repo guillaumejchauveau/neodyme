@@ -51,30 +51,48 @@ export default {
     const newPanelConfig = new PanelConfig(newCriteriaSet, nextCriterionType, newPanelTitle)
 
     //Verifie si la nouvelle configuration se trouve deja dans l'historique.
+<<<<<<< HEAD
     if (newPanelConfig === context.state.panelHistory[context.getters.getCurrentPanelConfigHistoryIndex]) {
+=======
+    if (newPanelConfig === context.state.panelHistory[context.getters.getCurrentPanelConfigHistoryIndex + 1]) {
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 
       // Si oui : set la configuration.
       context.commit('SET_PANELCONFIG', newPanelConfig)
     } else {
 
       // Si non : efface toutes les entree suivant la configuration actuelle dans l'historique et set la nouvelle configuration.
+<<<<<<< HEAD
       context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX', context.getters.getCurrentPanelConfigHistoryIndex + 2)
       context.commit('ADD_PANELHISTORY_ENTRY', newPanelConfig)
       context.commit('SET_PANELCONFIG', newPanelConfig)
       context.dispatch('loadCurrentPanelElements')
+=======
+      context.commit('REMOVE_ALL_PANELHISTORY_ENTRY_BY_INDEX', context.getters.getCurrentPanelConfigHistoryIndex+1)
+      context.commit('ADD_PANELHISTORY_ENTRY', currentPanelConfig)
+      context.commit('ADD_PANELHISTORY_ENTRY', newPanelConfig)
+      context.commit('SET_PANELCONFIG', newPanelConfig)
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
     }
   },
 
   /**
-   * Set la configuration precedente.
+   * Set une configuration a partir de l'historique.
+   * @param {Number} index - L'index dans l'historique de la configuration a setter.
    */
+<<<<<<< HEAD
   setPreviousPanelConfig (context) {
     context.commit('SET_PANELCONFIG', context.getters.getPreviousPanelConfig)
     context.dispatch('loadCurrentPanelElements')
+=======
+  setCurrentPanelConfigByHistoryIndex (context, index) {
+    context.commit('SET_PANELCONFIG', context.state.panelHistory[index])
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
   },
 
   /**
    * Set une configuration personalisee.
+<<<<<<< HEAD
    * @param {(PanelConfig|String|Number|{decisiveCriteriaSet: DecisiveCriteriaSet, criterionType: String})} panelConfig
    */
   setCustomPanelConfig (context, payload) {
@@ -140,10 +158,40 @@ export default {
 
   /**
    * Charge les éléments du panel pour tout les types d'affichage en cours (items ou liste) en fonction de la configuration du panel courante.
+=======
+   * @param {PanelConfig} panelConfig - La configuration personalisee.
+   */
+  setCustomPanelConfig (context, panelConfig) {
+    context.commit('CLEAR_PANELHISTORY')
+    context.commit('SET_PANELCONFIG', panelConfig)
+    context.commit('ADD_PANELHISTORY_ENTRY', context.state.currentPanelConfig)
+  },
+
+  /**
+   * Set la configuration precedente.
+   */
+  setPreviousPanelConfig (context) {
+    context.commit('SET_PANELCONFIG', context.getters.getLastPanelConfig)
+  },
+
+  /**
+   * Set un panelPreset et reset l'historique.
+   * @param {String} preset - Le nom du preset.
+   */
+  setPanelPreset (context, preset) {
+    context.commit('CLEAR_PANELHISTORY')
+    context.commit('SET_PANELCONFIG', settings.state.panel.panelPresets[preset])
+    context.commit('ADD_PANELHISTORY_ENTRY', settings.state.panel.panelPresets[preset])
+  },
+
+  /**
+   * Charge les éléments du panel pour le type d'affichage en cours (items ou liste) en fonction de la configuration du panel courante.
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
    */
   loadCurrentPanelElements (context) {
     const currentConfigCriterionType = context.state.currentPanelConfig.criterionType
     const currentConfigCriteriaSet   = context.state.currentPanelConfig.criteriaSet
+<<<<<<< HEAD
 
     // Charge les elements de type 'liste'.
     currentConfigCriteriaSet.resolveDecisiveCriteriaSetFootprints()
@@ -167,6 +215,85 @@ export default {
                               context.commit('SET_CURRENTPANELELEMENTS', {criteriaSets: sortedCriteriaSets})
                             })
                             .catch( reason => {
+=======
+
+    // Verifie si l'affichage courant est un affichage de type 'liste'.
+    if (currentConfigCriterionType === 'title') {
+      currentConfigCriteriaSet.resolveDecisiveCriteriaSetFootprints()
+                              .then(DCSsFootprints => {
+
+                                // Convertit les DecisiveCriteriaSetsFootprints en DecisiveCriteriaSets.
+                                const DCSs = []
+                                DCSsFootprints.forEach( DCSFootprints => {
+                                  const DCSProperties = {
+                                    id          : DCSFootprints.id,
+                                    providerKey : DCSFootprints.provider.config.key
+                                  }
+                                  const DCS    = new DecisiveCriteriaSet(DCSProperties)
+                                  DCS.criteria = DCSFootprints.criteria
+                                  DCSs.push(DCS)
+                                })
+
+                                // Met a jour les elements du panel.
+                                context.commit('SET_CURRENTPANEL_DECISIVECRITERIASETS', DCSs)
+                              })
+                              .catch(reason => {
+                                throw new Error(reason)
+                              })
+
+    // Verifie si l'affichage courant est un affichage de type 'items'.
+    } else if (currentConfigCriterionType === 'album' || 'artist') {
+      currentConfigCriteriaSet.resolveCriteriaByType(currentConfigCriterionType)
+                              .then(criteriaSets => {
+
+                                // Met a jour les elements du panel.
+                                context.commit('SET_CURRENTPANEL_CRITERIASETS', criteriaSets)
+                              })
+                              .catch(reason => {
+                                throw new Error(reason)
+                              })
+    }
+  },
+
+  /**
+   * Charge les éléments du panel pour tout les types d'affichage en cours (items ou liste) en fonction de la configuration du panel courante.
+   */
+  forceLoadCurrentPanelElements (context) {
+    const currentConfigCriterionType = context.state.currentPanelConfig.criterionType
+    const currentConfigCriteriaSet   = context.state.currentPanelConfig.criteriaSet
+
+    // Charge les elements de type 'liste'.
+    currentConfigCriteriaSet.resolveDecisiveCriteriaSetFootprints()
+                            .then(DCSsFootprints => {
+
+                              // Convertit les DecisiveCriteriaSetsFootprints en DecisiveCriteriaSets.
+                              const DCSs = []
+                              DCSsFootprints.forEach( DCSFootprints => {
+                                const DCSProperties = {
+                                  id          : DCSFootprints.id,
+                                  providerKey : DCSFootprints.provider.config.key
+                                }
+                                const DCS    = new DecisiveCriteriaSet(DCSProperties)
+                                DCS.criteria = DCSFootprints.criteria
+                                DCSs.push(DCS)
+                              })
+
+                              // Met a jour les elements du panel.
+                              context.commit('SET_CURRENTPANEL_DECISIVECRITERIASETS', DCSs)
+                            })
+                            .catch(reason => {
+                              throw new Error(reason)
+                            })
+
+    // Charge les elements de type 'item'.
+    currentConfigCriteriaSet.resolveCriteriaByType(currentConfigCriterionType)
+                            .then(criteriaSets => {
+
+                              // Met a jour les elements du panel.
+                              context.commit('SET_CURRENTPANEL_CRITERIASETS', criteriaSets)
+                            })
+                            .catch(reason => {
+>>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
                               throw new Error(reason)
                             })
   }
