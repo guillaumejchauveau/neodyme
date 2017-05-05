@@ -1,0 +1,199 @@
+//
+// Composant ControlPanel.
+// Copyright Guillaume Chauveau 2017.
+//
+@import 'loader';
+
+.c-control-panel {
+  @include mdc-elevation(3);
+  @include centered;
+
+  width:            $control-panel--size * 2;
+  height:           $control-panel--size * 2;
+  border-radius:    50%;
+  background-color: $color--primary;
+  overflow:         hidden;
+
+  &__position-indicator {
+    position:            absolute;
+    width:               100%;
+    height:              100%;
+    border-radius:       50%;
+    border:              $control-panel__position-indicator--size solid transparent;
+    border-bottom-color: $control-panel__position-indicator--color;
+    border-left-color:   $control-panel__position-indicator--color;
+    transform:           rotate(45deg);
+  }
+
+  &__content {
+    position:    relative;
+    width:       0;
+    height:      100%;
+    margin-left: 50%;
+    color:       $text__color--light;
+  }
+
+  &__position {
+    position:    absolute;
+    top:         nth($control-panel__times--offsets, 2);
+    left:        nth($control-panel__times--offsets, 1);
+    font-weight: $font__weight--light;
+  }
+
+  &__duration {
+    position:    absolute;
+    bottom:      nth($control-panel__times--offsets, 2);
+    left:        nth($control-panel__times--offsets, 1);
+    font-weight: $font__weight--light;
+  }
+
+  &__menu {
+    position: absolute;
+    top:      50%;
+    left:     5px;
+
+    > button {
+      transform: translateY(-50%);
+
+      span::before {
+        color: $text__color--light;
+      }
+    }
+
+    > .mdc-simple-menu {
+      margin-left: 5px;
+      z-index:     15;
+
+      .o-control-panel-menu__action {
+        color:  $text__color;
+        cursor: pointer;
+
+        &::before {
+          cursor: inherit;
+        }
+
+        &--disabled {
+          @include remove-mdc-ripple;
+
+          color:  $text__color--disabled;
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+.o-control-panel__control {
+  @include button-reset;
+
+  position: absolute;
+  cursor:   pointer;
+
+  &-btn {
+    @include mdc-ripple-base;
+    @include mdc-ripple-bg((pseudo: '::before', base-color: $text__color--light));
+    @include mdc-ripple-fg((pseudo: '::after', base-color: $text__color--light));
+    @include mdc-elevation(2);
+
+    &.o-control-panel__control--disabled {
+      @include remove-mdc-ripple;
+      @include mdc-elevation(0);
+
+      background-color: $bg__color--dark-disabled;
+      color:            $text__color--light-disabled;
+    }
+  }
+
+  &--disabled {
+    cursor: default;
+  }
+
+  span {
+    display:    inline-block;
+    width:      100%;
+    height:     100%;
+    cursor:     inherit;
+    font-size:  inherit;
+    text-align: center;
+
+    &::before {
+      @include material-icon;
+
+      cursor:    inherit;
+      font-size: inherit;
+    }
+  }
+
+  &--main {
+    top:              $control-panel--size - $control-panel__control-main--size / 2;
+    left:             $control-panel--size / 2 - ($control-panel__control-main--size / 2) +
+      $control-panel__control-main--horiz-offset;
+    width:            $control-panel__control-main--size;
+    height:           $control-panel__control-main--size;
+    border-radius:    50%;
+    background-color: $bg__color--dark-primary;
+    color:            $text__color--light;
+    font-size:        $control-panel__control-main--font-size;
+    overflow:         hidden;
+    z-index:          5;
+
+    span::before {
+      content:     'play_arrow';
+      line-height: $control-panel__control-main--size;
+    }
+  }
+
+  &--pause span::before {
+    content: 'pause';
+  }
+
+  &--previous,
+  &--next {
+    top:              $control-panel--size - $control-panel__control-main--size / 2 -
+      $control-panel__control-nav--size * $control-panel__control-nav--vert-offset-ratio;
+    left:             $control-panel--size / 2 - ($control-panel__control-nav--size / 2) +
+      $control-panel__control-main--horiz-offset;
+    width:            $control-panel__control-nav--size;
+    height:           $control-panel__control-nav--size;
+    border-radius:    50%;
+    background-color: $bg__color--dark-primary;
+    color:            $text__color--light;
+    font-size:        $control-panel__control-nav--font-size;
+    overflow:         hidden;
+
+    span::before {
+      margin-top:  -4px;
+      content:     'skip_next';
+      line-height: $control-panel__control-nav--size;
+      transform:   rotate(-90deg);
+    }
+  }
+
+  &--next {
+    top: $control-panel--size + $control-panel__control-main--size / 2 -
+      $control-panel__control-nav--size * (1 - $control-panel__control-nav--vert-offset-ratio);
+
+    span::before {
+      margin-top:    4px;
+      margin-bottom: 0;
+      transform:     rotate(90deg);
+    }
+  }
+
+  &--stop {
+    top:              $control-panel--size * 1.5 - $control-panel__control-nav--size / 2;
+    left:             15px;
+    width:            $control-panel__control-nav--size;
+    height:           $control-panel__control-nav--size;
+    border-radius:    50%;
+    background-color: $bg__color--dark-primary;
+    color:            $text__color--light;
+    font-size:        $control-panel__control-nav--font-size;
+    overflow:         hidden;
+
+    span::before {
+      content:     'stop';
+      line-height: $control-panel__control-nav--size;
+    }
+  }
+}

@@ -4,17 +4,17 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-import {MDCRipple} from '@material/ripple'
+import { MDCRipple, MDCRippleFoundation } from '@material/ripple'
 
 export default {
-    bind (el, context) {
-        el.mdc_ripple_ = MDCRipple.attachTo(el, {isUnbounded: context.modifiers.unbounded})
-    },
-    unbind (el, context) {
-        if (!el.mdc_ripple_) {
-            return
-        }
-        el.mdc_ripple_.destroy()
-        delete el.mdc_ripple_
+  bind (el, context) {
+    el.mdc_ripple_ = new MDCRipple(el, new MDCRippleFoundation({isUnbounded: context.modifiers.unbounded}))
+  },
+  unbind (el) {
+    if (!el.mdc_ripple_) {
+      return
     }
+    el.mdc_ripple_.destroy()
+    delete el.mdc_ripple_
+  }
 }

@@ -5,22 +5,22 @@
  */
 
 export default {
-    namespaced: true,
-    state     : {
-        active: false
+  namespaced: true,
+  state: {
+    active: false
+  },
+  mutations: {
+    /**
+     * Ouvre la liste des pistes.
+     */
+    OPEN (state) {
+      state.active = true
     },
-    mutations : {
-        /**
-         * Ouvre la liste des pistes.
-         */
-        OPEN(state) {
-            state.active = true
-        },
-        /**
-         * Ferme la liste des pistes.
-         */
-        CLOSE(state) {
-            state.active = false
-        }
+    /**
+     * Ferme la liste des pistes.
+     */
+    CLOSE (state) {
+      state.active = false
     }
+  }
 }
