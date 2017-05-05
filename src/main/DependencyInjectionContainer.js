@@ -10,6 +10,6 @@
  */
 import Store from './Store'
 
-const DependenciesInjectionContainer = new Store
+const DependencyInjectionContainer = new Store()
 
-export default DependenciesInjectionContainer
+export default DependencyInjectionContainer

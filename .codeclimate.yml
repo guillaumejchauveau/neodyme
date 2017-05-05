@@ -1,0 +1,21 @@
+###############################
+# Code Climate configuration. #
+###############################
+
+engines:
+  eslint:
+    enabled: true
+    channel: eslint-3
+  stylelint:
+    enabled: true
+
+ratings:
+  paths:
+    - "**/*.js"
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.vue"
+
+exclude_paths:
+  - build/**/*
+  - node_modules/**/*
