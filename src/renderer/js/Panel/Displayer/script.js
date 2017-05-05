@@ -4,7 +4,7 @@
  * @copyright Paul Charpentier 2017.
  */
 
-import { mapGetters, mapActions, mapState} from 'vuex'
+import { mapGetters } from 'vuex'
 
  /**
   * Classe Criterion.
@@ -27,28 +27,7 @@ export default {
   },
 
   computed: {
-    ...mapState ('panel', ['currentPanelConfig', 'currentPanelElements']),
-    ...mapGetters ('panel', ['getCurrentPanelConfig']),
-
-  },
-
-  methods: {
-    ...mapActions('panel', {
-      setCustomPanel: 'setCustomPanel',
-      setPreviousPanelConfig: 'setPreviousPanelConfig',
-      loadCurrentPanelElements: 'loadCurrentPanelElements'
-    }),
-  },
-
-  /**
-   * Fonction lancee quand le composant est monte.
-   * Initialise le Panel en affichant le panelPreset initial.
-   */
-  mounted(){
-    const panelPresets = this.$store.state.settings.panel.panelPresets
-    const initialPanel = this.$store.state.settings.panel.initialPanel
-
-    this.setCustomPanel(panelPresets[initialPanel])
-    this.loadCurrentPanelElements()
+    ...mapGetters('panel', ['getCurrentPanelConfig',
+                            'getCurrentPanelElements']),
   }
 }

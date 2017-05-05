@@ -1,89 +1,95 @@
 @import "loader";
 
-
-/* ITEM */
-
 .item {
   position  : relative;
   width     : $item-width;
   height    : $item-height;
-  margin    : 5px;
+  margin    : $item-margin;
+  cursor    : pointer;
+
+  .item_card {
+    position : relative;
+    @include Card($item-width, $item-height);
+    @include InteractiveCard();
+
+    .item_picture {
+      height    : $item-width;
+      cursor    : pointer;
+
+      .picture_background {
+        @include mdc-elevation(2);
+        position         : absolute;
+        top              : 0;
+        width            : $item-width * $item-picture-size;
+        height           : $item-width * $item-picture-size;
+        margin           : $item-picture-margin;
+        border-radius    : 50%;
+        background-color : $bg-primary ;
+        cursor           : pointer;
+        transition       : background-color $item-transition-hover-duration, transform $item-transition-hover-duration;
+      }
+
+      img {
+        position      : absolute;
+        top           : 0;
+        width         : $item-width * $item-picture-size - $item-picture-border-size * 2;
+        height        : $item-width * $item-picture-size - $item-picture-border-size * 2;
+        margin        : $item-picture-border-size + $item-picture-margin;
+        border-radius : 50%;
+        cursor        : pointer;
+      }
+    }
+
+    &:hover .picture_background {
+      background-color : $color-primary;
+      transform        : scale(1.05);
+    }
+
+    .item_text {
+      position: relative;
+      overflow: hidden;
+      height: 32px;
+      width: $item-width - 50px;
+      margin-left : $item-width *(1-$item-picture-size ) /2 ;
+      margin-right: 30px;
+
+      span {
+        position: absolute;
+        display: inline;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        margin      : 0;
+        font-weight : $font-weight-light;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .item_menu {
+    visibility  : hidden;
+    position    : relative;
+    top         : -50px;
+    margin-left : $item-width - 30;
+  }
+
+  &:hover {
+    .item_menu {
+      visibility : visible;
+    }
+
+    &.scrollingEnabled .item_text span{
+      animation: scrollingText 7s infinite alternate linear;
+    }
+  }
 }
 
-.item_card {
-  position: relative;
-  @include Card($item-width, $item-height);
-  @include InteractiveCard();
-}
 
-
-/* ITEM_PICTURE */
-
-.item_card_picture {
-  z-index   : 3;
-  position  : relative;
-  top       : 0;
-  width     : $item-width;
-  height    : $item-width;
-}
-
-.item_card_picture_background {
-  position          : absolute;
-  top               : 0;
-  width             : $item-width * $item-picture-size;
-  height            : $item-width * $item-picture-size;
-  margin            : $item-width *(1 - $item-picture-size) / 2;
-  border-radius     : 50%;
-  background-color  : $bg-primary ;
-  @include mdc-elevation(2);
-  transition        : background-color $item-transition-hover-delay;
-  transition        : transform $item-transition-hover-delay;
-}
-
-img {
-  position          : absolute;
-  top               : 0;
-  width             : $item-width * $item-picture-size - $item-picture-border-size * 2;
-  height            : $item-width * $item-picture-size - $item-picture-border-size * 2;
-  margin            : $item-picture-border-size + $item-width * (1-$item-picture-size ) /2 ;
-  border-radius     : 50%;
-}
-
-
-/* ITEM_TEXT */
-
-.item_card_text {
-  position  : relative;
-  left      : 0;
-  height    : $item-height - $item-width;
-  margin    : 0;
-}
-
-.item_menu {
-  margin-left : $item-width - 24;
-  width       : 24px;
-  top         : -($item-height - $item-width);
-  position    : absolute;
-  right       : 0;
-}
-
-p {
-  top         : 2px;
-  position    : absolute;
-  width       : 100px;
-  margin      : 0;
-  margin-left : $item-width *(1-$item-picture-size ) /2 ;
-  font-weight : $font-weight-light;
-}
-
-
-/* ITEM:HOVER */
-
-.item_card:hover .item_card_picture_background {
-  background-color  : $color-primary;
-  transform         : scale(1.05);
-}
-
-p:hover {
-  text-decoration: underline;
+@keyframes scrollingText {
+  0% {transform: translateX(0);}
+  100% {transform: translateX(calc(-100% + (#{$item-width} - 60px)));}
 }

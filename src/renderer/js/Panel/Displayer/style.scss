@@ -1,6 +1,10 @@
 @import "loader";
 
-.displayer_items {
-  display: flex;
-  flex-flow: wrap;
+.displayer {
+  margin : 5px;
+
+  .displayer_items {
+    display   : flex;
+    flex-flow : wrap;
+  }
 }

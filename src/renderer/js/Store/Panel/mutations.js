@@ -22,11 +22,17 @@ export default {
 
   /**
    * Set les elements du panel.
-   * @param {Array} elements - Les elements.
+   * @param {{decisiveCriteriaSets: Array<DecisiveCriteriaSet>, criteriaSets: Array<CriteriaSet>}} elements - Les elements du panel.
    */
   SET_CURRENTPANELELEMENTS (state, elements) {
-    state.currentPanelElements = elements
+    if (elements.decisiveCriteriaSets !== undefined) {
+      state.currentPanelElements.decisiveCriteriaSets = elements.decisiveCriteriaSets
+    }
+    if (elements.criteriaSets !== undefined) {
+      state.currentPanelElements.criteriaSets = elements.criteriaSets
+    }
   },
+
 
   /**
    * Ajoute une PanelConfig a l'historique.
@@ -37,16 +43,38 @@ export default {
   },
 
   /**
-   * Retire la derniere entree de l'historique.
+   * Efface toutes les dernieres entrees de l'historique jusqu'a un certain index.
+   * @param {Number} index - index.
    */
-  REMOVE_LAST_PANELHISTORY_ENTRY (state) {
-    state.panelHistory.pop()
+  REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX (state, index) {
+    for (let panelConfigIndex = state.panelHistory.length ; panelConfigIndex >= index ; panelConfigIndex--) {
+      state.panelHistory.pop()
+    }
   },
 
   /**
-   * Vide l'historique.
+   * Efface l'historique.
    */
   CLEAR_PANELHISTORY (state) {
-    state.PanelHistory = []
+    state.panelHistory = []
+  },
+
+  /**
+   * Set la valeur du type de critere de tri sur la configuration courante;
+   * @param {String} newActiveSortCriterionType - Le nouveau type de critere de tri.
+   */
+  SET_CURRENT_PANELCONFIG_ACTIVESORTCRITERIONTYPE (state, newActiveSortCriterionType) {
+    state.currentPanelConfig.activeSortCriterionType = newActiveSortCriterionType
+  },
+
+  /**
+   * Active ou desactive l'inversion du tri
+   */
+  TOGGLE_SORT_REVERT (state) {
+    state.revertSort = !state.revertSort
+  },
+
+  SET_SELECTEDLISTROW (state, element) {
+    state.selectedListRow = element
   }
 }

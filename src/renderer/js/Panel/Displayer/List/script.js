@@ -4,7 +4,13 @@
  * @copyright Paul Charpentier 2017.
  */
 
-import {mapState, mapActions, mapGetters} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
+/**
+ * Classe DecisiveCriteriaSet.
+ * @type {DecisiveCriteriaSet}
+ */
+import DecisiveCriteriaSet from '../../../Criterion/CriteriaSet/DecisiveCriteriaSet'
 
 import ListRow from './ListRow'
 
@@ -13,44 +19,46 @@ export default {
     ListRow,
   },
 
-  props: ['elements'],
-
-  data: () => {
-    return {
-      fakeElements: [{criteria: {trackNumber:   {value: '1'},
-                                      title:    {value: 'Sonate pour piano n°5'},
-                                      album:    {value: 'Musique Classique'},
-                                      artist:   {value: 'Beethoven'},
-                                      duration: {value: '05:31'}}},
-                      {criteria: {trackNumber:  {value: '2'},
-                                      title:    {value: 'Sonate pour piano n°5'},
-                                      album:    {value: 'Musique Classique'},
-                                      artist:   {value: 'Beethoven'},
-                                      duration: {value: '05:31'}}},
-                      {criteria: {trackNumber:  {value: '3'},
-                                      title:    {value: 'Sonate pour piano n°5'},
-                                      album:    {value: 'Musique Classique'},
-                                      artist:   {value: 'Beethoven'},
-                                      duration: {value: '05:31'}}},
-                      {criteria: {trackNumber:  {value: '4'},
-                                      title:    {value: 'Sonate pour piano n°5'},
-                                      album:    {value: 'Musique Classique'},
-                                      artist:   {value: 'Beethoven'},
-                                      duration: {value: '05:31'}}},
-                              ]
-    }
-  },
-
   computed: {
-    ...mapState('panel', ['currentPanelElements']),
-    sortedElements () {
-      return this.fakeElements.sort( (a, b) => {
-        return parseFloat(a.criteria.trackNumber.value) - parseFloat(b.criteria.trackNumber.value)
-      })
-    }
+    ...mapGetters('panel', ['getCurrentPanelElements',
+                            'getActiveSortCriterionType',
+                            'getSelectedListRow',
+                            'isRevertSort']),
   },
 
   methods: {
-    ...mapActions('panel', ['loadCurrentPanelElements'])
+    ...mapMutations('playlist', ['CLEAR_TRACKS', 'SET_CURRENT_TRACK']),
+    ...mapMutations('panel', ['SET_SELECTEDLISTROW']),
+    ...mapActions('playlist', ['addDecisiveCriteriaSet']),
+    ...mapActions('panel', ['setCurrentPanelElementsSorting']),
+
+
+    toggleRevertSort () {
+      this.SET_SELECTEDLISTROW()
+      this.setCurrentPanelElementsSorting()
+    },
+
+    activateSort (selectedSortCriteriaType) {
+      this.SET_SELECTEDLISTROW()
+      this.setCurrentPanelElementsSorting(selectedSortCriteriaType)
+    },
+
+    /**
+     * Joue un titre et ajoute tout les titres affichés a la playlist.
+     * @param {String} selectedElement - Le titre selectione.
+     */
+    play (selectedElement) {
+      //STOP
+      if (this.getSelectedListRow === selectedElement) {
+        this.SET_SELECTEDLISTROW()
+      }
+      this.CLEAR_TRACKS()
+      this.getCurrentPanelElements.decisiveCriteriaSets.forEach(DCS => {
+        this.addDecisiveCriteriaSet(DCS)
+      })
+      const selectedElementIndex = this.getCurrentPanelElements.decisiveCriteriaSets.indexOf(selectedElement)
+      this.SET_CURRENT_TRACK(selectedElementIndex)
+      //PLAY
+    }
   }
 }

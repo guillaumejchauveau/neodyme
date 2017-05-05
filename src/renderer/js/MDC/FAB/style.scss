@@ -1,8 +1,8 @@
 @import "loader";
 @import "@material/fab/mdc-fab";
 
-.app-fab--absolute {
-    position : absolute;
-    bottom   : $mdc-fab-absolute-position-offset;
-    right    : $mdc-fab-absolute-position-offset;
+.app-fab--fixed {
+    position : fixed;
+    bottom   : $mdc-fab-fixed-position-offset;
+    right    : $mdc-fab-fixed-position-offset;
 }

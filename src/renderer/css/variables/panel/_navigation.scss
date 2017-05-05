@@ -1,4 +1,8 @@
-$navigation-card-height : 50px;
+$navigation-card-height           : 64px;
+$navigation-transition-duration   : 200ms;
 
-$navigation-button-margin : 10px;
-$navigation-button-icon-size : 32px;
+$navigation-button-spacing        : 16px;
+$navigation-button-icon-size      : 28px;
+$navigation-button-margin         : ($navigation-card-height - $navigation-button-icon-size) /2;
+$navigation-controls-margin-right : 32px;
+$navigation-title-fontSize        : 18px;

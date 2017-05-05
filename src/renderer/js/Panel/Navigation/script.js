@@ -8,8 +8,10 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 
 export default {
   computed: {
-    ...mapState('panel', ['currentPanelConfig']),
-    ...mapGetters('panel', ['isHistoryEmpty']),
+    ...mapGetters('panel', ['getHistoryConfigPanelsTitles',
+                            'getCurrentPanelConfig',
+                            'thereIsPreviousHistoryEntry',
+                            'thereIsNextHistoryEntry']),
 
     /**
      * Recupere les noms des panelPreset.
@@ -36,32 +38,40 @@ export default {
 
       for (const panelPreset in panelPresets) {
         if (panelPresets.hasOwnProperty(panelPreset)) { //Verifie si panelPreset est bien une propriete de panelPresets.
-          if (panelPresets[panelPreset] === this.currentPanelConfig) {
+          if (panelPresets[panelPreset] === this.getCurrentPanelConfig) {
             return panelPreset
           }
         }
       }
       return null
+    },
+
+    activeTitle () {
+      return this.getCurrentPanelConfig.title
     }
   },
 
   methods: {
-    ...mapActions('panel', {
-      setPanelPreset: 'setPanelPreset',
-      setPreviousPanelConfig: 'setPreviousPanelConfig',
-      loadCurrentPanelElements: 'loadCurrentPanelElements'
-    }),
-
+    ...mapActions('panel', ['setCustomPanelConfig',
+                            'setPreviousPanelConfig']),
     /**
      * Si possible reviens sur le panel precedent, sinon ne fait rien.
      * @returns {null} Si l'historique est vide.
      */
     backPanel () {
-      if (this.isHistoryEmpty === true) {
+      if (this.thereIsPreviousHistoryEntry === true) {
         return null
       } else {
         this.setPreviousPanelConfig()
-        this.loadCurrentPanelElements()
+      }
+    },
+
+    forwardPanel () {
+      if (this.thereIsNextHistoryEntry === true) {
+        return null
+      } else {
+        const activePanelhistoryIndex = this.getHistoryConfigPanelsTitles.indexOf(this.activeTitle)
+        this.setCustomPanelConfig(activePanelhistoryIndex +1)
       }
     },
 
@@ -70,8 +80,12 @@ export default {
      * @param {String} preset - Le nom du panelPreset a afficher.
      */
     setPreset (preset) {
-      this.setPanelPreset(preset)
-      this.loadCurrentPanelElements()
+      this.setCustomPanelConfig(preset)
+    },
+
+    setSelectedPanel (index) {
+      const historyIndex = this.getHistoryConfigPanelsTitles.indexOf(index)
+      this.setCustomPanelConfig(historyIndex)
     }
   }
 }

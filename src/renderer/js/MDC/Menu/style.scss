@@ -2,10 +2,10 @@
 @import "@material/menu/mdc-menu";
 
 .mdc-menu-anchor {
+
     & > button {
-        @include mdc-ripple-base;
-        @include mdc-ripple-bg((pseudo: "::before"));
-        @include mdc-ripple-fg((pseudo: "::after"));
+      @include mdc-ripple-base;
+      @include mdc-ripple-fg((pseudo: "::after"));
         @include buttonReset;
         border-radius : 100%;
         cursor        : pointer;

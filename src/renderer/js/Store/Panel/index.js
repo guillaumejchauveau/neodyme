@@ -32,8 +32,13 @@ module.exports = {
   namespaced: true,
   state: {
     currentPanelConfig: null,
+    currentPanelElements: {
+      criteriaSets: null,
+      decisiveCriteriaSets: null
+    },
     panelHistory: [],
-    currentPanelElements: null,
+    revertSort: false,
+    selectedListRow: null,
   },
 
   getters,

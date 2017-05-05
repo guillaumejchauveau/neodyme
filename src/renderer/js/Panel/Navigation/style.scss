@@ -1,60 +1,117 @@
 @import "loader";
 
 .navigation {
-
   .navigation_card {
     @include Card(100%, $navigation-card-height);
-  }
-}
+    @include mdc-elevation(2);
 
-.navigation_card_button {
-  &:not(.disabled) {
-    @include mdc-ripple-base;
-    @include mdc-ripple-bg((pseudo: "::before"));
-    @include mdc-ripple-fg((pseudo: "::after"));
-  }
+    ul {
+      padding    : 0;
+      list-style : none;
 
-  @include buttonReset;
-  border-radius : 50%;
-  cursor        : pointer;
-  overflow      : hidden;
-  margin        : $navigation-button-margin;
-  margin-right  : 0;
+      button {
+        &:not(.disabled) {
+          @include mdc-ripple-base;
+          @include mdc-ripple-fg((pseudo: "::after"));
 
-  span {
-    display    : inline-block;
-    width      : 100%;
-    height     : 100%;
-    text-align : center;
+          span::before {
+            cursor : pointer;
+          }
+        }
 
-    &::before {
-      @include materialIcon;
-      font-size: $navigation-button-icon-size;
+        @include buttonReset;
+        border-radius : 50%;
+        cursor        : pointer;
+        overflow      : hidden;
+        margin        : $navigation-button-margin;
+        margin-left   : $navigation-button-spacing;
+        margin-right  : 0;
+
+        span::before {
+          @include materialIcon;
+          font-size  : $navigation-button-icon-size;
+          transition : color $navigation-transition-duration;
+        }
+      }
+
+      &.navigation_controls {
+        li {
+          float       : left;
+          margin-left : $navigation-button-spacing;
+
+          &.controls_buttons {
+            float : left;
+
+            .back span::before {
+              content : 'arrow_back';
+            }
+
+            .forward span::before {
+              content : 'arrow_forward';
+            }
+
+            .disabled {
+              cursor : default;
+              color  : $text-color-disabled;
+            }
+          }
+
+          &.controls_titles {
+            float       : left;
+            margin-left : $navigation-button-spacing;
+            line-height : $navigation-card-height;
+
+            .title {
+              font-size  : $navigation-title-fontSize;
+              transition : color $navigation-transition-duration;
+
+              .text {
+                cursor : pointer;
+                &:hover {
+                  border-bottom : solid 2px;
+                }
+              }
+
+              .arrow::before {
+                @include materialIcon;
+                content        : "keyboard_arrow_right";
+                font-size      : $navigation-button-icon-size;
+                vertical-align : middle;
+                cursor         : pointer;
+              }
+            }
+
+            .active {
+              color : $color-primary;
+
+              ~ li {
+                color : $text-color-disabled;
+              }
+            }
+          }
+
+          &.controls_links {
+            float         : right;
+            margin-right  : $navigation-controls-margin-right;
+
+            .allArtists span::before {
+              content : 'person';
+            }
+
+            .allAlbums span::before {
+              content : 'album';
+            }
+
+            .allTitles span::before {
+              content : 'music_note';
+            }
+
+            .current {
+              color : $color-primary;
+            }
+          }
+        }
+      }
     }
   }
-}
-
-.back span::before {
-  content : 'arrow_back';
-}
-
-.allArtists span::before {
-  content : 'person';
-}
-
-.allAlbums span::before {
-  content : 'album';
-}
-
-.allTitles span::before {
-  content : 'music_note';
-}
-
-.current {
-  color: $color-primary;
-}
-
-.disabled {
-  cursor : default;
-  color: $text-color-disabled;
 }
