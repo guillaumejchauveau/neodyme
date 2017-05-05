@@ -56,7 +56,6 @@
           transform: translate(22px, -8px);
         }
 
-<<<<<<< HEAD
         &.sortActive {
           &.sortInvert span::before{
             content: 'arrow_upward';
@@ -65,14 +64,6 @@
           span::before {
             content: 'arrow_downward';
           }
-=======
-        &.sortDefault span::before{
-          content: 'arrow_downward';
-        }
-
-        &.sortInvert span::before{
-          content: 'arrow_upward';
->>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
         }
       }
     }

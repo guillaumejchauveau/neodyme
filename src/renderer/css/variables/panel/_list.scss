@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 $list-card-width  : 98%;
-=======
-$list-card-width : 98%;
->>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 $list-card-height : 100%;
 
 $list-marginSide : 50px;
@@ -16,20 +12,14 @@ $list-durationIcon-translate : translate(6px, -12px);
 $list-filterOrderSelector-font-size : 17px;
 
 $list-row-height : 50px;
-<<<<<<< HEAD
 $list-row-border : solid 1px rgba(0,0,0, .1);
 
 $list-row-trackNumber-width : 50px;
 $list-row-trackNumber-transform : translateX(10px);
-=======
-
-$list-row-border : solid 1px rgba(0,0,0, .1);
->>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 
 $list-row-playButton-font-size : 36px;
 $list-row-playButton-translate : translate(-15px, -$list-row-playButton-font-size /2);
 
-<<<<<<< HEAD
 $list-row-title-transform : translateY(6px);
 $list-row-title-menu-transform : translate(-15px, 5px);
 
@@ -39,20 +29,11 @@ $list-row-playAnim-bar-width : 6px;
 $list-row-playAnim-bar-height-default : $list-row-playAnim-bar-width / 2;
 $list-row-playAnim-bar-height-max : $list-row-playAnim-bar-height-default * 5;
 $list-row-playAnim-bar-marginSide : $list-row-playAnim-bar-width / 6;
-=======
-
-$list-row-playAnim-bottom : 12px;
-$list-row-playAnim-left : -5px;
-$list-row-playAnim-bar-width : 7px;
-$list-row-playAnim-bar-height-default : 20px;
-$list-row-playAnim-bar-marginSide : 1px;
->>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 $list-row-playAnim-duration : 1s;
 $list-row-playAnim-bar-a-delay : 100ms;
 $list-row-playAnim-bar-b-delay : -200ms;
 $list-row-playAnim-bar-c-delay : 0ms;
 
-<<<<<<< HEAD
 @keyframes list-row-playAnim{
   0%   {height : $list-row-playAnim-bar-height-max / 5;}
   10%  {height : $list-row-playAnim-bar-height-max / 2;}
@@ -61,17 +42,4 @@ $list-row-playAnim-bar-c-delay : 0ms;
   60%  {height : $list-row-playAnim-bar-height-max / 1;}
   80%  {height : $list-row-playAnim-bar-height-max / 1.15;}
   100% {height : $list-row-playAnim-bar-height-max / 2;}
-=======
-$list-row-value-title-translate : translate(-15px ,-4px);
-$list-row-value-trackNumber-translate : translateX(10px);
-
-@keyframes list-row-playAnim{
-  0% {height: 8px;}
-  10% {height: 10px;}
-  20% {height: 12px;}
-  40% {height: 15px;}
-  60% {height: 18px;}
-  80% {height: 16px;}
-  100% {height: 7px;}
->>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 }

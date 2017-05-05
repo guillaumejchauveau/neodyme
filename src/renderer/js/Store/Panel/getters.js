@@ -53,17 +53,12 @@ export default {
    * Verifie si la configuration acutelle est la premiere de l'historique.
    * @return {Boolean}
    */
-<<<<<<< HEAD
   thereIsPreviousHistoryEntry: state => state.currentPanelConfig === state.panelHistory[0] ? true : false,
-=======
-  getLastPanelConfig: state => state.panelHistory[state.panelHistory.indexOf(state.currentPanelConfig) -1],
->>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 
   /**
    * Verifie si la configuration acutelle est la derniere de l'historique.
    * @return {Boolean}
    */
-<<<<<<< HEAD
   thereIsNextHistoryEntry: state => state.currentPanelConfig === state.panelHistory[state.panelHistory.length -1] ? true : false,
 
   /**
@@ -197,22 +192,4 @@ export default {
 
     return decisiveCriteriaSets
   }
-=======
-  thereIsPreviousHistoryEntry: state => {
-    if (state.currentPanelConfig === state.panelHistory[0]) {
-      return true
-    }
-      return false
-  },
-
-  thereIsNextHistoryEntry: state => {
-    if (state.currentPanelConfig === state.panelHistory[state.panelHistory.length -1]) {
-      return true
-    }
-      return false
-  },
-
-  getCurrentPanelConfigHistoryIndex: state => state.panelHistory.indexOf(state.currentPanelConfig),
-
->>>>>>> 5cbd9f646c37bfa0ea3d1a4b2468638d7951c127
 }
