@@ -11,8 +11,8 @@
     @include centered;
 
     left:          0;
-    width:         $control-panel--size * 2;
-    height:        $control-panel--size * 2;
+    width:         $control-panel__size * 2;
+    height:        $control-panel__size * 2;
     border-radius: 50%;
   }
 }
