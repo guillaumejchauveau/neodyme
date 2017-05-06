@@ -29,15 +29,7 @@ export default {
     ...VueX.mapState('playlist', {
       waypointItemIndex: 'currentTrackIndex'
     }),
-    ...VueX.mapState('playlist/tracksList', {isActive: 'active'}),
-    ...VueX.mapGetters('playlist', ['tracksCount']),
-    /**
-     * Determine si la liste des pistes doit etre ouverte ou fermee.
-     * @returns {Boolean}
-     */
-    active () {
-      return this.tracksCount && this.isActive
-    },
+    ...VueX.mapGetters('playlist', ['tracksListActive']),
     /**
      * Compile le style dynamique du point de repere.
      * @returns {String} Le contenu de l'attribut style.

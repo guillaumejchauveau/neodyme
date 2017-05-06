@@ -22,15 +22,7 @@ export default {
     ...VueX.mapState('playlist', {
       waypointItemIndex: 'currentTrackIndex'
     }),
-    ...VueX.mapState('playlist/tracksList', {isActive: 'active'}),
-    ...VueX.mapGetters('playlist', ['tracksCount']),
-    /**
-     * Determine si la liste des pistes doit etre ouverte ou fermee.
-     * @returns {Boolean}
-     */
-    active () {
-      return this.tracksCount && this.isActive
-    },
+    ...VueX.mapGetters('playlist', ['tracksCount', 'tracksListActive']),
     /**
      * Determine la valeur de l'element courant en prenant en compte l'option de suivi du point de repere.
      * @returns {Number}
@@ -107,8 +99,8 @@ export default {
   },
   methods: {
     ...VueX.mapMutations({
-      open: 'playlist/tracksList/OPEN',
-      close: 'playlist/tracksList/CLOSE'
+      openTracksList: 'playlist/OPEN_TRACKSLIST',
+      closeTracksList: 'playlist/CLOSE_TRACKSLIST'
     }),
     /**
      * Change l'element courant au defilement.

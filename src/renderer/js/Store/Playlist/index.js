@@ -13,20 +13,16 @@ import actions from './actions'
  * Module Lecteur.
  */
 import player from './Player'
-/**
- * Module Liste des pistes.
- */
-import tracksList from './TracksList'
 
 export default {
   namespaced: true,
   modules: {
-    player,
-    tracksList
+    player
   },
   state: {
     tracks: [],
-    currentTrackIndex: -1
+    currentTrackIndex: -1,
+    tracksListActivationRequested: false
   },
   getters: {
     /**
@@ -42,6 +38,13 @@ export default {
      */
     currentTrack (state) {
       return (state.currentTrackIndex === -1) ? null : state.tracks[state.currentTrackIndex]
+    },
+    /**
+     * Determine si la liste des pistes doit etre affichee.
+     * @returns {Boolean}
+     */
+    tracksListActive (state, getters) {
+      return getters.tracksCount && state.tracksListActivationRequested
     }
   },
   mutations: {
@@ -89,6 +92,18 @@ export default {
       }
 
       state.currentTrackIndex = index
+    },
+    /**
+     * Ouvre la liste des pistes.
+     */
+    OPEN_TRACKSLIST (state) {
+      state.tracksListActivationRequested = true
+    },
+    /**
+     * Ferme la liste des pistes.
+     */
+    CLOSE_TRACKSLIST (state) {
+      state.tracksListActivationRequested = false
     }
   },
   actions
