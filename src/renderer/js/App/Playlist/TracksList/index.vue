@@ -14,7 +14,9 @@
               class="c-tracks-list-close"
               title="Fermer"
               @click="close"
-              v-ripple><span></span></button>
+              v-ripple>
+        <span class="c-tracks-list-close__icon"></span>
+      </button>
       <div key="c-tracks-list-waypoint-scroller__container"
            v-if="waypointScroller && active"
            class="c-tracks-list-waypoint-scroller__container"
@@ -23,7 +25,9 @@
                 :class="{'c-tracks-list-waypoint-scroller--down': distanceToWaypoint < 0}"
                 title="Aller à la piste en cours"
                 @click="currentItem = waypointItemIndex"
-                v-ripple><span></span></button>
+                v-ripple>
+          <span class="c-tracks-list-waypoint-scroller__icon"></span>
+        </button>
       </div>
     </transition-group>
 

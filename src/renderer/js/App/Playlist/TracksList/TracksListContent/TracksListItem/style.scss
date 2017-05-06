@@ -16,7 +16,7 @@
   transition:       transform $tracks-list-item__transition-time * 2 $tracks-list-item__transition-easing;
 
   &:hover {
-    > button {
+    .c-tracks-list-item-menu-toggler {
       opacity: 1;
     }
 
@@ -56,7 +56,7 @@
   text-align:    center;
   transition:    opacity $tracks-list-item__transition-time;
 
-  span::before {
+  &__icon::before {
     @include material-icon;
 
     color:       $text__color--light;

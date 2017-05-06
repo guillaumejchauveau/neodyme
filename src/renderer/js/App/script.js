@@ -14,8 +14,6 @@ import Store from '../Store'
  */
 import Playlist from './Playlist'
 
-import CriteriaSet from '../Criterion/CriteriaSet'
-
 export default {
   methods: {
     /**
@@ -34,11 +32,6 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.windowResizeHandler)
       this.$store.commit('settings/UPDATE_WINDOW_SIZE')
-
-      setTimeout(() => {
-        const test = new CriteriaSet()
-        this.$store.dispatch('playlist/addCriteriaSet', test)
-      }, 2000)
     })
   },
   beforeDestroy () {
