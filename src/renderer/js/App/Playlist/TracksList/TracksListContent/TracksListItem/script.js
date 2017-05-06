@@ -4,6 +4,11 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+/**
+ * Composant TrackListItemAction.
+ */
+import TracksListItemAction from './TracksListItemAction'
+
 import VueX from 'vuex'
 
 export default {
@@ -32,6 +37,9 @@ export default {
       this.active = false
       this.$emit('trackAction', action, this.position)
     }
+  },
+  components: {
+    TracksListItemAction
   },
   props: {
     data: {
