@@ -26,14 +26,17 @@
   }
 
   &__content {
-    display:     inline-block;
-    width:       $tracks-list__size - $control-panel__size - $tracks-list-item__height;
-    height:      100%;
-    padding:     ($tracks-list-item__height - $tracks-list-item-content__font-size) / 2;
-    color:       $text__color--light;
-    font-size:   $tracks-list-item-content__font-size;
-    line-height: 1;
-    opacity:     .8;
+    display:       inline-block;
+    width:         $tracks-list__size - $control-panel__size - $tracks-list-item__height;
+    height:        100%;
+    padding:       0 ($tracks-list-item__height - $tracks-list-item-content__font-size) / 2;
+    color:         $text__color--light;
+    font-size:     $tracks-list-item-content__font-size;
+    line-height:   $tracks-list-item__height;
+    opacity:       .8;
+    overflow:      hidden;
+    text-overflow: ellipsis;
+    white-space:   nowrap;
   }
 }
 
