@@ -5,6 +5,11 @@
  */
 
 /**
+ * Actions de lecture du module Liste de lecture.
+ */
+import playbackActions from './playbackActions'
+
+/**
  * Classe Criterion.
  * @type {Criterion}
  */
@@ -23,14 +28,15 @@ import DecisiveCriteriaSet from '../../Criterion/CriteriaSet/DecisiveCriteriaSet
  * Classe Track.
  * @type {Track}
  */
-import Track from '../../App/Playlist/Track'
+import Track from '../../Track'
 
 export default {
   /**
    * Ajoute des pistes a partir d'ensembles de criteres.
    * @param {(CriteriaSet|Array<CriteriaSet>|{data: (CriteriaSet|Array<CriteriaSet>), index: Number})} payload
+   * @returns {Promise}
    */
-  addCriteriaSets (context, payload) {
+  addCriteriaSets (context, payload) { // TODO: Add Promise
     // Reformatage des donnees a traiter.
     let criteriaSets = payload
     let index = null
@@ -54,10 +60,11 @@ export default {
   /**
    * Ajoute des pistes a partir d'un ensemble de criteres.
    * @param {(CriteriaSet|{data: CriteriaSet, index: Number})} payload
+   * @returns {Promise}
    * @throws {TypeError} Lance un exception si l'ensemble de criteres n'est pas valide.
    * @throws {Error} Lance une exception si une erreur est rencontree.
    */
-  addCriteriaSet (context, payload) {
+  addCriteriaSet (context, payload) { // TODO: Add Promise
     // Reformatage des donnees a traiter.
     let criteriaSet = payload
     let index = null
@@ -109,5 +116,6 @@ export default {
 
     // Traitement.
     context.commit('ADD_TRACK', {data: new Track(dcs), index})
-  }
+  },
+  ...playbackActions
 }

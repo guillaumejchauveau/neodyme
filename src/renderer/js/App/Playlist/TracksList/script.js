@@ -99,21 +99,17 @@ export default {
   },
   methods: {
     ...VueX.mapMutations({
-      openTracksList: 'playlist/OPEN_TRACKSLIST',
-      closeTracksList: 'playlist/CLOSE_TRACKSLIST'
+      openTracksList: 'playlist/OPEN_TRACKS_LIST',
+      closeTracksList: 'playlist/CLOSE_TRACKS_LIST'
     }),
     /**
-     * Change l'element courant au defilement.
-     * @param {MouseEvent} event - L'evenement capture.
+     * Change l'element courant.
+     * @param {Number} index
      */
-    scrollItemsHandler (event) {
-      if (this.waypointItemTracking) {
-        this.currentItem = this.computedCurrentItem
-        this.waypointItemTracking = false
-      }
+    setCurrentItem (index) {
+      this.waypointItemTracking = false
 
-      // Incremente ou decremente selon le signe.
-      this.currentItem += Math.sign(event.deltaY)
+      this.currentItem = index
 
       // Verifie que la nouvelle valeur soit possible.
       if (this.currentItem < 0) {
@@ -122,6 +118,13 @@ export default {
       if (this.currentItem > this.tracksCount - 1) {
         this.currentItem = this.tracksCount - 1
       }
+    },
+    /**
+     * Fait defiler les elements.
+     * @param {Number} amount - Le nombre d'elements a defiler.
+     */
+    scrollItems (amount) {
+      this.setCurrentItem(this.currentItem += amount)
     },
     /**
      * Transmet l'evenement trackAction.

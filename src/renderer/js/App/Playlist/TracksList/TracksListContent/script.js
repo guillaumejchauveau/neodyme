@@ -54,11 +54,12 @@ export default {
       return distance
     },
     /**
-     * Transmet l'evenement scrollItems.
+     * Declenche le defilement des elements a l'utilisation de la molette de la souris.
      * @param {MouseEvent} event - L'evenement capture.
      */
-    scrollItemsHandler (event) {
-      this.$emit('scrollItems', event)
+    itemsScrollingHandler (event) {
+      // 1 ou -1 element en fonction du sens.
+      this.$emit('scrollItems', Math.sign(event.deltaY)) // TODO: Debounce
     },
     /**
      * Transmet l'evenement trackAction en convertissant la position relative en index de piste.

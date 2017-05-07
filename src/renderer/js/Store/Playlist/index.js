@@ -22,7 +22,8 @@ export default {
   state: {
     tracks: [],
     currentTrackIndex: -1,
-    tracksListActivationRequested: false
+    tracksListActivationRequested: false,
+    savedCurrentTrackPosition: 0
   },
   getters: {
     /**
@@ -40,7 +41,7 @@ export default {
       return (state.currentTrackIndex === -1) ? null : state.tracks[state.currentTrackIndex]
     },
     /**
-     * Determine si la liste des pistes doit etre affichee.
+     * Permet de determine si la liste des pistes doit etre affichee.
      * @returns {Boolean}
      */
     tracksListActive (state, getters) {
@@ -80,7 +81,7 @@ export default {
       state.tracks = []
     },
     /**
-     * Change la piste courante.
+     * Change de piste courante.
      * @param {Number} requestedIndex
      */
     SET_CURRENT_TRACK (state, requestedIndex) {
@@ -94,15 +95,21 @@ export default {
       state.currentTrackIndex = index
     },
     /**
+     * Enregistre la position pour une reprise eventuelle.
+     */
+    SAVE_CURRENT_TRACK_POSITION (state) {
+      state.savedCurrentTrackPosition = state.player.position
+    },
+    /**
      * Ouvre la liste des pistes.
      */
-    OPEN_TRACKSLIST (state) {
+    OPEN_TRACKS_LIST (state) {
       state.tracksListActivationRequested = true
     },
     /**
      * Ferme la liste des pistes.
      */
-    CLOSE_TRACKSLIST (state) {
+    CLOSE_TRACKS_LIST (state) {
       state.tracksListActivationRequested = false
     }
   },

@@ -20,19 +20,15 @@ export default {
      * Fonction declenchee a chaque redimensionnement de la fenetre.
      */
     windowResizeHandler () {
-      this.$nextTick(() => {
-        this.$store.commit('settings/UPDATE_WINDOW_SIZE')
-      })
+      this.$store.commit('settings/UPDATE_WINDOW_SIZE') // TODO: Debounce
     }
   },
   components: {
     Playlist
   },
   mounted () {
-    this.$nextTick(() => {
-      window.addEventListener('resize', this.windowResizeHandler)
-      this.$store.commit('settings/UPDATE_WINDOW_SIZE')
-    })
+    window.addEventListener('resize', this.windowResizeHandler)
+    this.$store.commit('settings/UPDATE_WINDOW_SIZE')
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.windowResizeHandler)

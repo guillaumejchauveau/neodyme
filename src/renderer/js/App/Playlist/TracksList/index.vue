@@ -32,7 +32,7 @@
     </transition-group>
 
     <tracks-list-content :currentItem="computedCurrentItem"
-                         @scrollItems="scrollItemsHandler"
+                         @scrollItems="scrollItems"
                          @trackAction="trackActionHandler"></tracks-list-content>
   </div>
 </template>
