@@ -36,7 +36,7 @@ export default {
    * @param {(CriteriaSet|Array<CriteriaSet>|{data: (CriteriaSet|Array<CriteriaSet>), index: Number})} payload
    * @returns {Promise}
    */
-  addCriteriaSets (context, payload) { // TODO: Add Promise
+  addCriteriaSets (context, payload) {
     // Reformatage des donnees a traiter.
     let criteriaSets = payload
     let index = null
@@ -49,12 +49,30 @@ export default {
     }
 
     // Traitement.
-    criteriaSets.forEach(criteriaSet => {
-      if (criteriaSet instanceof DecisiveCriteriaSet) {
-        context.dispatch('addDecisiveCriteriaSet', {data: criteriaSet, index})
-      } else {
-        context.dispatch('addCriteriaSet', {data: criteriaSet, index})
+    return new Promise((resolve, reject) => {
+      let resolveCount = 0
+      const resolver = () => {
+        resolveCount++
+
+        if (resolveCount === criteriaSets.length) {
+          resolve()
+        }
       }
+
+      criteriaSets.forEach(criteriaSet => {
+        if (criteriaSet instanceof DecisiveCriteriaSet) {
+          try {
+            context.dispatch('addDecisiveCriteriaSet', {data: criteriaSet, index})
+            resolver()
+          } catch (exception) {
+            reject(new Error(exception.message))
+          }
+        } else {
+          context.dispatch('addCriteriaSet', {data: criteriaSet, index})
+                 .then(resolver)
+                 .catch(reject)
+        }
+      })
     })
   },
   /**
@@ -64,7 +82,7 @@ export default {
    * @throws {TypeError} Lance un exception si l'ensemble de criteres n'est pas valide.
    * @throws {Error} Lance une exception si une erreur est rencontree.
    */
-  addCriteriaSet (context, payload) { // TODO: Add Promise
+  addCriteriaSet (context, payload) {
     // Reformatage des donnees a traiter.
     let criteriaSet = payload
     let index = null
@@ -78,28 +96,30 @@ export default {
       throw TypeError('Invalid criteriaSet')
     }
 
-    criteriaSet.resolveDecisiveCriteriaSetFootprints()
-               .then(decisiveCriteriaSetFootprints => {
-                 decisiveCriteriaSetFootprints.forEach(decisiveCriteriaSetFootprint => {
-                   // Convertit l'empreinte en ensemble de criteres determinant.
-                   const decisiveCriteriaSet = new DecisiveCriteriaSet({
-                     providerKey: decisiveCriteriaSetFootprint.provider.config.key,
-                     id: decisiveCriteriaSetFootprint.id
-                   })
-                   // Copie les criteres.
-                   for (const criterionType in decisiveCriteriaSetFootprint.criteria) {
-                     if (decisiveCriteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
-                       const criterion = decisiveCriteriaSetFootprint.criteria[criterionType]
-                       decisiveCriteriaSet.add(new Criterion(criterion.type, criterion.value))
+    return new Promise((resolve, reject) => {
+      criteriaSet.resolveDecisiveCriteriaSetFootprints()
+                 .then(decisiveCriteriaSetFootprints => {
+                   decisiveCriteriaSetFootprints.forEach(decisiveCriteriaSetFootprint => {
+                     // Convertit l'empreinte en ensemble de criteres determinant.
+                     const decisiveCriteriaSet = new DecisiveCriteriaSet({
+                       providerKey: decisiveCriteriaSetFootprint.provider.config.key,
+                       id: decisiveCriteriaSetFootprint.id
+                     })
+                     // Copie les criteres.
+                     for (const criterionType in decisiveCriteriaSetFootprint.criteria) {
+                       if (decisiveCriteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
+                         const criterion = decisiveCriteriaSetFootprint.criteria[criterionType]
+                         decisiveCriteriaSet.add(new Criterion(criterion.type, criterion.value))
+                       }
                      }
-                   }
 
-                   context.dispatch('addDecisiveCriteriaSet', {data: decisiveCriteriaSet, index})
+                     context.dispatch('addDecisiveCriteriaSet', {data: decisiveCriteriaSet, index})
+                   })
+
+                   resolve()
                  })
-               })
-               .catch(reason => {
-                 throw new Error(reason)
-               })
+                 .catch(reject)
+    })
   },
   /**
    * Ajoute une piste a partir d'un ensemble de criteres determinant.
