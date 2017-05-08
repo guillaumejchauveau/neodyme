@@ -8,7 +8,7 @@
 * Classe PanelConfig.
 * @type {PanelConfig}
 */
-import PanelConfig from '../../Panel/PanelConfig'
+import PanelConfig from '../../App/Panel/PanelConfig'
 /**
  * Classe CriteriaSet.
  * @type {CriteriaSet}
@@ -16,13 +16,13 @@ import PanelConfig from '../../Panel/PanelConfig'
 import CriteriaSet from '../../Criterion/CriteriaSet'
 
 export default {
-    panelFlow: [0, 1, 2],
-    panelPresets: {
-      allArtists: new PanelConfig(new CriteriaSet(), 'artist', 'Tout les artistes', 'artist'),
-      allAlbums: new PanelConfig(new CriteriaSet(), 'album', 'Tout les albums', 'album'),
-      allTitles: new PanelConfig(new CriteriaSet(), 'title', 'Tout les titres', 'title'),
-    },
-    defaultActiveSortCriterionType: 'trackNumber',
-    sortCriterionTypePriorityOrder: [4, 0, 1, 3, 2],
-    initialPanel: 'allAlbums'
+  panelFlow: [0, 1, 2],
+  panelPresets: {
+    allArtists: new PanelConfig(new CriteriaSet(), 'artist', 'Tout les artistes', 'artist'),
+    allAlbums: new PanelConfig(new CriteriaSet(), 'album', 'Tout les albums', 'album'),
+    allTitles: new PanelConfig(new CriteriaSet(), 'title', 'Tout les titres', 'title')
+  },
+  defaultActiveSortCriterionType: 'trackNumber',
+  sortCriterionTypePriorityOrder: [4, 0, 1, 3, 2],
+  initialPanel: 'allAlbums'
 }

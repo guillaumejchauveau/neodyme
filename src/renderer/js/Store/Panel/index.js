@@ -5,17 +5,6 @@
  */
 
  /**
- * Classe PanelConfig.
- * @type {PanelConfig}
- */
- import PanelConfig from '../../Panel/PanelConfig'
- /**
-  * Classe CriteriaSet.
-  * @type {CriteriaSet}
-  */
- import CriteriaSet from '../../Criterion/CriteriaSet'
-
- /**
   * Getters du module Panel.
   */
 import getters from './getters'
@@ -38,7 +27,7 @@ module.exports = {
     },
     panelHistory: [],
     revertSort: false,
-    selectedListRow: null,
+    selectedListRow: null
   },
 
   getters,

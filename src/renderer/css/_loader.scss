@@ -1,21 +1,35 @@
-@import "bourbon";
+//
+// Loader.
+// Copyright Guillaume Chauveau 2017.
+//
+@import 'bourbon';
+//
+// Variables.
+//
+@import 'variables/variables';
+// Playlist.
+//
+@import 'variables/playlist/controlPanel';
+@import 'variables/playlist/tracksList';
 
-@import "variables/variables";
-@import "variables/type";
-@import "variables/playlist/controlPanel";
-@import "variables/playlist/tracksList";
-@import "variables/panel/panel";
-@import "variables/panel/navigation";
-@import "variables/panel/item";
-@import "variables/panel/list";
+// Panel.
+//
+@import 'variables/panel/list';
+@import 'variables/panel/item';
+@import 'variables/panel/navigation';
+@import 'variables/panel/panel';
 
-
-@import "@material/animation/mixins";
-@import "@material/elevation/mixins";
-@import "@material/layout-grid/mixins";
-@import "@material/ripple/mixins";
-@import "@material/rtl/mixins";
-@import "@material/theme/mixins";
-@import "@material/typography/mixins";
-
-@import "mixins/mixins";
+//
+// Material Design Components.
+//
+@import '@material/animation/mixins';
+@import '@material/elevation/mixins';
+@import '@material/layout-grid/mixins';
+@import '@material/ripple/mixins';
+@import '@material/rtl/mixins';
+@import '@material/theme/mixins';
+@import '@material/typography/mixins';
+//
+// Mixins.
+//
+@import 'mixins/mixins';

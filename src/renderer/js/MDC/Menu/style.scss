@@ -1,34 +1,39 @@
-@import "loader";
-@import "@material/menu/mdc-menu";
 
-.mdc-menu-anchor {
+//
+// Composant MDC/Menu.
+// Copyright Guillaume Chauveau 2017.
+//
+@import 'loader';
+@import '@material/menu/mdc-menu';
 
-    & > button {
-      @include mdc-ripple-base;
-      @include mdc-ripple-fg((pseudo: "::after"));
-        @include buttonReset;
-        border-radius : 100%;
-        cursor        : pointer;
-        overflow      : hidden;
+.mdc-menu-anchor-btn {
+  @include mdc-ripple-base;
+  @include mdc-ripple-fg((pseudo: '::after'));
+  @include button-reset;
 
-        span {
-            display    : inline-block;
-            width      : 100%;
-            height     : 100%;
-            color      : $text-color;
-            cursor     : inherit;
-            text-align : center;
+  border-radius: 100%;
+  cursor:        pointer;
+  overflow:      hidden;
 
-            &::before {
-                @include materialIcon;
-                content : 'more_vert';
-                cursor  : inherit;
-            }
-        }
-        &.horiz span::before {
-            content : 'more_horiz';
-        }
+  &__icon {
+    display:    inline-block;
+    width:      100%;
+    height:     100%;
+    color:      $text__color;
+    cursor:     inherit;
+    text-align: center;
+
+    &::before {
+      @include material-icon;
+
+      content: 'more_vert';
+      cursor:  inherit;
     }
+
+    &--horiz::before {
+      content: 'more_horiz';
+    }
+  }
 }
 
 .mdc-simple-menu {

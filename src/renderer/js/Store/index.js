@@ -6,24 +6,25 @@
 
 import VueX from 'vuex'
 /**
- * Module contenant les parametres de l'application.
+ * Module des parametres de l'application.
  */
 import Settings from './Settings'
 /**
- * Module contenant l'etat de la partie Liste de lecture.
+ * Module de la Liste de lecture.
  */
 import Playlist from './Playlist'
+
+const Store = new VueX.Store({
+  modules: {
+    settings: Settings,
+    playlist: Playlist
+  }
+})
+
+export default Store
+
 /**
 * Module contenant l'etat de la configuration de la View.
 */
 import Panel from './Panel'
-
-const Store = new VueX.Store({
-                                 modules: {
-                                     settings: Settings,
-                                     playlist: Playlist,
                                      panel: Panel
-                                 }
-                             })
-
-export default Store

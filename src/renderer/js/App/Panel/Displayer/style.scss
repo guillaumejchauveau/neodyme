@@ -1,0 +1,10 @@
+@import 'loader';
+
+.c-displayer {
+  margin: 5px;
+
+  &__items {
+    display:   flex;
+    flex-flow: wrap;
+  }
+}

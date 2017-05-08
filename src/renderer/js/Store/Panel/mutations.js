@@ -4,12 +4,6 @@
  * @copyright Paul Charpentier 2017.
  */
 
-/**
-* Classe PanelConfig.
-* @type {PanelConfig}
-*/
-import PanelConfig from '../../Panel/PanelConfig'
-
 export default {
 
   /**
@@ -33,7 +27,6 @@ export default {
     }
   },
 
-
   /**
    * Ajoute une PanelConfig a l'historique.
    * @param {PanelConfig} panelConfig - La PanelConfig a ajouter.
@@ -47,7 +40,7 @@ export default {
    * @param {Number} index - index.
    */
   REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX (state, index) {
-    for (let panelConfigIndex = state.panelHistory.length ; panelConfigIndex >= index ; panelConfigIndex--) {
+    for (let panelConfigIndex = state.panelHistory.length; panelConfigIndex >= index; panelConfigIndex--) {
       state.panelHistory.pop()
     }
   },

@@ -1,0 +1,74 @@
+@import 'loader';
+
+.c-list {
+  @include card($list-card__width, $list-card__height);
+
+  position:       relative;
+  width:          auto;
+  margin:         $list__margin-side;
+  margin-top:     $list__margin-top;
+  padding:        $list__padding;
+  padding-bottom: $list__padding-bottom;
+
+  &__table {
+    position:        relative;
+    width:           100%;
+    border-collapse: collapse;
+  }
+
+  &-header-tag {
+    font-weight: $font__weight--bold;
+
+    &-sort-type-selector {
+      cursor: pointer;
+
+      &--duration-icon {
+        &::before {
+          position: absolute;
+
+          @include material-icon;
+
+          content:   'timer';
+          cursor:    pointer;
+          transform: translateY(-12px);
+        }
+      }
+    }
+
+    &-sort-order-selector {
+      position: absolute;
+
+      @include button-reset;
+
+      border-radius: 50%;
+      cursor:        pointer;
+      overflow:      hidden;
+
+      span {
+        display:    inline-block;
+        width:      100%;
+        height:     100%;
+        text-align: center;
+
+        &::before {
+          @include material-icon;
+
+          cursor:    pointer;
+          font-size: $list-filterorderselector__font-size;
+        }
+      }
+
+      &--duration-icon {
+        transform: translate($list-durationicon__translate);
+      }
+
+      &--sort-active:not(&--sort-invert) span::before {
+        content: 'arrow_downward';
+      }
+
+      &--sort-active span::before {
+        content: 'arrow_upward';
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
-$navigation-card-height           : 64px;
-$navigation-transition-duration   : 200ms;
+$navigation-card__height:         64px;
+$navigation-button__spacing:        16px;
+$navigation-button__icon-size:      28px;
+$navigation-controls__margin-right: 32px;
+$navigation-title__fontsize:        18px;
+$navigation__transition-duration: 200ms;
 
-$navigation-button-spacing        : 16px;
-$navigation-button-icon-size      : 28px;
-$navigation-button-margin         : ($navigation-card-height - $navigation-button-icon-size) /2;
-$navigation-controls-margin-right : 32px;
-$navigation-title-fontSize        : 18px;
+$navigation-button__margin:         ($navigation-card__height - $navigation-button__icon-size) / 2;
