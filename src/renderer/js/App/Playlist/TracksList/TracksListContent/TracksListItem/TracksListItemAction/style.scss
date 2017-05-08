@@ -1,0 +1,50 @@
+//
+// Composant TracksListItemAction.
+// Copyright Guillaume Chauveau 2017.
+//
+@import 'loader';
+
+.c-tracks-list-item-action {
+  @include button-reset;
+
+  width:         $tracks-list-item__height;
+  height:        $tracks-list-item__height;
+  border-radius: 50%;
+  color:         $text__color--light;
+  cursor:        pointer;
+  opacity:       .8;
+  transition:    opacity $tracks-list-item__transition-time / 2;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &--disabled {
+    color:   $text__color--light-disabled;
+    cursor:  default;
+    opacity: 1;
+  }
+
+  &__icon {
+    display:    inline-block;
+    width:      100%;
+    height:     100%;
+    font-size:  inherit;
+    text-align: center;
+
+    &::before {
+      @include material-icon;
+
+      cursor:      inherit;
+      line-height: $tracks-list-item__height;
+    }
+  }
+
+  &--play .c-tracks-list-item-action__icon::before {
+    content: 'play_arrow';
+  }
+
+  &--remove .c-tracks-list-item-action__icon::before {
+    content: 'delete';
+  }
+}

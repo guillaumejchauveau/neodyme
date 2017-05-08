@@ -19,7 +19,7 @@ export default {
 
   computed: {
     ...mapGetters('panel', ['getCurrentPanelElements']),
-    ...mapState('playlist/tracksList', {tracksListOpened: 'active'})
+    ...mapState('playlist', {tracksListOpened: 'tracksListActive'})
   },
 
   methods: {
@@ -37,7 +37,7 @@ export default {
           .forEach(DCS => {
             this.addDecisiveCriteriaSet(DCS)
           })
-      // PLAY
+      // TODO: PLAY
     }
   },
 

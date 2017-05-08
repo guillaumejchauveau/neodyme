@@ -43,7 +43,7 @@ export default {
      * @param {String} selectedElement - Le titre selectione.
      */
     play (selectedElement) {
-      // STOP
+      // TODO: STOP
       if (this.getSelectedListRow === selectedElement) {
         this.SET_SELECTEDLISTROW()
       }
@@ -53,7 +53,7 @@ export default {
       })
       const selectedElementIndex = this.getCurrentPanelElements.decisiveCriteriaSets.indexOf(selectedElement)
       this.SET_CURRENT_TRACK(selectedElementIndex)
-      // PLAY
+      // TODO: PLAY
     }
   }
 }

@@ -8,22 +8,11 @@
   @include mdc-elevation(3);
   @include centered;
 
-  width:            $control-panel--size * 2;
-  height:           $control-panel--size * 2;
+  width:            $control-panel__size * 2;
+  height:           $control-panel__size * 2;
   border-radius:    50%;
   background-color: $color--primary;
   overflow:         hidden;
-
-  &__position-indicator {
-    position:            absolute;
-    width:               100%;
-    height:              100%;
-    border-radius:       50%;
-    border:              $control-panel__position-indicator--size solid transparent;
-    border-bottom-color: $control-panel__position-indicator--color;
-    border-left-color:   $control-panel__position-indicator--color;
-    transform:           rotate(45deg);
-  }
 
   &__content {
     position:    relative;
@@ -32,70 +21,46 @@
     margin-left: 50%;
     color:       $text__color--light;
   }
-
-  &__position {
-    position:    absolute;
-    top:         nth($control-panel__times--offsets, 2);
-    left:        nth($control-panel__times--offsets, 1);
-    font-weight: $font__weight--light;
-  }
-
-  &__duration {
-    position:    absolute;
-    bottom:      nth($control-panel__times--offsets, 2);
-    left:        nth($control-panel__times--offsets, 1);
-    font-weight: $font__weight--light;
-  }
-
-  &__menu {
-    position: absolute;
-    top:      50%;
-    left:     5px;
-
-    > button {
-      transform: translateY(-50%);
-
-      span::before {
-        color: $text__color--light;
-      }
-    }
-
-    > .mdc-simple-menu {
-      margin-left: 5px;
-      z-index:     15;
-
-      .o-control-panel-menu__action {
-        color:  $text__color;
-        cursor: pointer;
-
-        &::before {
-          cursor: inherit;
-        }
-
-        &--disabled {
-          @include remove-mdc-ripple;
-
-          color:  $text__color--disabled;
-          cursor: default;
-        }
-      }
-    }
-  }
 }
 
-.o-control-panel__control {
+.c-control-panel-position-indicator {
+  position:            absolute;
+  width:               100%;
+  height:              100%;
+  border-radius:       50%;
+  border:              $control-panel-position-indicator__size solid transparent;
+  border-bottom-color: $control-panel-position-indicator__color;
+  border-left-color:   $control-panel-position-indicator__color;
+  transform:           rotate(45deg);
+}
+
+.c-control-panel-position {
+  position:    absolute;
+  top:         nth($control-panel-times__offsets, 2);
+  left:        nth($control-panel-times__offsets, 1);
+  font-weight: $font__weight--light;
+}
+
+.c-control-panel-duration {
+  position:    absolute;
+  bottom:      nth($control-panel-times__offsets, 2);
+  left:        nth($control-panel-times__offsets, 1);
+  font-weight: $font__weight--light;
+}
+
+.c-control-panel-control {
   @include button-reset;
 
   position: absolute;
   cursor:   pointer;
 
-  &-btn {
+  &--btn {
     @include mdc-ripple-base;
     @include mdc-ripple-bg((pseudo: '::before', base-color: $text__color--light));
     @include mdc-ripple-fg((pseudo: '::after', base-color: $text__color--light));
     @include mdc-elevation(2);
 
-    &.o-control-panel__control--disabled {
+    &.c-control-panel-control--disabled {
       @include remove-mdc-ripple;
       @include mdc-elevation(0);
 
@@ -108,72 +73,70 @@
     cursor: default;
   }
 
-  span {
+  &__icon {
     display:    inline-block;
     width:      100%;
     height:     100%;
-    cursor:     inherit;
     font-size:  inherit;
     text-align: center;
 
     &::before {
       @include material-icon;
 
-      cursor:    inherit;
       font-size: inherit;
     }
   }
 
   &--main {
-    top:              $control-panel--size - $control-panel__control-main--size / 2;
-    left:             $control-panel--size / 2 - ($control-panel__control-main--size / 2) +
-      $control-panel__control-main--horiz-offset;
-    width:            $control-panel__control-main--size;
-    height:           $control-panel__control-main--size;
+    top:              $control-panel__size - $control-panel-control__size--main / 2;
+    left:             $control-panel__size / 2 - ($control-panel-control__size--main / 2) +
+      $control-panel-control__horiz-offset--main;
+    width:            $control-panel-control__size--main;
+    height:           $control-panel-control__size--main;
     border-radius:    50%;
     background-color: $bg__color--dark-primary;
     color:            $text__color--light;
-    font-size:        $control-panel__control-main--font-size;
+    font-size:        $control-panel-control__font-size--main;
     overflow:         hidden;
     z-index:          5;
 
-    span::before {
+    .c-control-panel-control__icon::before {
       content:     'play_arrow';
-      line-height: $control-panel__control-main--size;
+      line-height: $control-panel-control__size--main;
     }
   }
 
-  &--pause span::before {
+  &--pause .c-control-panel-control__icon::before {
     content: 'pause';
   }
 
   &--previous,
   &--next {
-    top:              $control-panel--size - $control-panel__control-main--size / 2 -
-      $control-panel__control-nav--size * $control-panel__control-nav--vert-offset-ratio;
-    left:             $control-panel--size / 2 - ($control-panel__control-nav--size / 2) +
-      $control-panel__control-main--horiz-offset;
-    width:            $control-panel__control-nav--size;
-    height:           $control-panel__control-nav--size;
+    top:              $control-panel__size - $control-panel-control__size--main / 2 -
+      $control-panel-control__size--nav * $control-panel-control__vert-offset-ratio--nav;
+    left:             $control-panel__size / 2 - ($control-panel-control__size--nav / 2) +
+      $control-panel-control__horiz-offset--main;
+    width:            $control-panel-control__size--nav;
+    height:           $control-panel-control__size--nav;
     border-radius:    50%;
     background-color: $bg__color--dark-primary;
     color:            $text__color--light;
-    font-size:        $control-panel__control-nav--font-size;
+    font-size:        $control-panel-control__font-size--nav;
     overflow:         hidden;
 
-    span::before {
+    .c-control-panel-control__icon::before {
       margin-top:  -4px;
       content:     'skip_next';
-      line-height: $control-panel__control-nav--size;
+      line-height: $control-panel-control__size--nav;
       transform:   rotate(-90deg);
     }
   }
 
   &--next {
-    top: $control-panel--size + $control-panel__control-main--size / 2 -
-      $control-panel__control-nav--size * (1 - $control-panel__control-nav--vert-offset-ratio);
+    top: $control-panel__size + $control-panel-control__size--main / 2 -
+      $control-panel-control__size--nav * (1 - $control-panel-control__vert-offset-ratio--nav);
 
-    span::before {
+    .c-control-panel-control__icon::before {
       margin-top:    4px;
       margin-bottom: 0;
       transform:     rotate(90deg);
@@ -181,19 +144,47 @@
   }
 
   &--stop {
-    top:              $control-panel--size * 1.5 - $control-panel__control-nav--size / 2;
+    top:              $control-panel__size * 1.5 - $control-panel-control__size--nav / 2;
     left:             15px;
-    width:            $control-panel__control-nav--size;
-    height:           $control-panel__control-nav--size;
+    width:            $control-panel-control__size--nav;
+    height:           $control-panel-control__size--nav;
     border-radius:    50%;
     background-color: $bg__color--dark-primary;
     color:            $text__color--light;
-    font-size:        $control-panel__control-nav--font-size;
+    font-size:        $control-panel-control__font-size--nav;
     overflow:         hidden;
 
-    span::before {
+    .c-control-panel-control__icon::before {
       content:     'stop';
-      line-height: $control-panel__control-nav--size;
+      line-height: $control-panel-control__size--nav;
+    }
+  }
+}
+
+.c-control-panel-menu {
+  position: absolute;
+  top:      50%;
+  left:     5px;
+
+  > .mdc-menu-anchor-btn {
+    color:     $text__color--light;
+    transform: translateY(-50%);
+  }
+
+  > .mdc-simple-menu {
+    margin-left: 5px;
+    z-index:     15;
+
+    .c-control-panel-menu-action {
+      color:  $text__color;
+      cursor: pointer;
+
+      &--disabled {
+        @include remove-mdc-ripple;
+
+        color:  $text__color--disabled;
+        cursor: default;
+      }
     }
   }
 }
