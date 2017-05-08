@@ -13,18 +13,17 @@ import Settings from './Settings'
  * Module de la Liste de lecture.
  */
 import Playlist from './Playlist'
+/**
+* Module du Panel.
+*/
+import Panel from './Panel'
 
 const Store = new VueX.Store({
   modules: {
     settings: Settings,
-    playlist: Playlist
+    playlist: Playlist,
+    panel: Panel
   }
 })
 
 export default Store
-
-/**
-* Module contenant l'etat de la configuration de la View.
-*/
-import Panel from './Panel'
-                                     panel: Panel
