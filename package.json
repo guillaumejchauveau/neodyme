@@ -97,6 +97,7 @@
     "base64-arraybuffer": "^0.1.5",
     "electron": "1.6.6",
     "glob-stream": "^6.1.0",
+    "lodash.debounce": "^4.0.8",
     "material-components-web": "^0.10.0",
     "musicmetadata": "^2.0.5",
     "vue": "^2.2.1",

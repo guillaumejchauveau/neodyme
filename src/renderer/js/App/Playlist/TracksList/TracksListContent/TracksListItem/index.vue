@@ -4,7 +4,7 @@
        @dblclick="$emit('trackAction', 'play', position)"
        @contextmenu.prevent="active = !active">
     <button class="c-tracks-list-item-menu-toggler" title="Ouvrir" @click.stop="active = !active" v-ripple>
-      <span></span>
+      <span class="c-tracks-list-item-menu-toggler__icon"></span>
     </button>
     <ul v-if="active" class="c-tracks-list-item-menu">
       <tracks-list-item-action name="play" readableName="Lire" @trigger="trackAction"></tracks-list-item-action>

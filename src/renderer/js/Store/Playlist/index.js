@@ -13,20 +13,17 @@ import actions from './actions'
  * Module Lecteur.
  */
 import player from './Player'
-/**
- * Module Liste des pistes.
- */
-import tracksList from './TracksList'
 
 export default {
   namespaced: true,
   modules: {
-    player,
-    tracksList
+    player
   },
   state: {
     tracks: [],
-    currentTrackIndex: -1
+    currentTrackIndex: -1,
+    tracksListActivationRequested: false,
+    savedCurrentTrackPosition: 0
   },
   getters: {
     /**
@@ -42,6 +39,13 @@ export default {
      */
     currentTrack (state) {
       return (state.currentTrackIndex === -1) ? null : state.tracks[state.currentTrackIndex]
+    },
+    /**
+     * Permet de determine si la liste des pistes doit etre affichee.
+     * @returns {Boolean}
+     */
+    tracksListActive (state, getters) {
+      return getters.tracksCount && state.tracksListActivationRequested
     }
   },
   mutations: {
@@ -55,7 +59,7 @@ export default {
       let index = state.tracks.length
       if (payload.data) {
         track = payload.data
-        if (payload.index) {
+        if (typeof payload.index !== 'undefined' && payload.index !== null) {
           index = payload.index
         }
       }
@@ -71,13 +75,13 @@ export default {
       state.tracks.splice(index, 1)
     },
     /**
-     * Enleve toutes les pistes.
+     * Efface la liste de lecture.
      */
     CLEAR_TRACKS (state) {
       state.tracks = []
     },
     /**
-     * Change la piste courante.
+     * Change de piste courante.
      * @param {Number} requestedIndex
      */
     SET_CURRENT_TRACK (state, requestedIndex) {
@@ -89,6 +93,24 @@ export default {
       }
 
       state.currentTrackIndex = index
+    },
+    /**
+     * Enregistre la position pour une reprise eventuelle.
+     */
+    SAVE_CURRENT_TRACK_POSITION (state) {
+      state.savedCurrentTrackPosition = state.player.position
+    },
+    /**
+     * Ouvre la liste des pistes.
+     */
+    OPEN_TRACKS_LIST (state) {
+      state.tracksListActivationRequested = true
+    },
+    /**
+     * Ferme la liste des pistes.
+     */
+    CLOSE_TRACKS_LIST (state) {
+      state.tracksListActivationRequested = false
     }
   },
   actions

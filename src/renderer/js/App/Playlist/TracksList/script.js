@@ -22,15 +22,7 @@ export default {
     ...VueX.mapState('playlist', {
       waypointItemIndex: 'currentTrackIndex'
     }),
-    ...VueX.mapState('playlist/tracksList', {isActive: 'active'}),
-    ...VueX.mapGetters('playlist', ['tracksCount']),
-    /**
-     * Determine si la liste des pistes doit etre ouverte ou fermee.
-     * @returns {Boolean}
-     */
-    active () {
-      return this.tracksCount && this.isActive
-    },
+    ...VueX.mapGetters('playlist', ['tracksCount', 'tracksListActive']),
     /**
      * Determine la valeur de l'element courant en prenant en compte l'option de suivi du point de repere.
      * @returns {Number}
@@ -107,21 +99,17 @@ export default {
   },
   methods: {
     ...VueX.mapMutations({
-      open: 'playlist/tracksList/OPEN',
-      close: 'playlist/tracksList/CLOSE'
+      openTracksList: 'playlist/OPEN_TRACKS_LIST',
+      closeTracksList: 'playlist/CLOSE_TRACKS_LIST'
     }),
     /**
-     * Change l'element courant au defilement.
-     * @param {MouseEvent} event - L'evenement capture.
+     * Change l'element courant.
+     * @param {Number} index
      */
-    scrollItemsHandler (event) {
-      if (this.waypointItemTracking) {
-        this.currentItem = this.computedCurrentItem
-        this.waypointItemTracking = false
-      }
+    setCurrentItem (index) {
+      this.waypointItemTracking = false
 
-      // Incremente ou decremente selon le signe.
-      this.currentItem += Math.sign(event.deltaY)
+      this.currentItem = index
 
       // Verifie que la nouvelle valeur soit possible.
       if (this.currentItem < 0) {
@@ -130,6 +118,13 @@ export default {
       if (this.currentItem > this.tracksCount - 1) {
         this.currentItem = this.tracksCount - 1
       }
+    },
+    /**
+     * Fait defiler les elements.
+     * @param {Number} amount - Le nombre d'elements a defiler.
+     */
+    scrollItems (amount) {
+      this.setCurrentItem(this.currentItem += amount)
     },
     /**
      * Transmet l'evenement trackAction.

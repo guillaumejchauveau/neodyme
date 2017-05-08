@@ -73,7 +73,7 @@
     cursor: default;
   }
 
-  span {
+  &__icon {
     display:    inline-block;
     width:      100%;
     height:     100%;
@@ -100,13 +100,13 @@
     overflow:         hidden;
     z-index:          5;
 
-    span::before {
+    .c-control-panel-control__icon::before {
       content:     'play_arrow';
       line-height: $control-panel-control__size--main;
     }
   }
 
-  &--pause span::before {
+  &--pause .c-control-panel-control__icon::before {
     content: 'pause';
   }
 
@@ -124,7 +124,7 @@
     font-size:        $control-panel-control__font-size--nav;
     overflow:         hidden;
 
-    span::before {
+    .c-control-panel-control__icon::before {
       margin-top:  -4px;
       content:     'skip_next';
       line-height: $control-panel-control__size--nav;
@@ -136,7 +136,7 @@
     top: $control-panel__size + $control-panel-control__size--main / 2 -
       $control-panel-control__size--nav * (1 - $control-panel-control__vert-offset-ratio--nav);
 
-    span::before {
+    .c-control-panel-control__icon::before {
       margin-top:    4px;
       margin-bottom: 0;
       transform:     rotate(90deg);
@@ -154,7 +154,7 @@
     font-size:        $control-panel-control__font-size--nav;
     overflow:         hidden;
 
-    span::before {
+    .c-control-panel-control__icon::before {
       content:     'stop';
       line-height: $control-panel-control__size--nav;
     }
@@ -166,12 +166,9 @@
   top:      50%;
   left:     5px;
 
-  > button {
+  > .mdc-menu-anchor-btn {
+    color:     $text__color--light;
     transform: translateY(-50%);
-
-    span::before {
-      color: $text__color--light;
-    }
   }
 
   > .mdc-simple-menu {
