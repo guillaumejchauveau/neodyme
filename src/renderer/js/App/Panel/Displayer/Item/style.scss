@@ -1,3 +1,7 @@
+//
+// Composant Item.
+// Copyright Paul Charpentier 2017.
+//
 @import 'loader';
 
 .c-item {
@@ -72,6 +76,10 @@
     top:         -50px;
     margin-left: $item__width - 30;
     visibility:  hidden;
+
+    > .mdc-simple-menu {
+      z-index: 50;
+    }
   }
 
   &:hover & {
@@ -88,4 +96,8 @@
       transform:        scale(1.05);
     }
   }
+}
+
+.mdc-simple-menu {
+  z-index: 12;
 }

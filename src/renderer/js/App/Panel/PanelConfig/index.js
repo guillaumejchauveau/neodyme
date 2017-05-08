@@ -4,18 +4,18 @@
  * @copyright Paul Charpentier 2017.
  */
 
- /**
-  * Classe de Configuration du Panel.
-  * @property {CriteriaSet} criteriaSet - L'ensemble de criteres actif dans le Panel.
-  * @property {String} criteriaType - Le type de critere a afficher.
-  */
+/**
+ * Classe de Configuration du Panel.
+ * @property {CriteriaSet} criteriaSet - L'ensemble de criteres actif dans le Panel.
+ * @property {String} criteriaType - Le type de critere a afficher.
+ */
 class PanelConfig {
   /**
- * Cree une configuration.
- * @param {CriteriaSet} criteriaSet - L'ensemble de criteres actif dans le Panel.
- * @param {String} criterionType - Le type de critere a afficher.
-  * @param {String} title - Le titre du Panel.
- */
+   * Cree une configuration.
+   * @param {CriteriaSet} criteriaSet - L'ensemble de criteres actif dans le Panel.
+   * @param {String} criterionType - Le type de critere a afficher.
+   * @param {String} title - Le titre du Panel.
+   */
   constructor (criteriaSet, criterionType, title, activeSortCriterionType) {
     this.criteriaSet = criteriaSet
     this.criterionType = criterionType

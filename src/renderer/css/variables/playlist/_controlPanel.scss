@@ -3,15 +3,15 @@
 // Copyright Guillaume Chauveau 2017.
 //
 
-$control-panel--size: 130px;
+$control-panel__size: 130px;
 
-$control-panel__position-indicator--size: 4px;
-$control-panel__position-indicator--color: rgba(0, 0, 0, .15);
-$control-panel__times--offsets: (5px, 15px);
+$control-panel-position-indicator__size: 4px;
+$control-panel-position-indicator__color: rgba(0, 0, 0, .15);
+$control-panel-times__offsets: (5px, 15px);
 
-$control-panel__control-main--size: 48px;
-$control-panel__control-main--font-size: 36px;
-$control-panel__control-main--horiz-offset: 0;
-$control-panel__control-nav--size: 36px;
-$control-panel__control-nav--font-size: 24px;
-$control-panel__control-nav--vert-offset-ratio: 2 / 3;
+$control-panel-control__size--main: 48px;
+$control-panel-control__size--nav: 36px;
+$control-panel-control__font-size--main: 36px;
+$control-panel-control__font-size--nav: 24px;
+$control-panel-control__horiz-offset--main: 0;
+$control-panel-control__vert-offset-ratio--nav: 2 / 3;

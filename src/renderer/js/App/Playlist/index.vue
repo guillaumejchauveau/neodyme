@@ -2,12 +2,12 @@
   <div class="c-playlist">
     <div class="c-playlist__content">
       <tracks-list @trackAction="trackActionHandler"></tracks-list>
-      <control-panel @play="$nextTick(play)"
-                     @pause="$nextTick(pause)"
-                     @stop="$nextTick(stop)"
-                     @previous="$nextTick(previous)"
-                     @next="$nextTick(next)"
-                     @clear="$nextTick(clear)"></control-panel>
+      <control-panel @play="play"
+                     @pause="pause"
+                     @stop="stop"
+                     @previous="previous"
+                     @next="next"
+                     @clear="clear"></control-panel>
     </div>
   </div>
 </template>

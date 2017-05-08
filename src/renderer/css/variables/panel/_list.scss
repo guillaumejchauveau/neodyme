@@ -1,3 +1,10 @@
+//
+// Panel list variables.
+// Copyright Paul Charpentier 2017.
+//
+
+// List
+//
 $list-card__width:                    98%;
 $list-card__height:                   100%;
 $list__margin-top:                    10px;
@@ -5,7 +12,8 @@ $list__padding:                       20px;
 $list__padding-bottom:                2px;
 $list-filterorderselector__font-size: 17px;
 $list-durationicon__translate:        22px, -8px;
-
+// ListRow
+//
 $listrow__height:                 50px;
 $listrow__border:                 solid 1px rgba(0, 0, 0, .1);
 $listrow-menu__transform:         -15px, 5px;
@@ -17,10 +25,11 @@ $listrow-playanim__duration:      1s;
 $listrow-playanim-bar-a__delay:   100ms;
 $listrow-playanim-bar-b__delay:   -200ms;
 $listrow-playanim-bar-c__delay:   0ms;
-
+// Computed Variables
+//
 $list__margin-side: $listrow__height / 2;
 
-$listrow--tracknumber__width:           $listrow__height;
+$listrow--tracknumber__width:          $listrow__height;
 $listrow-playanim__transform:          -$listrow--tracknumber__transform / 2;
 $listrow-playanim-bar__height-default: $listrow-playanim-bar__width / 2;
 $listrow-playanim-bar__height-max:     $listrow-playanim-bar__height-default * 5;
@@ -28,6 +37,8 @@ $listrow-playanim-bar__marginside:     $listrow-playanim-bar__width / 6;
 $listrow-playbutton__translate:        $listrow-playbutton__translate-x, -$listrow-playbutton__font-size / 2;
 $listrow-playanim__width:              3 * $listrow-playanim-bar__width + 2 * $listrow-playanim-bar__marginside;
 
+// Animation
+//
 @keyframes listrow__playanim {
   0% { height: $listrow-playanim-bar__height-max / 5; }
   10% { height: $listrow-playanim-bar__height-max / 2; }

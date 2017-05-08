@@ -10,6 +10,10 @@ import VueX from 'vuex'
  * Composant MDC/Menu.
  */
 import MDCMenu from '../../../MDC/Menu'
+/**
+ * Composant MDC/Menu/MenuItem.
+ */
+import MDCMenuItem from '../../../MDC/Menu/MenuItem'
 
 export default {
   computed: {
@@ -45,6 +49,7 @@ export default {
     }
   },
   components: {
-    'mdc-menu': MDCMenu
+    'mdc-menu': MDCMenu,
+    'mdc-menu-item': MDCMenuItem
   }
 }

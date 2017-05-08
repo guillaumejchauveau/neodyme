@@ -44,11 +44,11 @@
                 :key="element"
                 :element="element"
                 :class="{'c-listrow--last' : element === (getCurrentPanelElements.decisiveCriteriaSets[getCurrentPanelElements.decisiveCriteriaSets.length-1])}"
-                @play="play(element)"></list-row>
+                @play="playNow(element)"></list-row>
     </table>
   </div>
 </template>
 
 <script src="./script.js"></script>
 
-<style src="./style.scss" scoped></style>
+<style src="./style.scss"></style>

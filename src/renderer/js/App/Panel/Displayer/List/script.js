@@ -23,9 +23,8 @@ export default {
   },
 
   methods: {
-    ...mapMutations('playlist', ['CLEAR_TRACKS', 'SET_CURRENT_TRACK']),
     ...mapMutations('panel', ['SET_SELECTEDLISTROW']),
-    ...mapActions('playlist', ['addDecisiveCriteriaSet']),
+    ...mapActions('playlist', ['addDecisiveCriteriaSet', 'clear', 'play']),
     ...mapActions('panel', ['setCurrentPanelElementsSorting']),
 
     toggleRevertSort () {
@@ -42,18 +41,19 @@ export default {
      * Joue un titre et ajoute tout les titres affichés a la playlist.
      * @param {String} selectedElement - Le titre selectione.
      */
-    play (selectedElement) {
-      // STOP
+    playNow (selectedElement) {
       if (this.getSelectedListRow === selectedElement) {
         this.SET_SELECTEDLISTROW()
       }
-      this.CLEAR_TRACKS()
-      this.getCurrentPanelElements.decisiveCriteriaSets.forEach(DCS => {
-        this.addDecisiveCriteriaSet(DCS)
+      this.clear().then(() => {
+        this.getCurrentPanelElements.decisiveCriteriaSets.forEach(DCS => {
+          this.addDecisiveCriteriaSet(DCS)
+        })
+        const selectedElementIndex = this.getCurrentPanelElements.decisiveCriteriaSets.indexOf(selectedElement)
+        this.play(selectedElementIndex)
+      }).catch(err => {
+        throw err
       })
-      const selectedElementIndex = this.getCurrentPanelElements.decisiveCriteriaSets.indexOf(selectedElement)
-      this.SET_CURRENT_TRACK(selectedElementIndex)
-      // PLAY
     }
   }
 }

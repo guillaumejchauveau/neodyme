@@ -1,8 +1,14 @@
-$navigation-card__height:         64px;
+//
+// Panel Navigation variables.
+// Copyright Paul Charpentier 2017.
+//
+
+$navigation-card__height:           64px;
 $navigation-button__spacing:        16px;
 $navigation-button__icon-size:      28px;
 $navigation-controls__margin-right: 32px;
 $navigation-title__fontsize:        18px;
-$navigation__transition-duration: 200ms;
-
-$navigation-button__margin:         ($navigation-card__height - $navigation-button__icon-size) / 2;
+$navigation__transition-duration:   200ms;
+// Computed Variables
+//
+$navigation-button__margin: ($navigation-card__height - $navigation-button__icon-size) / 2;

@@ -16,12 +16,28 @@ import settings from '../Settings'
 
 export default {
 
+  /**
+   * Getter CurrentPanelConfig.
+   * @return {PanelConfig}
+   */
   getCurrentPanelConfig: state => state.currentPanelConfig,
 
+  /**
+   * Getter CurrentPanelElements.
+   * @return {Array}
+   */
   getCurrentPanelElements: state => state.currentPanelElements,
 
+  /**
+   * Getter selectedListRow.
+   * @return {DecisiveCriteriaSet}
+   */
   getSelectedListRow: state => state.selectedListRow,
 
+  /**
+   * Getter revertSort.
+   * @return {Boolean}
+   */
   isRevertSort: state => state.revertSort,
 
   /**
@@ -112,32 +128,40 @@ export default {
     // Recupere l'ordre de priorite de type de critere de tri depuis les settings.
     const sortCriterionTypePriorityOrder = []
     const sortCriterionTypePriorityOrderIndexes = settings.state.panel.sortCriterionTypePriorityOrder
+
     sortCriterionTypePriorityOrderIndexes.forEach(index => {
       sortCriterionTypePriorityOrder.push(settings.state.criterion.types[index])
     })
+
     const revertSort = state.revertSort
     const defaultActiveSortCriterionType = settings.state.panel.defaultActiveSortCriterionType
     let activeSortCriterionType = state.currentPanelConfig.activeSortCriterionType
+
     if (activeSortCriterionType === undefined) {
       activeSortCriterionType = defaultActiveSortCriterionType
     }
+
     // Index du type de critere de tri actif dans l'ordre de priorite des types de criteres.
     const activeSortCriterionTypeIndex = sortCriterionTypePriorityOrder.indexOf(activeSortCriterionType)
+
     // Tri des DecisiveCriteriaSets
     const sortedDecisiveCriteriaSets = DCSs.sort((a, b) => {
       for (let index = activeSortCriterionTypeIndex; index < sortCriterionTypePriorityOrder.length; index++) {
         const sortCriterionType = sortCriterionTypePriorityOrder[index]
         const aValue = a.criteria[sortCriterionType].value
         const bValue = b.criteria[sortCriterionType].value
+
         if (aValue < bValue) {
           return (index === activeSortCriterionTypeIndex) & revertSort ? 1 : -1
         }
         if (aValue > bValue) {
           return (index === activeSortCriterionTypeIndex) & revertSort ? -1 : 1
         }
+
         return index === sortCriterionTypePriorityOrder.length - 1 ? 0 : null
       }
     })
+
     return sortedDecisiveCriteriaSets
   },
 
@@ -148,11 +172,13 @@ export default {
    */
   getSortedCriteriaSets: state => criteriaSets => {
     const currentCriterionType = state.currentPanelConfig.criterionType
+
     const sortedCriteriaSets = criteriaSets.sort((a, b) => {
       const aValue = a.criteria[currentCriterionType].value
       const bValue = b.criteria[currentCriterionType].value
       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0
     })
+
     return sortedCriteriaSets
   },
 
@@ -163,16 +189,20 @@ export default {
    */
   getMatchingDecisiveCriteriaSets: state => criteriaSet => {
     let decisiveCriteriaSets = state.currentPanelElements.decisiveCriteriaSets
+
     for (const criterionType in criteriaSet.criteria) {
       const criterion = criteriaSet.criteria[criterionType]
       const selectedDecisiveCriteriaSets = []
+
       decisiveCriteriaSets.forEach(decisiveCriteriaSet => {
         if (decisiveCriteriaSet.criteria[criterion.type].value === criterion.value) {
           selectedDecisiveCriteriaSets.push(decisiveCriteriaSet)
         }
       })
+
       decisiveCriteriaSets = selectedDecisiveCriteriaSets
     }
+
     return decisiveCriteriaSets
   }
 }

@@ -11,13 +11,13 @@
       </div>
   </div>
   <mdc-menu class="c-item-menu">
-    <li class="mdc-list-item" role="menuitem" v-ripple @click="play()">Lire maintenant</li>
-    <li class="mdc-list-item" role="menuitem" v-ripple @click="playAfter()">Lire après le titre en cours</li>
-    <li class="mdc-list-item" role="menuitem" v-ripple @click="addToPlaylist()">Ajouter à la liste de lecture</li>
+    <mdc-menu-item @trigger="playNow()">Lire maintenant</mdc-menu-item>
+    <mdc-menu-item @trigger="playAfter()">Lire après le titre en cours</mdc-menu-item>
+    <mdc-menu-item @trigger="addToPlaylist()">Ajouter à la liste de lecture</mdc-menu-item>
   </mdc-menu>
   </div>
 </template>
 
 <script src="./script.js"></script>
 
-<style src="./style.scss" scoped></style>
+<style src="./style.scss"></style>

@@ -53,7 +53,7 @@ export default {
   },
 
   /**
-   * Set la valeur du type de critere de tri sur la configuration courante;
+   * Set la valeur du type de critere de tri sur la configuration courante.
    * @param {String} newActiveSortCriterionType - Le nouveau type de critere de tri.
    */
   SET_CURRENT_PANELCONFIG_ACTIVESORTCRITERIONTYPE (state, newActiveSortCriterionType) {
@@ -61,12 +61,15 @@ export default {
   },
 
   /**
-   * Active ou desactive l'inversion du tri
+   * Active ou desactive l'inversion du tri.
    */
   TOGGLE_SORT_REVERT (state) {
     state.revertSort = !state.revertSort
   },
 
+  /**
+   * Definit le titre selectionne dans la liste.
+   */
   SET_SELECTEDLISTROW (state, element) {
     state.selectedListRow = element
   }

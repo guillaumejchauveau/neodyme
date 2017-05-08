@@ -7,7 +7,7 @@
         @dblclick="$emit('play')">
       <td class="c-listrow__value c-listrow__value--tracknumber" @click="$emit('play')">
         <span class="c-listrow-value-text c-listrow-value-text--tracknumber">{{element.criteria.trackNumber.value}}</span>
-        <span class="c-listrow-value__playbutton"></span>
+        <span class="c-listrow-value__playbutton" @click="$emit('play')"></span>
         <div class="c-listrow-value__play-anim">
           <span class="c-listrow-value__play-anim-bar"></span>
         </div>
@@ -15,9 +15,9 @@
       <td class="c-listrow__value">
         <span class="c-listrow-value-text" @click="$emit('play')">{{element.criteria.title.value}}</span>
         <mdc-menu class="c-listrow-value__menu">
-          <li class="mdc-list-item" role="menuitem" v-ripple @click="play()">Lire</li>
-          <li class="mdc-list-item" role="menuitem" v-ripple @click="playAfter()">Lire après le titre en cours</li>
-          <li class="mdc-list-item" role="menuitem" v-ripple @click="addToPlaylist()">Ajouter à la liste de lecture</li>
+          <mdc-menu-item @trigger="$emit('play')">Lire maintenant</mdc-menu-item>
+          <mdc-menu-item @trigger="playAfter()">Lire après le titre en cours</mdc-menu-item>
+          <mdc-menu-item @trigger="addToPlaylist()">Ajouter à la liste de lecture</mdc-menu-item>
         </mdc-menu>
       </td>
       <td class="c-listrow__value" >
@@ -34,4 +34,4 @@
 
 <script src="./script.js"></script>
 
-<style src="./style.scss" scoped></style>
+<style src="./style.scss"></style>

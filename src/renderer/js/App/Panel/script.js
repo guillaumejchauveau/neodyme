@@ -4,7 +4,7 @@
  * @copyright Paul Charpentier 2017.
  */
 
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import Fab from '../../MDC/FAB'
 import Navigation from './Navigation'
@@ -19,25 +19,27 @@ export default {
 
   computed: {
     ...mapGetters('panel', ['getCurrentPanelElements']),
-    ...mapState('playlist/tracksList', {tracksListOpened: 'active'})
+    ...mapGetters('playlist', ['tracksListActive'])
   },
 
   methods: {
-    ...mapMutations('playlist', ['CLEAR_TRACKS']),
-    ...mapActions('playlist', ['addDecisiveCriteriaSet']),
     ...mapActions('panel', ['setCustomPanelConfig']),
+    ...mapActions('playlist', ['addDecisiveCriteriaSet', 'clear', 'play']),
 
     /**
      * Lit tout les titre correspondant aux elements affiche.
      */
     playAll () {
-      this.CLEAR_TRACKS()
-      this.getCurrentPanelElements
-          .decisiveCriteriaSets
-          .forEach(DCS => {
-            this.addDecisiveCriteriaSet(DCS)
-          })
-      // PLAY
+      this.clear().then(() => {
+        this.getCurrentPanelElements
+            .decisiveCriteriaSets
+            .forEach(DCS => {
+              this.addDecisiveCriteriaSet(DCS)
+            })
+        this.play(0)
+      }).catch(err => {
+        throw err
+      })
     }
   },
 

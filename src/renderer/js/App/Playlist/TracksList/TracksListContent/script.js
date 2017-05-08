@@ -29,15 +29,7 @@ export default {
     ...VueX.mapState('playlist', {
       waypointItemIndex: 'currentTrackIndex'
     }),
-    ...VueX.mapState('playlist/tracksList', {isActive: 'active'}),
-    ...VueX.mapGetters('playlist', ['tracksCount']),
-    /**
-     * Determine si la liste des pistes doit etre ouverte ou fermee.
-     * @returns {Boolean}
-     */
-    active () {
-      return this.tracksCount && this.isActive
-    },
+    ...VueX.mapGetters('playlist', ['tracksListActive']),
     /**
      * Compile le style dynamique du point de repere.
      * @returns {String} Le contenu de l'attribut style.
@@ -62,11 +54,12 @@ export default {
       return distance
     },
     /**
-     * Transmet l'evenement scrollItems.
+     * Declenche le defilement des elements a l'utilisation de la molette de la souris.
      * @param {MouseEvent} event - L'evenement capture.
      */
-    scrollItemsHandler (event) {
-      this.$emit('scrollItems', event)
+    itemsScrollingHandler (event) {
+      // 1 ou -1 element en fonction du sens.
+      this.$emit('scrollItems', Math.sign(event.deltaY))
     },
     /**
      * Transmet l'evenement trackAction en convertissant la position relative en index de piste.

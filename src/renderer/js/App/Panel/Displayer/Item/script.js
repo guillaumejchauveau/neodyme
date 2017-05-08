@@ -4,9 +4,16 @@
  * @copyright Paul Charpentier 2017.
  */
 
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
-import mdcMenu from '../../../../MDC/Menu/index.vue'
+/**
+ * Composant MDC/Menu.
+ */
+import MDCMenu from '../../../../MDC/Menu/index.vue'
+/**
+ * Composant MDC/Menu/MenuItem.
+ */
+import MDCMenuItem from '../../../../MDC/Menu/MenuItem'
 
 /**
  * Classe Criterion.
@@ -16,19 +23,15 @@ import Criterion from '../../../../Criterion'
 
 export default {
   components: {
-    mdcMenu
+    'mdc-menu': MDCMenu,
+    'mdc-menu-item': MDCMenuItem
   },
 
   props: ['criteriaSet'],
 
   methods: {
     ...mapActions('panel', ['setNextPanelConfig']),
-    ...mapActions('playlist', ['addDecisiveCriteriaSet']),
-
-    ...mapMutations('playlist', {
-      clearPlaylist: 'CLEAR_TRACKS',
-      setCurrentTrack: 'SET_CURRENT_TRACK'
-    }),
+    ...mapActions('playlist', ['addDecisiveCriteriaSet', 'clear', 'play']),
 
     /**
      * Affiche le PanelSuivant en fonction de l'item selectione.
@@ -40,11 +43,16 @@ export default {
     /**
      * Lance la lecture des titres correspondant a l'item selectione.
      */
-    play () {
-      this.clearPlaylist()
-      this.getMatchingDecisiveCriteriaSets(this.criteriaSet).forEach(DCS => {
-        this.addDecisiveCriteriaSet(DCS)
+    playNow () {
+      this.clear().then(() => {
+        this.getMatchingDecisiveCriteriaSets(this.criteriaSet).forEach(DCS => {
+          this.addDecisiveCriteriaSet(DCS)
+        })
+        this.play(0)
+      }).catch(err => {
+        throw err
       })
+
       // PLAY
     },
 

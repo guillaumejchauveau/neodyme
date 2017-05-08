@@ -6,17 +6,25 @@
 
 import {mapGetters, mapMutations, mapActions, mapState} from 'vuex'
 
-import MdcMenu from '../../../../../MDC/Menu'
+/**
+ * Composant MDC/Menu.
+ */
+import MDCMenu from '../../../../../MDC/Menu'
+/**
+ * Composant MDC/Menu/MenuItem.
+ */
+import MDCMenuItem from '../../../../../MDC/Menu/MenuItem'
 
 export default {
   props: ['element'],
 
   components: {
-    MdcMenu
+    'mdc-menu': MDCMenu,
+    'mdc-menu-item': MDCMenuItem
   },
 
   computed: {
-    ...mapState('playlist', ['currentTrackIndex', 'currentTrack']),
+    ...mapState('playlist', ['currentTrackIndex']),
     ...mapGetters('playlist', {
       currentTrack: 'currentTrack',
       playerIs: 'player/playerIs'
@@ -50,7 +58,6 @@ export default {
     },
 
     isPause () {
-      console.log(!this.playerIs('PLAYING'))
       return !this.playerIs('PLAYING')
     },
 
@@ -60,25 +67,14 @@ export default {
   },
 
   methods: {
-    ...mapMutations('playlist', ['CLEAR_TRACKS']),
     ...mapMutations('panel', ['SET_SELECTEDLISTROW']),
-    ...mapActions('playlist', ['addDecisiveCriteriaSet']),
+    ...mapActions('playlist', ['addDecisiveCriteriaSet', 'clear', 'play']),
     ...mapActions('panel', ['setCustomPanelConfig']),
 
     selectListRow () {
       if (this.currentPlayStatus === null) {
         this.SET_SELECTEDLISTROW(this.element)
       }
-    },
-
-    /**
-     * Vide la liste de lecture et ajoute le titre a celle ci.
-     */
-    play () {
-      // STOP
-      this.CLEAR_TRACKS()
-      this.addDecisiveCriteriaSet(this.element)
-      // PLAY
     },
 
     /**
