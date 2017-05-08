@@ -26,7 +26,7 @@ export default {
      * @returns {Promise}
      */
     play (index = null, position = null) {
-      return this.$store.dispatch('playlist/play', {requestedIndex: index, requestedPosition: position})
+      return this.$store.dispatch('playlist/play', {index, position})
     },
     /**
      * Arrete la lecture.

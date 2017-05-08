@@ -26,8 +26,7 @@ export default {
       LOADING: -1,
       PLAYING: 1
     },
-    emitter: new EventEmitter(),
-    positionUpdater: null
+    emitter: new EventEmitter()
   },
   getters: {
     /**

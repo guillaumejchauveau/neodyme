@@ -41,11 +41,15 @@ export default {
     context.state.audioSource.buffer = context.state.audioBuffer
     context.state.audioSource.connect(context.state.audioContext.destination)
 
+    const positionUpdaterIntervalID = setInterval(() => {
+      context.dispatch('updatePosition')
+    }, 1000)
+
     // Quand la source s'arrete de lire (par arret manuel ou automatique).
     context.state.audioSource.onended = () => {
       context.dispatch('updatePosition')
       // Desactive la mise a jour automatique de la position.
-      clearInterval(context.state.positionUpdater) // TODO: Fix
+      clearInterval(positionUpdaterIntervalID)
 
       context.commit('SET_STATUS', 'LOADING')
       context.state.audioSource.disconnect()
@@ -74,11 +78,6 @@ export default {
     // Lance la lecture au temps 0 du contexte et a position dans les donnees.
     context.state.audioSource.start(0, position)
     context.commit('SET_STATUS', 'PLAYING')
-
-    context.state.positionUpdater = () => {
-      context.dispatch('updatePosition')
-    }
-    setInterval(context.state.positionUpdater, 1000)
   },
   /**
    * Arrete la lecture des donnees audio.
