@@ -5,7 +5,7 @@
             {'c-tracks-list-item-action--disabled': playerIs('LOADING')}]"
             :title="readableName"
             @click="$emit('trigger', name)">
-      <span></span>
+      <span class="c-tracks-list-item-action__icon"></span>
     </button>
   </li>
 </template>

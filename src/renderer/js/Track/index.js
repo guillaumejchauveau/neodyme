@@ -8,7 +8,7 @@
  * Classe DecisiveCriteriaSet.
  * @type {DecisiveCriteriaSet}
  */
-import DecisiveCriteriaSet from '../../../Criterion/CriteriaSet/DecisiveCriteriaSet'
+import DecisiveCriteriaSet from '../Criterion/CriteriaSet/DecisiveCriteriaSet'
 
 /**
  * Classe qui represente une piste.

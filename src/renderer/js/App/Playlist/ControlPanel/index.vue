@@ -9,23 +9,31 @@
                 'c-control-panel-control--disabled': !tracksCount || playerIs('LOADING')}"
                 :title="playerIs('PLAYING') ? 'Pause' : 'Lire'"
                 @click="$emit(playerIs('PLAYING') ? 'pause' : 'play')"
-                v-ripple><span></span></button>
+                v-ripple>
+          <span class="c-control-panel-control__icon"></span>
+        </button>
         <button class="c-control-panel-control c-control-panel-control--btn c-control-panel-control--previous"
                 :class="{'c-control-panel-control--disabled': currentTrackIndex <= 0 || playerIs('LOADING')}"
                 title="Precedent"
                 @click="$emit('previous')"
-                v-ripple><span></span></button>
+                v-ripple>
+          <span class="c-control-panel-control__icon"></span>
+        </button>
         <button class="c-control-panel-control c-control-panel-control--btn c-control-panel-control--next"
                 :class="{'c-control-panel-control--disabled': currentTrackIndex >= tracksCount - 1 ||
                 playerIs('LOADING')}"
                 title="Suivant"
                 @click="$emit('next')"
-                v-ripple><span></span></button>
+                v-ripple>
+          <span class="c-control-panel-control__icon"></span>
+        </button>
         <button class="c-control-panel-control c-control-panel-control--btn c-control-panel-control--stop"
                 :class="{'c-control-panel-control--disabled': currentTrackIndex === -1 || playerIs('LOADING')}"
                 title="Stop"
                 @click="$emit('stop')"
-                v-ripple><span></span></button>
+                v-ripple>
+          <span class="c-control-panel-control__icon"></span>
+        </button>
       </div>
       <mdc-menu class="c-control-panel-menu">
         <mdc-menu-item class="c-control-panel-menu-action"
