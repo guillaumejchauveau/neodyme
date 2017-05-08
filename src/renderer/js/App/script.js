@@ -4,6 +4,8 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
+import debounce from 'lodash.debounce'
+
 /**
  * Store de l'application.
  * @type {vuex.Store}
@@ -20,14 +22,17 @@ export default {
      * Fonction declenchee a chaque redimensionnement de la fenetre.
      */
     windowResizeHandler () {
-      this.$store.commit('settings/UPDATE_WINDOW_SIZE') // TODO: Debounce
+      this.$store.commit('settings/UPDATE_WINDOW_SIZE')
     }
   },
   components: {
     Playlist
   },
   mounted () {
-    window.addEventListener('resize', this.windowResizeHandler)
+    window.addEventListener('resize', debounce(this.windowResizeHandler, 100, {
+      leading: true,
+      maxWait: 100
+    }))
     this.$store.commit('settings/UPDATE_WINDOW_SIZE')
   },
   beforeDestroy () {

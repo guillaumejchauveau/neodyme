@@ -59,7 +59,7 @@ export default {
      */
     itemsScrollingHandler (event) {
       // 1 ou -1 element en fonction du sens.
-      this.$emit('scrollItems', Math.sign(event.deltaY)) // TODO: Debounce
+      this.$emit('scrollItems', Math.sign(event.deltaY))
     },
     /**
      * Transmet l'evenement trackAction en convertissant la position relative en index de piste.
