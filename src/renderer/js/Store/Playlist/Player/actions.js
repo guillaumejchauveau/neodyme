@@ -92,8 +92,7 @@ export default {
           reject(exception)
         }
       } else {
-        resolve()
-        return
+        return resolve()
       }
 
       context.state.emitter.once('stopped', resolve)

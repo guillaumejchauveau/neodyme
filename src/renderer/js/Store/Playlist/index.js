@@ -59,7 +59,7 @@ export default {
       let index = state.tracks.length
       if (payload.data) {
         track = payload.data
-        if (payload.index) {
+        if (typeof payload.index !== 'undefined' && payload.index !== null) {
           index = payload.index
         }
       }
@@ -75,7 +75,7 @@ export default {
       state.tracks.splice(index, 1)
     },
     /**
-     * Enleve toutes les pistes.
+     * Efface la liste de lecture.
      */
     CLEAR_TRACKS (state) {
       state.tracks = []

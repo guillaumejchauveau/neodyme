@@ -7,18 +7,22 @@
 export default {
   /**
    * Determine la piste courante, la position et lance la lecture.
-   * @param {(Number|{index: Number, position: Number})} payload
+   * @param {(Number|{index: Number, position: Number, paused: Boolean})} payload
    * @returns {Promise}
    */
   play (context, payload = null) {
     // Reformatage des donnees a traiter.
     let index = payload
     let position = null
+    let paused = false
     if (typeof payload.index !== 'undefined') {
       index = payload.index
     }
     if (typeof payload.position !== 'undefined') {
       position = payload.position
+    }
+    if (typeof payload.paused !== 'undefined') {
+      paused = payload.paused
     }
 
     // Traitement.
@@ -46,9 +50,13 @@ export default {
                  position = context.state.savedCurrentTrackPosition
                }
 
-               context.dispatch('playCurrentTrack', position)
-                      .then(resolve)
-                      .catch(reject)
+               if (!paused) {
+                 context.dispatch('playCurrentTrack', position)
+                        .then(resolve)
+                        .catch(reject)
+               } else {
+                 resolve()
+               }
              })
              .catch(reject)
     })
@@ -129,24 +137,6 @@ export default {
                context.dispatch('playCurrentTrack')
                       .then(resolve)
                       .catch(reject)
-             })
-             .catch(reject)
-    })
-  },
-  /**
-   * Efface la liste de lecture.
-   * @returns {Promise}
-   */
-  clear (context) {
-    return new Promise((resolve, reject) => {
-      if (context.getters['player/playerIs']('LOADING')) {
-        return reject(new Error('Player is loading'))
-      }
-
-      context.dispatch('stop')
-             .then(() => {
-               context.commit('CLEAR_TRACKS')
-               resolve()
              })
              .catch(reject)
     })

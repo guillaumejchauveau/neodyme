@@ -4,8 +4,6 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-import VueX from 'vuex'
-
 /**
  * Composant ControlPanel.
  */
@@ -16,10 +14,6 @@ import ControlPanel from './ControlPanel'
 import TracksList from './TracksList'
 
 export default {
-  computed: {
-    ...VueX.mapState('playlist', ['currentTrackIndex']),
-    ...VueX.mapGetters('playlist/player', ['playerIs'])
-  },
   methods: {
     /**
      * Lance la lecture.
@@ -74,21 +68,7 @@ export default {
           this.play(index, 0)
           break
         case 'remove':
-          if (index === this.currentTrackIndex) {
-            this.stop()
-                .then(() => {
-                  this.$store.commit('playlist/REMOVE_TRACK', index)
-                })
-          } else if (index < this.currentTrackIndex) {
-            this.pause()
-                .then(() => {
-                  this.$store.commit('playlist/REMOVE_TRACK', index)
-                  this.$store.commit('playlist/SET_CURRENT_TRACK', this.currentTrackIndex - 1)
-                  this.play()
-                })
-          } else {
-            this.$store.commit('playlist/REMOVE_TRACK', index)
-          }
+          this.$store.dispatch('playlist/remove', index)
           break
         default:
           break
