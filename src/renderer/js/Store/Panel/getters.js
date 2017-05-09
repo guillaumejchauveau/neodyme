@@ -145,7 +145,7 @@ export default {
     const activeSortCriterionTypeIndex = sortCriterionTypePriorityOrder.indexOf(activeSortCriterionType)
 
     // Tri des DecisiveCriteriaSets
-    const sortedDecisiveCriteriaSets = DCSs.sort((a, b) => {
+    return DCSs.sort((a, b) => {
       const sortCriterionType = sortCriterionTypePriorityOrder[activeSortCriterionTypeIndex]
       const aValue = a.criteria[sortCriterionType].value
       const bValue = b.criteria[sortCriterionType].value
@@ -159,8 +159,6 @@ export default {
 
       return activeSortCriterionTypeIndex === sortCriterionTypePriorityOrder.length - 1 ? 0 : null
     })
-
-    return sortedDecisiveCriteriaSets
   },
 
   /**
@@ -174,7 +172,8 @@ export default {
     return criteriaSets.sort((a, b) => {
       const aValue = a.criteria[currentCriterionType].value
       const bValue = b.criteria[currentCriterionType].value
-      return (aValue < bValue) ? -1 : (aValue > bValue ? 1 : 0)
+      const AEqualsB = (aValue === bValue) ? 0 : 1
+      return (aValue < bValue) ? -1 : AEqualsB
     })
   },
 
