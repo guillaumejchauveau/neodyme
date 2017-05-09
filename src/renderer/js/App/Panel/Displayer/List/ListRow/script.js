@@ -16,7 +16,7 @@ import MDCMenu from '../../../../../MDC/Menu'
 import MDCMenuItem from '../../../../../MDC/Menu/MenuItem'
 
 export default {
-  name:'listrow',
+  name: 'listrow',
   components: {
     'mdc-menu': MDCMenu,
     'mdc-menu-item': MDCMenuItem
@@ -38,12 +38,12 @@ export default {
      */
     formattedTime () {
       return seconds => {
-        let minutes = Math.trunc(seconds / 60) + ''
-        seconds = Math.trunc(seconds % 60) + ''
-        minutes = minutes.length < 2 ? `0${minutes}` : minutes
-        seconds = seconds.length < 2 ? `0${seconds}` : seconds
+        let secondsString = Math.trunc(seconds % 60) + ''
+        let minutesString = Math.trunc(seconds / 60) + ''
+        secondsString = (secondsString.length < 2 ? '0' : '') + secondsString
+        minutesString = (minutesString.length < 2 ? '0' : '') + minutesString
 
-        return `${minutes}:${seconds}`
+        return `${minutesString}:${secondsString}`
       }
     },
 

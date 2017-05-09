@@ -23,10 +23,11 @@ export default {
      */
     panelLinks () {
       const panelPresets = this.$store.state.settings.panel.panelPresets
-      let panelLinks = [] // Array des noms des panelPreset.
+      const panelLinks = [] // Array des noms des panelPreset.
 
       for (const panelPreset in panelPresets) {
-        if (panelPresets.hasOwnProperty(panelPreset)) { // Verifie si panelPreset est bien une propriete de panelPresets.
+        // Verifie si panelPreset est bien une propriete de panelPresets.
+        if (panelPresets.hasOwnProperty(panelPreset)) {
           panelLinks.push(panelPreset)
         }
       }
@@ -41,10 +42,9 @@ export default {
       const panelPresets = this.$store.state.settings.panel.panelPresets
 
       for (const panelPreset in panelPresets) {
-        if (panelPresets.hasOwnProperty(panelPreset)) { // Verifie si panelPreset est bien une propriete de panelPresets.
-          if (panelPresets[panelPreset] === this.getCurrentPanelConfig) {
-            return panelPreset
-          }
+        // Verifie si panelPreset est bien une propriete de panelPresets.
+        if (panelPresets.hasOwnProperty(panelPreset) && panelPresets[panelPreset] === this.getCurrentPanelConfig) {
+          return panelPreset
         }
       }
       return null
@@ -58,7 +58,7 @@ export default {
   methods: {
     ...mapActions('panel', ['setCustomPanelConfig', 'setPreviousPanelConfig']),
 
-    toSnakeCase: string => string.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`),
+    toSnakeCase: string => string.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`),
 
     /**
      * Si possible reviens sur le panel precedent, sinon ne fait rien.

@@ -75,8 +75,7 @@ export default {
 
       // Set une la configuration a partir d'un decisiveCriteriaSet et d'un type de critere.
       if (payload.decisiveCriteriaSet) {
-        const decisiveCriteriaSet = payload.decisiveCriteriaSet
-        const criterionType = payload.criterionType
+        const {decisiveCriteriaSet, criterionType} = payload
 
         const newCriteriaSet = new CriteriaSet()
         const newCriterionType = context.getters.getNextPanelConfigCriterionType(criterionType)

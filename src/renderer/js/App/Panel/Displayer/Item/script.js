@@ -27,7 +27,7 @@ export default {
     'mdc-menu': MDCMenu,
     'mdc-menu-item': MDCMenuItem
   },
-  
+
   props: ['criteriaSet'],
 
   methods: {

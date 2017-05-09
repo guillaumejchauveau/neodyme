@@ -51,7 +51,7 @@
   user-select:      none;
 }
 
-@mixin interactive-card() {
+@mixin interactive-card {
   @include mdc-ripple-fg((pseudo: '::after'));
   @include mdc-ripple-base;
   @include mdc-elevation-transition;

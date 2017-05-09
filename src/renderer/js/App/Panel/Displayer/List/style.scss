@@ -28,10 +28,9 @@
 
       &--duration-icon {
         &::before {
-          position: absolute;
-
           @include material-icon;
 
+          position: absolute;
           content:   'timer';
           cursor:    pointer;
           transform: translateY(-12px);
@@ -40,10 +39,9 @@
     }
 
     &-sort-order-selector {
-      position: absolute;
-
       @include button-reset;
 
+      position: absolute;
       border-radius: 50%;
       cursor:        pointer;
       overflow:      hidden;
