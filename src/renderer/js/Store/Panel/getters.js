@@ -157,15 +157,14 @@ export default {
       switch (activeSortCriterionType) {
         case 'artist':
           return getters.getDCSSortValueBySortCriterionTypeOrder(['artist', 'album', 'trackNumber'], a, b)
-
         case 'album':
           return getters.getDCSSortValueBySortCriterionTypeOrder(['album', 'trackNumber'], a, b)
-
         case 'title':
           return getters.getDCSSortValueBySortCriterionTypeOrder(['title', 'album', 'artist'], a, b)
-
         case 'trackNumber':
           return getters.getDCSSortValueBySortCriterionTypeOrder(['trackNumber', 'title', 'album', 'artist'], a, b)
+        default:
+          return []
       }
     })
   },
