@@ -120,44 +120,53 @@ export default {
   },
 
   /**
-   * Trie les decisiveCriteriaSet du panel selon le type de critere de tri actif.
-   * @param {Array<DecisiveCriteriaSet>} DCSs - Les DecisiveCriteriaSet a trier.
+   * Renvoie la valeur de tri entre 2 DecisiveCriteriaSet selon l'ordre des type de criteres de tri.
+   * @param {Array<String>} sortCriterionTypeOrder - L'ordre des type de criteres de tri.
+   * @param {DecisiveCriteriaSet} dcsA - Le DecisiveCriteriaSet A.
+   * @param {DecisiveCriteriaSet} dcsB - Le DecisiveCriteriaSet B.
    * @return {Array<CriteriaSet>} Les DecisiveCriteriaSet tries
    */
-  getSortedDecisiveCriteriaSets: state => DCSs => {
-    // Recupere l'ordre de priorite de type de critere de tri depuis les settings.
-    const sortCriterionTypePriorityOrder = []
-    const sortCriterionTypePriorityOrderIndexes = settings.state.panel.sortCriterionTypePriorityOrder
-
-    sortCriterionTypePriorityOrderIndexes.forEach(index => {
-      sortCriterionTypePriorityOrder.push(settings.state.criterion.types[index])
-    })
-
+  getDCSSortValueBySortCriterionTypeOrder: state => (sortCriterionTypeOrder, dcsA, dcsB) => {
     const revertSort = state.revertSort
-    const defaultActiveSortCriterionType = settings.state.panel.defaultActiveSortCriterionType
-    let activeSortCriterionType = state.currentPanelConfig.activeSortCriterionType
 
-    if (activeSortCriterionType === undefined) {
-      activeSortCriterionType = defaultActiveSortCriterionType
-    }
-
-    // Index du type de critere de tri actif dans l'ordre de priorite des types de criteres.
-    const activeSortCriterionTypeIndex = sortCriterionTypePriorityOrder.indexOf(activeSortCriterionType)
-
-    // Tri des DecisiveCriteriaSets
-    return DCSs.sort((a, b) => {
-      const sortCriterionType = sortCriterionTypePriorityOrder[activeSortCriterionTypeIndex]
-      const aValue = a.criteria[sortCriterionType].value
-      const bValue = b.criteria[sortCriterionType].value
-
+    for (let sortCriterionTypeIndex = 0;
+      sortCriterionTypeIndex < sortCriterionTypeOrder.length;
+      sortCriterionTypeIndex++) {
+      const sortCriterionType = sortCriterionTypeOrder[sortCriterionTypeIndex]
+      const aValue = dcsA.criteria[sortCriterionType].value
+      const bValue = dcsB.criteria[sortCriterionType].value
       if (aValue < bValue) {
         return revertSort ? 1 : -1
       }
       if (aValue > bValue) {
         return revertSort ? -1 : 1
       }
+    }
+  },
 
-      return activeSortCriterionTypeIndex === sortCriterionTypePriorityOrder.length - 1 ? 0 : null
+  /**
+   * Trie les decisiveCriteriaSet du panel selon le type de critere de tri actif.
+   * @param {Array<DecisiveCriteriaSet>} DCSs - Les DecisiveCriteriaSet a trier.
+   * @return {Array<CriteriaSet>} Les DecisiveCriteriaSet tries
+   */
+  getSortedDecisiveCriteriaSets: (state, getters) => DCSs => {
+    const activeSortCriterionType = getters.getActiveSortCriterionType
+
+    // Tri des DecisiveCriteriaSet.
+    return DCSs.sort((a, b) => {
+      switch (activeSortCriterionType) {
+        case 'artist':
+          return getters.getDCSSortValueBySortCriterionTypeOrder(['artist', 'album', 'trackNumber'], a, b)
+
+        case 'album':
+          return getters.getDCSSortValueBySortCriterionTypeOrder(['album', 'trackNumber'], a, b)
+
+        case 'title':
+          return getters.getDCSSortValueBySortCriterionTypeOrder(['title', 'album', 'artist'], a, b)
+
+        case 'trackNumber':
+          return getters.getDCSSortValueBySortCriterionTypeOrder(['trackNumber', 'title', 'album', 'artist'], a, b)
+      }
     })
   },
 

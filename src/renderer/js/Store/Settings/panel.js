@@ -23,6 +23,5 @@ export default {
     allTitles: new PanelConfig(new CriteriaSet(), 'title', 'Tout les titres', 'title')
   },
   defaultActiveSortCriterionType: 'trackNumber',
-  sortCriterionTypePriorityOrder: [4, 0, 1, 3, 2],
   initialPanel: 'allAlbums'
 }
