@@ -13,7 +13,7 @@
         </div>
       </td>
       <td class="c-listrow__value">
-        <span class="c-listrow-value-text" @click="$emit('play')">{{element.criteria.title.value}}</span>
+        <span class="c-listrow-value-text c-listrow-value-text--clickable" @click="$emit('play')">{{element.criteria.title.value}}</span>
         <mdc-menu class="c-listrow-value__menu">
           <mdc-menu-item @trigger="$emit('play')">Lire maintenant</mdc-menu-item>
           <mdc-menu-item @trigger="playAfter()">Lire après le titre en cours</mdc-menu-item>
@@ -21,10 +21,10 @@
         </mdc-menu>
       </td>
       <td class="c-listrow__value" >
-        <span class="c-listrow-value-text" @click="setPanelFromCriteria('album')">{{element.criteria.album.value}}</span>
+        <span class="c-listrow-value-text c-listrow-value-text--clickable" @click="setPanelFromCriteria('album')">{{element.criteria.album.value}}</span>
       </td>
       <td class="c-listrow__value" >
-        <span class="c-listrow-value-text" @click="setPanelFromCriteria('artist')">{{element.criteria.artist.value}}</span>
+        <span class="c-listrow-value-text c-listrow-value-text--clickable" @click="setPanelFromCriteria('artist')">{{element.criteria.artist.value}}</span>
       </td>
       <td class="c-listrow__value">
         <span class="c-listrow-value-text">{{formattedTime(element.criteria.duration.value)}}</span>

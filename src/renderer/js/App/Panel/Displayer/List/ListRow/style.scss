@@ -81,6 +81,10 @@
 }
 
 .c-listrow-value {
+  &-text--clickable:hover {
+    text-decoration: underline;
+  }
+
   &__menu {
     float:      right;
     transform:  translate($listrow-menu__transform);
