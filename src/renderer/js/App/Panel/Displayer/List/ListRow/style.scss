@@ -1,0 +1,150 @@
+//
+// Composant ListRow.
+// Copyright Paul Charpentier 2017.
+//
+@import 'loader';
+
+.c-listrow {
+  position:      relative;
+  height:        $listrow__height;
+  border-bottom: $listrow__border;
+  transition:    background-color 200ms;
+
+  &__value {
+    cursor:      pointer;
+    line-height: $listrow__height;
+
+    &--tracknumber {
+      width:     $listrow--tracknumber__width;
+      transform: translateX($listrow--tracknumber__transform);
+    }
+  }
+
+  &--last {
+    border: none;
+  }
+
+  &--selected,
+  &--play,
+  &--pause {
+    background-color: $bg__color--secondary;
+
+    .c-listrow-value {
+      &__menu {
+        visibility: visible;
+      }
+    }
+  }
+
+  &--pause,
+  &--play {
+    .c-listrow-value {
+      &-text--tracknumber {
+        display: none;
+      }
+
+      &__play-anim {
+        display: block;
+      }
+    }
+  }
+
+  &--play {
+    .c-listrow-value__play-anim {
+      &-bar,
+      &::before,
+      &::after {
+        animation-name: listrow__playanim;
+      }
+    }
+  }
+
+  &:hover {
+    background-color: $bg__color--secondary;
+
+    .c-listrow-value {
+      &__menu {
+        visibility: visible;
+      }
+
+      &-text--tracknumber {
+        display: none;
+      }
+    }
+
+    &:not(.c-listrow--play):not(.c-listrow--pause) {
+      .c-listrow-value__playbutton {
+        display: inline;
+      }
+    }
+  }
+}
+
+.c-listrow-value {
+  &-text--clickable:hover {
+    text-decoration: underline;
+  }
+
+  &__menu {
+    float:      right;
+    transform:  translate($listrow-menu__transform);
+    visibility: hidden;
+  }
+
+  &__playbutton {
+    display: none;
+
+    &::before {
+      @include material-icon;
+
+      position:  absolute;
+      content:   'play_arrow';
+      cursor:    pointer;
+      font-size: $listrow-playbutton__font-size;
+      transform: translate($listrow-playbutton__translate);
+    }
+  }
+}
+
+.c-listrow-value__play-anim {
+  position:  relative;
+  display:   none;
+  width:     $listrow-playanim__width;
+  height:    $listrow-playanim-bar__height-max;
+  transform: translateX($listrow-playanim__transform);
+
+  &-bar {
+    position:                  absolute;
+    bottom:                    0;
+    left:                      50%;
+    display:                   block;
+    width:                     $listrow-playanim-bar__width;
+    height:                    $listrow-playanim-bar__height-default;
+    animation-delay:           $listrow-playanim-bar-a__delay;
+    animation-duration:        $listrow-playanim__duration;
+    animation-iteration-count: infinite;
+    background-color:          $text__color;
+    transform:                 translateX(-50%);
+  }
+
+  &::before,
+  &::after {
+    position:                  absolute;
+    bottom:                    0;
+    left:                      0;
+    display:                   block;
+    width:                     $listrow-playanim-bar__width;
+    height:                    $listrow-playanim-bar__height-default;
+    animation-delay:           $listrow-playanim-bar-b__delay;
+    animation-duration:        $listrow-playanim__duration;
+    animation-iteration-count: infinite;
+    background-color:          $text__color;
+    content:                   '';
+  }
+
+  &::after {
+    right:           0;
+    left:            auto;
+    animation-delay: $listrow-playanim-bar-c__delay;
+  }
+}

@@ -8,6 +8,10 @@
  * Parametres de la Liste de lecture.
  */
 import playlist from './playlist'
+/**
+ * Parametres de la partie Panel.
+ */
+import panel from './panel'
 
 export default {
   namespaced: true,
@@ -25,7 +29,8 @@ export default {
         'duration'
       ]
     },
-    playlist
+    playlist,
+    panel
   },
   mutations: {
     /**

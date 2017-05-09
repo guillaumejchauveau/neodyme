@@ -83,7 +83,12 @@ electron.app.on('ready', () => {
   IPCHandler.setEventListeners()
 
   // Cree la fenetre.
-  appWindow = new electron.BrowserWindow()
+  appWindow = new electron.BrowserWindow({
+    width: 1100,
+    height: 700,
+    minWidth: 1100,
+    minHeight: 700
+  })
   appWindow.loadURL(/*INJECT-RENDERER-URL*/)
 
   // Detruit la fenetre a sa fermeture.

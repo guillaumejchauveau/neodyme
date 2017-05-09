@@ -1,0 +1,104 @@
+//
+// Composant Item.
+// Copyright Paul Charpentier 2017.
+//
+@import 'loader';
+
+.c-item {
+  position: relative;
+  width:    $item__width;
+  height:   $item__height;
+  margin:   $item__margin;
+  cursor:   pointer;
+
+  &__card {
+    @include card($item__width, $item__height);
+    @include interactive-card;
+
+    position: relative;
+  }
+
+  &__picture {
+    height: $item__width;
+    cursor: pointer;
+
+    &-background {
+      @include mdc-elevation(2);
+
+      position:         absolute;
+      top:              0;
+      width:            $item-picture__size;
+      height:           $item-picture__size;
+      margin:           $item-picture__margin;
+      border-radius:    50%;
+      background-color: $bg__color--primary;
+      cursor:           pointer;
+      transition:       background-color $item__transition-hover-duration, transform $item__transition-hover-duration;
+    }
+
+    &-img {
+      position:         absolute;
+      top:              0;
+      width:            $item-picture-img__size;
+      height:           $item-picture-img__size;
+      margin:           $item-picture-img__margin;
+      border-radius:    50%;
+      background-image: url('../../../../../img/blank_cover.png');
+      background-size:  cover;
+      cursor:           pointer;
+    }
+  }
+
+  &__text {
+    position:     relative;
+    width:        $item__width - 50px;
+    height:       32px;
+    margin-left:  $item-picture__margin;
+    margin-right: 30px;
+    overflow:     hidden;
+
+    &-content {
+      position:      absolute;
+      display:       inline;
+      cursor:        pointer;
+      font-weight:   $font__weight--light;
+      overflow:      hidden;
+      text-overflow: ellipsis;
+      white-space:   nowrap;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &-menu {
+    position:    relative;
+    top:         $item-menu__top;
+    margin-left: $item__width - 30;
+    visibility:  hidden;
+
+    > .mdc-simple-menu {
+      z-index: 50;
+    }
+  }
+
+  &:hover & {
+    &-menu {
+      visibility: visible;
+    }
+
+    &__text--scrollable span {
+      animation: $item-text__animation-scrolling;
+    }
+
+    &__picture-background {
+      background-color: $color--primary;
+      transform:        scale(1.05);
+    }
+  }
+}
+
+.mdc-simple-menu {
+  z-index: 12;
+}

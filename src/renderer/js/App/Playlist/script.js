@@ -63,12 +63,19 @@ export default {
      * @param {Number} index  - L'index de la piste.
      */
     trackActionHandler (action, index) {
+      const track = this.$store.state.playlist.tracks[index]
       switch (action) {
         case 'play':
           this.play(index, 0)
           break
         case 'remove':
           this.$store.dispatch('playlist/remove', index)
+          break
+        case 'goto-artist':
+          this.$store.dispatch('panel/setCustomPanelConfig', {decisiveCriteriaSet: track.dcs, criterionType: 'artist'})
+          break
+        case 'goto-album':
+          this.$store.dispatch('panel/setCustomPanelConfig', {decisiveCriteriaSet: track.dcs, criterionType: 'album'})
           break
         default:
           break

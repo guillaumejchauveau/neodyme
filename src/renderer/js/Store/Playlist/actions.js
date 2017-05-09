@@ -157,7 +157,7 @@ export default {
     // Traitement.
     context.commit('ADD_TRACK', {data: track, index})
 
-    if (index <= context.state.currentTrackIndex) {
+    if (index !== null && index <= context.state.currentTrackIndex) {
       context.commit('SET_CURRENT_TRACK', context.state.currentTrackIndex + 1)
     }
   },
