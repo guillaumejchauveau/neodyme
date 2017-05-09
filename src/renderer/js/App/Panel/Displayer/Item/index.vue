@@ -3,7 +3,7 @@
     <div class="c-item__card" v-ripple @click="setNextPanel(newCriterion)">
       <div class="c-item__picture">
         <div class="c-item__picture-background"></div>
-        <img class="c-item__picture-img" src="../../../../../static/img/blank_cover.png" alt="blank">
+        <div class="c-item__picture-img"></div>
       </div>
       <div class="c-item__text"
            :class="{'c-item__text--scrollable': isScrollingTextEnabled}">
