@@ -5,9 +5,9 @@
  */
 
 /**
-* Classe PanelConfig.
-* @type {PanelConfig}
-*/
+ * Classe PanelConfig.
+ * @type {PanelConfig}
+ */
 import PanelConfig from '../../App/Panel/PanelConfig'
 /**
  * Classe CriteriaSet.

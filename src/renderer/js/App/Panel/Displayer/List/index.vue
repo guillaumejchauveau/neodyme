@@ -5,50 +5,65 @@
         <td class="c-list-header-tag">
           <span class="c-list-header-tag-sort-type-selector" @click="activateSort('trackNumber')">N°</span>
           <button class="c-list-header-tag-sort-order-selector"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active': getActiveSortCriterionType === 'trackNumber',
+                  :class="{'c-list-header-tag-sort-order-selector--sort-active':
+                  getActiveSortCriterionType === 'trackNumber',
                             'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()"><span></span></button>
+                  @click="toggleRevertSort()">
+            <span></span>
+          </button>
         </td>
         <td class="c-list-header-tag">
           <span class="c-list-header-tag-sort-type-selector" @click="activateSort('title')">NOM</span>
           <button class="c-list-header-tag-sort-order-selector"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active': getActiveSortCriterionType === 'title',
+                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
+                  getActiveSortCriterionType === 'title',
                             'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()"><span></span></button>
+                  @click="toggleRevertSort()">
+            <span></span>
+          </button>
         </td>
         <td class="c-list-header-tag">
           <span class="c-list-header-tag-sort-type-selector" @click="activateSort('album')">ALBUM</span>
           <button class="c-list-header-tag-sort-order-selector"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active': getActiveSortCriterionType === 'album',
+                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
+                  getActiveSortCriterionType === 'album',
                             'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()"><span></span></button>
+                  @click="toggleRevertSort()">
+            <span></span>
+          </button>
         </td>
         <td class="c-list-header-tag">
           <span class="c-list-header-tag-sort-type-selector" @click="activateSort('artist')">ARTISTE</span>
           <button class="c-list-header-tag-sort-order-selector"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active': getActiveSortCriterionType === 'artist',
+                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
+                  getActiveSortCriterionType === 'artist',
                             'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()"><span></span></button>
+                  @click="toggleRevertSort()">
+            <span></span>
+          </button>
         </td>
         <td class="c-list-header-tag">
           <span class="c-list-header-tag-sort-type-selector" @click="activateSort('duration')">
             <span class="c-list-header-tag-sort-type-selector--duration-icon"></span>
           </span>
           <button class="c-list-header-tag-sort-order-selector c-list-header-tag-sort-order-selector--duration-icon"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active': getActiveSortCriterionType === 'duration',
+                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
+                  getActiveSortCriterionType === 'duration',
                             'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()"><span></span></button>
+                  @click="toggleRevertSort()">
+            <span></span>
+          </button>
         </td>
       </tr>
       <listrow v-for="element in getCurrentPanelElements.decisiveCriteriaSets"
-                :key="element"
-                :element="element"
-                :class="{'c-listrow--last' : element === (getCurrentPanelElements.decisiveCriteriaSets[getCurrentPanelElements.decisiveCriteriaSets.length-1])}"
-                @play="playNow(element)"></listrow>
+               :key="element"
+               :element="element"
+               :class="{'c-listrow--last': element ===
+               (getCurrentPanelElements.decisiveCriteriaSets[getCurrentPanelElements.decisiveCriteriaSets.length-1])}"
+               @play="playNow(element)"></listrow>
     </table>
   </div>
 </template>
 
 <script src="./script.js"></script>
-
 <style src="./style.scss"></style>

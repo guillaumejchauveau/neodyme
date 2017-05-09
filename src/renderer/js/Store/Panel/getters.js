@@ -178,7 +178,8 @@ export default {
   },
 
   /**
-   * Recupere tout les DecisiveCriteriaSet charge dans le panel correspondants a un criteriaSet du panel en cours, sans passer par l'IPC.
+   * Recupere tout les DecisiveCriteriaSet charge dans le panel correspondants a un criteriaSet du panel en cours, sans
+   * passer par l'IPC.
    * @param {CriteriaSet} criteriaSet - Le CriteriaSet.
    * @return {Array<DecisiveCriteriaSet>} Les DecisiveCriteriaSet correspondants.
    */

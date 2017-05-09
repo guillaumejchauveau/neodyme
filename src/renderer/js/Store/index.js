@@ -14,8 +14,8 @@ import Settings from './Settings'
  */
 import Playlist from './Playlist'
 /**
-* Module du Panel.
-*/
+ * Module du Panel.
+ */
 import Panel from './Panel'
 
 const Store = new VueX.Store({

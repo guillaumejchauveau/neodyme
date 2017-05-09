@@ -30,7 +30,7 @@
         &::before {
           @include material-icon;
 
-          position: absolute;
+          position:  absolute;
           content:   'timer';
           cursor:    pointer;
           transform: translateY(-12px);
@@ -41,7 +41,7 @@
     &-sort-order-selector {
       @include button-reset;
 
-      position: absolute;
+      position:      absolute;
       border-radius: 50%;
       cursor:        pointer;
       overflow:      hidden;

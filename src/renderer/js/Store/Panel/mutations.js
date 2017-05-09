@@ -16,13 +16,14 @@ export default {
 
   /**
    * Set les elements du panel.
-   * @param {{decisiveCriteriaSets: Array<DecisiveCriteriaSet>, criteriaSets: Array<CriteriaSet>}} elements - Les elements du panel.
+   * @param {{decisiveCriteriaSets: Array<DecisiveCriteriaSet>, criteriaSets: Array<CriteriaSet>}} elements - Les
+   *   elements du panel.
    */
   SET_CURRENTPANELELEMENTS (state, elements) {
-    if (elements.decisiveCriteriaSets !== undefined) {
+    if (elements.decisiveCriteriaSets) {
       state.currentPanelElements.decisiveCriteriaSets = elements.decisiveCriteriaSets
     }
-    if (elements.criteriaSets !== undefined) {
+    if (elements.criteriaSets) {
       state.currentPanelElements.criteriaSets = elements.criteriaSets
     }
   },

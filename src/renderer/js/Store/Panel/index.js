@@ -4,9 +4,9 @@
  * @copyright Paul Charpentier 2017.
  */
 
- /**
-  * Getters du module Panel.
-  */
+/**
+ * Getters du module Panel.
+ */
 import getters from './getters'
 /**
  * Mutations du module Panel.
@@ -17,7 +17,7 @@ import mutations from './mutations'
  */
 import actions from './actions'
 
-module.exports = {
+export default {
   namespaced: true,
   state: {
     currentPanelConfig: null,

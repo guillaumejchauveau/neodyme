@@ -15,14 +15,16 @@ export default {
     let index = payload
     let position = null
     let paused = false
-    if (typeof payload.index !== 'undefined') {
-      index = payload.index
-    }
-    if (typeof payload.position !== 'undefined') {
-      position = payload.position
-    }
-    if (typeof payload.paused !== 'undefined') {
-      paused = payload.paused
+    if (payload) {
+      if (typeof payload.index !== 'undefined') {
+        index = payload.index
+      }
+      if (typeof payload.position !== 'undefined') {
+        position = payload.position
+      }
+      if (typeof payload.paused !== 'undefined') {
+        paused = payload.paused
+      }
     }
 
     // Traitement.

@@ -129,9 +129,9 @@
 
   &::before,
   &::after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    position:                  absolute;
+    bottom:                    0;
+    left:                      0;
     display:                   block;
     width:                     $listrow-playanim-bar__width;
     height:                    $listrow-playanim-bar__height-default;

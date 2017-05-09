@@ -5,9 +5,9 @@
  */
 
 /**
-* Classe PanelConfig.
-* @type {PanelConfig}
-*/
+ * Classe PanelConfig.
+ * @type {PanelConfig}
+ */
 import PanelConfig from '../../App/Panel/PanelConfig'
 /**
  * Classe Criterion.
@@ -49,7 +49,8 @@ export default {
       // Si oui : set la configuration.
       context.commit('SET_PANELCONFIG', newPanelConfig)
     } else {
-      // Si non : efface toutes les entree suivant la configuration actuelle dans l'historique et set la nouvelle configuration.
+      // Si non : efface toutes les entree suivant la configuration actuelle dans l'historique et set la nouvelle
+      // configuration.
       context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX', context.getters.getCurrentPanelConfigHistoryIndex + 2)
       context.commit('ADD_PANELHISTORY_ENTRY', newPanelConfig)
       context.commit('SET_PANELCONFIG', newPanelConfig)
@@ -94,9 +95,8 @@ export default {
       }
 
       context.commit('ADD_PANELHISTORY_ENTRY', context.state.currentPanelConfig)
-
-    // Set une configuration a partir d'un index dans l'historique.
     } else {
+      // Set une configuration a partir d'un index dans l'historique.
       context.commit('SET_PANELCONFIG', context.state.panelHistory[payload])
     }
 
@@ -129,7 +129,8 @@ export default {
   },
 
   /**
-   * Charge les éléments du panel pour tout les types d'affichage en cours (items ou liste) en fonction de la configuration du panel courante.
+   * Charge les éléments du panel pour tout les types d'affichage en cours (items ou liste) en fonction de la
+   * configuration du panel courante.
    */
   loadCurrentPanelElements (context) {
     const currentConfigCriterionType = context.state.currentPanelConfig.criterionType

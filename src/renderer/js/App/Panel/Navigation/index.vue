@@ -7,13 +7,17 @@
             <button class="c-navigation-button c-navigation-button--back"
                     :class="{'c-navigation-button--disabled': thereIsPreviousHistoryEntry}"
                     @click="backPanel()"
-                    v-ripple><span></span></button>
+                    v-ripple>
+              <span></span>
+            </button>
           </li>
           <li>
             <button class="c-navigation-button c-navigation-button--forward"
                     :class="{'c-navigation-button--disabled': thereIsNextHistoryEntry}"
                     @click="forwardPanel()"
-                    v-ripple><span></span></button>
+                    v-ripple>
+              <span></span>
+            </button>
 
           </li>
         </ul>
@@ -24,7 +28,9 @@
               class="c-navigation-title"
               :class="{'c-navigation-title--active': activeTitle === title}">
             <span class="c-navigation-title__content"
-                  @click="setSelectedPanel(title)"><span class="c-navigation-title__text">{{title}}</span><span class="c-navigation-title__arrow"></span>
+                  @click="setSelectedPanel(title)">
+              <span class="c-navigation-title__text">{{title}}</span>
+              <span class="c-navigation-title__arrow"></span>
             </span>
           </li>
         </ul>
@@ -33,9 +39,9 @@
         <ul>
           <li v-for="panelLink in panelLinks"
               class="c-navigation-link"
-              :class="[{'c-navigation-link--current': activePanelPreset === panelLink}, `c-navigation-link--${toSnakeCase(panelLink)}`]">
-            <button @click="setPreset(panelLink)"
-                    v-ripple><span></span></button>
+              :class="[{'c-navigation-link--current': activePanelPreset === panelLink},
+              `c-navigation-link--${toSnakeCase(panelLink)}`]">
+            <button @click="setPreset(panelLink)" v-ripple><span></span></button>
           </li>
         </ul>
       </li>
@@ -44,5 +50,4 @@
 </template>
 
 <script src="./script.js"></script>
-
 <style src="./style.scss"></style>

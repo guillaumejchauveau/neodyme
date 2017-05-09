@@ -46,7 +46,7 @@ export default {
             .forEach(DCS => {
               this.addDecisiveCriteriaSet(DCS)
             })
-        this.play(0)
+        this.play()
       }).catch(err => {
         throw err
       })

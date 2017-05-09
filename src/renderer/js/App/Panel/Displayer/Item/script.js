@@ -9,7 +9,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 /**
  * Composant MDC/Menu.
  */
-import MDCMenu from '../../../../MDC/Menu/index.vue'
+import MDCMenu from '../../../../MDC/Menu'
 /**
  * Composant MDC/Menu/MenuItem.
  */
@@ -49,7 +49,10 @@ export default {
         this.getMatchingDecisiveCriteriaSets(this.criteriaSet).forEach(DCS => {
           this.addDecisiveCriteriaSet(DCS)
         })
-        this.play(0)
+        this.play()
+            .catch(err => {
+              throw err
+            })
       }).catch(err => {
         throw err
       })
@@ -89,7 +92,7 @@ export default {
     ]),
 
     /**
-     * Recupere la valeur de l'item dans le criteriaSet correspondant et si la valeur est nulle renvoit 'Unknow'.
+     * Recupere la valeur de l'item dans le criteriaSet correspondant et si la valeur est nulle renvoit 'Unknown'.
      * @param {CriteriaSet} criteriaSet - Le criteriaSet de l'item.
      * @returns {String} Le nom de l'item a afficher.
      */
