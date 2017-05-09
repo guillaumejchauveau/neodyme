@@ -22,11 +22,12 @@ import MDCMenuItem from '../../../../MDC/Menu/MenuItem'
 import Criterion from '../../../../Criterion'
 
 export default {
+  name: 'item',
   components: {
     'mdc-menu': MDCMenu,
     'mdc-menu-item': MDCMenuItem
   },
-
+  
   props: ['criteriaSet'],
 
   methods: {
@@ -84,9 +85,6 @@ export default {
     ...mapGetters('panel', [
       'getCurrentPanelConfig',
       'getCurrentPanelElements',
-      'getNextPanelConfigCriterionType',
-      'getConvertedDecisiveCriteriaSets',
-      'getSortedDecisiveCriteriaSets',
       'getMatchingDecisiveCriteriaSets'
     ]),
 

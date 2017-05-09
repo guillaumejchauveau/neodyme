@@ -8,6 +8,8 @@
  * Classe de Configuration du Panel.
  * @property {CriteriaSet} criteriaSet - L'ensemble de criteres actif dans le Panel.
  * @property {String} criteriaType - Le type de critere a afficher.
+ * @property {String} title - Le titre du panel.
+ * @property {String} activeSortCriterionType - Le type de critere de tri du panel.
  */
 class PanelConfig {
   /**
@@ -15,6 +17,7 @@ class PanelConfig {
    * @param {CriteriaSet} criteriaSet - L'ensemble de criteres actif dans le Panel.
    * @param {String} criterionType - Le type de critere a afficher.
    * @param {String} title - Le titre du Panel.
+   * @param {String} activeSortCriterionType - Le type de critere de tri du panel.
    */
   constructor (criteriaSet, criterionType, title, activeSortCriterionType) {
     this.criteriaSet = criteriaSet

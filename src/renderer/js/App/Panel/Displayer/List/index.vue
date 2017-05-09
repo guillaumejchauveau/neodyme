@@ -40,11 +40,11 @@
                   @click="toggleRevertSort()"><span></span></button>
         </td>
       </tr>
-      <list-row v-for="element in getCurrentPanelElements.decisiveCriteriaSets"
+      <listrow v-for="element in getCurrentPanelElements.decisiveCriteriaSets"
                 :key="element"
                 :element="element"
                 :class="{'c-listrow--last' : element === (getCurrentPanelElements.decisiveCriteriaSets[getCurrentPanelElements.decisiveCriteriaSets.length-1])}"
-                @play="playNow(element)"></list-row>
+                @play="playNow(element)"></listrow>
     </table>
   </div>
 </template>

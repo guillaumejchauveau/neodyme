@@ -6,15 +6,25 @@
 
 import { mapGetters, mapActions } from 'vuex'
 
+/**
+ * Composant MDC/FAB.
+ */
 import Fab from '../../MDC/FAB'
+/**
+ * Composant Navigation.
+ */
 import Navigation from './Navigation'
+/**
+ * Composant Displayer.
+ */
 import Displayer from './Displayer'
 
 export default {
+  name: 'panel',
   components: {
-    Navigation,
-    Displayer,
-    Fab
+    'navigation': Navigation,
+    'displayer': Displayer,
+    'fab': Fab
   },
 
   computed: {

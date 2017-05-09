@@ -4,9 +4,11 @@
  * @copyright Paul Charpentier 2017.
  */
 
-import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  name: 'navigation',
+
   computed: {
     ...mapGetters('panel', [
       'getHistoryConfigPanelsTitles',
@@ -54,10 +56,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('panel', [
-      'setCustomPanelConfig',
-      'setPreviousPanelConfig'
-    ]),
+    ...mapActions('panel', ['setCustomPanelConfig', 'setPreviousPanelConfig']),
 
     toSnakeCase: string => string.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`),
 

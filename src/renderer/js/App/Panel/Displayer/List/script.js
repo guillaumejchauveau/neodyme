@@ -6,11 +6,15 @@
 
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
+/**
+ * Composant ListRow.
+ */
 import ListRow from './ListRow'
 
 export default {
+  name: 'list',
   components: {
-    ListRow
+    'listrow': ListRow
   },
 
   computed: {

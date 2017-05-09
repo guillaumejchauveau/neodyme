@@ -3,13 +3,14 @@
 // Copyright Paul Charpentier 2017.
 //
 
-$item__ratio:                             1.33;
+$item__ratio:                             1.25;
 $item__width:                             160px;
 $item__margin:                            5px;
 $item-picture__relative-size:             .8;
 $item-picture__border-relative-size:      .025;
 $item__transition-hover-duration:         200ms;
 $item-text__animation-scrolling-duration: 5s;
+$item-menu__top:                          -40px;
 // Computed Variables
 //
 $item__height:                   $item__width * $item__ratio;

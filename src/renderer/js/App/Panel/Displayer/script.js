@@ -6,19 +6,23 @@
 
 import { mapGetters } from 'vuex'
 
+/**
+ * Composant Item.
+ */
 import Item from './Item'
+/**
+ * Composant List.
+ */
 import List from './List'
 
 export default {
+  name: 'displayer',
   components: {
-    Item,
-    List
+    'item': Item,
+    'list': List
   },
 
   computed: {
-    ...mapGetters('panel', [
-      'getCurrentPanelConfig',
-      'getCurrentPanelElements'
-    ])
+    ...mapGetters('panel', ['getCurrentPanelConfig', 'getCurrentPanelElements'])
   }
 }

@@ -4,7 +4,7 @@
  * @copyright Paul Charpentier 2017.
  */
 
-import {mapGetters, mapMutations, mapActions, mapState} from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 /**
  * Composant MDC/Menu.
@@ -16,12 +16,13 @@ import MDCMenu from '../../../../../MDC/Menu'
 import MDCMenuItem from '../../../../../MDC/Menu/MenuItem'
 
 export default {
-  props: ['element'],
-
+  name:'listrow',
   components: {
     'mdc-menu': MDCMenu,
     'mdc-menu-item': MDCMenuItem
   },
+
+  props: ['element'],
 
   computed: {
     ...mapState('playlist', ['currentTrackIndex']),

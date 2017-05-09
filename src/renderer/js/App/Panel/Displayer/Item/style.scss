@@ -73,7 +73,7 @@
 
   &-menu {
     position:    relative;
-    top:         -50px;
+    top:         $item-menu__top;
     margin-left: $item__width - 30;
     visibility:  hidden;
 
