@@ -47,4 +47,12 @@
   &--remove .c-tracks-list-item-action__icon::before {
     content: 'delete';
   }
+
+  &--goto-artist .c-tracks-list-item-action__icon::before {
+    content: 'person';
+  }
+
+  &--goto-album .c-tracks-list-item-action__icon::before {
+    content: 'album';
+  }
 }

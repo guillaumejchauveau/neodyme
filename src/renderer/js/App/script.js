@@ -15,6 +15,10 @@ import Store from '../Store'
  * Composant Playlist.
  */
 import Playlist from './Playlist'
+/**
+ * Composant Panel.
+ */
+import Panel from './Panel'
 
 export default {
   methods: {
@@ -26,7 +30,8 @@ export default {
     }
   },
   components: {
-    Playlist
+    Playlist,
+    Panel
   },
   mounted () {
     window.addEventListener('resize', debounce(this.windowResizeHandler, 100, {
