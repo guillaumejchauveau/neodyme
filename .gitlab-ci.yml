@@ -156,9 +156,12 @@ pack:
     name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
     paths:
       - packages/
+      - build/jsdoc
   before_script:
-    - npm install cross-env electron-packager yarn-install
-  script: npm run pack
+    - npm install cross-env electron-packager yarn-install jsdoc
+  script:
+    - npm run pack
+    - npm run jsdoc
 
 ####################
 # DMZ
