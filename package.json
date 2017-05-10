@@ -15,8 +15,7 @@
     "pack": "cross-env NODE_ENV=production node webpack/pack.js",
     "start": "electron .",
     "test": "cross-env NODE_ENV=test \"electron-mocha --opts mocha-main.opts ./tests/main && karma start karma.renderer.conf.js\"",
-    "lint": "eslint --max-warnings 0 src/**/*.js tests/**/*.spec.js && stylelint src/**/*.css src/**/*.scss && pug-lint src && htmlhint src/**/*.html",
-    "jsdoc": "jsdoc src/main -r -R README.md -P package.json -d build/jsdoc/main && jsdoc src/renderer -r -R README.md -P package.json -d build/jsdoc/renderer"
+    "lint": "eslint --max-warnings 0 src/**/*.js tests/**/*.spec.js && stylelint src/**/*.css src/**/*.scss && pug-lint src && htmlhint src/**/*.html"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.6",
