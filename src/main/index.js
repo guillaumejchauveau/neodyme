@@ -53,7 +53,7 @@ config.set('criterion', {
   ]
 })
 
-// Sources prises en chargent.
+// Sources prises en charge.
 config.set('providers', [
   new FileSystemProvider({
     key: 0,

@@ -14,7 +14,15 @@ import TracksListContent from './TracksListContent'
 export default {
   data () {
     return {
+      /**
+       * Index de l'element courant.
+       * @type {Number}
+       */
       currentItem: 0,
+      /**
+       * Suivi du point de repere.
+       * @type {Boolean}
+       */
       waypointItemTracking: false
     }
   },
@@ -108,7 +116,6 @@ export default {
      */
     setCurrentItem (index) {
       this.waypointItemTracking = false
-
       this.currentItem = index
 
       // Verifie que la nouvelle valeur soit possible.

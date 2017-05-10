@@ -6,36 +6,68 @@
 
 const playlist = {
   controlPanel: {
-    size: 130 // Taille du panneau de controle (en pixels).
+    /**
+     * Taille du panneau de controle (en pixels).
+     * @type {Number}
+     */
+    size: 130
   },
   tracksList: {
+    /**
+     * Taille de la liste des pistes (en pixels).
+     * @type {Number}
+     */
+    size: null,
     close: {
-      height: 45 // Hauteur du bouton de fermeture de la liste des pistes (en pixels).
+      /**
+       * Hauteur du bouton de fermeture de la liste des pistes (en pixels).
+       * @type {Number}
+       */
+      height: 45,
+      /**
+       * Hauteur angulaire du bouton de fermeture de la liste des pistes (en radians).
+       * @type {Number}
+       */
+      angularHeight: null
     },
     waypointScroller: {
-      height: 45, // Hauteur du chariot de defilement de la liste des pistes (en pixels).
-      defaultMaxAngle: Math.PI / 2.5 // Angle par defaut au defilement maximum du chariot de defilement de la liste des
-                                     // pistes (en radians).
+      /**
+       * Hauteur du chariot de defilement de la liste des pistes (en pixels).
+       * @type {Number}
+       */
+      height: 45,
+      /**
+       * Hauteur angulaire du chariot de defilement de la liste des pistes (en radians).
+       * @type {Number}
+       */
+      angularHeight: null,
+      /**
+       * Angle par defaut au defilement maximum du chariot de defilement de la liste des pistes (en radians).
+       * @type {Number}
+       */
+      defaultMaxAngle: Math.PI / 2.5
     },
     item: {
-      height: 35 // Hauteur d'un element de la liste des pistes (en pixels).
+      /**
+       * Hauteur d'un element de la liste des pistes (en pixels).
+       * @type {Number}
+       */
+      height: 35,
+      /**
+       * Hauteur angulaire d'un element de la liste des pistes (en radians).
+       * @type {Number}
+       */
+      angularHeight: null
     }
   }
 }
 
-playlist.tracksList.size = playlist.controlPanel.size * 3 // Taille de la liste des pistes (en pixels).
+playlist.tracksList.size = playlist.controlPanel.size * 3
 playlist.tracksList.close.angularHeight =
-  Math.asin((playlist.tracksList.close.height / 2) / playlist.tracksList.size) * 2 // Hauteur angulaire du bouton de
-                                                                                   // fermeture de la liste des pistes
-                                                                                   // (en radians).
+  Math.asin((playlist.tracksList.close.height / 2) / playlist.tracksList.size) * 2
 playlist.tracksList.waypointScroller.angularHeight =
-  Math.asin((playlist.tracksList.waypointScroller.height / 2) / playlist.tracksList.size) * 2 // Hauteur angulaire du
-                                                                                              // chariot de defilement
-                                                                                              // de la liste des pistes
-                                                                                              // (en radians).
+  Math.asin((playlist.tracksList.waypointScroller.height / 2) / playlist.tracksList.size) * 2
 playlist.tracksList.item.angularHeight =
-  Math.asin((playlist.tracksList.item.height / 2) / playlist.controlPanel.size) * 2 // Hauteur angulaire d'un element
-                                                                                    // de la liste des pistes (en
-                                                                                    // radians).
+  Math.asin((playlist.tracksList.item.height / 2) / playlist.controlPanel.size) * 2
 
 export default playlist

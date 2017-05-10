@@ -156,6 +156,8 @@ pack:
     name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
     paths:
       - packages/
+  before_script:
+    - npm install cross-env electron-packager yarn-install
   script: npm run pack
 
 ####################

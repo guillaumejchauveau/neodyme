@@ -34,6 +34,8 @@ export default {
     Panel
   },
   mounted () {
+    // Quand la fenetre est redimensionnee (La fonction est appelee avec un systeme anti-rebond pour eviter un trop
+    // grand nombre d'appel).
     window.addEventListener('resize', debounce(this.windowResizeHandler, 100, {
       leading: true,
       maxWait: 100

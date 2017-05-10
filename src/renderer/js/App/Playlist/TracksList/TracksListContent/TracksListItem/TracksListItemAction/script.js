@@ -11,10 +11,18 @@ export default {
     ...VueX.mapGetters('playlist/player', ['playerIs'])
   },
   props: {
+    /**
+     * Nom interne de l'action.
+     * @type {String}
+     */
     name: {
       type: String,
       required: true
     },
+    /**
+     * Nom affiche de l'action.
+     * @type {String}
+     */
     readableName: {
       type: String,
       required: true

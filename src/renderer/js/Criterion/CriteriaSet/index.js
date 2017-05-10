@@ -51,12 +51,13 @@ class CriteriaSet {
    */
   resolveDecisiveCriteriaSetFootprints () {
     return new Promise((resolve, reject) => {
+      // Envoi une requete IPC.
       ipcRenderer.send('REQ:CriteriaSet.resolveDecisiveCriteriaSets', this)
 
+      // Quand la reponse est recue.
       ipcRenderer.once('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
         if (decisiveCriteriaSetFootprints.error) {
-          reject(new Error(decisiveCriteriaSetFootprints.error))
-          return
+          return reject(new Error(decisiveCriteriaSetFootprints.error))
         }
         resolve(decisiveCriteriaSetFootprints)
       })
@@ -68,20 +69,20 @@ class CriteriaSet {
    * IPC).
    * @param {String} criterionType - Le type de critere.
    * @returns {Promise} Une Promise qui resout un {Array}.
-   * @throws {TypeError} Lance une exception si le type de critere n'est pas pris en charge.
    */
   resolveCriteriaByType (criterionType) {
-    if (!Criterion.checkType(criterionType)) {
-      throw TypeError(`Unrecognized criterion type: ${criterionType}`)
-    }
-
     return new Promise((resolve, reject) => {
+      if (!Criterion.checkType(criterionType)) {
+        return reject(new TypeError(`Unrecognized criterion type: ${criterionType}`))
+      }
+
+      // Envoi une requete IPC.
       ipcRenderer.send('REQ:CriteriaSet.resolveCriteriaByType', this, criterionType)
 
+      // Quand la reponse est recue.
       ipcRenderer.once('RES:CriteriaSet.resolveCriteriaByType', (event, criteriaSetFootprints) => {
         if (criteriaSetFootprints.error) {
-          reject(new Error(criteriaSetFootprints.error))
-          return
+          return reject(new Error(criteriaSetFootprints.error))
         }
 
         const criteriaSets = []

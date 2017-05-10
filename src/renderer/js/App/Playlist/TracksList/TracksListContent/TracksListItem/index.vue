@@ -3,7 +3,11 @@
        :style="itemStyle"
        @dblclick="$emit('trackAction', 'play', position)"
        @contextmenu.prevent="active = !active">
-    <button class="c-tracks-list-item-menu-toggler" title="Ouvrir" @click.stop="active = !active" v-ripple>
+    <button class="c-tracks-list-item-menu-toggler"
+            title="Ouvrir"
+            @click.stop="active = !active"
+            @dblclick.stop
+            v-ripple>
       <span class="c-tracks-list-item-menu-toggler__icon"></span>
     </button>
     <ul v-if="active" class="c-tracks-list-item-menu">

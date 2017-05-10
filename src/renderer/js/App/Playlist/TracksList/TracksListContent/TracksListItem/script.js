@@ -14,7 +14,15 @@ import VueX from 'vuex'
 export default {
   data () {
     return {
+      /**
+       * Hauteur angulaire d'un element de la liste des pistes (en radians).
+       * @type {Number}
+       */
       angularHeight: this.$store.state.settings.playlist.tracksList.item.angularHeight,
+      /**
+       * Menu des actions de piste ouvert.
+       * @type {Boolean}
+       */
       active: false
     }
   },
@@ -42,10 +50,18 @@ export default {
     TracksListItemAction
   },
   props: {
+    /**
+     * Les criteres de la piste.
+     * @type {Object}
+     */
     data: {
       type: Object,
       required: true
     },
+    /**
+     * Position de l'element par rapport a l'element courant.
+     * @type {Number}
+     */
     position: {
       type: Number,
       required: true

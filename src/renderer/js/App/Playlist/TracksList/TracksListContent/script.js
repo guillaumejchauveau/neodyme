@@ -21,7 +21,15 @@ export default {
     maxItemCount += 1 + (maxItemCount % 2 !== 0)
 
     return {
+      /**
+       * Hauteur angulaire d'un element de la liste des pistes (en radians).
+       * @type {Number}
+       */
       itemAngularHeight,
+      /**
+       * Nombre d'elements affichables.
+       * @type {Number}
+       */
       maxItemCount
     }
   },
@@ -75,6 +83,10 @@ export default {
     TracksListItem
   },
   props: {
+    /**
+     * Index de l'element courant.
+     * @type {Number}
+     */
     currentItem: {
       type: Number,
       required: true

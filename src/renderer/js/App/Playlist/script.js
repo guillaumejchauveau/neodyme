@@ -65,15 +65,19 @@ export default {
     trackActionHandler (action, index) {
       const track = this.$store.state.playlist.tracks[index]
       switch (action) {
+        // Lire la piste.
         case 'play':
           this.play(index, 0)
           break
+        // Supprimer la piste.
         case 'remove':
           this.$store.dispatch('playlist/remove', index)
           break
+        // Aller a l'artiste de la piste.
         case 'goto-artist':
           this.$store.dispatch('panel/setCustomPanelConfig', {decisiveCriteriaSet: track.dcs, criterionType: 'artist'})
           break
+        // Aller a l'album de la piste.
         case 'goto-album':
           this.$store.dispatch('panel/setCustomPanelConfig', {decisiveCriteriaSet: track.dcs, criterionType: 'album'})
           break

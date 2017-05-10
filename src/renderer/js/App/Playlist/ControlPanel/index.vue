@@ -39,8 +39,7 @@
         <mdc-menu-item class="c-control-panel-menu-action"
                        :class="{'c-control-panel-menu-action--disabled': !tracksCount || playerIs('LOADING')}"
                        title="Effacer la liste de lecture"
-                       @trigger="$emit('clear')">Effacer
-        </mdc-menu-item>
+                       @trigger="$emit('clear')">Effacer</mdc-menu-item>
       </mdc-menu>
       <div class="c-control-panel-duration">{{ formattedTime(duration) }}</div>
     </div>
