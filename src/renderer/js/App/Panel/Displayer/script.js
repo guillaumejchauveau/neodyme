@@ -23,6 +23,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters('panel', ['getCurrentPanelConfig', 'getCurrentPanelElements'])
+    ...mapGetters('panel', [
+      'getCurrentPanelConfig',
+      'getCurrentPanelElements',
+      'isEmptyDisplayer'
+    ])
   }
 }

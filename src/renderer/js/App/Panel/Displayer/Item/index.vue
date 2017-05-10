@@ -7,7 +7,10 @@
       </div>
       <div class="c-item__text"
            :class="{'c-item__text--scrollable': isScrollingTextEnabled}">
-        <span class="c-item__text-content">{{itemName}}</span>
+        <span class="c-item__text-content"
+              :style="itemTextScrollingDuration">
+          {{itemName}}
+        </span>
       </div>
     </div>
     <mdc-menu class="c-item-menu">

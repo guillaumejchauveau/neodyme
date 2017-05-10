@@ -2,58 +2,11 @@
   <div class="c-list">
     <table class="c-list__table">
       <tr class="c-list-header">
-        <td class="c-list-header-tag">
-          <span class="c-list-header-tag-sort-type-selector" @click="activateSort('trackNumber')">N°</span>
-          <button class="c-list-header-tag-sort-order-selector"
-                  :class="{'c-list-header-tag-sort-order-selector--sort-active':
-                  getActiveSortCriterionType === 'trackNumber',
-                            'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()">
-            <span></span>
-          </button>
-        </td>
-        <td class="c-list-header-tag">
-          <span class="c-list-header-tag-sort-type-selector" @click="activateSort('title')">NOM</span>
-          <button class="c-list-header-tag-sort-order-selector"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
-                  getActiveSortCriterionType === 'title',
-                            'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()">
-            <span></span>
-          </button>
-        </td>
-        <td class="c-list-header-tag">
-          <span class="c-list-header-tag-sort-type-selector" @click="activateSort('album')">ALBUM</span>
-          <button class="c-list-header-tag-sort-order-selector"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
-                  getActiveSortCriterionType === 'album',
-                            'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()">
-            <span></span>
-          </button>
-        </td>
-        <td class="c-list-header-tag">
-          <span class="c-list-header-tag-sort-type-selector" @click="activateSort('artist')">ARTISTE</span>
-          <button class="c-list-header-tag-sort-order-selector"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
-                  getActiveSortCriterionType === 'artist',
-                            'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()">
-            <span></span>
-          </button>
-        </td>
-        <td class="c-list-header-tag">
-          <span class="c-list-header-tag-sort-type-selector" @click="activateSort('duration')">
-            <span class="c-list-header-tag-sort-type-selector--duration-icon"></span>
-          </span>
-          <button class="c-list-header-tag-sort-order-selector c-list-header-tag-sort-order-selector--duration-icon"
-                  :class="{ 'c-list-header-tag-sort-order-selector--sort-active':
-                  getActiveSortCriterionType === 'duration',
-                            'c-list-header-tag-sort-order-selector--sort-invert': isRevertSort}"
-                  @click="toggleRevertSort()">
-            <span></span>
-          </button>
-        </td>
+        <listheadertag tagValue="trackNumber" tagTitle="N°"></listheadertag>
+        <listheadertag tagValue="title" tagTitle="NOM"></listheadertag>
+        <listheadertag tagValue="album" tagTitle="ALBUM"></listheadertag>
+        <listheadertag tagValue="artist" tagTitle="ARTISTE"></listheadertag>
+        <listheadertag tagValue="duration" tagTitle=""></listheadertag>
       </tr>
       <listrow v-for="element in getCurrentPanelElements.decisiveCriteriaSets"
                :key="element"

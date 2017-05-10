@@ -113,6 +113,7 @@ export default {
     // Change le type de critere de tri si il a ete a passe en argument.
     if (newSortCriteriaType !== undefined) {
       if (context.getters.isRevertSort) {
+        console.log('FAlSE')
         context.commit('TOGGLE_SORT_REVERT')
       }
       context.commit('SET_CURRENT_PANELCONFIG_ACTIVESORTCRITERIONTYPE', newSortCriteriaType)
@@ -120,7 +121,6 @@ export default {
       // Sinon active ou desactive l'inversion du tri.
       context.commit('TOGGLE_SORT_REVERT')
     }
-
     // Met a jour les elements.
     const elements = context.state.currentPanelElements.decisiveCriteriaSets
     const sortedElements = context.getters.getSortedDecisiveCriteriaSets(elements)

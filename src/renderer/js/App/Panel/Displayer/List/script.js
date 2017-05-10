@@ -10,36 +10,28 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
  * Composant ListRow.
  */
 import ListRow from './ListRow'
+/**
+ * Composant ListHeaderTag.
+ */
+import ListHeaderTag from './ListHeaderTag'
 
 export default {
   name: 'list',
   components: {
-    'listrow': ListRow
+    'listrow': ListRow,
+    'listheadertag': ListHeaderTag
   },
 
   computed: {
     ...mapGetters('panel', [
       'getCurrentPanelElements',
-      'getActiveSortCriterionType',
-      'getSelectedListRow',
-      'isRevertSort'
+      'getSelectedListRow'
     ])
   },
 
   methods: {
     ...mapMutations('panel', ['SET_SELECTEDLISTROW']),
     ...mapActions('playlist', ['addDecisiveCriteriaSet', 'clear', 'play']),
-    ...mapActions('panel', ['setCurrentPanelElementsSorting']),
-
-    toggleRevertSort () {
-      this.SET_SELECTEDLISTROW()
-      this.setCurrentPanelElementsSorting()
-    },
-
-    activateSort (selectedSortCriteriaType) {
-      this.SET_SELECTEDLISTROW()
-      this.setCurrentPanelElementsSorting(selectedSortCriteriaType)
-    },
 
     /**
      * Joue un titre et ajoute tout les titres affichés a la playlist.
@@ -49,12 +41,17 @@ export default {
       if (this.getSelectedListRow === selectedElement) {
         this.SET_SELECTEDLISTROW()
       }
+
       this.clear().then(() => {
-        this.getCurrentPanelElements.decisiveCriteriaSets.forEach(DCS => {
-          this.addDecisiveCriteriaSet(DCS)
-        })
-        const selectedElementIndex = this.getCurrentPanelElements.decisiveCriteriaSets.indexOf(selectedElement)
-        this.play(selectedElementIndex)
+        this.getCurrentPanelElements
+            .decisiveCriteriaSets
+            .forEach(DCS => {
+              this.addDecisiveCriteriaSet(DCS)
+            })
+
+        this.play(this.getCurrentPanelElements
+                      .decisiveCriteriaSets
+                      .indexOf(selectedElement))
       }).catch(err => {
         throw err
       })

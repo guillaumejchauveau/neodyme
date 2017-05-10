@@ -22,8 +22,8 @@ export default {
   state: {
     currentPanelConfig: null,
     currentPanelElements: {
-      criteriaSets: null,
-      decisiveCriteriaSets: null
+      criteriaSets: [],
+      decisiveCriteriaSets: []
     },
     panelHistory: [],
     revertSort: false,

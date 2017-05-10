@@ -5,16 +5,16 @@
                 'c-listrow--selected': selected}"
       @click="selectListRow()"
       @dblclick="$emit('play')">
-    <td class="c-listrow__value c-listrow__value--tracknumber" @click="$emit('play')">
+    <td class="c-listrow__value c-listrow__value--tracknumber">
       <span class="c-listrow-value-text c-listrow-value-text--tracknumber">{{element.criteria.trackNumber.value}}</span>
-      <span class="c-listrow-value__playbutton" @click="$emit('play')"></span>
+      <span class="c-listrow-value__playbutton" @click.prevent.stop="$emit('play')"></span>
       <div class="c-listrow-value__play-anim">
         <span class="c-listrow-value__play-anim-bar"></span>
       </div>
     </td>
     <td class="c-listrow__value">
-      <span class="c-listrow-value-text c-listrow-value-text--clickable"
-            @click="$emit('play')">
+      <span class="c-listrow-value-text c-listrow-value-text--title c-listrow-value-text--clickable"
+            @click.prevent.stop="$emit('play')">
         {{element.criteria.title.value}}
       </span>
       <mdc-menu class="c-listrow-value__menu">

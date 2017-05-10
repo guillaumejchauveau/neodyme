@@ -60,6 +60,7 @@
     &-content {
       position:      absolute;
       display:       inline;
+      width:         $item__width - 50px;
       cursor:        pointer;
       font-weight:   $font__weight--light;
       overflow:      hidden;
@@ -89,7 +90,11 @@
     }
 
     &__text--scrollable span {
-      animation: $item-text__animation-scrolling;
+      width: auto;
+      animation-direction:       alternate;
+      animation-iteration-count: infinite;
+      animation-name:            animation-item-text-scrolling;
+      animation-timing-function: linear;
     }
 
     &__picture-background {

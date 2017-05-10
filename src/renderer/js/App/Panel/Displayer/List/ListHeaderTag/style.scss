@@ -1,0 +1,59 @@
+//
+// Composant ListHeaderTag.
+// Copyright Paul Charpentier 2017.
+//
+@import 'loader';
+
+.c-listheadertag {
+  font-weight: $font__weight--bold;
+
+  &-sort-type-selector {
+    cursor: pointer;
+
+    &--duration {
+      &::before {
+        @include material-icon;
+
+        position:  absolute;
+        content:   'timer';
+        cursor:    pointer;
+        transform: translateY(-12px);
+      }
+    }
+  }
+
+  &-sort-order-selector {
+    @include button-reset;
+
+    position:      absolute;
+    border-radius: 50%;
+    cursor:        pointer;
+    overflow:      hidden;
+
+    span {
+      display:    inline-block;
+      width:      100%;
+      height:     100%;
+      text-align: center;
+
+      &::before {
+        @include material-icon;
+
+        cursor:    pointer;
+        font-size: $listheadertag-filterorderselector__font-size;
+      }
+    }
+
+    &--duration {
+      transform: translate($listheadertag-durationicon__translate);
+    }
+
+    &--sort-active:not(&--sort-invert) span::before {
+      content: 'arrow_downward';
+    }
+
+    &--sort-active span::before {
+      content: 'arrow_upward';
+    }
+  }
+}

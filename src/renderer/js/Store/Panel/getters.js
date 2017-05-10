@@ -99,6 +99,13 @@ export default {
     }
   },
 
+  isEmptyDisplayer: state => {
+    if (state.currentPanelElements.criteriaSets.length === 0 || state.currentPanelElements.decisiveCriteriaSets.length === 0) {
+      return true
+    }
+    return false
+  },
+
   /**
    * Convertit les decisiveCriteriaSetFootprints en DecisiveCriteriaSet.
    * @param {Array<DecisiveCriteriaSetFootprints>} DCSsFootprints - Les DecisiveCriteriaSetFootprints a convertir.
@@ -126,7 +133,7 @@ export default {
    * @param {DecisiveCriteriaSet} dcsB - Le DecisiveCriteriaSet B.
    * @return {Array<CriteriaSet>} Les DecisiveCriteriaSet tries
    */
-  getDCSSortValueBySortCriterionTypeOrder: state => (sortCriterionTypeOrder, dcsA, dcsB) => {
+  getDCSSortValueBySortCriterionTypeOrder: (state, getters) => (sortCriterionTypeOrder, dcsA, dcsB) => {
     const revertSort = state.revertSort
 
     for (let sortCriterionTypeIndex = 0;
@@ -135,11 +142,12 @@ export default {
       const sortCriterionType = sortCriterionTypeOrder[sortCriterionTypeIndex]
       const aValue = dcsA.criteria[sortCriterionType].value
       const bValue = dcsB.criteria[sortCriterionType].value
+      const sortCondition = sortCriterionType === getters.getActiveSortCriterionType && revertSort
       if (aValue < bValue) {
-        return revertSort ? 1 : -1
+        return sortCondition ? 1 : -1
       }
       if (aValue > bValue) {
-        return revertSort ? -1 : 1
+        return sortCondition ? -1 : 1
       }
     }
   },
@@ -151,22 +159,10 @@ export default {
    */
   getSortedDecisiveCriteriaSets: (state, getters) => DCSs => {
     const activeSortCriterionType = getters.getActiveSortCriterionType
+    const sortCriterionTypeOrder = settings.state.panel.sortCriterionTypeOrders[activeSortCriterionType]
 
     // Tri des DecisiveCriteriaSet.
-    return DCSs.sort((a, b) => {
-      switch (activeSortCriterionType) {
-        case 'artist':
-          return getters.getDCSSortValueBySortCriterionTypeOrder(['artist', 'album', 'trackNumber'], a, b)
-        case 'album':
-          return getters.getDCSSortValueBySortCriterionTypeOrder(['album', 'trackNumber'], a, b)
-        case 'title':
-          return getters.getDCSSortValueBySortCriterionTypeOrder(['title', 'album', 'artist'], a, b)
-        case 'trackNumber':
-          return getters.getDCSSortValueBySortCriterionTypeOrder(['trackNumber', 'title', 'album', 'artist'], a, b)
-        default:
-          return []
-      }
-    })
+    return DCSs.sort((a, b) => getters.getDCSSortValueBySortCriterionTypeOrder(sortCriterionTypeOrder, a, b))
   },
 
   /**

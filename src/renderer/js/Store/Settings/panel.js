@@ -23,5 +23,12 @@ export default {
     allTitles: new PanelConfig(new CriteriaSet(), 'title', 'Tout les titres', 'title')
   },
   defaultActiveSortCriterionType: 'trackNumber',
+  sortCriterionTypeOrders: {
+    artist: ['artist', 'album', 'trackNumber'],
+    album: ['album', 'trackNumber'],
+    title: ['title', 'album', 'artist'],
+    trackNumber: ['trackNumber', 'title', 'album', 'artist'],
+    duration: ['duration', 'trackNumber', 'title']
+  },
   initialPanel: 'allAlbums'
 }

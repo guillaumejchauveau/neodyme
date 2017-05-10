@@ -39,8 +39,14 @@
   &--pause,
   &--play {
     .c-listrow-value {
-      &-text--tracknumber {
-        display: none;
+      &-text {
+        &--tracknumber {
+          display: none;
+        }
+
+        &--title {
+          font-weight: bold;
+        }
       }
 
       &__play-anim {

@@ -98,11 +98,19 @@ export default {
      */
     itemName () {
       const itemValue = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
-      if (itemValue !== '' || undefined || null) {
+      if (itemValue !== '') {
         return itemValue
       } else {
-        return 'Unknow'
+        return 'Inconnu'
       }
+    },
+
+    /**
+     * Definit la vitesse de defilement du texte.
+     * @return {String}
+     */
+    itemTextScrollingDuration () {
+      return `animation-duration: ${this.itemName.length / 3}s;`
     },
 
     /**
