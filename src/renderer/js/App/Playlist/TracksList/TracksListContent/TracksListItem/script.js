@@ -15,12 +15,12 @@ export default {
   data () {
     return {
       /**
-       * Hauteur angulaire d'un element de la liste des pistes (en radians).
+       * La hauteur angulaire d'un element de la liste des pistes (en radians).
        * @type {Number}
        */
       angularHeight: this.$store.state.settings.playlist.tracksList.item.angularHeight,
       /**
-       * Menu des actions de piste ouvert.
+       * Le menu des actions de piste est-il ouvert.
        * @type {Boolean}
        */
       active: false
@@ -59,7 +59,7 @@ export default {
       required: true
     },
     /**
-     * Position de l'element par rapport a l'element courant.
+     * La position de l'element par rapport a l'element courant.
      * @type {Number}
      */
     position: {

@@ -17,7 +17,7 @@ export default {
   namespaced: true,
   state: {
     /**
-     * Dimensions de la fenetre (en pixels).
+     * Les dimensions de la fenetre (en pixels).
      * @type {{height: Number, width: Number}}
      */
     windowSize: {
@@ -26,7 +26,7 @@ export default {
     },
     criterion: {
       /**
-       * Types de criteres pris en charge.
+       * Les types de criteres pris en charge.
        * @type {Array<String>}
        */
       types: [

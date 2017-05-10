@@ -34,35 +34,40 @@ export default {
     context.commit('SET_DURATION', 0)
   },
   /**
-   * Cree une source audio pour le contexte. Met en place un ecouteur quand la source arrete la lecture.
+   * Cree une source audio pour le contexte audio. Met en place un ecouteur quand la source audio arrete la lecture.
    */
   connectSource (context) {
+    // Cree la source audio.
     context.commit('SET_AUDIO_SOURCE', context.state.audioContext.createBufferSource())
+    // Passe les donnees audio a la source audio.
     context.state.audioSource.buffer = context.state.audioBuffer
+    // Connecte la source audio a la sortie audio.
     context.state.audioSource.connect(context.state.audioContext.destination)
 
+    // Cree un interval charge de mettre a jour la position toutes les 1 secondes.
     const positionUpdaterIntervalID = setInterval(() => {
       context.dispatch('updatePosition')
     }, 1000)
 
-    // Quand la source s'arrete de lire (par arret manuel ou automatique).
+    // Quand la source audio s'arrete de lire (par arret manuel ou automatique).
     context.state.audioSource.onended = () => {
       context.dispatch('updatePosition')
       // Desactive la mise a jour automatique de la position.
       clearInterval(positionUpdaterIntervalID)
 
+      // Detruit la source audio.
       context.commit('SET_STATUS', 'LOADING')
       context.state.audioSource.disconnect()
       context.commit('SET_AUDIO_SOURCE', null)
       context.commit('SET_STATUS', 'READY')
 
-      // Si la source s'est arretee car au bout des donnees (moins 1 secondes pour resoudre des problemes lies aux
-      // arrondis).
+      // Si position correspond a la duree (moins 1 seconde pour eviter des problemes d'arrondis).
       if (context.state.position >= context.state.duration - 1) {
         context.commit('SET_POSITION', context.state.duration)
-        // Emet un evenement quand les donnees ont ete entierement lues.
+        // Emet un evenement pour indiquer que la source audio est arrivee au bout des donnees audio.
         context.state.emitter.emit('endReached')
       } else {
+        // Emet un evenement pour indiquer que la source audio a ete arretee manuellement.
         context.state.emitter.emit('stopped')
       }
     }
@@ -70,14 +75,23 @@ export default {
   /**
    * Lance la lecture des donnees audio.
    * @param {Number} position - La position de demarrage dans les donnees audio (en secondes).
+   * @returns {Promise}
    */
   start (context, position = 0) {
-    context.dispatch('connectSource')
-    context.commit('UPDATE_START_TIME', position)
-    context.commit('SET_POSITION', position)
-    // Lance la lecture au temps 0 du contexte et a position dans les donnees.
-    context.state.audioSource.start(0, position)
-    context.commit('SET_STATUS', 'PLAYING')
+    return new Promise((resolve, reject) => {
+      context.dispatch('stop')
+             .then(() => {
+               context.dispatch('connectSource')
+               context.commit('UPDATE_START_TIME', position)
+               context.commit('SET_POSITION', position)
+               // Lance la lecture au temps 0 du contexte et a position dans les donnees audio.
+               context.state.audioSource.start(0, position)
+               context.commit('SET_STATUS', 'PLAYING')
+
+               resolve()
+             })
+             .catch(reject)
+    })
   },
   /**
    * Arrete la lecture des donnees audio.
@@ -99,8 +113,7 @@ export default {
     })
   },
   /**
-   * Actualise la position.
-   * @returns {Number}
+   * Actualise la position dans les donnees audio.
    */
   updatePosition (context) {
     if (context.getters['playerIs']('PLAYING')) {

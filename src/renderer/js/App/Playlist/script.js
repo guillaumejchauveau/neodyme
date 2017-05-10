@@ -17,6 +17,8 @@ export default {
   methods: {
     /**
      * Lance la lecture.
+     * @param {Number|null} index    - L'indice de la piste a lire (facultatif).
+     * @param {Number|null} position - La position pour commencer la lecture (en secondes, facultatif).
      * @returns {Promise}
      */
     play (index = null, position = null) {
@@ -60,7 +62,7 @@ export default {
     /**
      * Lance l'action de l'evenement trackAction.
      * @param {String} action - L'action a effectuer.
-     * @param {Number} index  - L'index de la piste.
+     * @param {Number} index  - L'indice de la piste.
      */
     trackActionHandler (action, index) {
       const track = this.$store.state.playlist.tracks[index]

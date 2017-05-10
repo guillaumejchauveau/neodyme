@@ -31,7 +31,7 @@ class CriteriaSet {
    */
   add (criterion) {
     if (!(criterion instanceof Criterion)) {
-      throw TypeError('Unrecognized criterion')
+      throw new TypeError('Unrecognized criterion')
     }
 
     this.criteria[criterion.type] = criterion
@@ -68,7 +68,7 @@ class CriteriaSet {
    * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours (via
    * IPC).
    * @param {String} criterionType - Le type de critere.
-   * @returns {Promise} Une Promise qui resout un {Array}.
+   * @returns {Promise} Une Promise qui resout un {Array<CriteriaSet>}.
    */
   resolveCriteriaByType (criterionType) {
     return new Promise((resolve, reject) => {

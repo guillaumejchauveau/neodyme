@@ -7,54 +7,54 @@
 const playlist = {
   controlPanel: {
     /**
-     * Taille du panneau de controle (en pixels).
+     * La taille du panneau de commande (en pixels).
      * @type {Number}
      */
     size: 130
   },
   tracksList: {
     /**
-     * Taille de la liste des pistes (en pixels).
+     * La taille de la liste des pistes (en pixels).
      * @type {Number}
      */
     size: null,
     close: {
       /**
-       * Hauteur du bouton de fermeture de la liste des pistes (en pixels).
+       * La hauteur du bouton de fermeture de la liste des pistes (en pixels).
        * @type {Number}
        */
       height: 45,
       /**
-       * Hauteur angulaire du bouton de fermeture de la liste des pistes (en radians).
+       * La hauteur angulaire du bouton de fermeture de la liste des pistes (en radians).
        * @type {Number}
        */
       angularHeight: null
     },
     waypointScroller: {
       /**
-       * Hauteur du chariot de defilement de la liste des pistes (en pixels).
+       * La hauteur du chariot de defilement de la liste des pistes (en pixels).
        * @type {Number}
        */
       height: 45,
       /**
-       * Hauteur angulaire du chariot de defilement de la liste des pistes (en radians).
+       * La hauteur angulaire du chariot de defilement de la liste des pistes (en radians).
        * @type {Number}
        */
       angularHeight: null,
       /**
-       * Angle par defaut au defilement maximum du chariot de defilement de la liste des pistes (en radians).
+       * L'angle par defaut au defilement maximum du chariot de defilement de la liste des pistes (en radians).
        * @type {Number}
        */
       defaultMaxAngle: Math.PI / 2.5
     },
     item: {
       /**
-       * Hauteur d'un element de la liste des pistes (en pixels).
+       * La hauteur d'un element de la liste des pistes (en pixels).
        * @type {Number}
        */
       height: 35,
       /**
-       * Hauteur angulaire d'un element de la liste des pistes (en radians).
+       * La hauteur angulaire d'un element de la liste des pistes (en radians).
        * @type {Number}
        */
       angularHeight: null

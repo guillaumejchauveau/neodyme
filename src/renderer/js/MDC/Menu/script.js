@@ -8,11 +8,17 @@ import { MDCSimpleMenu } from '@material/menu'
 
 export default {
   methods: {
+    /**
+     * Bascule l'ouverture du menu.
+     */
     toggle () {
       this.mdc_menu_.open = !this.mdc_menu_.open
     }
   },
   props: {
+    /**
+     * Le bouton du menu est-il horizontal.
+     */
     horiz: {
       type: Boolean,
       'default': false

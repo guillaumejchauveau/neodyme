@@ -22,12 +22,12 @@ export default {
 
     return {
       /**
-       * Hauteur angulaire d'un element de la liste des pistes (en radians).
+       * La hauteur angulaire d'un element de la liste des pistes (en radians).
        * @type {Number}
        */
       itemAngularHeight,
       /**
-       * Nombre d'elements affichables.
+       * Le nombre d'elements affichables.
        * @type {Number}
        */
       maxItemCount
@@ -84,7 +84,7 @@ export default {
   },
   props: {
     /**
-     * Index de l'element courant.
+     * L'indice de l'element courant.
      * @type {Number}
      */
     currentItem: {

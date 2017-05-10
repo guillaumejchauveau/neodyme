@@ -20,9 +20,25 @@ export default {
     player
   },
   state: {
+    /**
+     * Les pistes de la Liste de lecture.
+     * @type {Array<Track>}
+     */
     tracks: [],
+    /**
+     * L'indice de la piste courante.
+     * @type {Number}
+     */
     currentTrackIndex: -1,
+    /**
+     * L'ouverture de la liste des pistes est-elle demandee.
+     * @type {Boolean}
+     */
     tracksListActivationRequested: false,
+    /**
+     * La derniere position enregistree sur la piste courante (en secondes).
+     * @type {Number}
+     */
     savedCurrentTrackPosition: 0
   },
   getters: {
@@ -64,7 +80,7 @@ export default {
         }
       }
 
-      // Ajoute la piste a l'index sans retirer d'elements.
+      // Ajoute la piste a l'indice sans retirer d'elements.
       state.tracks.splice(index, 0, track)
     },
     /**
@@ -87,7 +103,7 @@ export default {
     SET_CURRENT_TRACK (state, requestedIndex) {
       let index = requestedIndex
 
-      // Si l'index ne correspond pas a une piste.
+      // Si l'indice ne correspond pas a une piste.
       if (index < -1 || index >= state.tracks.length) {
         index = -1
       }

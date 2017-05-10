@@ -15,12 +15,12 @@ export default {
   data () {
     return {
       /**
-       * Index de l'element courant.
+       * L'indice de l'element courant.
        * @type {Number}
        */
       currentItem: 0,
       /**
-       * Suivi du point de repere.
+       * Le suivi du point de repere est-il active.
        * @type {Boolean}
        */
       waypointItemTracking: false
@@ -136,7 +136,7 @@ export default {
     /**
      * Transmet l'evenement trackAction.
      * @param {String} action - L'action a effectuer.
-     * @param {Number} index  - L'index de la piste.
+     * @param {Number} index  - L'indice de la piste.
      */
     trackActionHandler (action, index) {
       this.$emit('trackAction', action, index)
