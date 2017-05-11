@@ -23,11 +23,13 @@ $item-text__animation-scrolling:
 // Animation
 //
 @keyframes animation-item-text-scrolling {
-  0% {
+  from,
+  10% {
     transform: translateX(0);
   }
 
-  100% {
-    transform: translateX(calc(-100% + (#{$item__width} - 60px)));
+  95%,
+  to {
+    transform: translateX(calc(-100% + (#{$item__width} - 50px)));
   }
 }

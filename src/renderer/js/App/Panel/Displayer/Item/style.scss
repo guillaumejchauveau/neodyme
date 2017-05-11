@@ -60,12 +60,19 @@
     &-content {
       position:      absolute;
       display:       inline;
-      width:         $item__width - 50px;
       cursor:        pointer;
       font-weight:   $font__weight--light;
       overflow:      hidden;
       text-overflow: ellipsis;
       white-space:   nowrap;
+
+      &--shortened {
+        width:         $item__width - 50px;
+      }
+
+      &--scrollable {
+        visibility: hidden;
+      }
 
       &:hover {
         text-decoration: underline;
@@ -89,12 +96,19 @@
       visibility: visible;
     }
 
-    &__text--scrollable span {
-      width: auto;
-      animation-direction:       alternate;
-      animation-iteration-count: infinite;
-      animation-name:            animation-item-text-scrolling;
-      animation-timing-function: linear;
+    &__text-content {
+      &--scrollable {
+        width:                     auto;
+        animation-direction:       alternate;
+        animation-iteration-count: infinite;
+        animation-name:            animation-item-text-scrolling;
+        animation-timing-function: linear;
+        visibility:                visible;
+      }
+
+      &--shortened {
+        visibility: hidden;
+      }
     }
 
     &__picture-background {

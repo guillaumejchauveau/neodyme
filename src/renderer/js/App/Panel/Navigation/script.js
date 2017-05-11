@@ -28,7 +28,7 @@ export default {
 
       // Parcours tout les panel presets.
       for (const panelPreset in panelPresets) {
-        // Verifie si panel presets est bien une propriete de panel presets.
+        // Verifie si panel preset est bien une propriete de panel presets.
         if (panelPresets.hasOwnProperty(panelPreset)) {
           // Ajoute le nom du panel preset a la liste.
           panelLinks.push(panelPreset)

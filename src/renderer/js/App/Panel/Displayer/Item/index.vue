@@ -5,10 +5,15 @@
         <div class="c-item__picture-background"></div>
         <div class="c-item__picture-img"></div>
       </div>
-      <div class="c-item__text"
-           :class="{'c-item__text--scrollable': isScrollingTextEnabled}">
+      <div class="c-item__text">
         <span class="c-item__text-content"
-              :style="itemTextScrollingDuration">
+              :class="{'c-item__text-content--shortened': isScrollingTextEnabled}">
+         {{itemName}}
+        </span>
+        <span v-if="isScrollingTextEnabled"
+              class="c-item__text-content c-item__text-content--scrollable"
+              :style="`animation-duration:${itemTextScrollingDuration}s;`"
+              ref="scrollableText">
           {{itemName}}
         </span>
       </div>

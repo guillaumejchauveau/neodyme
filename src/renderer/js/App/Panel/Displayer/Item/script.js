@@ -28,7 +28,25 @@ export default {
     'mdc-menu-item': MDCMenuItem
   },
 
-  props: ['criteriaSet'],
+  props: {
+    /**
+     * Ensemble de criteres correspondant a l'item.
+     * @type {CriteriaSet}
+     */
+    criteriaSet: {
+      required: true
+    }
+  },
+
+  data: () => {
+    return {
+      /**
+       * La duree de defilement du texte de l'item.
+       * @type {Number}
+       */
+      itemTextScrollingDuration: Number
+    }
+  },
 
   methods: {
     ...mapActions('panel', ['setNextPanelConfig']),
@@ -102,7 +120,7 @@ export default {
     ]),
 
     /**
-     * Recupere la nom de l'item dans l'ensemble de critere de l'item,
+     * Recupere le nom de l'item dans l'ensemble de critere de l'item,
      * si la valeur est nulle le nom de l'item est 'Inconnu'.
      * @param {CriteriaSet} criteriaSet - L'ensemble de critere de l'item.
      * @returns {String} Le nom de l'item.
@@ -117,14 +135,6 @@ export default {
       } else {
         return 'Inconnu'
       }
-    },
-
-    /**
-     * Definit la vitesse de defilement du texte.
-     * @return {String}
-     */
-    itemTextScrollingDuration () {
-      return `animation-duration: ${this.itemName.length / 3}s;`
     },
 
     /**
@@ -143,6 +153,17 @@ export default {
      */
     newCriterion () {
       return new Criterion(this.getCurrentPanelConfig.criterionType, this.itemName)
+    }
+  },
+
+  /**
+   * Fonction lancee quand le composant est monte,
+   * Recupere la longueur en pixel du nom de l'item et calcule la duree de l'animation de defilement.
+   */
+  mounted () {
+    if (this.isScrollingTextEnabled) {
+      // 30px/s : Vitesse de defilement.
+      this.itemTextScrollingDuration = this.$refs.scrollableText.clientWidth / 30
     }
   }
 }
