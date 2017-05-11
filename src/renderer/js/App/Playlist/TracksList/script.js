@@ -54,7 +54,7 @@ export default {
       return this.computedCurrentItem - this.waypointItemIndex
     },
     /**
-     * Calcule l'angle au defilement maximum.
+     * Calcule l'angle maximum du chariot de defilement.
      * @returns {Number} L'angle (en radians).
      */
     maxWaypointScrollerAngle () {

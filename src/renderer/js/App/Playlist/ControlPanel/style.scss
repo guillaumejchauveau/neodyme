@@ -136,7 +136,7 @@
 
     // 1. Compense le decalage vertical du parent.
     // 2. https://material.io/icons/#ic_skip_next
-    // 3. Dirige l'icone vers le haut.
+    // 3. Oriente l'icone vers le haut.
     .c-control-panel-control__icon::before {
       margin-top:  -$control-panel-control-icon__vert-offset--nav; // [1]
       content:     'skip_next'; // [2]
@@ -153,7 +153,7 @@
     bottom: $control-panel__size - $control-panel-control__size--main / 2 +
       $control-panel-control__size--nav * $control-panel-control__vert-offset-ratio--nav; // [1]
 
-    // 1. Dirige l'icone vers le bas.
+    // 1. Oriente l'icone vers le bas.
     .c-control-panel-control__icon::before {
       margin-top: $control-panel-control-icon__vert-offset--nav;
       transform:  rotate(90deg); // [1]

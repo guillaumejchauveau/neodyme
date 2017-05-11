@@ -18,16 +18,18 @@
       height: ($control-panel__size + $tracks-list-open__size) * 2;
     }
 
+    // 1. Reaffiche le bouton de fermeture en laissant le centrage vertical.
     .c-tracks-list-close {
       @include mdc-elevation(1);
 
-      transform: translateY(-50%) translateX(0);
+      transform: translateY(-50%) translateX(0); // [1]
     }
 
+    // 1. Reaffiche le chariot de defilement en laissant le centrage vertical.
     .c-tracks-list-waypoint-scroller {
       @include mdc-elevation(1);
 
-      transform: translateY(-50%) translateX(0);
+      transform: translateY(-50%) translateX(0); // [1]
     }
   }
 
@@ -71,6 +73,9 @@
                     height $tracks-list__transition-time / 2 $tracks-list__transition-easing;
 }
 
+// 1. Position le bouton de fermeture au bord de la liste des pistes moins 1px pour compenser le bord plat du bouton sur
+//  le bord arrondi de la liste (la distance compte la moitie gauche cachee du parent).
+// 2. Centre verticalement le bouton de fermeture et le positionne sous la liste des pistes pour le cacher.
 .c-tracks-list-close {
   @include mdc-ripple-base;
   @include mdc-ripple-bg((pseudo: '::before'));
@@ -78,14 +83,14 @@
   @include button-reset;
   @include centered;
 
-  left:             $control-panel__size + $tracks-list__size - 1px;
+  left:             $control-panel__size + $tracks-list__size - 1px; // [1]
   width:            $tracks-list-close__size;
   height:           $tracks-list-close__size;
   border-radius:    0 $tracks-list-button__border-radius $tracks-list-button__border-radius 0;
   background-color: $color--primary;
   cursor:           pointer;
   overflow:         hidden;
-  transform:        translateY(-50%) translateX(-100%);
+  transform:        translateY(-50%) translateX(-100%); // [2]
   transition:       left $tracks-list__transition-time $tracks-list__transition-easing,
                     transform $tracks-list__transition-time $tracks-list__transition-easing;
 
@@ -96,15 +101,19 @@
     color:      $text__color--light;
     text-align: center;
 
+    // 1. https://material.io/icons/#ic_close
     &::before {
       @include material-icon;
 
-      content:     'close';
+      content:     'close'; // [1]
       line-height: $tracks-list-close__size;
     }
   }
 }
 
+// 1. Position le chariot de defilement au bord de la liste des pistes moins 1px pour compenser le bord plat du chariot
+//  sur le bord arrondi de la liste (le parent est centre et ne compte pas de moitie cachee).
+// 2. Centre verticalement le chariot de defilement et le positionne sous la liste des pistes pour le cacher.
 .c-tracks-list-waypoint-scroller {
   @include mdc-ripple-base;
   @include mdc-ripple-bg((pseudo: '::before'));
@@ -112,13 +121,13 @@
   @include button-reset;
 
   position:         absolute;
-  left:             $tracks-list__size - 1px;
+  left:             $tracks-list__size - 1px; // [1]
   width:            $tracks-list-waypoint-scroller__size;
   height:           $tracks-list-waypoint-scroller__size;
   border-radius:    0 $tracks-list-button__border-radius $tracks-list-button__border-radius 0;
   background-color: $color--primary;
   overflow:         hidden;
-  transform:        translateY(-50%) translateX(-100%);
+  transform:        translateY(-50%) translateX(-100%); // [2]
   transition:       left $tracks-list__transition-time $tracks-list__transition-easing,
                     transform $tracks-list__transition-time $tracks-list__transition-easing;
 
@@ -130,24 +139,28 @@
     cursor:     pointer;
     text-align: center;
 
+    // 1. https://material.io/icons/#ic_chevron_right
+    // 2. Oriente l'icone vers le haut.
     &::before {
       @include material-icon;
 
-      content:     'chevron_right';
+      content:     'chevron_right'; // [1]
       line-height: $tracks-list-close__size;
-      transform:   rotate(-90deg);
+      transform:   rotate(-90deg); // [2]
     }
   }
 
+  // 1. Oriente l'icone vers le bas.
   &--down .c-tracks-list-waypoint-scroller__icon::before {
-    transform: rotate(90deg);
+    transform: rotate(90deg); // [1]
   }
 
+  // 1. Definit le point a partir duquel la rotation doit etre effectuee.
   &__container {
     @include centered;
 
     transform:        translateY(-50%);
-    transform-origin: 0 50% 0;
+    transform-origin: left center; // [1]
     transition:       transform $tracks-list-item__transition-time * 2 $tracks-list-item__transition-easing;
   }
 }
@@ -155,12 +168,14 @@
 .js-tracks-list-buttons__transition {
   &-enter,
   &-leave-to {
+    // 1. Modifie la position pour l'adapter a la liste des pistes fermee.
     &.c-tracks-list-close {
-      left: $control-panel__size - $tracks-list-close__size;
+      left: $control-panel__size - $tracks-list-close__size; // [1]
     }
 
+    // 1. Modifie la position pour l'adapter a la liste des pistes fermee.
     .c-tracks-list-waypoint-scroller {
-      left: $control-panel__size - $tracks-list-waypoint-scroller__size;
+      left: -$tracks-list-waypoint-scroller__size; // [1]
     }
   }
 }

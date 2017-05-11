@@ -40,19 +40,23 @@
     }
   }
 
+  // 1. https://material.io/icons/#ic_play_arrow
   &--play .c-tracks-list-item-action__icon::before {
-    content: 'play_arrow';
+    content: 'play_arrow'; // [1]
   }
 
+  // 1. https://material.io/icons/#ic_delete
   &--remove .c-tracks-list-item-action__icon::before {
-    content: 'delete';
+    content: 'delete'; // [1]
   }
 
+  // 1. https://material.io/icons/#ic_person
   &--goto-artist .c-tracks-list-item-action__icon::before {
-    content: 'person';
+    content: 'person'; // [1]
   }
 
+  // 1. https://material.io/icons/#ic_album
   &--goto-album .c-tracks-list-item-action__icon::before {
-    content: 'album';
+    content: 'album'; // [1]
   }
 }

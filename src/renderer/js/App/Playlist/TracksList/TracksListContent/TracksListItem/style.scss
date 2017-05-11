@@ -4,6 +4,7 @@
 //
 @import 'loader';
 
+// 1. Definit le point a partir duquel la rotation doit etre effectuee.
 .c-tracks-list-item {
   @include centered;
 
@@ -12,7 +13,7 @@
   padding-left:     $control-panel__size;
   cursor:           pointer;
   transform:        translateY(-50%);
-  transform-origin: 0 50% 0;
+  transform-origin: left center; // [1]
   transition:       transform $tracks-list-item__transition-time * 2 $tracks-list-item__transition-easing;
 
   &:hover {
@@ -25,18 +26,21 @@
     }
   }
 
+  // 1. Calcule l'espace disponible.
+  // 2. Padding calcule pour remplir l'espace restant.
+  // 3. Coupe le texte.
   &__content {
     display:       inline-block;
-    width:         $tracks-list__size - $control-panel__size - $tracks-list-item__height;
+    width:         $tracks-list__size - $control-panel__size - $tracks-list-item-menu-toggler__width; // [1]
     height:        100%;
-    padding:       0 ($tracks-list-item__height - $tracks-list-item-content__font-size) / 2;
+    padding:       0 ($tracks-list-item__height - $tracks-list-item-content__font-size) / 2; // [2]
     color:         $text__color--light;
     font-size:     $tracks-list-item-content__font-size;
     line-height:   $tracks-list-item__height;
     opacity:       .8;
-    overflow:      hidden;
-    text-overflow: ellipsis;
-    white-space:   nowrap;
+    overflow:      hidden; // [3]
+    text-overflow: ellipsis; // [3]
+    white-space:   nowrap; // [3]
   }
 }
 
@@ -47,7 +51,7 @@
   @include button-reset;
 
   float:         left;
-  width:         $tracks-list-item__height;
+  width:         $tracks-list-item-menu-toggler__width;
   height:        100%;
   border-radius: 50%;
   cursor:        pointer;
@@ -56,22 +60,25 @@
   text-align:    center;
   transition:    opacity $tracks-list-item__transition-time;
 
+  // 1. https://material.io/icons/#ic_more_horiz
   &__icon::before {
     @include material-icon;
 
     color:       $text__color--light;
-    content:     'more_horiz';
+    content:     'more_horiz'; // [1]
     line-height: 1;
   }
 }
 
+// 1. Calcule l'espace disponible.
+// 2. Desactive le curseur herite du parent (ce dernier etant en pointeur).
 .c-tracks-list-item-menu {
   display: inline-block;
-  width:   $tracks-list__size - $control-panel__size - $tracks-list-item__height;
+  width:   $tracks-list__size - $control-panel__size - $tracks-list-item__height; // [1]
   height:  100%;
   margin:  0;
   padding: 0;
-  cursor:  default;
+  cursor:  default; // [2]
 
   li {
     display: inline-block;
