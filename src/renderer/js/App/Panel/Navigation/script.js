@@ -18,16 +18,19 @@ export default {
     ]),
 
     /**
-     * Recupere les noms des panelPreset.
-     * @returns {Array<String>} Les noms des panelPreset.
+     * Recupere les noms des panel presets.
+     * @returns {Array<String>} Les noms des panel presets.
      */
     panelLinks () {
       const panelPresets = this.$store.state.settings.panel.panelPresets
-      const panelLinks = [] // Array des noms des panelPreset.
+      // Liste des noms des panel presets.
+      const panelLinks = []
 
+      // Parcours tout les panel presets.
       for (const panelPreset in panelPresets) {
-        // Verifie si panelPreset est bien une propriete de panelPresets.
+        // Verifie si panel preset est bien une propriete de panel presets.
         if (panelPresets.hasOwnProperty(panelPreset)) {
+          // Ajoute le nom du panel preset a la liste.
           panelLinks.push(panelPreset)
         }
       }
@@ -35,62 +38,75 @@ export default {
     },
 
     /**
-     * Verifie si le panel affiche est un panelPreset.
-     * @returns {String|null} Le nom du panelPreset en cours ou null si le panel en cours n'est pas un preset.
+     * Verifie si le panel affiche est un panel preset.
+     * @returns {String|null} Le nom du panel preset courant ou null si le panel en cours n'est pas un preset.
      */
     activePanelPreset () {
       const panelPresets = this.$store.state.settings.panel.panelPresets
 
+      // Parcours tout les panel presets.
       for (const panelPreset in panelPresets) {
-        // Verifie si panelPreset est bien une propriete de panelPresets.
+        // Verifie si panel preset est bien une propriete de panel presets,
+        // et si le panel preset correspond a la configuration du panel courant.
         if (panelPresets.hasOwnProperty(panelPreset) && panelPresets[panelPreset] === this.getCurrentPanelConfig) {
           return panelPreset
         }
       }
       return null
-    },
-
-    activeTitle () {
-      return this.getCurrentPanelConfig.title
     }
   },
 
   methods: {
     ...mapActions('panel', ['setCustomPanelConfig', 'setPreviousPanelConfig']),
 
+    /**
+     * Formate une chaine de caracteres en 'snake-case' avec une expression reguliere.
+     * @param {String} string - La chaine a formater.
+     * @returns {String} La chaine formatee.
+     */
     toSnakeCase: string => string.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`),
 
     /**
      * Si possible reviens sur le panel precedent, sinon ne fait rien.
-     * @returns {null} Si l'historique est vide.
      */
     backPanel () {
-      if (this.thereIsPreviousHistoryEntry === true) {
-        return null
-      } else {
+      // Verifie si l'historique permet un retour en arriere.
+      if (this.thereIsPreviousHistoryEntry) {
+        // Set la configuration du panel precedente.
         this.setPreviousPanelConfig()
       }
     },
 
+    /**
+     * Si possible accede sur le panel suivant dans l'historique, sinon ne fait rien.
+     */
     forwardPanel () {
-      if (this.thereIsNextHistoryEntry === true) {
-        return null
-      } else {
-        const activePanelhistoryIndex = this.getHistoryConfigPanelsTitles.indexOf(this.activeTitle)
+      // Verifie si l'historique permet un retour en arriere.
+      if (this.thereIsNextHistoryEntry) {
+        // Index dans l'historique de la configuration actuelle.
+        const activePanelhistoryIndex = this.getHistoryConfigPanelsTitles
+                                            .indexOf(this.getCurrentPanelConfig.title)
+        // Set la configuration suivante dans l'historique.
         this.setCustomPanelConfig(activePanelhistoryIndex + 1)
       }
     },
 
     /**
-     * Affiche un panelPreset.
-     * @param {String} preset - Le nom du panelPreset a afficher.
+     * Affiche un panel preset.
+     * @param {String} preset - Le nom du panel preset a afficher.
      */
     setPreset (preset) {
       this.setCustomPanelConfig(preset)
     },
 
-    setSelectedPanel (index) {
-      const historyIndex = this.getHistoryConfigPanelsTitles.indexOf(index)
+    /**
+     * Affiche le panel de l'historique correspondant a un titre de panel.
+     * @param {String} title - Le titre du panel de l'historique a afficher.
+     */
+    setSelectedPanel (title) {
+      // Index dans l'historique du panel correspondant au titre.
+      const historyIndex = this.getHistoryConfigPanelsTitles.indexOf(title)
+      // Set la configuration de l'historique correspondante.
       this.setCustomPanelConfig(historyIndex)
     }
   }

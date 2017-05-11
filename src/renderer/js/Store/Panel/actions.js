@@ -28,64 +28,63 @@ import settings from '../Settings'
 export default {
 
   /**
-   * Set la configuration suivante.
-   * @param {Criterion} newCriterion - Le Criterion a ajouter a la configuration.
+   * Determine si deux configurations sont egales.
+   * @param {{panelConfigA: PanelConfig, panelConfigB: PanelConfig}} payload.
+   * @return {Boolean}
    */
-  setNextPanelConfig (context, newCriterion) {
-    // Construit la nouvelle configuration.
-    const currentPanelConfig = context.state.currentPanelConfig
-    const newCriteriaSet = new CriteriaSet()
-    const nextCriterionType = context.getters.getNextPanelConfigCriterionType(currentPanelConfig.criterionType)
+  comparePanelConfigs (context, payload) {
+    // Recupere les valeurs du payload.
+    // panelConfigA et B : les deux configurations a comparer.
+    const {panelConfigA, panelConfigB} = payload
 
-    // Copie les Criteria de la configuration actuelle vers la nouvelle configuration.
-    Object.assign(newCriteriaSet.criteria, currentPanelConfig.criteriaSet.criteria)
-    newCriteriaSet.add(newCriterion)
+    // Verifie si le type de critere est le meme.
+    if (panelConfigA.criterionType === panelConfigB.criterionType) {
+      // Parcours les criteres.
+      for (const criterionType in panelConfigA.criteriaSet.criteria) {
+        // Verifie que le type de critere est bien une propriete de l'ensemble de criteres.
+        if (panelConfigA.criteriaSet.criteria.hasOwnProperty(criterionType)) {
+          // Recupere les deux valeurs des criteres A et B.
+          const criterionA = panelConfigA.criteriaSet.criteria[criterionType].value
+          const criterionB = panelConfigB.criteriaSet.criteria[criterionType].value
 
-    const newPanelTitle = newCriteriaSet.criteria[currentPanelConfig.criterionType].value
-    const newPanelConfig = new PanelConfig(newCriteriaSet, nextCriterionType, newPanelTitle)
-
-    // Verifie si la nouvelle configuration se trouve deja dans l'historique.
-    if (newPanelConfig === context.state.panelHistory[context.getters.getCurrentPanelConfigHistoryIndex]) {
-      // Si oui : set la configuration.
-      context.commit('SET_PANELCONFIG', newPanelConfig)
-    } else {
-      // Si non : efface toutes les entree suivant la configuration actuelle dans l'historique et set la nouvelle
-      // configuration.
-      context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX', context.getters.getCurrentPanelConfigHistoryIndex + 2)
-      context.commit('ADD_PANELHISTORY_ENTRY', newPanelConfig)
-      context.commit('SET_PANELCONFIG', newPanelConfig)
-      context.dispatch('loadCurrentPanelElements')
+          // Compare les valeurs des deux criteres.
+          if (criterionA !== criterionB) {
+            return false
+          }
+        }
+      }
+      return true
     }
+    return false
   },
 
   /**
-   * Set la configuration precedente.
-   */
-  setPreviousPanelConfig (context) {
-    context.commit('SET_PANELCONFIG', context.getters.getPreviousPanelConfig)
-    context.dispatch('loadCurrentPanelElements')
-  },
-
-  /**
-   * Set une configuration personalisee.
-   * @param {(PanelConfig|String|Number|{decisiveCriteriaSet: DecisiveCriteriaSet, criterionType: String})} panelConfig
+   * Set une configuration du panel personalisee en fonction du type d'argument passe.
+   * @param {(String|Number|{decisiveCriteriaSet: DecisiveCriteriaSet, criterionType: String})} payload.
    */
   setCustomPanelConfig (context, payload) {
+    // Si l'argument n'est pas un nombre.
     if (typeof payload !== 'number') {
+      // Vide l'historique.
       context.commit('CLEAR_PANELHISTORY')
 
-      // Set une la configuration a partir d'un decisiveCriteriaSet et d'un type de critere.
+      // Set une la configuration a partir d'un ensemble de critere determinants et d'un type de critere.
       if (payload.decisiveCriteriaSet) {
+        // Recupere les valeur du payload.
         const {decisiveCriteriaSet, criterionType} = payload
 
+        // Construction de la nouvelle configuration.
+        // Le nouvel ensemble de criteres.
         const newCriteriaSet = new CriteriaSet()
+        // Le nouveau type de critere.
         const newCriterionType = context.getters.getNextPanelConfigCriterionType(criterionType)
+        // Le nouveau titre.
         const newTitle = decisiveCriteriaSet.criteria[criterionType].value
-
+        // Ajout du critere a l'ensemble de critere.
         newCriteriaSet.add(new Criterion(criterionType, newTitle))
-
+        // Nouvelle configuration.
         const newPanelConfig = new PanelConfig(newCriteriaSet, newCriterionType, newTitle)
-
+        // Set la nouvelle configuration.
         context.commit('SET_PANELCONFIG', newPanelConfig)
       }
 
@@ -94,6 +93,7 @@ export default {
         context.commit('SET_PANELCONFIG', settings.state.panel.panelPresets[payload])
       }
 
+      // Ajoute la nouvelle configuration a l'historique.
       context.commit('ADD_PANELHISTORY_ENTRY', context.state.currentPanelConfig)
     } else {
       // Set une configuration a partir d'un index dans l'historique.
@@ -105,57 +105,131 @@ export default {
   },
 
   /**
-   * Action permettant de changer les les parametres de tri (type de critere et inversion du tri)
+   * Set la configuration du panel suivant.
+   * @param {Criterion} newCriterion - Le critere a ajouter a la configuration.
+   */
+  setNextPanelConfig (context, newCriterion) {
+    // Configuration actuelle.
+    const currentPanelConfig = context.state.currentPanelConfig
+
+    // Construit la nouvelle configuration.
+    // Nouvel ensemble de criteres.
+    const newCriteriaSet = new CriteriaSet()
+
+    // Nouveau type de critere.
+    const nextCriterionType = context.getters.getNextPanelConfigCriterionType(currentPanelConfig.criterionType)
+
+    // Copie l'ensemble de criteres actuel vers le nouvel ensemble de criteres.
+    Object.assign(newCriteriaSet.criteria, currentPanelConfig.criteriaSet.criteria)
+    // Ajoute le nouveau critere.
+    newCriteriaSet.add(newCriterion)
+
+    // Titre de la nouvelle configuration.
+    const newPanelTitle = newCriteriaSet.criteria[currentPanelConfig.criterionType].value
+
+    // Nouvelle configuration.
+    const newPanelConfig = new PanelConfig(newCriteriaSet, nextCriterionType, newPanelTitle)
+
+    // Verifie si la nouvelle configuration se trouve deja dans l'historique.
+    // Verifie s'il existe une configuration suivante.
+    if (context.getters.thereIsNextHistoryEntry) {
+      // Configuration suivante dans l'historique.
+      const nextHistoryPanelConfig = context.state.panelHistory[context.getters.getCurrentPanelConfigHistoryIndex + 1]
+
+      // Verifie si la configuration suivante correspond a la nouvelle configuration.
+      if (context.dispatch('comparePanelConfigs', {
+        panelConfigA: newPanelConfig,
+        panelConfigB: nextHistoryPanelConfig
+      })) {
+        // Set la configuration suivante.
+        context.commit('SET_PANELCONFIG', newPanelConfig)
+      }
+    } else {
+      // Sinon, efface toutes les entrees suivant la configuration actuelle dans l'historique et set la nouvelle
+      // configuration.
+      // Efface toutes les entrees suivant la configuration actuelle dans l'historique.
+      context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX', context.getters.getCurrentPanelConfigHistoryIndex + 2)
+      // Ajoute la nouvelle configuration a l'historique.
+      context.commit('ADD_PANELHISTORY_ENTRY', newPanelConfig)
+      // Set la nouvelle configuration.
+      context.commit('SET_PANELCONFIG', newPanelConfig)
+    }
+
+    // Met a jour les elements du panel.
+    context.dispatch('loadCurrentPanelElements')
+  },
+
+  /**
+   * Set la configuration du panel precedent.
+   */
+  setPreviousPanelConfig (context) {
+    // Set la configuration precedente.
+    context.commit('SET_PANELCONFIG', context.getters.getPreviousPanelConfig)
+    // Met a jour les elements du panel.
+    context.dispatch('loadCurrentPanelElements')
+  },
+
+  /**
+   * Action permettant de changer les parametres de tri (type de critere et inversion du tri)
    * et de charger les elements tries avec les nouveaux parametres.
    * @param {String} newSortCriteriaType - Le nouveau type de critere de tri.
    */
   setCurrentPanelElementsSorting (context, newSortCriteriaType) {
     // Change le type de critere de tri si il a ete a passe en argument.
     if (newSortCriteriaType !== undefined) {
+      // Desactive l'inversion du tri.
       if (context.getters.isRevertSort) {
-        console.log('FAlSE')
         context.commit('TOGGLE_SORT_REVERT')
       }
+      // Definit le nouveau type de critere de tri.
       context.commit('SET_CURRENT_PANELCONFIG_ACTIVESORTCRITERIONTYPE', newSortCriteriaType)
     } else {
       // Sinon active ou desactive l'inversion du tri.
       context.commit('TOGGLE_SORT_REVERT')
     }
+
     // Met a jour les elements.
+    // Elements courants.
     const elements = context.state.currentPanelElements.decisiveCriteriaSets
+    // Elements courants tries selon les nouveaux parametres.
     const sortedElements = context.getters.getSortedDecisiveCriteriaSets(elements)
+    // Met a jour les elements du panels
     context.commit('SET_CURRENTPANELELEMENTS', {decisiveCriteriaSets: sortedElements})
-    context.dispatch('loadCurrentPanelElements')
   },
 
   /**
-   * Charge les éléments du panel pour tout les types d'affichage en cours (items ou liste) en fonction de la
-   * configuration du panel courante.
+   * Charge les elements (les ensembles de criteres et les ensembles de criteres determinants) du panel
+   * en fonction de la configuration du panel.
+   * @throws {Error} Lance une exception la recuperation des ensembles de criteres via l'IPC echoue.
+   * @throws {Error} Lance une exception la recuperation des ensembles de criteres determinants via l'IPC echoue.
    */
   loadCurrentPanelElements (context) {
+    // Type de critere de la configuration.
     const currentConfigCriterionType = context.state.currentPanelConfig.criterionType
+    // Ensemble de criteres de la configuration.
     const currentConfigCriteriaSet = context.state.currentPanelConfig.criteriaSet
 
-    // Charge les elements de type 'liste'.
-    currentConfigCriteriaSet.resolveDecisiveCriteriaSetFootprints()
-                            .then(DCSsFootprints => {
-                              // Convertit les DecisiveCriteriaSetsFootprints en DecisiveCriteriaSets.
-                              const DCSs = context.getters.getConvertedDecisiveCriteriaSets(DCSsFootprints)
-                              // Trie les DecisiveCriteriaSets.
-                              const sortedDCSs = context.getters.getSortedDecisiveCriteriaSets(DCSs)
+    // Charge les ensembles de criteres.
+    currentConfigCriteriaSet.resolveCriteriaByType(currentConfigCriterionType)
+                            .then(criteriaSets => {
+                              // Trie les ensembles de criteres.
+                              const sortedCriteriaSets = context.getters.getSortedCriteriaSets(criteriaSets)
                               // Met a jour les elements du panel.
-                              context.commit('SET_CURRENTPANELELEMENTS', {decisiveCriteriaSets: sortedDCSs})
+                              context.commit('SET_CURRENTPANELELEMENTS', {criteriaSets: sortedCriteriaSets})
                             })
                             .catch(reason => {
                               throw new Error(reason)
                             })
-    // Charge les elements de type 'item'.
-    currentConfigCriteriaSet.resolveCriteriaByType(currentConfigCriterionType)
-                            .then(criteriaSets => {
-                              // Trie les CriteriaSets.
-                              const sortedCriteriaSets = context.getters.getSortedCriteriaSets(criteriaSets)
+
+    // Charge les ensembles de criteres determinants.
+    currentConfigCriteriaSet.resolveDecisiveCriteriaSetFootprints()
+                            .then(DCSsFootprints => {
+                              // Convertit les DecisiveCriteriaSetsFootprints en ensembles de criteres determinants.
+                              const DCSs = context.getters.getConvertedDecisiveCriteriaSets(DCSsFootprints)
+                              // Trie les ensembles de criteres determinants.
+                              const sortedDCSs = context.getters.getSortedDecisiveCriteriaSets(DCSs)
                               // Met a jour les elements du panel.
-                              context.commit('SET_CURRENTPANELELEMENTS', {criteriaSets: sortedCriteriaSets})
+                              context.commit('SET_CURRENTPANELELEMENTS', {decisiveCriteriaSets: sortedDCSs})
                             })
                             .catch(reason => {
                               throw new Error(reason)

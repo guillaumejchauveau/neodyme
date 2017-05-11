@@ -13,6 +13,7 @@
   &__value {
     cursor:      pointer;
     line-height: $listrow__height;
+    //width: 100%;
 
     &--tracknumber {
       width:     $listrow--tracknumber__width;
