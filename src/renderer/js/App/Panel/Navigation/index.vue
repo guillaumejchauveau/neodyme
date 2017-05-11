@@ -5,7 +5,7 @@
         <ul>
           <li>
             <button class="c-navigation-button c-navigation-button--back"
-                    :class="{'c-navigation-button--disabled': thereIsPreviousHistoryEntry}"
+                    :class="{'c-navigation-button--disabled': !thereIsPreviousHistoryEntry}"
                     @click="backPanel()"
                     v-ripple>
               <span></span>
@@ -13,7 +13,7 @@
           </li>
           <li>
             <button class="c-navigation-button c-navigation-button--forward"
-                    :class="{'c-navigation-button--disabled': thereIsNextHistoryEntry}"
+                    :class="{'c-navigation-button--disabled': !thereIsNextHistoryEntry}"
                     @click="forwardPanel()"
                     v-ripple>
               <span></span>
@@ -26,7 +26,7 @@
         <ul>
           <li v-for="title in getHistoryConfigPanelsTitles"
               class="c-navigation-title"
-              :class="{'c-navigation-title--active': activeTitle === title}">
+              :class="{'c-navigation-title--active': getCurrentPanelConfig.title === title}">
             <span class="c-navigation-title__content"
                   @click="setSelectedPanel(title)">
               <span class="c-navigation-title__text">{{title}}</span>

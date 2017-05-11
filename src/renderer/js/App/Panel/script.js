@@ -37,16 +37,22 @@ export default {
     ...mapActions('playlist', ['addDecisiveCriteriaSet', 'clear', 'play']),
 
     /**
-     * Lit tout les titre correspondant aux elements affiche.
+     * Lit tout les titres correspondants aux elements affiches.
+     * @throws {Error} Lance une exception si l'effacement de la liste de lecture echoue.
      */
     playAll () {
+      // Arrete et efface la liste de lecture.
       this.clear().then(() => {
+        // Ajoute les ensembles de criteres determinants courants a la liste de lecture.
         this.getCurrentPanelElements
             .decisiveCriteriaSets
-            .forEach(DCS => {
-              this.addDecisiveCriteriaSet(DCS)
+            .forEach(decisiveCriteriaSet => {
+              this.addDecisiveCriteriaSet(decisiveCriteriaSet)
             })
-        this.play()
+        // Lance la lecture.
+        this.play().catch(err => {
+          throw err
+        })
       }).catch(err => {
         throw err
       })
@@ -54,8 +60,8 @@ export default {
   },
 
   /**
-   * Fonction lancee quand le composant est monte.
-   * Initialise le Panel en affichant le panelPreset initial.
+   * Fonction lancee quand le composant avant que le composant Panel soit monte.
+   * Initialise le Panel en affichant le preset de panel initial.
    */
   beforeMount () {
     const initialPanel = this.$store.state.settings.panel.initialPanel

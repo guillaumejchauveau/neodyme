@@ -7,8 +7,8 @@
 export default {
 
   /**
-   * Set un PanelConfig.
-   * @param {PanelConfig} panelConfig - Le PanelConfig.
+   * Set la configuration courante du panel.
+   * @param {PanelConfig} panelConfig - La nouvelle configuration.
    */
   SET_PANELCONFIG (state, panelConfig) {
     state.currentPanelConfig = panelConfig
@@ -20,9 +20,11 @@ export default {
    *   elements du panel.
    */
   SET_CURRENTPANELELEMENTS (state, elements) {
+    // Set les ensembles de criteres determinants du panel.
     if (elements.decisiveCriteriaSets) {
       state.currentPanelElements.decisiveCriteriaSets = elements.decisiveCriteriaSets
     }
+    // Set les ensembles de criteres du panel.
     if (elements.criteriaSets) {
       state.currentPanelElements.criteriaSets = elements.criteriaSets
     }
@@ -41,7 +43,9 @@ export default {
    * @param {Number} index - index.
    */
   REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX (state, index) {
+    // Parcours l'historique a l'envers jusqu'a l'index.
     for (let panelConfigIndex = state.panelHistory.length; panelConfigIndex >= index; panelConfigIndex--) {
+      // Efface l'entree.
       state.panelHistory.pop()
     }
   },
@@ -69,7 +73,8 @@ export default {
   },
 
   /**
-   * Definit le titre selectionne dans la liste.
+   * Set le titre selectionne dans la liste.
+   * @param {DecisiveCriteriaSet} element - Le titre selectionne.
    */
   SET_SELECTEDLISTROW (state, element) {
     state.selectedListRow = element
