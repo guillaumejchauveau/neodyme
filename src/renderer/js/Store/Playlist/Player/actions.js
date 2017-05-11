@@ -44,7 +44,7 @@ export default {
     // Connecte la source audio a la sortie audio.
     context.state.audioSource.connect(context.state.audioContext.destination)
 
-    // Cree un interval charge de mettre a jour la position toutes les 1 secondes.
+    // Cree un intervalle charge de mettre a jour la position toutes les 1 secondes.
     const positionUpdaterIntervalID = setInterval(() => {
       context.dispatch('updatePosition')
     }, 1000)
@@ -64,7 +64,7 @@ export default {
       // Si position correspond a la duree (moins 1 seconde pour eviter des problemes d'arrondis).
       if (context.state.position >= context.state.duration - 1) {
         context.commit('SET_POSITION', context.state.duration)
-        // Emet un evenement pour indiquer que la source audio est arrivee au bout des donnees audio.
+        // Emet un evenement pour indiquer que la source audio est arrivee en bout de piste.
         context.state.emitter.emit('endReached')
       } else {
         // Emet un evenement pour indiquer que la source audio a ete arretee manuellement.

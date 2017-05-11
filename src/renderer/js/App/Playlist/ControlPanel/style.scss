@@ -4,25 +4,29 @@
 //
 @import 'loader';
 
+// 1. Centre par rapport au parent, la moitie gauche est donc encore cachee.
 .c-control-panel {
   @include mdc-elevation(3);
-  @include centered;
+  @include centered; // [1]
 
-  width:            $control-panel__size * 2;
+  width:            $control-panel__size * 2; // [1]
   height:           $control-panel__size * 2;
   border-radius:    50%;
   background-color: $color--primary;
   overflow:         hidden;
 
+  // 1. Les sous-elements sont positionnes en absolu par rapport a la gauche, le haut et le bas, pas besoin de largeur.
+  // 2. Compense la moitie gauche cachee du parent.
   &__content {
     position:    relative;
-    width:       0;
+    width:       0; // [1]
     height:      100%;
-    margin-left: 50%;
+    margin-left: 50%; // [2]
     color:       $text__color--light;
   }
 }
 
+// 1. Angle par defaut pour cacher entierement l'indicateur de position.
 .c-control-panel-position-indicator {
   position:            absolute;
   width:               100%;
@@ -31,7 +35,7 @@
   border:              $control-panel-position-indicator__size solid transparent;
   border-bottom-color: $control-panel-position-indicator__color;
   border-left-color:   $control-panel-position-indicator__color;
-  transform:           rotate(45deg);
+  transform:           rotate(45deg); // [1]
 }
 
 .c-control-panel-position {
@@ -60,6 +64,11 @@
     @include mdc-ripple-fg((pseudo: '::after', base-color: $text__color--light));
     @include mdc-elevation(2);
 
+    border-radius:    50%;
+    background-color: $bg__color--dark-primary;
+    color:            $text__color--light;
+    overflow:         hidden;
+
     &.c-control-panel-control--disabled {
       @include remove-mdc-ripple;
       @include mdc-elevation(0);
@@ -87,93 +96,102 @@
     }
   }
 
+  // 1. Centre verticalement le bouton principal.
+  // 2. Centre horizontalement le bouton principal en ajoutant un decalage arbitraire.
+  // 3. Place le bouton principal au dessus des autres boutons.
   &--main {
-    top:              $control-panel__size - $control-panel-control__size--main / 2;
-    left:             $control-panel__size / 2 - ($control-panel-control__size--main / 2) +
-      $control-panel-control__horiz-offset--main;
-    width:            $control-panel-control__size--main;
-    height:           $control-panel-control__size--main;
-    border-radius:    50%;
-    background-color: $bg__color--dark-primary;
-    color:            $text__color--light;
-    font-size:        $control-panel-control__font-size--main;
-    overflow:         hidden;
-    z-index:          5;
+    top:       $control-panel__size - $control-panel-control__size--main / 2; // [1]
+    left:      $control-panel__size / 2 - $control-panel-control__size--main / 2 +
+      $control-panel-control__horiz-offset--main; // [2]
+    width:     $control-panel-control__size--main;
+    height:    $control-panel-control__size--main;
+    font-size: $control-panel-control__font-size--main;
+    z-index:   5; // [3]
 
+    // 1. https://material.io/icons/#ic_play_arrow
     .c-control-panel-control__icon::before {
-      content:     'play_arrow';
+      content:     'play_arrow'; // [1]
       line-height: $control-panel-control__size--main;
     }
   }
 
+  // 1. https://material.io/icons/#ic_pause
   &--pause .c-control-panel-control__icon::before {
-    content: 'pause';
+    content: 'pause'; // [1]
   }
 
+  // 1. Centre verticalement les boutons de navigations avec un decalage:
+  //  - la premiere ligne correspond au bord superieur du bouton pricipal
+  //  - la deuxieme au decalage.
+  // 2. Centre horizontalement les boutons de navigations de la meme facon que pour le bouton principal.
   &--previous,
   &--next {
-    top:              $control-panel__size - $control-panel-control__size--main / 2 -
-      $control-panel-control__size--nav * $control-panel-control__vert-offset-ratio--nav;
-    left:             $control-panel__size / 2 - ($control-panel-control__size--nav / 2) +
-      $control-panel-control__horiz-offset--main;
-    width:            $control-panel-control__size--nav;
-    height:           $control-panel-control__size--nav;
-    border-radius:    50%;
-    background-color: $bg__color--dark-primary;
-    color:            $text__color--light;
-    font-size:        $control-panel-control__font-size--nav;
-    overflow:         hidden;
+    top:       $control-panel__size - $control-panel-control__size--main / 2 +
+      $control-panel-control__size--nav * $control-panel-control__vert-offset-ratio--nav; // [1]
+    left:      $control-panel__size / 2 - $control-panel-control__size--nav / 2 +
+      $control-panel-control__horiz-offset--main; // [2]
+    width:     $control-panel-control__size--nav;
+    height:    $control-panel-control__size--nav;
+    font-size: $control-panel-control__font-size--nav;
 
+    // 1. Compense le decalage vertical du parent.
+    // 2. https://material.io/icons/#ic_skip_next
+    // 3. Dirige l'icone vers le haut.
     .c-control-panel-control__icon::before {
-      margin-top:  -4px;
-      content:     'skip_next';
+      margin-top:  -$control-panel-control-icon__vert-offset--nav; // [1]
+      content:     'skip_next'; // [2]
       line-height: $control-panel-control__size--nav;
-      transform:   rotate(-90deg);
+      transform:   rotate(-90deg); // [3]
     }
   }
 
+  // 1. Centre verticalement le bouton de navigation 'suivant' avec un decalage:
+  //  - la premiere ligne correspond au bord inferieur du bouton pricipal
+  //  - la deuxieme au decalage.
   &--next {
-    top: $control-panel__size + $control-panel-control__size--main / 2 -
-      $control-panel-control__size--nav * (1 - $control-panel-control__vert-offset-ratio--nav);
+    top:    auto; // [1]
+    bottom: $control-panel__size - $control-panel-control__size--main / 2 +
+      $control-panel-control__size--nav * $control-panel-control__vert-offset-ratio--nav; // [1]
 
+    // 1. Dirige l'icone vers le bas.
     .c-control-panel-control__icon::before {
-      margin-top:    4px;
-      margin-bottom: 0;
-      transform:     rotate(90deg);
+      margin-top: $control-panel-control-icon__vert-offset--nav;
+      transform:  rotate(90deg); // [1]
     }
   }
 
+  // 1. Centre verticalement le bouton d'arret a 3/4 du panneau de commande.
+  // 2. Centre horizontalement le bouton d'arret a 1/4 du panneau de commande.
   &--stop {
-    top:              $control-panel__size * 1.5 - $control-panel-control__size--nav / 2;
-    left:             15px;
-    width:            $control-panel-control__size--nav;
-    height:           $control-panel-control__size--nav;
-    border-radius:    50%;
-    background-color: $bg__color--dark-primary;
-    color:            $text__color--light;
-    font-size:        $control-panel-control__font-size--nav;
-    overflow:         hidden;
+    top:       $control-panel__size * 1.5 - $control-panel-control__size--nav / 2; // [1]
+    left:      $control-panel__size / 4 - $control-panel-control__size--nav / 2; // [2]
+    width:     $control-panel-control__size--nav;
+    height:    $control-panel-control__size--nav;
+    font-size: $control-panel-control__font-size--nav;
 
+    // 1. https://material.io/icons/#ic_stop
     .c-control-panel-control__icon::before {
-      content:     'stop';
+      content:     'stop'; // [1]
       line-height: $control-panel-control__size--nav;
     }
   }
 }
 
+// 1. Centre horizontalement le bouton d'arret a 1/8 du panneau de commande.
 .c-control-panel-menu {
   position: absolute;
   top:      50%;
-  left:     5px;
+  left:     $control-panel__size / 8; // [1]
 
+  // 1. Centre le bouton du menu par rapport au parent qui n'a pas de largeur.
   > .mdc-menu-anchor-btn {
     color:     $text__color--light;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%); // [1]
   }
 
+  // 1. Place le menu au dessus des boutons.
   > .mdc-simple-menu {
-    margin-left: 5px;
-    z-index:     15;
+    z-index: 15; // [1]
 
     .c-control-panel-menu-action {
       color:  $text__color;

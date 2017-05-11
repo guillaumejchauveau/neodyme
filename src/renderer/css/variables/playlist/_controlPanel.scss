@@ -7,11 +7,17 @@ $control-panel__size: 130px;
 
 $control-panel-position-indicator__size: 4px;
 $control-panel-position-indicator__color: rgba(0, 0, 0, .15);
+// Position des textes de la position et la duree.
 $control-panel-times__offsets: (5px, 15px);
 
 $control-panel-control__size--main: 48px;
 $control-panel-control__size--nav: 36px;
 $control-panel-control__font-size--main: 36px;
 $control-panel-control__font-size--nav: 24px;
+// Decalage horizontal du bouton principal.
 $control-panel-control__horiz-offset--main: 0;
-$control-panel-control__vert-offset-ratio--nav: 2 / 3;
+// Rapport du decalage vertical des boutons de navigation relatif au bouton principal
+// (1 signifie que les boutons sont a la limite du bouton principal).
+$control-panel-control__vert-offset-ratio--nav: -2 / 3;
+// Decalage vertical des icones des boutons de navigation pour compenser celui des parents.
+$control-panel-control-icon__vert-offset--nav: 4px;

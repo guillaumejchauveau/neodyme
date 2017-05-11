@@ -173,7 +173,7 @@ export default {
                                       context.dispatch('player/start', position)
                                              .then(() => {
                                                context.state.player.emitter.removeAllListeners('endReached')
-                                               // Fonction a executer quand le lecteur arrive en bout de piste.
+                                               // Fonction executee quand le lecteur arrive en bout de piste.
                                                context.state.player.emitter.once('endReached', () => {
                                                  context.dispatch('next')
                                                         .catch(() => {
