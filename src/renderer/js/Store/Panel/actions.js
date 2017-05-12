@@ -218,7 +218,7 @@ export default {
                               context.commit('SET_CURRENTPANELELEMENTS', {criteriaSets: sortedCriteriaSets})
                             })
                             .catch(reason => {
-                              throw new Error(reason)
+                              throw reason
                             })
 
     // Charge les ensembles de criteres determinants.
@@ -232,7 +232,7 @@ export default {
                               context.commit('SET_CURRENTPANELELEMENTS', {decisiveCriteriaSets: sortedDCSs})
                             })
                             .catch(reason => {
-                              throw new Error(reason)
+                              throw reason
                             })
   }
 }

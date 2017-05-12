@@ -59,11 +59,11 @@ export default {
         this.play(this.getCurrentPanelElements
                       .decisiveCriteriaSets
                       .indexOf(selectedElement))
-            .catch(err => {
-              throw new Error(err)
+            .catch(reason => {
+              throw reason
             })
-      }).catch(err => {
-        throw new Error(err)
+      }).catch(reason => {
+        throw reason
       })
     }
   }

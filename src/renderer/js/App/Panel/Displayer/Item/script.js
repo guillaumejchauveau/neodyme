@@ -41,15 +41,10 @@ export default {
   data: () => {
     return {
       /**
-       * Le texte de l'item.
-       * @type {String}
-       */
-      //itemName: String,
-      /**
        * La duree de defilement du texte de l'item.
        * @type {Number}
        */
-      itemTextScrollingDuration: Number
+      itemTextScrollingDuration: 0
     }
   },
 
@@ -79,11 +74,11 @@ export default {
             })
         // Lance la lecture.
         this.play()
-            .catch(err => {
-              throw new Error(err)
+            .catch(reason => {
+              throw reason
             })
-      }).catch(err => {
-        throw new Error(err)
+      }).catch(reason => {
+        throw reason
       })
     },
 
