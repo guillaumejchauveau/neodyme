@@ -41,6 +41,11 @@ export default {
   data: () => {
     return {
       /**
+       * Le texte de l'item.
+       * @type {String}
+       */
+      itemName: String,
+      /**
        * La duree de defilement du texte de l'item.
        * @type {Number}
        */
@@ -120,24 +125,6 @@ export default {
     ]),
 
     /**
-     * Recupere le nom de l'item dans l'ensemble de critere de l'item,
-     * si la valeur est nulle le nom de l'item est 'Inconnu'.
-     * @param {CriteriaSet} criteriaSet - L'ensemble de critere de l'item.
-     * @returns {String} Le nom de l'item.
-     */
-    itemName () {
-      // Le nom de l'item recupere depuis l'ensemble de critere de l'item.
-      const itemName = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
-
-      // Verifie si le nom de l'item n'est pas nul, sinon retourn 'Inconnu'.
-      if (itemName !== '') {
-        return itemName
-      } else {
-        return 'Inconnu'
-      }
-    },
-
-    /**
      * Definit si le texte depasse de l'item et donc doit defiler au survol de l'item.
      * @return {Boolean}
      */
@@ -152,15 +139,22 @@ export default {
      * @returns {Criterion} Le nouveau critere a ajouter a la configuration.
      */
     newCriterion () {
-      return new Criterion(this.getCurrentPanelConfig.criterionType, this.itemName)
+      const itemValue = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
+      const itemType = this.getCurrentPanelConfig.criterionType
+      return new Criterion(itemType, itemValue)
     }
   },
 
   /**
    * Fonction lancee quand le composant est monte,
+   * Recupere le texte de l'item a partir de l'ensemble de critere correspondant a l'item.
    * Recupere la longueur en pixel du nom de l'item et calcule la duree de l'animation de defilement.
    */
   mounted () {
+    // Texte de l'item
+    this.itemName = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
+
+    // Determine la vitesse de defilement du texte.
     if (this.isScrollingTextEnabled) {
       // 30px/s : Vitesse de defilement.
       this.itemTextScrollingDuration = this.$refs.scrollableText.clientWidth / 30

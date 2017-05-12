@@ -44,7 +44,7 @@ export default {
      * Formate la duree du titre d'un temps en secondes en une chaine de caracteres minutes et secondes.
      * @returns {String} La duree formatee.
      */
-    formattedDuration () {
+    formatedDuration () {
       const duration = this.element.criteria.duration.value
       let secondsString = Math.trunc(duration % 60) + ''
       let minutesString = Math.trunc(duration / 60) + ''

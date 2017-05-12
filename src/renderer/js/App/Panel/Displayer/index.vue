@@ -1,12 +1,14 @@
 <template>
   <div class="c-displayer">
-    <div class="c-displayer__items"
-         v-if="getCurrentPanelConfig.criterionType !== 'title' && !isEmptyDisplayer">
-      <item v-for="item in getCurrentPanelElements.criteriaSets"
-            :key="item"
-            :criteriaSet="item"></item>
+    <div class="c-displayer__elements" v-if="!isEmptyDisplayer">
+      <div class="c-displayer__elements-items"
+           v-if="getCurrentPanelConfig.criterionType !== 'title' && !isEmptyDisplayer">
+        <item v-for="item in getCurrentPanelElements.criteriaSets"
+              :key="item"
+              :criteriaSet="item"></item>
+      </div>
+      <list v-if="getCurrentPanelConfig.criterionType === 'title' && !isEmptyDisplayer"></list>
     </div>
-    <list v-if="getCurrentPanelConfig.criterionType === 'title' && !isEmptyDisplayer"></list>
     <div class="c-displayer__emptyscreen" v-if="isEmptyDisplayer">
       <div class="c-displayer__emptyscreen-text">Aucune piste trouvée</div>
       <div class="c-displayer__emptyscreen-logo">

@@ -11,4 +11,5 @@ $navigation-title__fontsize: 18px;
 $navigation__transition-duration: 200ms;
 // Computed Variables
 //
+// Calcule l'espacement des boutons par rapport au bord de la carte.
 $navigation-button__margin: ($navigation-card__height - $navigation-button__icon-size) / 2;

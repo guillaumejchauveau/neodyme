@@ -32,7 +32,7 @@
             @click="setPanelFromCriteria('artist')">{{element.criteria.artist.value}}</span>
     </td>
     <td class="c-listrow__value">
-      <span class="c-listrow-value-text">{{formattedDuration}}</span>
+      <span class="c-listrow-value-text">{{formatedDuration}}</span>
     </td>
   </tr>
 </template>
