@@ -61,8 +61,8 @@ config.set('providers', [
     exts: 'mp3|ogg|flac',
     duration: true,
     typeMappers: [
-      metadatas => metadatas.albumartist[0],
-      metadatas => metadatas.album,
+      metadatas => metadatas.albumartist[0] || 'Artiste inconnu',
+      metadatas => metadatas.album || 'Album inconnu',
       metadatas => metadatas.title,
       metadatas => metadatas.track.no,
       metadatas => metadatas.duration
