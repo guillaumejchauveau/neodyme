@@ -44,7 +44,7 @@ export default {
        * La duree de defilement du texte de l'item.
        * @type {Number}
        */
-      itemTextScrollingDuration: Number
+      itemTextScrollingDuration: 0
     }
   },
 
@@ -74,11 +74,11 @@ export default {
             })
         // Lance la lecture.
         this.play()
-            .catch(err => {
-              throw err
+            .catch(reason => {
+              throw reason
             })
-      }).catch(err => {
-        throw err
+      }).catch(reason => {
+        throw reason
       })
     },
 
@@ -119,22 +119,12 @@ export default {
       'getMatchingDecisiveCriteriaSets'
     ]),
 
-    /**
-     * Recupere le nom de l'item dans l'ensemble de critere de l'item,
-     * si la valeur est nulle le nom de l'item est 'Inconnu'.
-     * @param {CriteriaSet} criteriaSet - L'ensemble de critere de l'item.
-     * @returns {String} Le nom de l'item.
-     */
+  /**
+   * Recupere le nom de l'item dans l'ensemble de criteres de l'item.
+   * @return {String} Le nom de l'item.
+   */
     itemName () {
-      // Le nom de l'item recupere depuis l'ensemble de critere de l'item.
-      const itemName = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
-
-      // Verifie si le nom de l'item n'est pas nul, sinon retourn 'Inconnu'.
-      if (itemName !== '') {
-        return itemName
-      } else {
-        return 'Inconnu'
-      }
+      return this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
     },
 
     /**
@@ -152,13 +142,15 @@ export default {
      * @returns {Criterion} Le nouveau critere a ajouter a la configuration.
      */
     newCriterion () {
-      return new Criterion(this.getCurrentPanelConfig.criterionType, this.itemName)
+      const itemValue = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
+      const itemType = this.getCurrentPanelConfig.criterionType
+      return new Criterion(itemType, itemValue)
     }
   },
 
   /**
    * Fonction lancee quand le composant est monte,
-   * Recupere la longueur en pixel du nom de l'item et calcule la duree de l'animation de defilement.
+   * recupere la longueur en pixel du nom de l'item et calcule la duree de l'animation de defilement.
    */
   mounted () {
     if (this.isScrollingTextEnabled) {

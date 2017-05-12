@@ -50,11 +50,11 @@ export default {
               this.addDecisiveCriteriaSet(decisiveCriteriaSet)
             })
         // Lance la lecture.
-        this.play().catch(err => {
-          throw err
+        this.play().catch(reason => {
+          throw reason
         })
-      }).catch(err => {
-        throw err
+      }).catch(reason => {
+        throw reason
       })
     }
   },
