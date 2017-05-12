@@ -51,10 +51,10 @@ export default {
             })
         // Lance la lecture.
         this.play().catch(err => {
-          throw err
+          throw new Error(err)
         })
       }).catch(err => {
-        throw err
+        throw new Error(err)
       })
     }
   },

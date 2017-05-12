@@ -44,7 +44,7 @@ export default {
        * Le texte de l'item.
        * @type {String}
        */
-      itemName: String,
+      //itemName: String,
       /**
        * La duree de defilement du texte de l'item.
        * @type {Number}
@@ -80,10 +80,10 @@ export default {
         // Lance la lecture.
         this.play()
             .catch(err => {
-              throw err
+              throw new Error(err)
             })
       }).catch(err => {
-        throw err
+        throw new Error(err)
       })
     },
 
@@ -124,6 +124,14 @@ export default {
       'getMatchingDecisiveCriteriaSets'
     ]),
 
+  /**
+   * Recupere le nom de l'item dans l'ensemble de criteres de l'item.
+   * @return {String} Le nom de l'item.
+   */
+    itemName () {
+      return this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
+    },
+
     /**
      * Definit si le texte depasse de l'item et donc doit defiler au survol de l'item.
      * @return {Boolean}
@@ -147,14 +155,9 @@ export default {
 
   /**
    * Fonction lancee quand le composant est monte,
-   * Recupere le texte de l'item a partir de l'ensemble de critere correspondant a l'item.
-   * Recupere la longueur en pixel du nom de l'item et calcule la duree de l'animation de defilement.
+   * recupere la longueur en pixel du nom de l'item et calcule la duree de l'animation de defilement.
    */
   mounted () {
-    // Texte de l'item
-    this.itemName = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
-
-    // Determine la vitesse de defilement du texte.
     if (this.isScrollingTextEnabled) {
       // 30px/s : Vitesse de defilement.
       this.itemTextScrollingDuration = this.$refs.scrollableText.clientWidth / 30
