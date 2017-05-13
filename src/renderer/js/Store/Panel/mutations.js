@@ -4,13 +4,23 @@
  * @copyright Paul Charpentier 2017.
  */
 
+/**
+ * Classe PanelConfig.
+ * @type {PanelConfig}
+ */
+import PanelConfig from '../../PanelConfig'
+
 export default {
 
   /**
    * Set la configuration courante du panel.
    * @param {PanelConfig} panelConfig - La nouvelle configuration.
+   * @throws {TypeError} Lance une exception si la configuration n'est pas reconnue.
    */
   SET_PANELCONFIG (state, panelConfig) {
+    if (!(panelConfig instanceof PanelConfig)) {
+      throw new TypeError('Unrecognized panelConfig')
+    }
     state.currentPanelConfig = panelConfig
   },
 
@@ -33,18 +43,26 @@ export default {
   /**
    * Ajoute une PanelConfig a l'historique.
    * @param {PanelConfig} panelConfig - La PanelConfig a ajouter.
+   * @throws {TypeError} Lance une exception si la configuration n'est pas reconnue.
    */
   ADD_PANELHISTORY_ENTRY (state, panelConfig) {
+    if (!(panelConfig instanceof PanelConfig)) {
+      throw new TypeError('Unrecognized panelConfig')
+    }
     state.panelHistory.push(panelConfig)
   },
 
   /**
    * Efface toutes les dernieres entrees de l'historique jusqu'a un certain index.
    * @param {Number} index - index.
+   * @throws {TypeError} Lance une exception si l'index n'est pas reconnu.
    */
   REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX (state, index) {
+    if (!(typeof index === 'number')) {
+      throw new TypeError('Unrecognized index')
+    }
     // Parcours l'historique a l'envers jusqu'a l'index.
-    for (let panelConfigIndex = state.panelHistory.length; panelConfigIndex >= index; panelConfigIndex--) {
+    for (let panelConfigIndex = state.panelHistory.length; panelConfigIndex > index; panelConfigIndex--) {
       // Efface l'entree.
       state.panelHistory.pop()
     }

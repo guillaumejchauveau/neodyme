@@ -120,11 +120,16 @@ export default {
     ]),
 
   /**
-   * Recupere le nom de l'item dans l'ensemble de criteres de l'item.
+   * Recupere le nom de l'item dans l'ensemble de criteres de l'item,
+   * et gere les problemes de syncronicite au changement de panel.
    * @return {String} Le nom de l'item.
    */
     itemName () {
-      return this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
+      try {
+        return this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
+      } catch (e) {
+        return ''
+      }
     },
 
     /**

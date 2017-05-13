@@ -5,10 +5,16 @@
  */
 
 /**
- * Classe DecisiveCriteriaSet.
+ * Classe CriteriaSet.
  * @type {CriteriaSet}
  */
+import CriteriaSet from '../../Criterion/CriteriaSet'
+/**
+ * Classe DecisiveCriteriaSet.
+ * @type {DecisiveCriteriaSet}
+ */
 import DecisiveCriteriaSet from '../../Criterion/CriteriaSet/DecisiveCriteriaSet'
+
 /**
  * Module contenant les settings.
  */
@@ -74,7 +80,14 @@ export default {
    * Renvoit l'index de la configuration actuelle dans l'historique.
    * @return {Number} L'index de la position de currentPanelConfig dans panelHistory.
    */
-  getCurrentPanelConfigHistoryIndex: state => state.panelHistory.indexOf(state.currentPanelConfig),
+  getCurrentPanelConfigHistoryIndex: (state, getters) => {
+    for (let panelConfigIndex = 0; panelConfigIndex < state.panelHistory.length; panelConfigIndex++) {
+      const panelConfig = state.panelHistory[panelConfigIndex]
+      if (state.currentPanelConfig.isEqual(panelConfig)) {
+        return panelConfigIndex
+      }
+    }
+  },
 
   /**
    * Renvoit la PanelConfig precedente dans l'historique.
@@ -86,8 +99,13 @@ export default {
    * Renvoit le type de critere suivant en fonction du 'panelFlow'.
    * @param {String} panelConfigCriterionType - Le type de critere courant.
    * @return {String} Le type de critere suivant.
+   * @throws {TypeError} Lance une exception si le type de critere n'est pas reconu.
    */
   getNextPanelConfigCriterionType: () => panelConfigCriterionType => {
+    if (settings.state.criterion.types.indexOf(panelConfigCriterionType) === -1) {
+      throw new TypeError('Unrecognized criterionType')
+    }
+
     // Recupere la valeur du type de critere.
     const panelConfigCriterionTypeIndex = settings.state.criterion.types.indexOf(panelConfigCriterionType)
     const panelConfigCriterionTypeFlowLevel = settings.state.panel.panelFlow.indexOf(panelConfigCriterionTypeIndex)
@@ -115,8 +133,13 @@ export default {
    * Convertit les decisiveCriteriaSetFootprints en ensembles de criteres determinants.
    * @param {Array<DecisiveCriteriaSetFootprints>} DCSsFootprints - Les DecisiveCriteriaSetFootprints a convertir.
    * @return {Array<DecisiveCriteriaSet>} Les ensembles de criteres determinants convertis.
+   * @throws {TypeError} Lance une exception si la liste de DecisiveCriteriaSetFootprints n'est pas reconnue.
    */
   getConvertedDecisiveCriteriaSets: () => DCSsFootprints => {
+    if (typeof DCSsFootprints !== 'object') {
+      throw new TypeError('Unrecognized DCSsFootprints')
+    }
+
     // La liste des ensembles de criteres determinants convertis.
     const DCSs = []
 
@@ -142,8 +165,19 @@ export default {
    * @param {DecisiveCriteriaSet} dcsA - Le ensemble de criteres determinants A.
    * @param {DecisiveCriteriaSet} dcsB - Le ensemble de criteres determinants B.
    * @return {Number} La comparaison des deux ensemble de criteres determinants.
+   * @throws {TypeError} Lance une exception si le type de critere de tri n'est pas reconnu.
+   * @throws {TypeError} Lance une exception si au moins un des 2 ensembles de criteres determinants n'est pas reconnu.
    */
   getDCSSortValueBySortCriterionTypeOrder: (state, getters) => (sortCriterionTypeOrder, dcsA, dcsB) => {
+    sortCriterionTypeOrder.forEach(sortCriterionType => {
+      if (settings.state.criterion.types.indexOf(sortCriterionType) === -1) {
+        throw new TypeError('Unrecognized criterionType')
+      }
+    })
+    if (!(dcsA instanceof DecisiveCriteriaSet) && !(dcsB instanceof DecisiveCriteriaSet)) {
+      throw new TypeError('Unrecognized decisiveCriteriaSet')
+    }
+
     // Pour chaque type de criteres de tri dans l'ordre de priorite.
     for (let sortCriterionTypeIndex = 0;
       sortCriterionTypeIndex < sortCriterionTypeOrder.length;
@@ -171,9 +205,15 @@ export default {
   /**
    * Trie les ensembles de criteres determinants du panel selon le type de critere de tri actif.
    * @param {Array<DecisiveCriteriaSet>} DCSs - Les ensembles de criteres determinants a trier.
-   * @return {Array<CriteriaSet>} Les ensembles de criteres determinants tries
+   * @return {Array<CriteriaSet>} Les ensembles de criteres determinants tries.
+   * @throws {TypeError} Lance une exception si les ensembles de criteres determinants ne sont pas reconnus.
    */
   getSortedDecisiveCriteriaSets: (state, getters) => DCSs => {
+    DCSs.forEach(DCS => {
+      if (!(DCS instanceof DecisiveCriteriaSet)) {
+        throw new TypeError('Unrecognized decisiveCriteriaSet')
+      }
+    })
     // Le type de critere de tri actif.
     const activeSortCriterionType = getters.getActiveSortCriterionType
     // L'ordre de priorite des types de criteres de tri.
@@ -187,8 +227,15 @@ export default {
    * Trie les ensembles de criteres du panel selon le type de critere affiche.
    * @param {Array<CriteriaSet>} criteriaSets - Les ensembles de criteres a trier.
    * @return {Array<CriteriaSet>} Les ensembles de criteres tries
+   * @throws {TypeError} Lance une exception si l'ensemble de criteres n'est pas reconnu.
    */
   getSortedCriteriaSets: state => criteriaSets => {
+    criteriaSets.forEach(criteriaSet => {
+      if (!(criteriaSet instanceof CriteriaSet)) {
+        throw new TypeError('Unrecognized criteriaSet')
+      }
+    })
+
     // Le type de critere de tri des ensembles de criteres.
     const currentCriterionType = state.currentPanelConfig.criterionType
 
@@ -209,8 +256,13 @@ export default {
    * correspondants a un ensemble de criteres du panel en cours, sans passer par l'IPC.
    * @param {CriteriaSet} criteriaSet - Le ensemble de criteres.
    * @return {Array<DecisiveCriteriaSet>} Les ensembles de criteres determinants correspondants.
+   * @throws {TypeError} Lance une exception si l'ensemble de criteres n'est pas reconnu.
    */
   getMatchingDecisiveCriteriaSets: state => criteriaSet => {
+    if (!(criteriaSet instanceof CriteriaSet)) {
+      throw new TypeError('Unrecognized criteriaSet')
+    }
+
     // Les ensembles de criteres determinants courants.
     let decisiveCriteriaSets = state.currentPanelElements.decisiveCriteriaSets
 

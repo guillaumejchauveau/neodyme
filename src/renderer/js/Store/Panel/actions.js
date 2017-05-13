@@ -8,7 +8,7 @@
  * Classe PanelConfig.
  * @type {PanelConfig}
  */
-import PanelConfig from '../../App/Panel/PanelConfig'
+import PanelConfig from '../../PanelConfig'
 /**
  * Classe Criterion.
  * @type {Criterion}
@@ -28,39 +28,9 @@ import settings from '../Settings'
 export default {
 
   /**
-   * Determine si deux configurations sont egales.
-   * @param {{panelConfigA: PanelConfig, panelConfigB: PanelConfig}} payload.
-   * @return {Boolean}
-   */
-  comparePanelConfigs (context, payload) {
-    // Recupere les valeurs du payload.
-    // panelConfigA et B : les deux configurations a comparer.
-    const {panelConfigA, panelConfigB} = payload
-
-    // Verifie si le type de critere est le meme.
-    if (panelConfigA.criterionType === panelConfigB.criterionType) {
-      // Parcours les criteres.
-      for (const criterionType in panelConfigA.criteriaSet.criteria) {
-        // Verifie que le type de critere est bien une propriete de l'ensemble de criteres.
-        if (panelConfigA.criteriaSet.criteria.hasOwnProperty(criterionType)) {
-          // Recupere les deux valeurs des criteres A et B.
-          const criterionA = panelConfigA.criteriaSet.criteria[criterionType].value
-          const criterionB = panelConfigB.criteriaSet.criteria[criterionType].value
-
-          // Compare les valeurs des deux criteres.
-          if (criterionA !== criterionB) {
-            return false
-          }
-        }
-      }
-      return true
-    }
-    return false
-  },
-
-  /**
    * Set une configuration du panel personalisee en fonction du type d'argument passe.
    * @param {(String|Number|{decisiveCriteriaSet: DecisiveCriteriaSet, criterionType: String})} payload.
+   * @throws {TypeError} Lance une exception si le payload n'est pas valide.
    */
   setCustomPanelConfig (context, payload) {
     // Si l'argument n'est pas un nombre.
@@ -68,7 +38,7 @@ export default {
       // Vide l'historique.
       context.commit('CLEAR_PANELHISTORY')
 
-      // Set une la configuration a partir d'un ensemble de critere determinants et d'un type de critere.
+      // Set une configuration a partir d'un ensemble de critere determinants et d'un type de critere.
       if (payload.decisiveCriteriaSet) {
         // Recupere les valeur du payload.
         const {decisiveCriteriaSet, criterionType} = payload
@@ -95,9 +65,11 @@ export default {
 
       // Ajoute la nouvelle configuration a l'historique.
       context.commit('ADD_PANELHISTORY_ENTRY', context.state.currentPanelConfig)
-    } else {
+    } else if (typeof payload === 'number') {
       // Set une configuration a partir d'un index dans l'historique.
       context.commit('SET_PANELCONFIG', context.state.panelHistory[payload])
+    } else {
+      throw new TypeError('Unrecognized payload')
     }
 
     // Charge les elements du panel a partir de la configuration.
@@ -107,8 +79,13 @@ export default {
   /**
    * Set la configuration du panel suivant.
    * @param {Criterion} newCriterion - Le critere a ajouter a la configuration.
+   * @throws {TypeError} Lance une exception si le nouveau critere n'est pas reconnu.
    */
   setNextPanelConfig (context, newCriterion) {
+    if (!(newCriterion instanceof Criterion)) {
+      throw new TypeError('Unrecognized criterion')
+    }
+
     // Configuration actuelle.
     const currentPanelConfig = context.state.currentPanelConfig
 
@@ -130,31 +107,21 @@ export default {
     // Nouvelle configuration.
     const newPanelConfig = new PanelConfig(newCriteriaSet, nextCriterionType, newPanelTitle)
 
-    // Verifie si la nouvelle configuration se trouve deja dans l'historique.
-    // Verifie s'il existe une configuration suivante.
-    if (context.getters.thereIsNextHistoryEntry) {
-      // Configuration suivante dans l'historique.
-      const nextHistoryPanelConfig = context.state.panelHistory[context.getters.getCurrentPanelConfigHistoryIndex + 1]
+    // Configuration suivant la configuration actuelle dans l'historique.
+    const nextHistoryPanelConfig = context.state.panelHistory[context.getters.getCurrentPanelConfigHistoryIndex + 1]
 
-      // Verifie si la configuration suivante correspond a la nouvelle configuration.
-      if (context.dispatch('comparePanelConfigs', {
-        panelConfigA: newPanelConfig,
-        panelConfigB: nextHistoryPanelConfig
-      })) {
-        // Set la configuration suivante.
-        context.commit('SET_PANELCONFIG', newPanelConfig)
-      }
-    } else {
-      // Sinon, efface toutes les entrees suivant la configuration actuelle dans l'historique et set la nouvelle
-      // configuration.
+    // Verifie si la configuration suivante correspond a la nouvelle configuration.
+    if (!newPanelConfig.isEqual(nextHistoryPanelConfig)) {
+      // Sinon, efface toutes les entrees suivant la configuration actuelle dans l'historique.
       // Efface toutes les entrees suivant la configuration actuelle dans l'historique.
-      context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX', context.getters.getCurrentPanelConfigHistoryIndex + 2)
+      context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX', context.getters
+                                                                         .getCurrentPanelConfigHistoryIndex + 1)
       // Ajoute la nouvelle configuration a l'historique.
       context.commit('ADD_PANELHISTORY_ENTRY', newPanelConfig)
-      // Set la nouvelle configuration.
-      context.commit('SET_PANELCONFIG', newPanelConfig)
     }
 
+    // Set la configuration suivante.
+    context.commit('SET_PANELCONFIG', newPanelConfig)
     // Met a jour les elements du panel.
     context.dispatch('loadCurrentPanelElements')
   },
@@ -172,17 +139,17 @@ export default {
   /**
    * Action permettant de changer les parametres de tri (type de critere et inversion du tri)
    * et de charger les elements tries avec les nouveaux parametres.
-   * @param {String} newSortCriteriaType - Le nouveau type de critere de tri.
+   * @param {String} newSortCriterionType - Le nouveau type de critere de tri.
    */
-  setCurrentPanelElementsSorting (context, newSortCriteriaType) {
+  setCurrentPanelElementsSorting (context, newSortCriterionType) {
     // Change le type de critere de tri si il a ete a passe en argument.
-    if (newSortCriteriaType !== undefined) {
+    if (newSortCriterionType !== undefined) {
       // Desactive l'inversion du tri.
       if (context.getters.isRevertSort) {
         context.commit('TOGGLE_SORT_REVERT')
       }
       // Definit le nouveau type de critere de tri.
-      context.commit('SET_CURRENT_PANELCONFIG_ACTIVESORTCRITERIONTYPE', newSortCriteriaType)
+      context.commit('SET_CURRENT_PANELCONFIG_ACTIVESORTCRITERIONTYPE', newSortCriterionType)
     } else {
       // Sinon active ou desactive l'inversion du tri.
       context.commit('TOGGLE_SORT_REVERT')
