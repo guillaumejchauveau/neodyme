@@ -137,7 +137,7 @@ lint:
 #  dependencies:
 #    - test
 #  before_script:
-#    - npm install -g codeclimate-test-reporter
+#    - npm -q install -g codeclimate-test-reporter
 #  script: codeclimate-test-reporter < coverage/lcov.info
 
 ####################
@@ -157,7 +157,7 @@ pack:
     paths:
       - packages/
   before_script:
-    - npm install cross-env electron-packager yarn-install
+    - npm -q install cross-env electron-packager yarn-install
   script: npm run pack
 
 ####################
