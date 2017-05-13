@@ -30,7 +30,6 @@ export default {
   /**
    * Set une configuration du panel personalisee en fonction du type d'argument passe.
    * @param {(String|Number|{decisiveCriteriaSet: DecisiveCriteriaSet, criterionType: String})} payload.
-   * @throws {TypeError} Lance une exception si le payload n'est pas valide.
    */
   setCustomPanelConfig (context, payload) {
     // Si l'argument n'est pas un nombre.
@@ -65,11 +64,9 @@ export default {
 
       // Ajoute la nouvelle configuration a l'historique.
       context.commit('ADD_PANELHISTORY_ENTRY', context.state.currentPanelConfig)
-    } else if (typeof payload === 'number') {
+    } else {
       // Set une configuration a partir d'un index dans l'historique.
       context.commit('SET_PANELCONFIG', context.state.panelHistory[payload])
-    } else {
-      throw new TypeError('Unrecognized payload')
     }
 
     // Charge les elements du panel a partir de la configuration.

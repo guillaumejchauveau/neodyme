@@ -80,7 +80,7 @@ export default {
    * Renvoit l'index de la configuration actuelle dans l'historique.
    * @return {Number} L'index de la position de currentPanelConfig dans panelHistory.
    */
-  getCurrentPanelConfigHistoryIndex: (state, getters) => {
+  getCurrentPanelConfigHistoryIndex: state => {
     for (let panelConfigIndex = 0; panelConfigIndex < state.panelHistory.length; panelConfigIndex++) {
       const panelConfig = state.panelHistory[panelConfigIndex]
       if (state.currentPanelConfig.isEqual(panelConfig)) {
