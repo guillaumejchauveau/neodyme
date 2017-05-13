@@ -24,7 +24,7 @@ export default {
 
   props: {
     /**
-     * L'ensemble de criteres determinants correspondant.
+     * L'ensemble de criteres determinants correspondant a la ligne de la liste.
      * @type {DecisiveCriteriaSet}
      */
     element: {

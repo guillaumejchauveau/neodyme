@@ -8,7 +8,7 @@
  * Classe PanelConfig.
  * @type {PanelConfig}
  */
-import PanelConfig from '../../App/Panel/PanelConfig'
+import PanelConfig from '../../PanelConfig'
 /**
  * Classe CriteriaSet.
  * @type {CriteriaSet}

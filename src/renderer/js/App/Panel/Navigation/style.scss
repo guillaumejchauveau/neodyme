@@ -13,24 +13,19 @@
     list-style: none;
   }
 
+  // Style commun des boutons
   button {
     @include button-reset;
+    @include mdc-ripple-base;
+    @include mdc-ripple-fg((pseudo: '::after'));
 
-    margin:        $navigation-button__margin;
+    margin:        $navigation-button__margin - 8;
     margin-right:  0;
     margin-left:   $navigation-button__spacing;
+    padding:       8px;
     border-radius: 50%;
     cursor:        pointer;
     overflow:      hidden;
-
-    &:not(&--disabled) {
-      @include mdc-ripple-base;
-      @include mdc-ripple-fg((pseudo: '::after'));
-
-      span::before {
-        cursor: pointer;
-      }
-    }
 
     span::before {
       @include material-icon;
@@ -40,8 +35,9 @@
     }
   }
 
+  // 1. Les boutons de navigation flottent a gauche avec les titres.
   &-buttons {
-    float: left;
+    float: left; // [1]
 
     li {
       float:       left;
@@ -49,8 +45,9 @@
     }
   }
 
+  // 1. Les titres de navigation flottent a gauche apres le boutons.
   &-titles {
-    float:       left;
+    float:       left; // [1]
     margin-left: 2 * $navigation-button__spacing;
     line-height: $navigation-card__height;
 
@@ -59,12 +56,14 @@
     }
   }
 
+  // 1. Les liens vers les presets flottent a droite.
+  // 2. Les liens sont positionnes a gauche les uns des autres.
   &-links {
-    float:        right;
+    float:        right; // [1]
     margin-right: $navigation-controls__margin-right;
 
     li {
-      float:       left;
+      float:       left; // [2]
       margin-left: $navigation-button__spacing;
     }
   }
@@ -78,9 +77,14 @@
       content: 'arrow_forward';
     }
 
-    &--disabled span::before {
-      color:  $text__color__disabled;
-      cursor: default;
+    // Desactive visuellement les boutons de navigation.
+    &--disabled {
+      @include remove-mdc-ripple;
+
+      span::before {
+        color:  $text__color__disabled;
+        cursor: default;
+      }
     }
   }
 
@@ -105,15 +109,19 @@
       vertical-align: middle;
     }
 
+    // Selectionne le titre actif
     &--active {
       color: $color--primary;
 
+      // Selectionne les voisins suivants.
       ~ li {
         color: $text__color__disabled;
       }
     }
   }
 
+  // Definit les icones pour les differents lien vers les panel presets,
+  // et definit la couleur du panel preset selectionne
   &-link {
     &--all-artists span::before {
       content: 'person';

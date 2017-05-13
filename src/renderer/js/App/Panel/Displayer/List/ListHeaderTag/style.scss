@@ -17,7 +17,7 @@
         position:  absolute;
         content:   'timer';
         cursor:    pointer;
-        transform: translateY(-12px);
+        transform: translateY(-15px);
       }
     }
   }
@@ -29,6 +29,7 @@
     border-radius: 50%;
     cursor:        pointer;
     overflow:      hidden;
+    transform: translateY(2px);
 
     span {
       display:    inline-block;

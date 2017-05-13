@@ -38,6 +38,23 @@ export default {
     },
 
     /**
+     * Recupere les titre des panel presets.
+     * @returns {Object} Objet contenant les titres de panel presets.
+     */
+    panelLinksTitles () {
+      const panelPresetsTitles = {}
+      this.panelLinks.forEach(panelLink => {
+        const title = this.$store
+                          .state
+                          .settings
+                          .panel
+                          .panelPresets[panelLink].title
+        panelPresetsTitles[panelLink] = title.toLowerCase()
+      })
+      return panelPresetsTitles
+    },
+
+    /**
      * Verifie si le panel affiche est un panel preset.
      * @returns {String|null} Le nom du panel preset courant ou null si le panel en cours n'est pas un preset.
      */
@@ -67,7 +84,7 @@ export default {
     toSnakeCase: string => string.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`),
 
     /**
-     * Si possible reviens sur le panel precedent, sinon ne fait rien.
+     * Si possible revient sur le panel precedent, sinon ne fait rien.
      */
     backPanel () {
       // Verifie si l'historique permet un retour en arriere.
@@ -78,7 +95,7 @@ export default {
     },
 
     /**
-     * Si possible accede sur le panel suivant dans l'historique, sinon ne fait rien.
+     * Si possible accede au panel suivant dans l'historique, sinon ne fait rien.
      */
     forwardPanel () {
       // Verifie si l'historique permet un retour en arriere.

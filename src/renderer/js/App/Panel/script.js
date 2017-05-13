@@ -60,7 +60,7 @@ export default {
   },
 
   /**
-   * Fonction lancee quand le composant avant que le composant Panel soit monte.
+   * Fonction lancee avant que le composant Panel soit monte.
    * Initialise le Panel en affichant le preset de panel initial.
    */
   beforeMount () {

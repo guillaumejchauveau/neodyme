@@ -7,6 +7,7 @@
             <button class="c-navigation-button c-navigation-button--back"
                     :class="{'c-navigation-button--disabled': !thereIsPreviousHistoryEntry}"
                     @click="backPanel()"
+                    title="Revenir en arrière"
                     v-ripple>
               <span></span>
             </button>
@@ -15,6 +16,7 @@
             <button class="c-navigation-button c-navigation-button--forward"
                     :class="{'c-navigation-button--disabled': !thereIsNextHistoryEntry}"
                     @click="forwardPanel()"
+                    title="Avancer"
                     v-ripple>
               <span></span>
             </button>
@@ -41,7 +43,10 @@
               class="c-navigation-link"
               :class="[{'c-navigation-link--current': activePanelPreset === panelLink},
               `c-navigation-link--${toSnakeCase(panelLink)}`]">
-            <button @click="setPreset(panelLink)" v-ripple><span></span></button>
+            <button @click="setPreset(panelLink)"
+                    :title="`Accéder à ${panelLinksTitles[panelLink]}`" v-ripple>
+              <span></span>
+            </button>
           </li>
         </ul>
       </li>
