@@ -102,7 +102,8 @@ export default {
       if (context.getters['playerIs']('PLAYING')) {
         try {
           context.state.audioSource.stop()
-        } catch (exception) {
+        }
+        catch (exception) {
           reject(exception)
         }
       } else {

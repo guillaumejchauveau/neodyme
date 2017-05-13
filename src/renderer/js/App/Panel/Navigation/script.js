@@ -45,10 +45,10 @@ export default {
       const panelPresetsTitles = {}
       this.panelLinks.forEach(panelLink => {
         const title = this.$store
-                          .state
-                          .settings
-                          .panel
-                          .panelPresets[panelLink].title
+          .state
+          .settings
+          .panel
+          .panelPresets[panelLink].title
         panelPresetsTitles[panelLink] = title.toLowerCase()
       })
       return panelPresetsTitles

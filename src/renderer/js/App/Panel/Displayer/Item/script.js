@@ -119,11 +119,11 @@ export default {
       'getMatchingDecisiveCriteriaSets'
     ]),
 
-  /**
-   * Recupere le nom de l'item dans l'ensemble de criteres de l'item,
-   * et gere les problemes de syncronicite au changement de panel.
-   * @return {String} Le nom de l'item.
-   */
+    /**
+     * Recupere le nom de l'item dans l'ensemble de criteres de l'item,
+     * et gere les problemes de syncronicite au changement de panel.
+     * @return {String} Le nom de l'item.
+     */
     itemName () {
       try {
         return this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value

@@ -33,12 +33,12 @@ export default {
     ...mapMutations('panel', ['SET_SELECTEDLISTROW']),
     ...mapActions('playlist', ['addDecisiveCriteriaSet', 'clear', 'play']),
 
-     /**
-      * Lit un titre et ajoute tout les titres affiches a la playlist.
-      * @param {String} selectedElement - Le titre a lire.
-      * @throws {Error} Lance une exception si l'effacement de la liste de lecture echoue.
-      * @throws {Error} Lance une exception si le lancement de la lecture echoue.
-      */
+    /**
+     * Lit un titre et ajoute tout les titres affiches a la playlist.
+     * @param {String} selectedElement - Le titre a lire.
+     * @throws {Error} Lance une exception si l'effacement de la liste de lecture echoue.
+     * @throws {Error} Lance une exception si le lancement de la lecture echoue.
+     */
     playNow (selectedElement) {
       // Verifie que le titre n'est pas selectionne dans la liste.
       if (this.getSelectedListRow === selectedElement) {

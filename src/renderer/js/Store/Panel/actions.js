@@ -114,8 +114,8 @@ export default {
     if (!newPanelConfig.isEqual(nextHistoryPanelConfig)) {
       // Sinon, efface toutes les entrees suivant la configuration actuelle dans l'historique.
       // Efface toutes les entrees suivant la configuration actuelle dans l'historique.
-      context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX', context.getters
-                                                                         .getCurrentPanelConfigHistoryIndex + 1)
+      context.commit('REMOVE_LASTS_PANELHISTORYENTRIES_TO_INDEX',
+        context.getters.getCurrentPanelConfigHistoryIndex + 1)
       // Ajoute la nouvelle configuration a l'historique.
       context.commit('ADD_PANELHISTORY_ENTRY', newPanelConfig)
     }
