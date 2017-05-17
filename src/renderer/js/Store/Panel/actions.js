@@ -135,12 +135,13 @@ export default {
 
   /**
    * Action permettant de changer les parametres de tri (type de critere et inversion du tri)
-   * et de charger les elements tries avec les nouveaux parametres.
-   * @param {String} newSortCriterionType - Le nouveau type de critere de tri.
+   * et de charger les elements tries avec les nouveaux parametres,
+   * si le critere de tri n'est pas specifie, inverse le tri.
+   * @param {String} newSortCriterionType - Le nouveau type de critere de tri (facultatif).
    */
-  setCurrentPanelElementsSorting (context, newSortCriterionType) {
+  setCurrentPanelElementsSorting (context, newSortCriterionType = null) {
     // Change le type de critere de tri si il a ete a passe en argument.
-    if (newSortCriterionType !== undefined) {
+    if (newSortCriterionType !== null) {
       // Desactive l'inversion du tri.
       if (context.getters.isRevertSort) {
         context.commit('TOGGLE_SORT_REVERT')

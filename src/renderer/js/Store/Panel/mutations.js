@@ -92,9 +92,9 @@ export default {
 
   /**
    * Set le titre selectionne dans la liste.
-   * @param {DecisiveCriteriaSet} element - Le titre selectionne.
+   * @param {DecisiveCriteriaSet} element - Le titre selectionne (facultatif).
    */
-  SET_SELECTEDLISTROW (state, element) {
+  SET_SELECTEDLISTROW (state, element = null) {
     state.selectedListRow = element
   }
 }
