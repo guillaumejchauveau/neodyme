@@ -7,6 +7,7 @@
 import fs from 'fs'
 import globStream from 'glob-stream'
 import musicMetadata from 'musicmetadata'
+import path from 'path'
 
 /**
  * Classe Provider.
@@ -51,6 +52,11 @@ class FileSystemProvider extends Provider {
         }
         trackStream.close()
 
+        // Donne comme titre le nom du fichier s'il n'y en a pas de defini.
+        if (!metadatas.title) {
+          metadatas.title = path.parse(track.path).name
+        }
+
         // Enregistre la piste.
         Provider.saveTrack(this, track.path, metadatas)
       })
@@ -66,8 +72,7 @@ class FileSystemProvider extends Provider {
     return new Promise((resolve, reject) => {
       fs.readFile(path, (err, data) => {
         if (err) {
-          reject(err)
-          return
+          return reject(err)
         }
 
         resolve(data.buffer)

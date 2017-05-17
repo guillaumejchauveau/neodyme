@@ -9,9 +9,8 @@ $list-card__width: 98%;
 $list-card__height: 100%;
 $list__margin-top: 10px;
 $list__padding: 20px;
-$list__padding-bottom: 2px;
-$list-filterorderselector__font-size: 17px;
-$list-durationicon__translate: 22px, -8px;
+$listheadertag-filterorderselector__font-size: 17px;
+$listheadertag-durationicon__translate: 22px, -10px;
 // ListRow
 //
 $listrow__height: 50px;
@@ -20,51 +19,30 @@ $listrow-menu__transform: -15px, 5px;
 $listrow--tracknumber__transform: 10px;
 $listrow-playbutton__font-size: 36px;
 $listrow-playbutton__translate-x: -15px;
+// Ratio hauteur / largeur des barre de l'animation de lecture.
+$listrow-playanim-bar__ratio: 2;
 $listrow-playanim-bar__width: 6px;
 $listrow-playanim__duration: 1s;
 $listrow-playanim-bar-a__delay: 100ms;
 $listrow-playanim-bar-b__delay: -200ms;
 $listrow-playanim-bar-c__delay: 0ms;
+
 // Computed Variables
 //
+// Calcule la marge de la liste en fonction de la hauteur d'une ligne de la liste.
 $list__margin-side: $listrow__height / 2;
 
+// Calcule la taille de la colone affichant les numeros de piste en fonction de la hauteur d'une ligne de la liste.
 $listrow--tracknumber__width: $listrow__height;
+// Calcule le positionnement de l'animation de lecture en fonction du placement du numero de piste.
 $listrow-playanim__transform: -$listrow--tracknumber__transform / 2;
-$listrow-playanim-bar__height-default: $listrow-playanim-bar__width / 2;
+// Calcule la hauteur par default des barres de l'animation de lecture en fonction de sa largeur et du ratio h/l.
+$listrow-playanim-bar__height-default: $listrow-playanim-bar__width / $listrow-playanim-bar__ratio;
+// Calcule la hauteur maximum des barre de l'animation de lecture en fonction de la hauteur par default.
 $listrow-playanim-bar__height-max: $listrow-playanim-bar__height-default * 5;
+// Calcule l'espacement des barres de l'animation de lecture en fonction de la largeur des barres.
 $listrow-playanim-bar__marginside: $listrow-playanim-bar__width / 6;
+// Calcule le positionement du bouton de lecture en fonction de sa taille.
 $listrow-playbutton__translate: $listrow-playbutton__translate-x, -$listrow-playbutton__font-size / 2;
+// Calcule la largeur de l'animation de lecture en fonction de la largeur et de l'espacement des barres.
 $listrow-playanim__width: 3 * $listrow-playanim-bar__width + 2 * $listrow-playanim-bar__marginside;
-
-// Animation
-//
-@keyframes listrow__playanim {
-  0% {
-    height: $listrow-playanim-bar__height-max / 5;
-  }
-
-  10% {
-    height: $listrow-playanim-bar__height-max / 2;
-  }
-
-  20% {
-    height: $listrow-playanim-bar__height-max / 1.6;
-  }
-
-  40% {
-    height: $listrow-playanim-bar__height-max / 5;
-  }
-
-  60% {
-    height: $listrow-playanim-bar__height-max / 1;
-  }
-
-  80% {
-    height: $listrow-playanim-bar__height-max / 1.15;
-  }
-
-  100% {
-    height: $listrow-playanim-bar__height-max / 2;
-  }
-}

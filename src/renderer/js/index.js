@@ -10,7 +10,7 @@ import vuex from 'vuex'
 /**
  * Directive VueJS pour appliquer l'effet Ripple.
  */
-import Ripple from './MDC/Ripple'
+import Ripple from '../components/MDC/Ripple'
 
 require('../css/index.scss')
 require('../css/fonts.scss')
@@ -21,5 +21,5 @@ Vue.directive('ripple', Ripple)
 // eslint-disable-next-line
 const vm = new Vue({
   el: '#app',
-  render: h => h(require('./App'))
+  render: h => h(require('../components/App'))
 })

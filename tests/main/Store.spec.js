@@ -125,11 +125,23 @@ describe('Store', function () {
      * Test l'ajout d'un DCS.
      */
     it('should add a DCS', function () {
-      expect(() => { this.DCSStore.add(new DecisiveCriteriaSet({provider: this.provider, id: ''})) }).to.not.throw(TypeError)
+      expect(() => {
+        this.DCSStore.add(new DecisiveCriteriaSet({
+          provider: this.provider,
+          id: ''
+        }))
+      }).to.not.throw(TypeError)
       expect(this.DCSStore.store).to.have.lengthOf(1)
-      expect(this.DCSStore.add(new DecisiveCriteriaSet({provider: this.provider, id: ''}))).to.equal(1)
+      expect(this.DCSStore.add(new DecisiveCriteriaSet({
+        provider: this.provider,
+        id: ''
+      }))).to.equal(1)
 
-      expect(() => { this.DCSStore.add({wrong: 'object'}) }).to.throw(TypeError)
+      expect(() => {
+        this.DCSStore.add({
+          wrong: 'object'
+        })
+      }).to.throw(TypeError)
       expect(this.DCSStore.store).to.have.lengthOf(2)
     })
 

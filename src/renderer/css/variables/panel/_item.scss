@@ -3,32 +3,30 @@
 // Copyright Paul Charpentier 2017.
 //
 
+// Ratio hauteur / largeur de l'item.
 $item__ratio: 1.25;
 $item__width: 160px;
 $item__margin: 5px;
+// Ratio taille de l'image / taille de l'item.
 $item-picture__relative-size: .8;
+// Ratio taille du bord de l'image / taille de l'item.
 $item-picture__border-relative-size: .025;
 $item__transition-hover-duration: 200ms;
-$item-text__animation-scrolling-duration: 5s;
 $item-menu__top: -40px;
+
 // Computed Variables
 //
+// Calcule la hauteur de l'item en fonction de sa largeur et du ratio hauteur / largeur.
 $item__height: $item__width * $item__ratio;
+// Calcule la taille de l'image en fonction de la taille de l'item et du ratio taille de l'image / taille de l'item.
 $item-picture__size: $item__width * $item-picture__relative-size;
+// Calcule la marge de l'image en fonction de la taille de l'item et du ratio taille de l'image / taille de l'item.
 $item-picture__margin: $item__width * (1 - $item-picture__relative-size) / 2;
+// Calcule la taille de bord de l'image en fonction de la taille de l'item et du ratio taille du bord / taille de l'item
 $item-picture__border-size: $item__width * $item-picture__border-relative-size;
+// Calcule la taille de l'image affichee.
 $item-picture-img__size: $item__width * $item-picture__relative-size - $item-picture__border-size * 2;
+// Calcule la marge de l'image affichee.
 $item-picture-img__margin: $item-picture__border-size + $item-picture__margin;
-$item-text__animation-scrolling:
-  animation-item-text-scrolling $item-text__animation-scrolling-duration infinite alternate linear;
-// Animation
-//
-@keyframes animation-item-text-scrolling {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(calc(-100% + (#{$item__width} - 60px)));
-  }
-}
+// Parametres de l'animation de defilement du texte
+$item-text__animation-scrolling: animation-item-text-scrolling infinite alternate linear;

@@ -1,0 +1,54 @@
+//
+// Composant TracksListContent.
+// Copyright Guillaume Chauveau 2017.
+//
+@import 'loader';
+
+// 1. 1px est enleve pour compenser un leger depassement du au navigateur.
+.c-tracks-list__content {
+  @include centered;
+
+  width:            ($control-panel__size - 1px) * 2; // [1]
+  height:           ($control-panel__size - 1px) * 2; // [1]
+  border-radius:    50%;
+  background-color: $bg__color--dark-secondary;
+  transition:       width $tracks-list__transition-time $tracks-list__transition-easing,
+                    height $tracks-list__transition-time $tracks-list__transition-easing;
+}
+
+// 1. Definit le point a partir duquel la rotation doit etre effectuee.
+.c-tracks-list-waypoint {
+  @include centered;
+
+  width:            $tracks-list__size;
+  height:           $tracks-list-item__height;
+  background-color: $color--primary;
+  transform:        translateY(-50%);
+  transform-origin: left center; // [1]
+  transition:       transform $tracks-list-item__transition-time * 2 $tracks-list-item__transition-easing;
+}
+
+.c-tracks-list-items {
+  position:      relative;
+  width:         100%;
+  height:        100%;
+  border-radius: 50%;
+  overflow:      hidden;
+}
+
+.js-tracks-list-items__transition {
+  &-enter-active,
+  &-leave-active {
+    transition:       opacity $tracks-list__transition-time $tracks-list__transition-easing;
+    transition-delay: $tracks-list__transition-time / 2;
+  }
+
+  &-leave-active {
+    transition-delay: 0s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+}

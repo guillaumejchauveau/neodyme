@@ -1,0 +1,142 @@
+//
+// Composant Navigation.
+// Copyright Paul Charpentier 2017.
+//
+@import 'loader';
+
+.c-navigation {
+  @include card(100%, $navigation-card__height);
+  @include mdc-elevation(2);
+
+  ul {
+    padding:    0;
+    list-style: none;
+  }
+
+  // Style commun des boutons
+  button {
+    @include button-reset;
+    @include mdc-ripple-base;
+    @include mdc-ripple-fg((pseudo: '::after'));
+
+    margin:        $navigation-button__margin - 8;
+    margin-right:  0;
+    margin-left:   $navigation-button__spacing;
+    padding:       8px;
+    border-radius: 50%;
+    cursor:        pointer;
+    overflow:      hidden;
+
+    span::before {
+      @include material-icon;
+
+      font-size:  $navigation-button__icon-size;
+      transition: color $navigation__transition-duration;
+    }
+  }
+
+  // 1. Les boutons de navigation flottent a gauche avec les titres.
+  &-buttons {
+    float: left; // [1]
+
+    li {
+      float:       left;
+      margin-left: $navigation-button__spacing;
+    }
+  }
+
+  // 1. Les titres de navigation flottent a gauche apres le boutons.
+  &-titles {
+    float:       left; // [1]
+    margin-left: 2 * $navigation-button__spacing;
+    line-height: $navigation-card__height;
+
+    li {
+      float: left;
+    }
+  }
+
+  // 1. Les liens vers les presets flottent a droite.
+  // 2. Les liens sont positionnes a gauche les uns des autres.
+  &-links {
+    float:        right; // [1]
+    margin-right: $navigation-controls__margin-right;
+
+    li {
+      float:       left; // [2]
+      margin-left: $navigation-button__spacing;
+    }
+  }
+
+  &-button {
+    &--back span::before {
+      content: 'arrow_back';
+    }
+
+    &--forward span::before {
+      content: 'arrow_forward';
+    }
+
+    // Desactive visuellement les boutons de navigation.
+    &--disabled {
+      @include remove-mdc-ripple;
+
+      span::before {
+        color:  $text__color__disabled;
+        cursor: default;
+      }
+    }
+  }
+
+  &-title {
+    font-size:  $navigation-title__fontsize;
+    transition: color $navigation__transition-duration;
+
+    &__text {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &__arrow::before {
+      @include material-icon;
+
+      content:        'keyboard_arrow_right';
+      cursor:         pointer;
+      font-size:      $navigation-button__icon-size;
+      vertical-align: middle;
+    }
+
+    // Selectionne le titre actif
+    &--active {
+      color: $color--primary;
+
+      // Selectionne les voisins suivants.
+      ~ li {
+        color: $text__color__disabled;
+      }
+    }
+  }
+
+  // Definit les icones pour les differents lien vers les panel presets,
+  // et definit la couleur du panel preset selectionne
+  &-link {
+    &--all-artists span::before {
+      content: 'person';
+    }
+
+    &--all-albums span::before {
+      content: 'album';
+    }
+
+    &--all-titles span::before {
+      content: 'music_note';
+    }
+
+    &--current span::before {
+      color: $color--primary;
+    }
+  }
+}

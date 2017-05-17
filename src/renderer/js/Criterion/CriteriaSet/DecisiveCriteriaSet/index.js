@@ -48,12 +48,13 @@ class DecisiveCriteriaSet extends CriteriaSet {
    */
   getDataBuffer () {
     return new Promise((resolve, reject) => {
+      // Envoi une requete IPC.
       ipcRenderer.send('REQ:Provider.getDataBuffer', this.providerKey, this.id)
 
+      // Quand la reponse est recue.
       ipcRenderer.once('RES:Provider.getDataBuffer', (event, base64ArrayBuffer) => {
         if (base64ArrayBuffer.error) {
-          reject(new Error(base64ArrayBuffer.error))
-          return
+          return reject(new Error(base64ArrayBuffer.error))
         }
         resolve(base64AB.decode(base64ArrayBuffer))
       })

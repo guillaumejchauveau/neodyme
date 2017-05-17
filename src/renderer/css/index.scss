@@ -7,20 +7,20 @@
 // Document.
 //
 
+// 1. Empeche l'affichage du curseur de selection de texte.
 html {
   box-sizing: border-box;
-  // Empeche l'affichage du curseur de selection de texte.
-  cursor:     default;
+  cursor:     default; // [1]
   font-size:  $font__size--root-md;
 }
 
+// 1. Empeche l'affichage de la zone de selection de texte.
 *,
 *::before,
 *::after {
   box-sizing:  inherit;
   cursor:      inherit;
-  // Empeche l'affichage de la zone de selection de texte.
-  user-select: none;
+  user-select: none; // [1]
 }
 
 //

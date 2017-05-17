@@ -34,10 +34,14 @@ describe('Criterion', function () {
     expect(Criterion.checkType('artist')).to.be.true()
     expect(Criterion.checkType('foo')).to.be.false()
 
-    // eslint-disable-next-line
-    expect(() => { new Criterion('artist', 'John Doe') }).to.not.throw(TypeError)
-    // eslint-disable-next-line
-    expect(() => { new Criterion('foo', 'bar') }).to.throw(TypeError)
+    expect(() => {
+      // eslint-disable-next-line
+      new Criterion('artist', 'John Doe')
+    }).to.not.throw(TypeError)
+    expect(() => {
+      // eslint-disable-next-line
+      new Criterion('foo', 'bar')
+    }).to.throw(TypeError)
   })
 
   /**
@@ -66,11 +70,17 @@ describe('Criterion', function () {
      * Test l'ajout d'un critere.
      */
     it('should add criterion', function () {
-      expect(() => { this.criteriaSet.add(this.criterion) }).to.not.throw(TypeError)
+      expect(() => {
+        this.criteriaSet.add(this.criterion)
+      }).to.not.throw(TypeError)
       expect(this.criteriaSet.criteria).to.have.ownProperty(this.criterion.type)
       expect(this.criteriaSet.criteria[this.criterion.type]).to.equal(this.criterion)
 
-      expect(() => { this.criteriaSet.add({wrong: 'object'}) }).to.throw(TypeError)
+      expect(() => {
+        this.criteriaSet.add({
+          wrong: 'object'
+        })
+      }).to.throw(TypeError)
     })
 
     /**
@@ -137,7 +147,9 @@ describe('Criterion', function () {
         }).to.throw(TypeError)
         expect(() => {
           // eslint-disable-next-line
-          new DecisiveCriteriaSet({wrong: 'object'})
+          new DecisiveCriteriaSet({
+            wrong: 'object'
+          })
         }).to.throw(TypeError)
         expect(() => {
           // eslint-disable-next-line

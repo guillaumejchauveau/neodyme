@@ -12,11 +12,11 @@ import { MDCSimpleMenu } from '@material/menu'
 /**
  * Composant MDC/Checkbox
  */
-import MDCCheckboxComponent from '../../src/renderer/js/MDC/Checkbox'
+import MDCCheckboxComponent from '../../src/renderer/components/MDC/Checkbox'
 /**
  * Composant MDC/Menu
  */
-import MDCMenuComponent from '../../src/renderer/js/MDC/Menu'
+import MDCMenuComponent from '../../src/renderer/components/MDC/Menu'
 
 chai.use(require('dirty-chai'))
 chai.use(require('chai-dom'))

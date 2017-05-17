@@ -9,18 +9,26 @@
  */
 import playlist from './playlist'
 /**
- * Parametres de la partie Panel.
+ * Parametres du Panel.
  */
 import panel from './panel'
 
 export default {
   namespaced: true,
   state: {
-    windowSize: { // Dimensions de la fenetre (en pixels).
+    /**
+     * Les dimensions de la fenetre (en pixels).
+     * @type {{height: Number, width: Number}}
+     */
+    windowSize: {
       height: 0,
       width: 0
     },
     criterion: {
+      /**
+       * Les types de criteres pris en charge.
+       * @type {Array<String>}
+       */
       types: [
         'artist',
         'album',
@@ -34,7 +42,7 @@ export default {
   },
   mutations: {
     /**
-     * Met a jour des dimensions de la fenetre.
+     * Met a jour les dimensions de la fenetre.
      */
     UPDATE_WINDOW_SIZE (state) {
       state.windowSize.height = window.innerHeight

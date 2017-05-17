@@ -1,0 +1,17 @@
+//
+// Composant Playlist.
+// Copyright Guillaume Chauveau 2017.
+//
+@import 'loader';
+
+.c-playlist {
+  @include position(fixed, 0 null 0 0);
+
+  // 1. Le parent n'ayant pas de largeur, le centrage cache la moitie gauche.
+  &__content {
+    @include centered; // [1]
+
+    width:  $control-panel__size * 2;
+    height: $control-panel__size * 2;
+  }
+}

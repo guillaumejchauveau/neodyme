@@ -53,7 +53,7 @@ config.set('criterion', {
   ]
 })
 
-// Sources prises en chargent.
+// Sources prises en charge.
 config.set('providers', [
   new FileSystemProvider({
     key: 0,
@@ -61,8 +61,8 @@ config.set('providers', [
     exts: 'mp3|ogg|flac',
     duration: true,
     typeMappers: [
-      metadatas => metadatas.albumartist[0],
-      metadatas => metadatas.album,
+      metadatas => metadatas.albumartist[0] || 'Artiste inconnu',
+      metadatas => metadatas.album || 'Album inconnu',
       metadatas => metadatas.title,
       metadatas => metadatas.track.no,
       metadatas => metadatas.duration
@@ -98,6 +98,4 @@ electron.app.on('ready', () => {
 })
 
 // Quitte quand toutes les fenetres sont fermees.
-electron.app.on('window-all-closed', () => {
-  electron.app.quit()
-})
+electron.app.on('window-all-closed', electron.app.quit)
