@@ -56,7 +56,12 @@ export default {
      * Affiche le Panel correspondant a l'item.
      */
     setNextPanel () {
-      this.setNextPanelConfig(this.newCriterion)
+      // Le type du nouveau critere a ajouter a la configuration.
+      const itemType = this.getCurrentPanelConfig.criterionType
+      // La valeur du nouveau critere .
+      const itemValue = this.itemName
+
+      this.setNextPanelConfig(new Criterion(itemType, itemValue))
     },
 
     /**
@@ -115,11 +120,7 @@ export default {
 
   computed: {
     ...mapState('playlist', ['currentTrackIndex']),
-    ...mapGetters('panel', [
-      'getCurrentPanelConfig',
-      'getCurrentPanelElements',
-      'getMatchingDecisiveCriteriaSets'
-    ]),
+    ...mapGetters('panel', ['getCurrentPanelConfig', 'getMatchingDecisiveCriteriaSets']),
 
     /**
      * Recupere le nom de l'item dans l'ensemble de criteres de l'item,
@@ -140,18 +141,6 @@ export default {
      */
     isScrollingTextEnabled () {
       return this.itemName.length > 15
-    },
-
-    /**
-     * Definit le critere correspondant a l'item.
-     * @param {PanelConfig} getCurrentPanelConfig - la configuration du Panel.
-     * @param {String} itemName - La 'valeur' de l'item.
-     * @returns {Criterion} Le nouveau critere a ajouter a la configuration.
-     */
-    newCriterion () {
-      const itemValue = this.criteriaSet.criteria[this.getCurrentPanelConfig.criterionType].value
-      const itemType = this.getCurrentPanelConfig.criterionType
-      return new Criterion(itemType, itemValue)
     }
   },
 

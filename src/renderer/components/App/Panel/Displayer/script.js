@@ -33,11 +33,18 @@ export default {
   },
 
   methods: {
+    /**
+     * Met a jour les elements du panel lors de l'ajout d'ensembles de criteres determinants.
+     */
     DCSStoreUpdateHandler () {
       this.$store.dispatch('panel/loadCurrentPanelElements')
     }
   },
 
+  /**
+   * Fonction lancee quand le composant est monte.
+   * Met en place l'ecouteur d'evenement IPC pour la mise a jour des ensembles de criteres determinants
+   */
   mounted () {
     ipcRenderer.on('EVENT:DCSStore.updated', debounce(this.DCSStoreUpdateHandler, 1000, {
       leading: true,

@@ -38,7 +38,7 @@ export default {
       currentTrack: 'currentTrack',
       playerIs: 'player/playerIs'
     }),
-    ...mapGetters('panel', ['currentPanelConfig', 'getSelectedListRow']),
+    ...mapGetters('panel', ['getSelectedListRow']),
 
     /**
      * Formate la duree du titre d'un temps en secondes en une chaine de caracteres minutes et secondes.
