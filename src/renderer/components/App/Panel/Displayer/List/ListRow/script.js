@@ -98,7 +98,6 @@ export default {
       } else {
         this.SET_SELECTEDLISTROW()
       }
-
     },
 
     /**

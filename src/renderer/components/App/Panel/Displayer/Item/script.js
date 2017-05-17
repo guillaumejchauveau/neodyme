@@ -19,7 +19,7 @@ import MDCMenuItem from '../../../../MDC/Menu/MenuItem'
  * Classe Criterion.
  * @type {Criterion}
  */
-import Criterion from '../../../../Criterion'
+import Criterion from '../../../../../js/Criterion'
 
 export default {
   name: 'item',
@@ -38,7 +38,7 @@ export default {
     }
   },
 
-  data: () => {
+  data () {
     return {
       /**
        * La duree de defilement du texte de l'item.
@@ -66,20 +66,22 @@ export default {
      */
     playNow () {
       // Arrete et efface la liste de lecture.
-      this.clear().then(() => {
-        // Recupere et ajoute les ensembles de criteres determinants correspondant a l'item a la liste de lecture.
-        this.getMatchingDecisiveCriteriaSets(this.criteriaSet)
-            .forEach(decisiveCriteriaSet => {
-              this.addDecisiveCriteriaSet(decisiveCriteriaSet)
-            })
-        // Lance la lecture.
-        this.play()
-            .catch(reason => {
-              throw reason
-            })
-      }).catch(reason => {
-        throw reason
-      })
+      this.clear()
+          .then(() => {
+            // Recupere et ajoute les ensembles de criteres determinants correspondant a l'item a la liste de lecture.
+            this.getMatchingDecisiveCriteriaSets(this.criteriaSet)
+                .forEach(decisiveCriteriaSet => {
+                  this.addDecisiveCriteriaSet(decisiveCriteriaSet)
+                })
+            // Lance la lecture.
+            this.play()
+                .catch(reason => {
+                  throw reason
+                })
+          })
+          .catch(reason => {
+            throw reason
+          })
     },
 
     /**

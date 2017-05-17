@@ -10,7 +10,7 @@ import debounce from 'lodash.debounce'
  * Store de l'application.
  * @type {vuex.Store}
  */
-import Store from '../Store'
+import Store from '../../js/Store'
 /**
  * Composant Playlist.
  */

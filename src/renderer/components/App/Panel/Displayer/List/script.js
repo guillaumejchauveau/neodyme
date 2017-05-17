@@ -47,24 +47,26 @@ export default {
       }
 
       // Arrete et efface la liste de lecture.
-      this.clear().then(() => {
-        // Ajoute les ensembles de criteres determinants du panel a la liste de lecture.
-        this.getCurrentPanelElements
-            .decisiveCriteriaSets
-            .forEach(decisiveCriteriaSet => {
-              this.addDecisiveCriteriaSet(decisiveCriteriaSet)
-            })
+      this.clear()
+          .then(() => {
+            // Ajoute les ensembles de criteres determinants du panel a la liste de lecture.
+            this.getCurrentPanelElements
+                .decisiveCriteriaSets
+                .forEach(decisiveCriteriaSet => {
+                  this.addDecisiveCriteriaSet(decisiveCriteriaSet)
+                })
 
-        // Lance la lecture du titre selectionne.
-        this.play(this.getCurrentPanelElements
-                      .decisiveCriteriaSets
-                      .indexOf(selectedElement))
-            .catch(reason => {
-              throw reason
-            })
-      }).catch(reason => {
-        throw reason
-      })
+            // Lance la lecture du titre selectionne.
+            this.play(this.getCurrentPanelElements
+                          .decisiveCriteriaSets
+                          .indexOf(selectedElement))
+                .catch(reason => {
+                  throw reason
+                })
+          })
+          .catch(reason => {
+            throw reason
+          })
     }
   }
 }

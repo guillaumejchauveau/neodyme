@@ -6,7 +6,7 @@
           <li>
             <button class="c-navigation-button c-navigation-button--back"
                     :class="{'c-navigation-button--disabled': !thereIsPreviousHistoryEntry}"
-                    @click="backPanel()"
+                    @click="backPanel"
                     title="Revenir en arrière"
                     v-ripple>
               <span></span>
@@ -15,12 +15,11 @@
           <li>
             <button class="c-navigation-button c-navigation-button--forward"
                     :class="{'c-navigation-button--disabled': !thereIsNextHistoryEntry}"
-                    @click="forwardPanel()"
+                    @click="forwardPanel"
                     title="Avancer"
                     v-ripple>
               <span></span>
             </button>
-
           </li>
         </ul>
       </li>

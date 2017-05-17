@@ -11,9 +11,7 @@
   right:        0;
   bottom:       0;
   left:         $control-panel__size; // [1]
-  margin:       $panel__margin;
-  margin-top:   0;
-  margin-right: $control-panel__size + $panel__margin;
+  margin:       0 $control-panel__size + $panel__margin $panel__margin $panel__margin;
   transition:   left $tracks-list__transition-easing;
 
   // Permet de reduire la taille du panel quand la liste de lecture est ouverte.

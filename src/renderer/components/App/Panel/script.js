@@ -42,20 +42,23 @@ export default {
      */
     playAll () {
       // Arrete et efface la liste de lecture.
-      this.clear().then(() => {
-        // Ajoute les ensembles de criteres determinants courants a la liste de lecture.
-        this.getCurrentPanelElements
-            .decisiveCriteriaSets
-            .forEach(decisiveCriteriaSet => {
-              this.addDecisiveCriteriaSet(decisiveCriteriaSet)
-            })
-        // Lance la lecture.
-        this.play().catch(reason => {
-          throw reason
-        })
-      }).catch(reason => {
-        throw reason
-      })
+      this.clear()
+          .then(() => {
+            // Ajoute les ensembles de criteres determinants courants a la liste de lecture.
+            this.getCurrentPanelElements
+                .decisiveCriteriaSets
+                .forEach(decisiveCriteriaSet => {
+                  this.addDecisiveCriteriaSet(decisiveCriteriaSet)
+                })
+            // Lance la lecture.
+            this.play()
+                .catch(reason => {
+                  throw reason
+                })
+          })
+          .catch(reason => {
+            throw reason
+          })
     }
   },
 

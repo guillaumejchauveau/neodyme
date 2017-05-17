@@ -12,7 +12,7 @@
                :key="element"
                :element="element"
                :class="{'c-listrow--last': element ===
-               (getCurrentPanelElements.decisiveCriteriaSets[getCurrentPanelElements.decisiveCriteriaSets.length-1])}"
+               (getCurrentPanelElements.decisiveCriteriaSets[getCurrentPanelElements.decisiveCriteriaSets.length - 1])}"
                @play="playNow(element)"></listrow>
     </table>
   </div>

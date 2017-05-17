@@ -11,8 +11,12 @@
       <span class="c-tracks-list-item-menu-toggler__icon"></span>
     </button>
     <ul v-if="active" class="c-tracks-list-item-menu">
-      <tracks-list-item-action name="play" readableName="Lire" @trigger="trackAction"></tracks-list-item-action>
-      <tracks-list-item-action name="remove" readableName="Supprimer" @trigger="trackAction"></tracks-list-item-action>
+      <tracks-list-item-action name="play"
+                               readableName="Lire"
+                               @trigger="trackAction"></tracks-list-item-action>
+      <tracks-list-item-action name="remove"
+                               readableName="Supprimer"
+                               @trigger="trackAction"></tracks-list-item-action>
       <tracks-list-item-action name="goto-artist"
                                readableName="Accéder à l'artiste"
                                @trigger="trackAction"></tracks-list-item-action>
