@@ -79,3 +79,14 @@ $listrow-playanim__width: 3 * $listrow-playanim-bar__width + 2 * $listrow-playan
     height: $listrow-playanim-bar__height-max / 2;
   }
 }
+
+// Fait tourner l'icone de chargement.
+@keyframes listrow__loadanim {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}

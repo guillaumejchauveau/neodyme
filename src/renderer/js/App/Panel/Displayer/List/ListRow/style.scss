@@ -26,7 +26,8 @@
 
   &--selected,
   &--play,
-  &--pause {
+  &--pause,
+  &--load {
     background-color: $bg__color--secondary;
 
     .c-listrow-value {
@@ -37,7 +38,8 @@
   }
 
   &--pause,
-  &--play {
+  &--play,
+  &--load {
     .c-listrow-value {
       &-text {
         &--tracknumber {
@@ -48,10 +50,13 @@
           font-weight: bold;
         }
       }
+    }
+  }
 
-      &__play-anim {
-        display: block;
-      }
+  &--play,
+  &--pause {
+    .c-listrow-value__play-anim {
+      display: block;
     }
   }
 
@@ -61,6 +66,25 @@
       &::before,
       &::after {
         animation-name: listrow__playanim;
+      }
+    }
+  }
+
+  &--load {
+    .c-listrow-value__load-anim {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      line-height: 100%;
+      transform: translate(-2px, 7px);
+
+      &::before {
+        @include material-icon;
+
+        position:  absolute;
+        animation: listrow_laodanim 1s linear infinite;
+        content:   'replay';
+        cursor:    pointer;
       }
     }
   }
@@ -78,9 +102,17 @@
       }
     }
 
-    &:not(.c-listrow--play):not(.c-listrow--pause) {
+    &:not(.c-listrow--play):not(.c-listrow--pause):not(.c-listrow--load) {
       .c-listrow-value__playbutton {
-        display: inline;
+        &::before {
+          @include material-icon;
+
+          position:  absolute;
+          content:   'play_arrow';
+          cursor:    pointer;
+          font-size: $listrow-playbutton__font-size;
+          transform: translate($listrow-playbutton__translate);
+        }
       }
     }
   }
@@ -95,20 +127,6 @@
     float:      right;
     transform:  translate($listrow-menu__transform);
     visibility: hidden;
-  }
-
-  &__playbutton {
-    display: none;
-
-    &::before {
-      @include material-icon;
-
-      position:  absolute;
-      content:   'play_arrow';
-      cursor:    pointer;
-      font-size: $listrow-playbutton__font-size;
-      transform: translate($listrow-playbutton__translate);
-    }
   }
 }
 

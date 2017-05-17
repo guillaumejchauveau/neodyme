@@ -55,16 +55,22 @@ export default {
     },
 
     /**
-     * Renvoie le status du titre (en cours de lecture, en pause, ou pas en lecture).
-     * @returns {String|null} Le status du titre.
+     * Verifie si la piste correspond a la piste courante dans la liste de lecture.
+     * @returns {Boolean}
+     */
+    isCurrentTrack () {
+      return this.currentTrack === null ? false : this.currentTrack.dcs.id === this.element.id
+    },
+
+    /**
+     * Verifie le status du player.
+     * @param {String} status - Le status a tester
+     * @returns {Boolean}
      */
     currentPlayStatus () {
-      // Si le titre est en cours de lecture, renvoie son etat (en lecture ou en pause).
-      if (this.currentTrack === null ? false : this.currentTrack.dcs.id === this.element.id) {
-        return this.playerIs('PLAYING') ? 'play' : 'pause'
+      return status => {
+        return this.isCurrentTrack ? this.playerIs(status) : false
       }
-      // Sinon renvoie null.
-      return null
     },
 
     /**
@@ -86,10 +92,13 @@ export default {
      */
     selectListRow () {
       // Verifie si le titre est en cours de lecture afin d'eviter de selectionner le titre en cours de lecture.
-      if (this.currentPlayStatus === null) {
+      if (!this.isCurrentTrack) {
         // Si le titre n'est pas en cours de lecture : definit le titre selectionne.
         this.SET_SELECTEDLISTROW(this.element)
+      } else {
+        this.SET_SELECTEDLISTROW()
       }
+
     },
 
     /**
