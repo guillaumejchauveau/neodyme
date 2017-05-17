@@ -131,28 +131,28 @@ export default {
 
   /**
    * Convertit les decisiveCriteriaSetFootprints en ensembles de criteres determinants.
-   * @param {Array<DecisiveCriteriaSetFootprints>} DCSsFootprints - Les DecisiveCriteriaSetFootprints a convertir.
+   * @param {Array<DecisiveCriteriaSetFootprints>} DCSFootprints - Les DecisiveCriteriaSetFootprints a convertir.
    * @return {Array<DecisiveCriteriaSet>} Les ensembles de criteres determinants convertis.
    * @throws {TypeError} Lance une exception si la liste de DecisiveCriteriaSetFootprints n'est pas reconnue.
    */
-  getConvertedDecisiveCriteriaSets: () => DCSsFootprints => {
-    if (typeof DCSsFootprints !== 'object') {
-      throw new TypeError('Unrecognized DCSsFootprints')
+  getConvertedDecisiveCriteriaSets: () => DCSFootprints => {
+    if (typeof DCSFootprints !== 'object') {
+      throw new TypeError('Unrecognized DCSFootprints')
     }
 
     // La liste des ensembles de criteres determinants convertis.
     const DCSs = []
 
     // Parcours les DecisiveCriteriaSetFootprints.
-    DCSsFootprints.forEach(DCSFootprints => {
+    DCSFootprints.forEach(DCSFootprint => {
       // Les proprietes de l'ensemble de criteres determinants.
       const DCSProperties = {
-        id: DCSFootprints.id,
-        providerKey: DCSFootprints.provider.config.key
+        id: DCSFootprint.id,
+        providerKey: DCSFootprint.provider.config.key
       }
       // L'ensemble de criteres determinants.
       const DCS = new DecisiveCriteriaSet(DCSProperties)
-      DCS.criteria = DCSFootprints.criteria
+      DCS.criteria = DCSFootprint.criteria
       // Ajout de ensemble de criteres determinants a la liste.
       DCSs.push(DCS)
     })

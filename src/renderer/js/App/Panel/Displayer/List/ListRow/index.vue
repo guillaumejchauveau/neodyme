@@ -1,7 +1,8 @@
 <template>
   <tr class="c-listrow"
-      :class="{'c-listrow--play': currentPlayStatus === 'play',
-                'c-listrow--pause': currentPlayStatus === 'pause',
+      :class="{'c-listrow--play': currentPlayStatus('PLAYING'),
+                'c-listrow--pause': currentPlayStatus('READY'),
+                'c-listrow--load': currentPlayStatus('LOADING'),
                 'c-listrow--selected': selected}"
       @click="selectListRow()"
       @dblclick="$emit('play')">
@@ -11,6 +12,7 @@
       <div class="c-listrow-value__play-anim">
         <span class="c-listrow-value__play-anim-bar"></span>
       </div>
+      <span class="c-listrow-value__load-anim"></span>
     </td>
     <td class="c-listrow__value">
       <span class="c-listrow-value-text c-listrow-value-text--title c-listrow-value-text--clickable"

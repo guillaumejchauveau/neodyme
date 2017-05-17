@@ -187,9 +187,9 @@ export default {
 
     // Charge les ensembles de criteres determinants.
     currentConfigCriteriaSet.resolveDecisiveCriteriaSetFootprints()
-                            .then(DCSsFootprints => {
+                            .then(DCSFootprints => {
                               // Convertit les DecisiveCriteriaSetsFootprints en ensembles de criteres determinants.
-                              const DCSs = context.getters.getConvertedDecisiveCriteriaSets(DCSsFootprints)
+                              const DCSs = context.getters.getConvertedDecisiveCriteriaSets(DCSFootprints)
                               // Trie les ensembles de criteres determinants.
                               const sortedDCSs = context.getters.getSortedDecisiveCriteriaSets(DCSs)
                               // Met a jour les elements du panel.
