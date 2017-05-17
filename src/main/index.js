@@ -98,6 +98,4 @@ electron.app.on('ready', () => {
 })
 
 // Quitte quand toutes les fenetres sont fermees.
-electron.app.on('window-all-closed', () => {
-  electron.app.quit()
-})
+electron.app.on('window-all-closed', electron.app.quit)

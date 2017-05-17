@@ -4,6 +4,8 @@
  * @copyright Paul Charpentier 2017.
  */
 
+import debounce from 'lodash.debounce'
+import { ipcRenderer } from 'electron'
 import { mapGetters } from 'vuex'
 
 /**
@@ -28,5 +30,18 @@ export default {
       'getCurrentPanelElements',
       'isEmptyDisplayer'
     ])
+  },
+
+  methods: {
+    DCSStoreUpdateHandler () {
+      this.$store.dispatch('panel/loadCurrentPanelElements')
+    }
+  },
+
+  mounted () {
+    ipcRenderer.on('EVENT:DCSStore.updated', debounce(this.DCSStoreUpdateHandler, 1000, {
+      leading: true,
+      maxWait: 1000
+    }))
   }
 }
