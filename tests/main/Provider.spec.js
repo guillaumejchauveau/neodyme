@@ -95,14 +95,16 @@ describe('Provider', function () {
         key: 0,
         typeMappers: {}
       })
-    }, 'TypesMap should be an Array').to.throw(TypeError)
+    }, 'TypesMap should be an Array')
+    .to.throw(TypeError)
     expect(() => {
       // eslint-disable-next-line
       new Provider({
         key: 0,
         typeMappers: []
       })
-    }, 'TypeMappers should contain as much typeMapper as there is criterionTypes').to.throw(Error)
+    }, 'TypeMappers should contain as much typeMapper as there is criterionTypes')
+    .to.throw(Error)
   })
 
   /**
@@ -133,7 +135,9 @@ describe('Provider', function () {
 
     expect(() => {
       Provider.saveTrack(
-        {wrong: 'type'},
+        {
+          wrong: 'type'
+        },
         '',
         {
           artist: 'John Doe'

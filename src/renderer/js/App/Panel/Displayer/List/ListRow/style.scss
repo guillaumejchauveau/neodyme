@@ -72,11 +72,11 @@
 
   &--load {
     .c-listrow-value__load-anim {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
+      display:     inline-block;
+      width:       24px;
+      height:      24px;
       line-height: 100%;
-      transform: translate(-2px, 7px);
+      transform:   translate(-2px, 7px);
 
       &::before {
         @include material-icon;

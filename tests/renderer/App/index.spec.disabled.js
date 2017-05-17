@@ -24,7 +24,9 @@ describe('App', function () {
   it('should set event listeners on mount', function (done) {
     this.vm.$mount()
     this.vm.$nextTick(() => {
-      expect(window.addEventListener.called, 'Method \'addEventListener\' should be called at least once.').to.be.true()
+      expect(window.addEventListener.called,
+        'Method \'addEventListener\' should be called at least once.')
+      .to.be.true()
       done()
     })
   })
@@ -32,7 +34,8 @@ describe('App', function () {
   it('should unset event listeners on mount', function () {
     this.vm.$destroy()
     expect(window.addEventListener.called,
-      'Method \'removeEventListener\' should be called at least once.').to.be.true()
+      'Method \'removeEventListener\' should be called at least once.')
+    .to.be.true()
   })
 
   after(function () {

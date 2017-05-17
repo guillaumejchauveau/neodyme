@@ -25,7 +25,9 @@ describe('IPCHandler', function () {
   it('should set event listeners', function () {
     IPCHandler.setEventListeners()
 
-    expect(ipcMain.on.called, 'Method \'on\' should be called at least once.').to.be.true()
+    expect(ipcMain.on.called,
+      'Method \'on\' should be called at least once.')
+    .to.be.true()
   })
 
   after(function () {
