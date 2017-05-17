@@ -30,17 +30,3 @@ $item-picture-img__size: $item__width * $item-picture__relative-size - $item-pic
 $item-picture-img__margin: $item-picture__border-size + $item-picture__margin;
 // Parametres de l'animation de defilement du texte
 $item-text__animation-scrolling: animation-item-text-scrolling infinite alternate linear;
-
-// Animation
-//
-@keyframes animation-item-text-scrolling {
-  from,
-  10% {
-    transform: translateX(0);
-  }
-
-  95%,
-  to {
-    transform: translateX(calc(-100% + (#{$item__width} - 50px)));
-  }
-}

@@ -175,3 +175,47 @@
     animation-delay: $listrow-playanim-bar-c__delay;
   }
 }
+
+// Animation
+//
+// Definit la hauteur des barres en fonction de leur hauteur maximum durant l'animation.
+@keyframes listrow__playanim {
+  0% {
+    height: $listrow-playanim-bar__height-max / 5;
+  }
+
+  10% {
+    height: $listrow-playanim-bar__height-max / 2;
+  }
+
+  20% {
+    height: $listrow-playanim-bar__height-max / 1.6;
+  }
+
+  40% {
+    height: $listrow-playanim-bar__height-max / 5;
+  }
+
+  60% {
+    height: $listrow-playanim-bar__height-max / 1;
+  }
+
+  80% {
+    height: $listrow-playanim-bar__height-max / 1.15;
+  }
+
+  100% {
+    height: $listrow-playanim-bar__height-max / 2;
+  }
+}
+
+// Fait tourner l'icone de chargement.
+@keyframes listrow__loadanim {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}

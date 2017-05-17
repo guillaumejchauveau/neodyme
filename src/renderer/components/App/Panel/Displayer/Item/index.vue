@@ -1,6 +1,6 @@
 <template>
   <div class="c-item">
-    <div class="c-item__card" @click="setNextPanel(newCriterion)" v-ripple>
+    <div class="c-item__card" @click="setNextPanel" v-ripple>
       <div class="c-item__picture">
         <div class="c-item__picture-background"></div>
         <div class="c-item__picture-img"></div>

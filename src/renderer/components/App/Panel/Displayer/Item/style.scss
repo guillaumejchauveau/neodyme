@@ -98,12 +98,9 @@
 
     &__text-content {
       &--scrollable {
-        width:                     auto;
-        animation-direction:       alternate;
-        animation-iteration-count: infinite;
-        animation-name:            animation-item-text-scrolling;
-        animation-timing-function: linear;
-        visibility:                visible;
+        width:      auto;
+        animation:  animation-item-text-scrolling linear infinite alternate;
+        visibility: visible;
       }
 
       &--shortened {
@@ -118,6 +115,16 @@
   }
 }
 
-.mdc-simple-menu {
-  z-index: 12;
+// Animation
+//
+@keyframes animation-item-text-scrolling {
+  from,
+  10% {
+    transform: translateX(0);
+  }
+
+  95%,
+  to {
+    transform: translateX(calc(-100% + (#{$item__width} - 50px)));
+  }
 }

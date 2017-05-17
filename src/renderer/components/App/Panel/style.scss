@@ -6,13 +6,13 @@
 
 // 1. Evite au panel de chevaucher le player.
 .c-panel {
-  position:     absolute;
-  top:          0;
-  right:        0;
-  bottom:       0;
-  left:         $control-panel__size; // [1]
-  margin:       0 $control-panel__size + $panel__margin $panel__margin $panel__margin;
-  transition:   left $tracks-list__transition-easing;
+  position:   absolute;
+  top:        0;
+  right:      0;
+  bottom:     0;
+  left:       $control-panel__size; // [1]
+  margin:     0 $control-panel__size + $panel__margin $panel__margin $panel__margin;
+  transition: left $tracks-list__transition-easing;
 
   // Permet de reduire la taille du panel quand la liste de lecture est ouverte.
   &--tracks-list-opened {
