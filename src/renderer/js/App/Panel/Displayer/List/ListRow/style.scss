@@ -82,10 +82,7 @@
         @include material-icon;
 
         position:  absolute;
-        animation-duration:        1s;
-        animation-iteration-count: infinite;
-        animation-name: listrow__loadanim;
-        animation-timing-function: linear;
+        animation: listrow_laodanim 1s linear infinite;
         content:   'replay';
         cursor:    pointer;
       }
