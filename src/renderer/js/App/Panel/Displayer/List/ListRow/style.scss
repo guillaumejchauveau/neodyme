@@ -73,23 +73,21 @@
   &--load {
     .c-listrow-value__load-anim {
       display: inline-block;
-      height: 24px;
       width: 24px;
+      height: 24px;
       line-height: 100%;
-      transform: translate(-2px ,7px);
+      transform: translate(-2px, 7px);
 
       &::before {
         @include material-icon;
-        animation-name: listrow__loadanim;
-        animation-duration:        1s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
 
         position:  absolute;
+        animation-duration:        1s;
+        animation-iteration-count: infinite;
+        animation-name: listrow__loadanim;
+        animation-timing-function: linear;
         content:   'replay';
         cursor:    pointer;
-        //font-size: $listrow-playbutton__font-size;
-        //transform: translate($listrow-playbutton__translate);
       }
     }
   }
