@@ -67,10 +67,14 @@ describe('Criterion', function () {
     expect(Criterion.checkType('artist')).to.be.true()
     expect(Criterion.checkType('foo')).to.be.false()
 
-    // eslint-disable-next-line
-    expect(() => { new Criterion('artist', 'John Doe') }).to.not.throw(TypeError)
-    // eslint-disable-next-line
-    expect(() => { new Criterion('foo', 'bar') }).to.throw(TypeError)
+    expect(() => {
+      // eslint-disable-next-line
+      new Criterion('artist', 'John Doe')
+    }).to.not.throw(TypeError)
+    expect(() => {
+      // eslint-disable-next-line
+      new Criterion('foo', 'bar')
+    }).to.throw(TypeError)
   })
 
   /**
@@ -99,11 +103,17 @@ describe('Criterion', function () {
      * Test l'ajout d'un critere.
      */
     it('should add criterion', function () {
-      expect(() => { this.criteriaSet.add(this.criterion) }).to.not.throw(TypeError)
+      expect(() => {
+        this.criteriaSet.add(this.criterion)
+      }).to.not.throw(TypeError)
       expect(this.criteriaSet.criteria).to.have.ownProperty(this.criterion.type)
       expect(this.criteriaSet.criteria[this.criterion.type]).to.equal(this.criterion)
 
-      expect(() => { this.criteriaSet.add({wrong: 'object'}) }).to.throw(TypeError)
+      expect(() => {
+        this.criteriaSet.add({
+          wrong: 'object'
+        })
+      }).to.throw(TypeError)
     })
 
     /**
@@ -185,7 +195,9 @@ describe('Criterion', function () {
         }).to.throw(TypeError)
         expect(() => {
           // eslint-disable-next-line
-          new DecisiveCriteriaSet({wrong: 'object'})
+          new DecisiveCriteriaSet({
+            wrong: 'object'
+          })
         }).to.throw(TypeError)
         expect(() => {
           // eslint-disable-next-line
@@ -206,7 +218,8 @@ describe('Criterion', function () {
             }),
             id: ''
           })
-        }, 'Provider with key 1 should not exist.').to.throw(ReferenceError)
+        }, 'Provider with key 1 should not exist.')
+        .to.throw(ReferenceError)
         expect(() => {
           // eslint-disable-next-line
           new DecisiveCriteriaSet({
@@ -260,13 +273,22 @@ describe('Criterion', function () {
         const DCSStore = new DecisiveCriteriaSetStore()
         DIC.set('DCSStore', DCSStore)
 
-        const dcsA = new DecisiveCriteriaSet({provider, id: ''})
+        const dcsA = new DecisiveCriteriaSet({
+          provider,
+          id: ''
+        })
         dcsA.add(this.criterion)
         dcsA.add(new Criterion('album', 'album1'))
-        const dcsB = new DecisiveCriteriaSet({provider, id: ''})
+        const dcsB = new DecisiveCriteriaSet({
+          provider,
+          id: ''
+        })
         dcsB.add(this.criterion)
         dcsB.add(new Criterion('album', 'album1'))
-        const dcsC = new DecisiveCriteriaSet({provider, id: ''})
+        const dcsC = new DecisiveCriteriaSet({
+          provider,
+          id: ''
+        })
         dcsC.add(new Criterion('artist', 'Jane Doe'))
         dcsC.add(new Criterion('album', 'album2'))
 
@@ -285,13 +307,16 @@ describe('Criterion', function () {
        */
       it('should resolve corresponding DecisiveCriteriaSets', function () {
         expect(this.emptyCriteriaSet.resolveDecisiveCriteriaSets(),
-          'There should be the 3 registered DCSs since this is an empty criteriaSet.').to.have.lengthOf(3)
+          'There should be the 3 registered DCSs since this is an empty criteriaSet.')
+        .to.have.lengthOf(3)
         expect(this.withoutResultsCriteriaSet.resolveDecisiveCriteriaSets(),
-          'There should be 0 DCS since this criteriaSet don\'t correspond to any registered DCS.').to.have.lengthOf(0)
+          'There should be 0 DCS since this criteriaSet don\'t correspond to any registered DCS.')
+        .to.have.lengthOf(0)
 
         const criteriaSetResult = this.criteriaSet.resolveDecisiveCriteriaSets()
         expect(criteriaSetResult,
-          'There should be 2 DCSs since this criteriaSet contains this.criterion, as 2 DCSs.').to.have.lengthOf(2)
+          'There should be 2 DCSs since this criteriaSet contains this.criterion, as 2 DCSs.')
+        .to.have.lengthOf(2)
         expect(criteriaSetResult[0].criteria.artist).to.equal(this.criterion)
       })
 
@@ -300,15 +325,20 @@ describe('Criterion', function () {
        */
       it('should resolve the possible CriterionTypes', function () {
         expect(this.emptyCriteriaSet.resolveCriteriaByType(this.criterion.type),
-          'There should be the 2 used artists since this is an empty criteriaSet').to.have.lengthOf(2)
+          'There should be the 2 used artists since this is an empty criteriaSet')
+        .to.have.lengthOf(2)
         expect(this.withoutResultsCriteriaSet.resolveCriteriaByType(this.criterion.type)).to.have.lengthOf(0)
         expect(this.criteriaSet.resolveCriteriaByType(this.criterion.type),
-          'There should be only one possibility since the type is already in the criteriaSet.').to.have.lengthOf(1)
+          'There should be only one possibility since the type is already in the criteriaSet.')
+        .to.have.lengthOf(1)
 
-        expect(() => { this.criteriaSet.resolveCriteriaByType('invalid type') }).to.throw(TypeError)
+        expect(() => {
+          this.criteriaSet.resolveCriteriaByType('invalid type')
+        }).to.throw(TypeError)
 
         expect(this.emptyCriteriaSet.resolveCriteriaByType('album'),
-          'There should be the 2 used albums since this is an empty criteriaSet').to.have.lengthOf(2)
+          'There should be the 2 used albums since this is an empty criteriaSet')
+        .to.have.lengthOf(2)
         expect(this.withoutResultsCriteriaSet.resolveCriteriaByType('album')).to.have.lengthOf(0)
         const criteriaSetResult = this.criteriaSet.resolveCriteriaByType('album')
         expect(criteriaSetResult).to.have.lengthOf(1)

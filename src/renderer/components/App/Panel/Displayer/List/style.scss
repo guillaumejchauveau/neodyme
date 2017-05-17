@@ -1,0 +1,22 @@
+//
+// Composant List.
+// Copyright Paul Charpentier 2017.
+//
+@import 'loader';
+
+.c-list {
+  @include card($list-card__width, $list-card__height);
+
+  position:       relative;
+  width:          auto;
+  margin:         $list__margin-side;
+  margin-top:     $list__margin-top;
+  padding:        $list__padding;
+  padding-bottom: 0;
+
+  &__table {
+    position:        relative;
+    width:           100%;
+    border-collapse: collapse;
+  }
+}

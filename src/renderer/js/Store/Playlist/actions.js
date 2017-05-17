@@ -60,18 +60,10 @@ export default {
       }
 
       criteriaSets.forEach(criteriaSet => {
-        if (criteriaSet instanceof DecisiveCriteriaSet) {
-          try {
-            context.dispatch('addDecisiveCriteriaSet', {data: criteriaSet, index})
-            resolver()
-          } catch (exception) {
-            reject(new Error(exception.message))
-          }
-        } else {
-          context.dispatch('addCriteriaSet', {data: criteriaSet, index})
-                 .then(resolver)
-                 .catch(reject)
-        }
+        const action = criteriaSet instanceof DecisiveCriteriaSet ? 'addDecisiveCriteriaSet' : 'addCriteriaSet'
+        context.dispatch(action, {data: criteriaSet, index})
+               .then(resolver)
+               .catch(reject)
       })
     })
   },
@@ -79,8 +71,6 @@ export default {
    * Ajoute des pistes a partir d'un ensemble de criteres.
    * @param {(CriteriaSet|{data: CriteriaSet, index: Number})} payload
    * @returns {Promise}
-   * @throws {TypeError} Lance un exception si l'ensemble de criteres n'est pas valide.
-   * @throws {Error} Lance une exception si une erreur est rencontree.
    */
   addCriteriaSet (context, payload) {
     // Reformatage des donnees a traiter.
@@ -92,28 +82,32 @@ export default {
     }
 
     // Traitement.
-    if (!(criteriaSet instanceof CriteriaSet)) {
-      throw TypeError('Invalid criteriaSet')
-    }
-
     return new Promise((resolve, reject) => {
+      if (!(criteriaSet instanceof CriteriaSet)) {
+        return reject(new TypeError('Invalid criteriaSet'))
+      }
+
       criteriaSet.resolveDecisiveCriteriaSetFootprints()
                  .then(decisiveCriteriaSetFootprints => {
                    decisiveCriteriaSetFootprints.forEach(decisiveCriteriaSetFootprint => {
-                     // Convertit l'empreinte en ensemble de criteres determinant.
-                     const decisiveCriteriaSet = new DecisiveCriteriaSet({
-                       providerKey: decisiveCriteriaSetFootprint.provider.config.key,
-                       id: decisiveCriteriaSetFootprint.id
-                     })
-                     // Copie les criteres.
-                     for (const criterionType in decisiveCriteriaSetFootprint.criteria) {
-                       if (decisiveCriteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
-                         const criterion = decisiveCriteriaSetFootprint.criteria[criterionType]
-                         decisiveCriteriaSet.add(new Criterion(criterion.type, criterion.value))
+                     try {
+                       // Convertit l'empreinte en ensemble de criteres determinant.
+                       const decisiveCriteriaSet = new DecisiveCriteriaSet({
+                         providerKey: decisiveCriteriaSetFootprint.provider.config.key,
+                         id: decisiveCriteriaSetFootprint.id
+                       })
+                       // Copie les criteres.
+                       for (const criterionType in decisiveCriteriaSetFootprint.criteria) {
+                         if (decisiveCriteriaSetFootprint.criteria.hasOwnProperty(criterionType)) {
+                           const criterion = decisiveCriteriaSetFootprint.criteria[criterionType]
+                           decisiveCriteriaSet.add(new Criterion(criterion.type, criterion.value))
+                         }
                        }
-                     }
 
-                     context.dispatch('addDecisiveCriteriaSet', {data: decisiveCriteriaSet, index})
+                       context.dispatch('addDecisiveCriteriaSet', {data: decisiveCriteriaSet, index})
+                     } catch (exception) {
+                       return reject(exception)
+                     }
                    })
 
                    resolve()
@@ -124,6 +118,8 @@ export default {
   /**
    * Ajoute une piste a partir d'un ensemble de criteres determinant.
    * @param {(DecisiveCriteriaSet|{data: DecisiveCriteriaSet, index: Number})} payload
+   * @throws {TypeError} Lance une exception si l'ensemble de criteres determinant n'est pas reconnu.
+   * @throws {Error} Lance une exception si le lecteur est en chargement.
    */
   addDecisiveCriteriaSet (context, payload) {
     // Reformatage des donnees a traiter.
@@ -140,8 +136,13 @@ export default {
   /**
    * Ajoute une piste a la liste de lecture.
    * @param {(Track|{data: Track, index: Number})} payload
+   * @throws {Error} Lance une exception si le lecteur est en chargement.
    */
   add (context, payload) {
+    if (context.getters['player/playerIs']('LOADING')) {
+      throw new Error('Player is loading')
+    }
+
     // Reformatage des donnees a traiter.
     let track = payload
     let index = null

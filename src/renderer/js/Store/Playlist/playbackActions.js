@@ -46,7 +46,6 @@ export default {
                if (context.state.currentTrackIndex === -1) {
                  context.commit('SET_CURRENT_TRACK', 0)
                }
-
                // S'il n'y a pas de position demandee.
                if (position === null) {
                  position = context.state.savedCurrentTrackPosition
@@ -75,6 +74,7 @@ export default {
 
       context.dispatch('player/stop')
              .then(() => {
+               // Enregistre la derniere position sur la piste courante pour reprendre la lecture.
                context.commit('SAVE_CURRENT_TRACK_POSITION')
 
                resolve()
@@ -95,6 +95,7 @@ export default {
       context.dispatch('player/stop')
              .then(() => {
                context.dispatch('player/clearBuffer')
+               // Remet a 0 la derniere position sur la piste courante.
                context.commit('SAVE_CURRENT_TRACK_POSITION')
                context.commit('SET_CURRENT_TRACK', -1)
 
@@ -155,7 +156,7 @@ export default {
       }
       const currentTrack = context.getters['currentTrack']
       if (!currentTrack) {
-        reject(new ReferenceError('No current track'))
+        return reject(new ReferenceError('No current track'))
       }
 
       context.dispatch('player/stop')
@@ -170,15 +171,19 @@ export default {
                                     .then(() => {
                                       // Lance la lecture.
                                       context.dispatch('player/start', position)
-                                      context.state.player.emitter.removeAllListeners('endReached')
-                                      context.state.player.emitter.once('endReached', () => {
-                                        context.dispatch('next')
-                                               .catch(() => {
-                                                 context.dispatch('stop')
+                                             .then(() => {
+                                               context.state.player.emitter.removeAllListeners('endReached')
+                                               // Fonction executee quand le lecteur arrive en bout de piste.
+                                               context.state.player.emitter.once('endReached', () => {
+                                                 context.dispatch('next')
+                                                        .catch(() => {
+                                                          context.dispatch('stop')
+                                                        })
                                                })
-                                      })
 
-                                      resolve()
+                                               resolve()
+                                             })
+                                             .catch(reject)
                                     })
                                     .catch(reject)
                            })
