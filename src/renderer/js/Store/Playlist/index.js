@@ -13,11 +13,16 @@ import actions from './actions'
  * Module Lecteur.
  */
 import player from './Player'
+/**
+ * Module Liste des pistes.
+ */
+import tracksList from './TracksList'
 
 export default {
   namespaced: true,
   modules: {
-    player
+    player,
+    tracksList
   },
   state: {
     /**
@@ -30,11 +35,6 @@ export default {
      * @type {Number}
      */
     currentTrackIndex: -1,
-    /**
-     * L'ouverture de la liste des pistes est-elle demandee.
-     * @type {Boolean}
-     */
-    tracksListActivationRequested: false,
     /**
      * La derniere position enregistree sur la piste courante (en secondes).
      * @type {Number}
@@ -55,19 +55,13 @@ export default {
      */
     currentTrack (state) {
       return (state.currentTrackIndex === -1) ? null : state.tracks[state.currentTrackIndex]
-    },
-    /**
-     * Permet de determine si la liste des pistes doit etre affichee.
-     * @returns {Boolean}
-     */
-    tracksListActive (state, getters) {
-      return getters.tracksCount && state.tracksListActivationRequested
     }
   },
   mutations: {
     /**
      * Ajoute une piste a la liste de lecture.
-     * @param {(Track|{data: Track, index: Number})} payload - La piste a ajouter.
+     * @param {(Track|{data: Track, index: Number})} payload - La piste a ajouter, avec l'indice ou la placer
+     * (decale toutes les pistes a et apres l'indice, falcutatif).
      */
     ADD_TRACK (state, payload) {
       // Reformatage des donnees a traiter.
@@ -115,18 +109,6 @@ export default {
      */
     SAVE_CURRENT_TRACK_POSITION (state) {
       state.savedCurrentTrackPosition = state.player.position
-    },
-    /**
-     * Ouvre la liste des pistes.
-     */
-    OPEN_TRACKS_LIST (state) {
-      state.tracksListActivationRequested = true
-    },
-    /**
-     * Ferme la liste des pistes.
-     */
-    CLOSE_TRACKS_LIST (state) {
-      state.tracksListActivationRequested = false
     }
   },
   actions

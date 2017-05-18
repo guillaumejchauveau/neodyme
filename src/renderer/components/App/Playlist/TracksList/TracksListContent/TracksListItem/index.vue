@@ -1,7 +1,7 @@
 <template>
   <div class="c-tracks-list-item"
        :style="itemStyle"
-       @dblclick="$emit('trackAction', 'play', position)"
+       @dblclick="trackAction('play')"
        @contextmenu.prevent="active = !active">
     <button class="c-tracks-list-item-menu-toggler"
             title="Ouvrir"

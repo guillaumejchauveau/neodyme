@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+http://gitlab.flow.local/guillaumejchauveau/neodyme.git"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "build/index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production node webpack/build.js",

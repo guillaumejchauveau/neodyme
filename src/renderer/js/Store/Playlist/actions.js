@@ -171,7 +171,7 @@ export default {
     // Reformatage des donnees a traiter.
     let index = requestedIndex
     if (index < 0) {
-      index = context.state.tracks.length + index
+      index = context.getters['tracksCount'] + index
     }
 
     // Traitement.
@@ -193,6 +193,9 @@ export default {
         if (index < context.state.currentTrackIndex) {
           context.commit('SET_CURRENT_TRACK', context.state.currentTrackIndex - 1)
         }
+        if (context.state.tracksList.currentItem > context.getters['tracksCount'] - 1) {
+          context.dispatch('tracksList/setCurrentItem', context.getters['tracksCount'] - 1)
+        }
         resolve()
       }
     })
@@ -210,6 +213,7 @@ export default {
       context.dispatch('stop')
              .then(() => {
                context.commit('CLEAR_TRACKS')
+               context.dispatch('tracksList/setCurrentItem', 0)
                resolve()
              })
              .catch(reject)
