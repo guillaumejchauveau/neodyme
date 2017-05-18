@@ -4,8 +4,6 @@
  * @copyright Guillaume Chauveau 2017.
  */
 
-// TODO: Add waypointItemTracking.
-
 export default {
   namespaced: true,
   state: {
@@ -18,7 +16,12 @@ export default {
      * L'ouverture de la liste des pistes est-elle demandee ?
      * @type {Boolean}
      */
-    activationRequested: false
+    activationRequested: false,
+    /**
+     * Faut-il suivre le point de repere ?
+     * @type {Boolean}
+     */
+    waypointItemTracking: false
   },
   getters: {
     /**
@@ -32,8 +35,8 @@ export default {
      * Determine la valeur de l'element courant en prenant en compte l'option de suivi du point de repere.
      * @returns {Number}
      */
-    currentItem (state) {
-      return state.currentItem
+    currentItem (state, getters, rootState) {
+      return state.waypointItemTracking ? rootState.playlist.currentTrackIndex : state.currentItem
     }
   },
   mutations: {
@@ -51,12 +54,11 @@ export default {
     },
     /**
      * Doit etre appelle via l'action 'setCurrentItem'.
-     * @param {{index: Number, tracksCount: Number}} payload
+     * @param {{index: Number, tracksCount: Number, currentTrackIndex: Number}} payload
      * @constructor
      */
     SET_CURRENT_ITEM (state, payload) {
-      const {index, tracksCount} = payload
-      // state.waypointItemTracking = false
+      const {index, tracksCount, currentTrackIndex} = payload
 
       // Verifie que la nouvelle valeur soit possible.
       if (index < 0) {
@@ -67,12 +69,11 @@ export default {
         state.currentItem = index
       }
 
-      /* if (state.currentItem === state.waypointItemIndex) {
-        state.waypointItemTracking = true
-      }
-      if (this.waypointItemIndex === -1) {
+      // Met a jour l'etat du suivi du point de repere.
+      state.waypointItemTracking = state.currentItem === currentTrackIndex
+      if (currentTrackIndex === -1) {
         state.waypointItemTracking = false
-      } */
+      }
     }
   },
   actions: {
@@ -83,7 +84,8 @@ export default {
     setCurrentItem (context, index) {
       context.commit('SET_CURRENT_ITEM', {
         index,
-        tracksCount: context.rootGetters['playlist/tracksCount']
+        tracksCount: context.rootGetters['playlist/tracksCount'],
+        currentTrackIndex: context.rootState.playlist.currentTrackIndex
       })
     }
   }

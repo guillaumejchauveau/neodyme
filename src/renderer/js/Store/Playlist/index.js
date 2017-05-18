@@ -103,6 +103,14 @@ export default {
       }
 
       state.currentTrackIndex = index
+
+      // Met a jour l'etat du suivi du point de repere.
+      if (!state.tracksList.waypointItemTracking) {
+        state.tracksList.waypointItemTracking = state.tracksList.currentItem === index
+      }
+      if (index === -1) {
+        state.tracksList.waypointItemTracking = false
+      }
     },
     /**
      * Enregistre la position pour une reprise eventuelle.
