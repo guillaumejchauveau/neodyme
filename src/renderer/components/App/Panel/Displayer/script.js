@@ -36,7 +36,7 @@ export default {
     /**
      * Met a jour les elements du panel lors de l'ajout d'ensembles de criteres determinants.
      */
-    DCSStoreUpdateHandler () {
+    decisiveCriteriaSetsStoreUpdateHandler () {
       this.$store.dispatch('panel/loadCurrentPanelElements')
     }
   },
@@ -46,7 +46,7 @@ export default {
    * Met en place l'ecouteur d'evenement IPC pour la mise a jour des ensembles de criteres determinants
    */
   mounted () {
-    ipcRenderer.on('EVENT:DCSStore.updated', debounce(this.DCSStoreUpdateHandler, 1000, {
+    ipcRenderer.on('EVENT:DCSStore.updated', debounce(this.decisiveCriteriaSetsStoreUpdateHandler, 1000, {
       leading: true,
       maxWait: 1000
     }))

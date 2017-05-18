@@ -68,9 +68,7 @@ export default {
      * @returns {Boolean}
      */
     currentPlayStatus () {
-      return status => {
-        return this.isCurrentTrack ? this.playerIs(status) : false
-      }
+      return status => this.isCurrentTrack ? this.playerIs(status) : false
     },
 
     /**
