@@ -102,15 +102,18 @@ export default {
         index = -1
       }
 
-      state.currentTrackIndex = index
-
-      // Met a jour l'etat du suivi du point de repere.
+      // Met a jour l'etat du suivi du point de repere de la Liste des pistes.
       if (!state.tracksList.waypointItemTracking) {
-        state.tracksList.waypointItemTracking = state.tracksList.currentItem === index
+        // Si la Liste des pistes est positionee sur la piste courante.
+        state.tracksList.waypointItemTracking = state.tracksList.currentItem === state.currentTrackIndex
       }
-      if (index === -1) {
+      // Si le nouvel indice va sur -1, laisse la Liste des pistes sur son ancienne position.
+      if (state.tracksList.waypointItemTracking && index === -1) {
         state.tracksList.waypointItemTracking = false
+        state.tracksList.currentItem = state.currentTrackIndex
       }
+
+      state.currentTrackIndex = index
     },
     /**
      * Enregistre la position pour une reprise eventuelle.
