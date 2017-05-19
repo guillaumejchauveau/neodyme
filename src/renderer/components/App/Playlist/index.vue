@@ -1,10 +1,8 @@
-<template>
-  <div class="c-playlist">
-    <div class="c-playlist__content">
-      <tracks-list></tracks-list>
-      <control-panel></control-panel>
-    </div>
-  </div>
+<template lang="pug">
+  .c-playlist
+    .c-playlist__content
+      tracks-list
+      control-panel
 </template>
 
 <script src="./script.js"></script>

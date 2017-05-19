@@ -1,8 +1,7 @@
-<template>
-  <div id="app">
-    <playlist></playlist>
-    <panel></panel>
-  </div>
+<template lang="pug">
+  #app
+    playlist
+    panel
 </template>
 
 <script src="./script.js"></script>
