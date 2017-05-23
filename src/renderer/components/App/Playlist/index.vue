@@ -1,15 +1,8 @@
-<template>
-  <div class="c-playlist">
-    <div class="c-playlist__content">
-      <tracks-list @trackAction="trackActionHandler"></tracks-list>
-      <control-panel @play="play"
-                     @pause="pause"
-                     @stop="stop"
-                     @previous="previous"
-                     @next="next"
-                     @clear="clear"></control-panel>
-    </div>
-  </div>
+<template lang="pug">
+  .c-playlist
+    .c-playlist__content
+      tracks-list
+      control-panel
 </template>
 
 <script src="./script.js"></script>

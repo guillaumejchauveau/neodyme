@@ -38,7 +38,7 @@ class DecisiveCriteriaSet extends CriteriaSet {
 
     // Validation des informations de determination.
     if (typeof decisiveCriteriaSetConfig !== 'object' ||
-      !decisiveCriteriaSetConfig.provider || !decisiveCriteriaSetConfig.hasOwnProperty('id')) {
+      !decisiveCriteriaSetConfig.hasOwnProperty('provider') || !decisiveCriteriaSetConfig.hasOwnProperty('id')) {
       throw new TypeError('Invalid decisiveCriteriaSetConfig')
     }
     if (!(decisiveCriteriaSetConfig.provider instanceof Provider)) {

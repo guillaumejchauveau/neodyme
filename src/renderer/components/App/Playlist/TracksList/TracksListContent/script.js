@@ -37,7 +37,7 @@ export default {
     ...VueX.mapState('playlist', {
       waypointItemIndex: 'currentTrackIndex'
     }),
-    ...VueX.mapGetters('playlist', ['tracksListActive']),
+    ...VueX.mapGetters('playlist/tracksList', ['active', 'currentItem']),
     /**
      * Compile le style dynamique du point de repere.
      * @returns {String} Le contenu de l'attribut style.
@@ -48,6 +48,7 @@ export default {
     }
   },
   methods: {
+    ...VueX.mapActions('playlist/tracksList', ['setCurrentItem']),
     /**
      * Calcule la position d'un element par rapport a l'element courant.
      * @param {Number} index - La position absolue.
@@ -62,34 +63,15 @@ export default {
       return distance
     },
     /**
-     * Declenche le defilement des elements a l'utilisation de la molette de la souris.
+     * Change l'element courant a l'utilisation de la molette de la souris.
      * @param {MouseEvent} event - L'evenement capture.
      */
-    itemsScrollingHandler (event) {
-      // 1 ou -1 element en fonction du sens.
-      this.$emit('scrollItems', Math.sign(event.deltaY))
-    },
-    /**
-     * Transmet l'evenement trackAction en convertissant la position relative en index de piste.
-     * @param {String} action           - L'action a effectuer.
-     * @param {Number} relativePosition - La position relative a l'element courant.
-     */
-    trackActionHandler (action, relativePosition) {
-      const index = this.currentItem + relativePosition
-      this.$emit('trackAction', action, index)
+    mouseWheelHandler (event) {
+      // 1 ou -1 element en plus en fonction du sens de le molette.
+      this.setCurrentItem(this.currentItem += Math.sign(event.deltaY))
     }
   },
   components: {
     TracksListItem
-  },
-  props: {
-    /**
-     * L'indice de l'element courant.
-     * @type {Number}
-     */
-    currentItem: {
-      type: Number,
-      required: true
-    }
   }
 }

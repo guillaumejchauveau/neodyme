@@ -39,7 +39,7 @@ class Provider {
     if (!providerConfig.hasOwnProperty('key') || typeof providerConfig.key !== 'number') {
       throw new TypeError('Invalid provider key')
     }
-    if (!providerConfig.typeMappers || !(providerConfig.typeMappers instanceof Array)) {
+    if (!providerConfig.hasOwnProperty('typeMappers') || !(providerConfig.typeMappers instanceof Array)) {
       throw new TypeError('Invalid provider typeMappers')
     }
     if (providerConfig.typeMappers.length !== DIC.get('ConfigurationStore').get('criterion').types.length) {
@@ -61,7 +61,7 @@ class Provider {
       id
     })
 
-    // Ajoute chaques criteres a partir des metadonnees.
+    // Ajoute chaque critere a partir des metadonnees.
     DIC.get('ConfigurationStore').get('criterion').types.forEach((criterionType, index) => {
       decisiveCriteriaSet.add(new Criterion(criterionType, provider.config.typeMappers[index](metadatas)))
     })

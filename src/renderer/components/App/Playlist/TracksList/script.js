@@ -12,46 +12,18 @@ import VueX from 'vuex'
 import TracksListContent from './TracksListContent'
 
 export default {
-  data () {
-    return {
-      /**
-       * L'indice de l'element courant.
-       * @type {Number}
-       */
-      currentItem: 0,
-      /**
-       * Le suivi du point de repere est-il active.
-       * @type {Boolean}
-       */
-      waypointItemTracking: false
-    }
-  },
   computed: {
     ...VueX.mapState('playlist', {
       waypointItemIndex: 'currentTrackIndex'
     }),
-    ...VueX.mapGetters('playlist', ['tracksCount', 'tracksListActive']),
-    /**
-     * Determine la valeur de l'element courant en prenant en compte l'option de suivi du point de repere.
-     * @returns {Number}
-     */
-    computedCurrentItem () {
-      if (this.currentItem === this.waypointItemIndex) {
-        this.waypointItemTracking = true
-      }
-      if (this.waypointItemIndex === -1) {
-        this.waypointItemTracking = false
-      }
-
-      this.currentItem = this.waypointItemTracking ? this.waypointItemIndex : this.currentItem
-      return this.currentItem
-    },
+    ...VueX.mapGetters('playlist', ['tracksCount']),
+    ...VueX.mapGetters('playlist/tracksList', ['active', 'currentItem']),
     /**
      * Calcule le nombre d'elements entre l'element courant et le point de repere.
      * @returns {Number} Le nombre d'element.
      */
     distanceToWaypoint () {
-      return this.computedCurrentItem - this.waypointItemIndex
+      return this.currentItem - this.waypointItemIndex
     },
     /**
      * Calcule l'angle maximum du chariot de defilement.
@@ -106,41 +78,11 @@ export default {
     }
   },
   methods: {
-    ...VueX.mapMutations({
-      openTracksList: 'playlist/OPEN_TRACKS_LIST',
-      closeTracksList: 'playlist/CLOSE_TRACKS_LIST'
+    ...VueX.mapMutations('playlist/tracksList', {
+      openTracksList: 'OPEN',
+      closeTracksList: 'CLOSE'
     }),
-    /**
-     * Change l'element courant.
-     * @param {Number} index
-     */
-    setCurrentItem (index) {
-      this.waypointItemTracking = false
-      this.currentItem = index
-
-      // Verifie que la nouvelle valeur soit possible.
-      if (this.currentItem < 0) {
-        this.currentItem = 0
-      }
-      if (this.currentItem > this.tracksCount - 1) {
-        this.currentItem = this.tracksCount - 1
-      }
-    },
-    /**
-     * Fait defiler les elements.
-     * @param {Number} amount - Le nombre d'elements a defiler.
-     */
-    scrollItems (amount) {
-      this.setCurrentItem(this.currentItem += amount)
-    },
-    /**
-     * Transmet l'evenement trackAction.
-     * @param {String} action - L'action a effectuer.
-     * @param {Number} index  - L'indice de la piste.
-     */
-    trackActionHandler (action, index) {
-      this.$emit('trackAction', action, index)
-    }
+    ...VueX.mapActions('playlist/tracksList', ['setCurrentItem'])
   },
   components: {
     TracksListContent

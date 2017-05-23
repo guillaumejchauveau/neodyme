@@ -6,13 +6,8 @@
 
 import chai from 'chai'
 import Vue from 'vue'
-import { MDCCheckbox } from '@material/checkbox'
 import { MDCSimpleMenu } from '@material/menu'
 
-/**
- * Composant MDC/Checkbox
- */
-import MDCCheckboxComponent from '../../src/renderer/components/MDC/Checkbox'
 /**
  * Composant MDC/Menu
  */
@@ -24,23 +19,6 @@ chai.use(require('chai-dom'))
 const expect = chai.expect
 
 describe('MDC', function () {
-  describe('Checkbox', function () {
-    before(function () {
-      this.vm = new Vue(MDCCheckboxComponent)
-      this.vm.$mount()
-    })
-
-    it('should have @material/menu/MDCCheckbox attached', function () {
-      expect(this.vm).to.have.ownProperty('mdc_checkbox_')
-      expect(this.vm.mdc_checkbox_).to.be.an.instanceof(MDCCheckbox)
-    })
-
-    after(function () {
-      this.vm.$destroy()
-      delete this.vm
-    })
-  })
-
   describe('Menu', function () {
     before(function () {
       this.vm = new Vue(MDCMenuComponent)

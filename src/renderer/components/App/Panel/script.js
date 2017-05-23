@@ -29,7 +29,9 @@ export default {
 
   computed: {
     ...mapGetters('panel', ['getCurrentPanelElements']),
-    ...mapGetters('playlist', ['tracksListActive'])
+    ...mapGetters('playlist/tracksList', {
+      tracksListActive: 'active'
+    })
   },
 
   methods: {
