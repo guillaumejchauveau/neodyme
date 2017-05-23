@@ -37,7 +37,7 @@
             title="Accéder à l'artiste">{{element.criteria.artist.value}}</span>
     </td>
     <td class="c-listrow__value">
-      <span class="c-listrow-value-text">{{formatedDuration}}</span>
+      <span class="c-listrow-value-text">{{formattedTime(element.criteria.duration.value)}}</span>
     </td>
   </tr>
 </template>

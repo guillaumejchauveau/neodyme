@@ -21,5 +21,5 @@ Vue.directive('ripple', Ripple)
 // eslint-disable-next-line
 const vm = new Vue({
   el: '#app',
-  render: h => h(require('../components/App'))
+  render: createElement => createElement(require('../components/App'))
 })

@@ -7,6 +7,11 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 /**
+ * Mixin App/FormattedTime
+ */
+import FormattedTimeMixin from '../../../../FormattedTime'
+
+/**
  * Composant MDC/Menu.
  */
 import MDCMenu from '../../../../../MDC/Menu'
@@ -17,6 +22,7 @@ import MDCMenuItem from '../../../../../MDC/Menu/MenuItem'
 
 export default {
   name: 'listrow',
+  mixins: [FormattedTimeMixin],
   components: {
     'mdc-menu': MDCMenu,
     'mdc-menu-item': MDCMenuItem
@@ -41,20 +47,6 @@ export default {
     ...mapGetters('panel', ['getSelectedListRow']),
 
     /**
-     * Formate la duree du titre d'un temps en secondes en une chaine de caracteres minutes et secondes.
-     * @returns {String} La duree formatee.
-     */
-    formatedDuration () {
-      const duration = this.element.criteria.duration.value
-      let secondsString = Math.trunc(duration % 60) + ''
-      let minutesString = Math.trunc(duration / 60) + ''
-      secondsString = (secondsString.length < 2 ? '0' : '') + secondsString
-      minutesString = (minutesString.length < 2 ? '0' : '') + minutesString
-
-      return `${minutesString}:${secondsString}`
-    },
-
-    /**
      * Verifie si la piste correspond a la piste courante dans la liste de lecture.
      * @returns {Boolean}
      */
@@ -68,9 +60,7 @@ export default {
      * @returns {Boolean}
      */
     currentPlayStatus () {
-      return status => {
-        return this.isCurrentTrack ? this.playerIs(status) : false
-      }
+      return status => this.isCurrentTrack ? this.playerIs(status) : false
     },
 
     /**

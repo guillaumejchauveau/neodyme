@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+http://gitlab.flow.local/guillaumejchauveau/neodyme.git"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "build/index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production node webpack/build.js",
@@ -73,10 +73,10 @@
     "progress-bar-webpack-plugin": "^1.9.3",
     "pug": "^2.0.0-rc.1",
     "pug-html-loader": "^1.1.1",
-    "pug-lint-loader": "^0.0.3",
+    "pug-lint-loader": "^0.0.4",
     "sass-loader": "^6.0.2",
     "sinon": "^2.1.0",
-    "style-loader": "^0.17.0",
+    "style-loader": "^0.18.1",
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "stylelint-order": "^0.4.3",

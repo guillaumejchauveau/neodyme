@@ -17,7 +17,7 @@ export default {
   },
   props: {
     /**
-     * Le bouton du menu est-il horizontal.
+     * Le bouton du menu est-il horizontal ?
      */
     horiz: {
       type: Boolean,

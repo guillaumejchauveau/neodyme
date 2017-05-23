@@ -15,14 +15,14 @@ export default {
     let index = payload
     let position = null
     let paused = false
-    if (payload) {
-      if (typeof payload.index !== 'undefined') {
+    if (payload !== null) {
+      if (payload.hasOwnProperty('index')) {
         index = payload.index
       }
-      if (typeof payload.position !== 'undefined') {
+      if (payload.hasOwnProperty('position')) {
         position = payload.position
       }
-      if (typeof payload.paused !== 'undefined') {
+      if (payload.hasOwnProperty('paused')) {
         paused = payload.paused
       }
     }

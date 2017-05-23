@@ -9,8 +9,6 @@
  */
 import TracksListItemAction from './TracksListItemAction'
 
-import VueX from 'vuex'
-
 export default {
   data () {
     return {
@@ -20,14 +18,13 @@ export default {
        */
       angularHeight: this.$store.state.settings.playlist.tracksList.item.angularHeight,
       /**
-       * Le menu des actions de piste est-il ouvert.
+       * Le menu des actions de piste est-il ouvert ?
        * @type {Boolean}
        */
       active: false
     }
   },
   computed: {
-    ...VueX.mapGetters('playlist/player', ['playerIs']),
     /**
      * Compile le style dynamique de l'element.
      * @returns {String} Le contenu de l'attribut style.
@@ -38,12 +35,32 @@ export default {
   },
   methods: {
     /**
-     * Lance un evenement pour executer une action sur une piste.
+     * Execute une action sur une piste.
      * @param {String} action - L'action a effectuer.
      */
     trackAction (action) {
       this.active = false
-      this.$emit('trackAction', action, this.position)
+      const track = this.$store.state.playlist.tracks[this.trackIndex]
+      switch (action) {
+        // Lire la piste.
+        case 'play':
+          this.$store.dispatch('playlist/play', this.trackIndex)
+          break
+        // Supprimer la piste.
+        case 'remove':
+          this.$store.dispatch('playlist/remove', this.trackIndex)
+          break
+        // Aller a l'artiste de la piste.
+        case 'goto-artist':
+          this.$store.dispatch('panel/setCustomPanelConfig', {decisiveCriteriaSet: track.dcs, criterionType: 'artist'})
+          break
+        // Aller a l'album de la piste.
+        case 'goto-album':
+          this.$store.dispatch('panel/setCustomPanelConfig', {decisiveCriteriaSet: track.dcs, criterionType: 'album'})
+          break
+        default:
+          break
+      }
     }
   },
   components: {
@@ -56,6 +73,14 @@ export default {
      */
     data: {
       type: Object,
+      required: true
+    },
+    /**
+     * L'indice de la piste correspondante.
+     * @type {Number}
+     */
+    trackIndex: {
+      type: Number,
       required: true
     },
     /**

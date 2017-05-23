@@ -11,7 +11,7 @@ export default {
     el.mdc_ripple_ = new MDCRipple(el, new MDCRippleFoundation({isUnbounded: context.modifiers.unbounded}))
   },
   unbind (el) {
-    if (!el.mdc_ripple_) {
+    if (!el.hasOwnProperty('mdc_ripple_')) {
       return
     }
     el.mdc_ripple_.destroy()

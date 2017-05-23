@@ -42,7 +42,7 @@ class CriteriaSet {
 
   /**
    * Supprime un critere.
-   * @param {String} criterionType - Le type de critere.
+   * @param {String} criterionType - Le type de criteres.
    */
   remove (criterionType) {
     delete this.criteria[criterionType]
@@ -77,11 +77,11 @@ class CriteriaSet {
   }
 
   /**
-   * Recupere pour un type de critere les ensembles de criteres avec chaques valeurs possibles a partir de l'ensemble
+   * Recupere pour un type de critere les ensembles de criteres avec chaque valeur possible a partir de l'ensemble
    * courant.
    * @param {String} criterionType - Le type de critere.
    * @returns {Array} La liste d'ensembles de criteres possibles.
-   * @throws {TypeError} Lance une exception si le type de critere n'est pas supporte.
+   * @throws {TypeError} Lance une exception si le type de criteres n'est pas supporte.
    */
   resolveCriteriaByType (criterionType) {
     if (!Criterion.checkType(criterionType)) {
@@ -124,7 +124,7 @@ class CriteriaSet {
    * @throws {TypeError} Lance une exception si l'empreinte n'est pas valide.
    */
   static convertCriteriaSetFootprint (criteriaSetFootprint) {
-    if (typeof criteriaSetFootprint !== 'object' || !criteriaSetFootprint.criteria) {
+    if (typeof criteriaSetFootprint !== 'object' || !criteriaSetFootprint.hasOwnProperty('criteria')) {
       throw new TypeError('Invalid criteriaSetFootprint')
     }
 

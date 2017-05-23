@@ -8,14 +8,14 @@
                 :class="{'c-control-panel-control--pause': playerIs('PLAYING'),
                 'c-control-panel-control--disabled': !tracksCount || playerIs('LOADING')}"
                 :title="playerIs('PLAYING') ? 'Pause' : 'Lire'"
-                @click="$emit(playerIs('PLAYING') ? 'pause' : 'play')"
+                @click="$store.dispatch(`playlist/${playerIs('PLAYING') ? 'pause' : 'play'}`)"
                 v-ripple>
           <span class="c-control-panel-control__icon"></span>
         </button>
         <button class="c-control-panel-control c-control-panel-control--btn c-control-panel-control--previous"
                 :class="{'c-control-panel-control--disabled': currentTrackIndex <= 0 || playerIs('LOADING')}"
                 title="Precedent"
-                @click="$emit('previous')"
+                @click="$store.dispatch('playlist/previous')"
                 v-ripple>
           <span class="c-control-panel-control__icon"></span>
         </button>
@@ -23,14 +23,14 @@
                 :class="{'c-control-panel-control--disabled': currentTrackIndex >= tracksCount - 1 ||
                 playerIs('LOADING')}"
                 title="Suivant"
-                @click="$emit('next')"
+                @click="$store.dispatch('playlist/next')"
                 v-ripple>
           <span class="c-control-panel-control__icon"></span>
         </button>
         <button class="c-control-panel-control c-control-panel-control--btn c-control-panel-control--stop"
                 :class="{'c-control-panel-control--disabled': currentTrackIndex === -1 || playerIs('LOADING')}"
                 title="Stop"
-                @click="$emit('stop')"
+                @click="$store.dispatch('playlist/stop')"
                 v-ripple>
           <span class="c-control-panel-control__icon"></span>
         </button>
@@ -39,7 +39,8 @@
         <mdc-menu-item class="c-control-panel-menu-action"
                        :class="{'c-control-panel-menu-action--disabled': !tracksCount || playerIs('LOADING')}"
                        title="Effacer la liste de lecture"
-                       @trigger="$emit('clear')">Effacer</mdc-menu-item>
+                       @trigger="$store.dispatch('playlist/clear')">Effacer
+        </mdc-menu-item>
       </mdc-menu>
       <div class="c-control-panel-duration">{{ formattedTime(duration) }}</div>
     </div>
