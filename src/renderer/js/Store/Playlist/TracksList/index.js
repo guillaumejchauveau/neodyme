@@ -54,12 +54,12 @@ export default {
     },
     /**
      * Doit etre appelle via l'action 'setCurrentItem'.
-     * @param {{index: Number, tracksCount: Number, currentTrackIndex: Number}} payload
      * @constructor
+     * @param {Number} index             - Le nouvel indice.
+     * @param {Number} tracksCount       - Le nombre d'elements de la Liste des pistes.
+     * @param {Number} currentTrackIndex - L'indice de la piste courante.
      */
-    SET_CURRENT_ITEM (state, payload) {
-      const {index, tracksCount, currentTrackIndex} = payload
-
+    SET_CURRENT_ITEM (state, {index, tracksCount, currentTrackIndex}) {
       // Verifie que la nouvelle valeur soit possible.
       if (index < 0) {
         state.currentItem = 0
@@ -79,7 +79,7 @@ export default {
   actions: {
     /**
      * Change d'element courant.
-     * @param {Number} index
+     * @param {Number} index - Le nouvel indice.
      */
     setCurrentItem (context, index) {
       context.commit('SET_CURRENT_ITEM', {

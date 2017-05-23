@@ -39,7 +39,7 @@ class CriteriaSet {
 
   /**
    * Supprime un critere.
-   * @param {String} criterionType - Le type de critere.
+   * @param {String} criterionType - Le type de criteres.
    */
   remove (criterionType) {
     delete this.criteria[criterionType]
@@ -56,7 +56,7 @@ class CriteriaSet {
 
       // Quand la reponse est recue.
       ipcRenderer.once('RES:CriteriaSet.resolveDecisiveCriteriaSets', (event, decisiveCriteriaSetFootprints) => {
-        if (decisiveCriteriaSetFootprints.error) {
+        if (decisiveCriteriaSetFootprints.hasOwnProperty('error')) {
           return reject(new Error(decisiveCriteriaSetFootprints.error))
         }
         resolve(decisiveCriteriaSetFootprints)
@@ -67,7 +67,7 @@ class CriteriaSet {
   /**
    * Recupere toutes les valeurs possibles pour un type de critere a partir de l'ensemble de criteres en cours (via
    * IPC).
-   * @param {String} criterionType - Le type de critere.
+   * @param {String} criterionType - Le type de criteres.
    * @returns {Promise} Une Promise qui resout un {Array<CriteriaSet>}.
    */
   resolveCriteriaByType (criterionType) {
@@ -103,7 +103,7 @@ class CriteriaSet {
    * @throws {TypeError} Lance une exception si l'empreinte n'est pas valide.
    */
   static convertCriteriaSetFootprint (criteriaSetFootprint) {
-    if (typeof criteriaSetFootprint !== 'object' || !criteriaSetFootprint.criteria) {
+    if (typeof criteriaSetFootprint !== 'object' || !criteriaSetFootprint.hasOwnProperty('criteria')) {
       throw new TypeError('Invalid criteriaSetFootprint')
     }
 

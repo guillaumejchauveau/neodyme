@@ -35,7 +35,7 @@ class FileSystemProvider extends Provider {
    * @throws {Error} Lance une exception si une erreur survient lors de la lecture des metadonnees.
    */
   makeTracksList () {
-    // Recupere un flux de chemins pour chaques fichiers.
+    // Recupere un flux de chemins pour chaque fichier.
     const tracksStream = globStream(`./**/*.@(${this.config.exts})`, {
       cwd: this.config.dir,
       cwdbase: true

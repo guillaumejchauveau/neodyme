@@ -40,7 +40,7 @@ export default {
     // Reformatage des donnees a traiter.
     let criteriaSets = payload
     let index = null
-    if (payload.data) {
+    if (payload.hasOwnProperty('data')) {
       criteriaSets = payload.data
       index = payload.index
     }
@@ -76,7 +76,7 @@ export default {
     // Reformatage des donnees a traiter.
     let criteriaSet = payload
     let index = null
-    if (payload.data) {
+    if (payload.hasOwnProperty('data')) {
       criteriaSet = payload.data
       index = payload.index
     }
@@ -125,7 +125,7 @@ export default {
     // Reformatage des donnees a traiter.
     let decisiveCriteriaSet = payload
     let index = null
-    if (payload.data) {
+    if (payload.hasOwnProperty('data')) {
       decisiveCriteriaSet = payload.data
       index = payload.index
     }
@@ -146,7 +146,7 @@ export default {
     // Reformatage des donnees a traiter.
     let track = payload
     let index = null
-    if (payload.data) {
+    if (payload.hasOwnProperty('data')) {
       track = payload.data
       index = payload.index
     }

@@ -67,9 +67,9 @@ export default {
       // Reformatage des donnees a traiter.
       let track = payload
       let index = state.tracks.length
-      if (payload.data) {
+      if (payload.hasOwnProperty('data')) {
         track = payload.data
-        if (typeof payload.index !== 'undefined' && payload.index !== null) {
+        if (payload.hasOwnProperty('index') && payload.index !== null) {
           index = payload.index
         }
       }
