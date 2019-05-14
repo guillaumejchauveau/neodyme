@@ -1,12 +1,11 @@
 {
-  "name": "neodyme",
-  "description": "Neodyme",
-  "author": "Guillaume Chauveau <guillaume.j.chauveau@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "git+http://gitlab.flow.local/guillaumejchauveau/neodyme.git"
-  },
+  "name": "@guillaumejchauveau/neodyme",
   "version": "1.0.2",
+  "description": "Neodyme",
+  "author": "Guillaume Chauveau <guillaumejchauveau.ops.gecu@outlook.com>",
+  "contributors": [
+    "Paul CHARPENTIER <paul.charpentier.99@gmail.com>"
+  ],
   "main": "build/index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production node webpack/build.js",
